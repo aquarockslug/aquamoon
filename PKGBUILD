@@ -23,21 +23,18 @@ package() {
 
 	# create .zshrc file
 	mkdir -p "${pkgdir}"/root
-	touch "${pkgdir}"/root/.zshrc
 	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >"${pkgdir}"/root/.zshrc
 	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/root/.zshrc
 	echo "source /usr/share/zsh/async.zsh" >>"${pkgdir}"/root/.zshrc
 	echo "clear && ls" >>"${pkgdir}"/root/.zshrc
+	# TODO: add zsh highlighting and autocompletion
 
 	# zsh theme
 	mkdir -p "${pkgdir}"/usr/share/zsh/themes
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
-	# TODO: add zsh highlighting and autocompletion
-
 	# package neovim files
 	mkdir -p "${pkgdir}"/usr/share/nvim_plugged/
-	chmod 777 "${pkgdir}"/usr/share/nvim_plugged
 	mkdir -p "${pkgdir}"/root/.config/nvim/plugin
 	cp "${srcdir}"/*.lua "${pkgdir}"/root/.config/nvim/plugin
 	cp "${srcdir}"/*.vim "${pkgdir}"/root/.config/nvim/plugin
