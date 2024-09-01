@@ -1,5 +1,6 @@
 # AQUA ARCH COLOR THEME
 # script which adds the dracula theme to certain software
+# TODO: add theme to glow
 
 # tmux
 tmux set -g status-fg "#2E2E2E"
