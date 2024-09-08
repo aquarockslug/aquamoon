@@ -12,8 +12,9 @@ makedepends=()
 optdepends=('lazydocker' 'aerc' 'nodejs' 'pnpm' 'github-cli' 'glow' 'gum' 'nap-bin')
 source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
-	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme" "aqua_functions.zsh" "aqua_profile.plugin.zsh"
-	"aqua_tmux.zsh" "aqua_theme.zsh" "init.lua" "clipboard.lua" "keymap.lua" "telescope.lua")
+	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
+	"aqua_functions.zsh" "aqua_profile.plugin.zsh" "aqua_tmux.zsh" "aqua_theme.zsh"
+	"init.lua" "clipboard.lua" "keymap.lua" "telescope.lua")
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 
