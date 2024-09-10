@@ -11,7 +11,7 @@ vim.keymap.set("n", "<left>", "<C-w><left>")
 vim.keymap.set("n", "<right>", "<C-w><right>")
 
 vim.keymap.set("n", "<C-up>", vim.cmd.tabs)
-vim.keymap.set("n", "<C-down>", require("mini.bufremove").delete)
+vim.keymap.set("n", "<C-down>", vim.cmd.quit)
 vim.keymap.set("n", "<C-left>", vim.cmd.tabprevious)
 vim.keymap.set("n", "<C-right>", vim.cmd.tabnext)
 
@@ -19,6 +19,9 @@ vim.keymap.set("n", "<C-right>", vim.cmd.tabnext)
 local Terminal = require("toggleterm.terminal").Terminal
 local floater = function(cmd)
 	return Terminal:new({ cmd = cmd, direction = "float" })
+end
+local alrighty = function(cmd)
+	return Terminal:new({ cmd = cmd, direction = "vertical" })
 end
 for cmd, func in pairs({
 	[1] = function() -- git
@@ -30,33 +33,34 @@ for cmd, func in pairs({
 		vim.cmd.write()
 		notify.clear()
 	end,
-	[3] = function() -- web search
-		floater("ddgr --rev"):toggle()
+	[3] = function() -- quick view a note
+		alrighty("nap $(nap list | peco) | glow --pager"):toggle()
 	end,
-	[4] = function() -- view with glow
-		floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
+	-- TODO: only use glow on markdown files
+	[4] = function() -- view current file with glow
+		alrighty("glow --pager " .. vim.fn.expand("%:p")):toggle()
 	end,
-	[5] = function() -- notes
-		floater("nap"):toggle()
-	end,
-	[6] = function() -- quick view a note
-		floater("nap $(nap list | peco) | gum pager"):toggle()
-	end,
-	[7] = function() -- web bookmarks
-		floater("oil"):toggle()
+	[5] = function() -- menu: web search, web bookmarks, browse notes
+		floater('$(gum choose "docs" "ddgr --rev" "oil" "nap")'):toggle()
 	end,
 }) do
 	vim.keymap.set("n", "<F" .. cmd .. ">", func)
 end
+
+-- TODO: add selection to nap notes
 
 -- LEADER SHORTCUTS
 for cmd, func in pairs({
 	h = vim.cmd.noh, -- clear highlighting
 	j = ":move+<CR>==", -- shift line up
 	k = ":move-2<CR>==", -- shift line down
-	o = vim.cmd.Hexplore, -- open netrw in horizontal pane
-	t = vim.cmd.Texplore, -- open netrw in new tab
+	t = function() -- blank terminal
+		alrighty("zsh"):toggle()
+	end,
 	v = vim.cmd.Vexplore, -- open netrw in vertical pane
+	V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+	r = vim.cmd.WinResizerStartResize,
+	m = vim.cmd.WinResizerStartMove,
 }) do
 	vim.keymap.set("n", "<leader>" .. cmd, func)
 end
@@ -65,24 +69,15 @@ end
 local telescope_prefix = "<leader>f"
 local t = require("telescope")
 local tb = require("telescope.builtin")
-local dropdown = function(telescope_func)
-	telescope_func(require("telescope.themes").get_dropdown({ winblend = 10 }))
-end
 for cmd, func in pairs({
-	b = function()
-		dropdown(t.extensions.file_browser.file_browser)
-	end,
+	b = t.extensions.file_browser.file_browser,
 	d = vim.cmd.DevdocsOpenCurrentFloat3,
-	f = function()
-		dropdown(tb.find_files)
-	end,
+	f = tb.find_files,
 	g = tb.live_grep,
 	h = tb.jumplist,
 	-- j = ":TodoTelescope<CR>",
 	m = tb.man_pages,
-	o = function()
-		dropdown(tb.oldfiles)
-	end,
+	o = tb.oldfiles,
 	s = tb.spell_suggest,
 	t = tb.treesitter,
 	w = tb.current_buffer_fuzzy_find,

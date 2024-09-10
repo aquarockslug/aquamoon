@@ -1,6 +1,6 @@
 # AQUA ARCH COLOR THEME
 # script which adds the dracula theme to certain software
-# TODO: add theme to glow
+# TODO: use variables for dracula colors
 
 # tmux
 tmux set -g status-fg "#2E2E2E"
@@ -11,16 +11,10 @@ export DDGR_COLORS="fHgffH"
 
 # nap
 export PATH="$PATH:/usr/local/go/bin"
-export NAP_DEFAULT_LANGUAGE="md"
 export NAP_THEME="dracula"
-export NAP_PRIMARY_COLOR="#AFBEE1"
-export NAP_RED="#A46060"
-export NAP_GREEN="#527251"
-export NAP_FOREGROUND="7"
-export NAP_BACKGROUND="0"
-export NAP_BLACK="#373B41"
-export NAP_GRAY="240"
-export NAP_WHITE="#FFFFFF"
+export NAP_PRIMARY_COLOR="#BD93F9"
+export NAP_RED="#FFB86C"
+export NAP_GREEN="#50FA7B"
 
 # zsh
 ZSH_THEME="dracula"
