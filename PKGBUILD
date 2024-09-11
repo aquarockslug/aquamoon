@@ -7,9 +7,9 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'neovim' 'wget' 'bat' 'eza' 'duf' 'peco' 'ddgr' 'gum')
+depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'wget' 'bat' 'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'ddgr')
 makedepends=()
-optdepends=('lazydocker' 'aerc' 'nodejs' 'pnpm' 'github-cli' 'glow' 'nap-bin')
+optdepends=('lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'glow' 'buku-git' 'nap-bin' 'geeqie')
 source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
@@ -30,11 +30,11 @@ package() {
 	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh/
 
 	# create .zshrc file
-	mkdir -p "${pkgdir}"/root
-	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >"${pkgdir}"/root/.zshrc
-	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/root/.zshrc
-	echo "source /usr/share/zsh/async.zsh" >>"${pkgdir}"/root/.zshrc
-	echo "clear && ls" >>"${pkgdir}"/root/.zshrc
+	mkdir -p "${pkgdir}"/home/aqua/
+	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >"${pkgdir}"/home/aqua/.zshrc
+	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "source /usr/share/zsh/async.zsh" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
 
 	# TODO: add zsh highlighting and autocompletion
 
@@ -42,9 +42,11 @@ package() {
 	mkdir -p "${pkgdir}"/usr/share/zsh/themes
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
+	# TODO: add zellij theme
+
 	# package neovim files
 	mkdir -p "${pkgdir}"/usr/share/nvim_plugged/
-	mkdir -p "${pkgdir}"/root/.config/nvim/plugin
-	cp "${srcdir}"/*.lua "${pkgdir}"/root/.config/nvim/plugin
-	cp "${srcdir}"/*.vim "${pkgdir}"/root/.config/nvim/plugin
+	mkdir -p "${pkgdir}"/home/aqua/.config/nvim/plugin
+	cp "${srcdir}"/*.lua "${pkgdir}"/home/aqua/.config/nvim/plugin
+	cp "${srcdir}"/*.vim "${pkgdir}"/home/aqua/.config/nvim/plugin
 }
