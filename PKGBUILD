@@ -7,7 +7,7 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'wget' 'bat' 'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'ddgr')
+depends=('sudo' 'git' 'lazygit' 'zsh' 'zsh-syntax-highlighting' 'zsh-autosuggestions' 'zellij' 'neovim' 'wget' 'bat' 'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'ddgr')
 makedepends=()
 optdepends=('lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'glow' 'buku-git' 'nap-bin' 'geeqie')
 source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -34,7 +34,6 @@ package() {
 	mkdir -p "${pkgdir}"/usr/share/zsh/themes/lib
 	cp "${srcdir}"/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
-
 	# create .zshrc file
 	mkdir -p "${pkgdir}"/home/aqua/
 	echo "source /usr/share/zsh/themes/lib/async.zsh" >"${pkgdir}"/home/aqua/.zshrc
@@ -45,11 +44,9 @@ package() {
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "then zellij attach -c; else zellij; fi" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit fi fi" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
-
-	# TODO: add zsh highlighting and autocompletion
-
 
 	# TODO: add zellij theme
 
