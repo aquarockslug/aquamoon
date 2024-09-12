@@ -28,25 +28,35 @@ package() {
 	# package zsh files
 	mkdir -p "${pkgdir}"/usr/share/zsh
 	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh/
+	rm "${pkgdir}"/usr/share/zsh/async.zsh
+
+	# zsh theme
+	mkdir -p "${pkgdir}"/usr/share/zsh/themes/lib
+	cp "${srcdir}"/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/
+	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
 	# create .zshrc file
 	mkdir -p "${pkgdir}"/home/aqua/
-	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >"${pkgdir}"/home/aqua/.zshrc
+	echo "source /usr/share/zsh/themes/lib/async.zsh" >"${pkgdir}"/home/aqua/.zshrc
 	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "source /usr/share/zsh/async.zsh" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "if [[ -z '\$ZELLIJ' ]]; then" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "then zellij attach -c; else zellij; fi" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit fi fi" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
 
 	# TODO: add zsh highlighting and autocompletion
 
-	# zsh theme
-	mkdir -p "${pkgdir}"/usr/share/zsh/themes
-	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
 	# TODO: add zellij theme
 
 	# package neovim files
 	mkdir -p "${pkgdir}"/usr/share/nvim_plugged/
 	mkdir -p "${pkgdir}"/home/aqua/.config/nvim/plugin
+	chmod 775 /usr/share/nvim_plugged/
 	cp "${srcdir}"/*.lua "${pkgdir}"/home/aqua/.config/nvim/plugin
 	cp "${srcdir}"/*.vim "${pkgdir}"/home/aqua/.config/nvim/plugin
 }
