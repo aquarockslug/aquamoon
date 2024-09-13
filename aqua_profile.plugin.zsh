@@ -46,4 +46,4 @@ alias put="wpaste"
 # source other aqua plugin files
 source ${0:A:h}/aqua_functions.zsh
 source ${0:A:h}/aqua_theme.zsh
-source ${0:A:h}/aqua_tmux.zsh
+# source ${0:A:h}/aqua_tmux.zsh

@@ -1,10 +1,10 @@
 # AQUA ARCH COLOR THEME
 # script which adds the dracula theme to certain software
-# TODO: use variables for dracula colors
 
 # tmux
-tmux set -g status-fg "#2E2E2E"
-tmux set status-bg "#4E4E4E"
+# TODO: check if tmux is on the system
+# tmux set -g status-fg "#2E2E2E"
+# tmux set status-bg "#4E4E4E"
 
 # ddgr
 export DDGR_COLORS="fHgffH"

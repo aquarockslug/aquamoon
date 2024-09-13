@@ -6,6 +6,9 @@ chmodx() { sudo chmod u+x $1 } # give execution privileges to file
 
 # APPS
 n() { nap $(nap list | peco) | glow } # quick open notes
+nap_import() { cd $1; for f in  */*; do nap $f < $f; done } # import from given nap source directory
+# TODO: make nap_export function, automatically run on close
+
 docs() { $(gum choose "cht" "cheat" "cd /home/aqua/home/share/docs" "firefox overapi.com/" "firefox quickref.me" "tldr") }
 
 cht() {

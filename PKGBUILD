@@ -7,9 +7,10 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'wget' 'bat' 'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'ddgr' 'openssh')
+depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat'
+	'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh')
 makedepends=()
-optdepends=('lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'glow' 'buku-git' 'nap-bin' 'geeqie')
+optdepends=('ddgr' 'docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'nap-bin' 'geeqie')
 source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
@@ -50,7 +51,7 @@ package() {
 	echo "if [[ -z '\$ZELLIJ' ]]; then" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "then zellij attach -c; else zellij; fi" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit fi fi" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
 
