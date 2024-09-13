@@ -18,7 +18,7 @@ alias b="buku --suggest"
 alias f="felix"
 alias fx="felix"
 alias g="glow"
-alias glow="glow -s ~/aqua_arch/dracula/glow/dracula.json"
+alias glow="glow -s ~/aqua_arch/dracula/glow/dracula.json" # TODO: change location
 alias ld="lazydocker"
 alias lg="lazygit"
 alias mail="aerc"
@@ -40,6 +40,7 @@ alias cat="bat"
 alias top="htop"
 
 # clipboard
+# TODO: non-windows copy/paste
 alias yank="wcopy"
 alias put="wpaste"
 

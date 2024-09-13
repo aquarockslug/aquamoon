@@ -3,6 +3,7 @@
 # SYSTEM
 hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 } # give execution privileges to file
+take() { mkdir $1 && cd $1 }
 
 # APPS
 n() { nap $(nap list | peco) | glow } # quick open notes
