@@ -4,6 +4,7 @@
 zstyle ':omz:update' mode auto
 export EDITOR='nvim'
 export BROWSER='firefox'
+export OPENER='wsl-open'
 export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE="md"
 bindkey ' ' magic-space

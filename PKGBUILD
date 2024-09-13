@@ -56,9 +56,9 @@ package() {
 	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
 
 	# package neovim files
-	mkdir -p "${pkgdir}"/home/aqua/.config/nvim/plugin
-	mkdir -p "${pkgdir}"/usr/share/nvim_plugged/
+	mkdir -p "${pkgdir}"/etc/xdg/nvim/plugin
+	mkdir -p "${pkgdir}"/etc/xdg/nvim_plugged/
 	chmod 775 /usr/share/nvim_plugged/
-	cp "${srcdir}"/*.lua "${pkgdir}"/home/aqua/.config/nvim/plugin
-	cp "${srcdir}"/*.vim "${pkgdir}"/home/aqua/.config/nvim/plugin
+	cp "${srcdir}"/*.lua "${pkgdir}"/etc/xdg/nvim/plugin
+	cp "${srcdir}"/*.vim "${pkgdir}"/etc/xdg/nvim/plugin
 }
