@@ -24,23 +24,29 @@ source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/telescope.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/clipboard.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.toml"
+	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 
 	# package zsh files
-	mkdir -p "${pkgdir}"/usr/share/zsh/site-functions/highlighters
+	mkdir -p "${pkgdir}"/home/aqua/.config/glow
 	mkdir -p "${pkgdir}"/usr/share/zsh/themes/lib
-	mkdir -p "${pkgdir}"/usr/share/zsh/highlighters
 	chmod 775 -R "${pkgdir}"/usr/share/zsh
 
+	# glow theme
+	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/                            # move all zsh files into /usr/share/zsh
+	echo "style: '~/.config/glow/dracula.json'" >"${pkgdir}"/home/aqua/.config/glow/glow.yml
+	echo "mouse: false" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
+	echo "pager: false" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
+	echo "width: 120" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
+
 	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh                                        # move all zsh files into /usr/share/zsh
-	mv "${pkgdir}"/usr/share/zsh/*highlighter.zsh "${pkgdir}"/usr/share/zsh/highlighters/ # then move highlighter files
 	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/          # then move theme files
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
-	cp "${srcdir}"/.version "${pkgdir}"/usr/share/zsh/
-	cp "${srcdir}"/.revision-hash "${pkgdir}"/usr/share/zsh/
+	# cp "${srcdir}"/.version "${pkgdir}"/usr/share/zsh/
+	# cp "${srcdir}"/.revision-hash "${pkgdir}"/usr/share/zsh/
 
 	# zellij theme
 	# TODO: dont put any files in /home/aqua
@@ -48,7 +54,6 @@ package() {
 	cp "${srcdir}"/config.toml "${pkgdir}"/home/aqua/.config/zellij/config.toml
 
 	# create .zshrc file
-	mkdir -p "${pkgdir}"/home/aqua/
 	echo "source /usr/share/zsh/themes/lib/async.zsh" >"${pkgdir}"/home/aqua/.zshrc
 	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >>"${pkgdir}"/home/aqua/.zshrc
@@ -60,8 +65,6 @@ package() {
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
-
-	mkdir /home/aqua/.config/glow
 
 	# package neovim files
 	mkdir -p "${pkgdir}"/usr/share/nvim_plugged/
