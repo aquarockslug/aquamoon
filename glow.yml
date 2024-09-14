@@ -1,0 +1,4 @@
+style: "~/.config/glow/dracula.json"
+mouse: false
+pager: false
+width: 120

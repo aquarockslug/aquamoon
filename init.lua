@@ -20,6 +20,7 @@ for _, plugname in pairs({
 	"splitjoin", -- gS
 	"tabline",
 	"trailspace",
+	"trim",
 }) do
 	Plug("echasnovski/mini." .. plugname)
 end
@@ -78,6 +79,7 @@ require("mini.surround").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("mini.icons").setup()
+require("mini.trim").setup()
 
 require("lualine").setup({ theme = "dracula-nvim" })
 require("minintro").setup({ color = "#af87ff" })
