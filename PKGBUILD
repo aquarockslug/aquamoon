@@ -45,9 +45,6 @@ package() {
 	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/          # then move theme files
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
-	# cp "${srcdir}"/.version "${pkgdir}"/usr/share/zsh/
-	# cp "${srcdir}"/.revision-hash "${pkgdir}"/usr/share/zsh/
-
 	# zellij theme
 	# TODO: dont put any files in /home/aqua
 	mkdir -p "${pkgdir}"/home/aqua/.config/zellij
