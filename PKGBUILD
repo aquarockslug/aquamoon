@@ -58,7 +58,7 @@ package() {
 	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "if [[ -z '\$ZELLIJ' ]]; then" >>"${pkgdir}"/home/aqua/.zshrc
+	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "then zellij attach -c; else zellij; fi" >>"${pkgdir}"/home/aqua/.zshrc
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi" >>"${pkgdir}"/home/aqua/.zshrc
