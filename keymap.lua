@@ -33,12 +33,12 @@ for cmd, func in pairs({
 		vim.cmd.write()
 		notify.clear()
 	end,
-	[3] = function() -- quick view a note
-		alrighty("nap $(nap list | peco) | glow --pager"):toggle()
+	[3] = function() -- web search
+		floater("ddgr --rev"):toggle()
 	end,
 	-- TODO: only use glow on markdown files, replace with ddgr
 	[4] = function() -- view current file with glow
-		alrighty("glow --pager " .. vim.fn.expand("%:p")):toggle()
+		floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
 	end,
 	[5] = function() -- menu: web search, web bookmarks, browse notes
 		floater('$(gum choose "nap" "ddgr --rev" "docs" "oil"'):toggle()
