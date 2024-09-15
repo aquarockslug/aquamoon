@@ -7,6 +7,7 @@ export BROWSER='firefox'
 export OPENER='wsl-open'
 export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE="md"
+export ZELLIJ_CONFIG_DIR='~/.config/zellij'
 bindkey ' ' magic-space
 
 # SYSTEM
