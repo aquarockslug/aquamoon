@@ -23,7 +23,7 @@ source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/keymap.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/telescope.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/clipboard.lua"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.toml"
+	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.kdl"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
@@ -50,7 +50,7 @@ package() {
 	# zellij theme
 	# TODO: dont put any files in /home/aqua
 	mkdir -p "${pkgdir}"/home/aqua/.config/zellij
-	cp "${srcdir}"/config.toml "${pkgdir}"/home/aqua/.config/zellij/config.toml
+	cp "${srcdir}"/config.kdl "${pkgdir}"/home/aqua/.config/zellij/config.kdl
 
 	# create .zshrc file
 	echo "source /usr/share/zsh/themes/lib/async.zsh" >"${pkgdir}"/home/aqua/.zshrc
