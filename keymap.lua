@@ -20,8 +20,8 @@ local Terminal = require("toggleterm.terminal").Terminal
 local floater = function(cmd)
 	return Terminal:new({ cmd = cmd, direction = "float" })
 end
-local alrighty = function(cmd)
-	return Terminal:new({ cmd = cmd, direction = "vertical" })
+local open_glow = function()
+	return floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
 end
 for cmd, func in pairs({
 	[1] = function() -- git
@@ -33,15 +33,16 @@ for cmd, func in pairs({
 		vim.cmd.write()
 		notify.clear()
 	end,
-	[3] = function() -- web search
-		floater("ddgr --rev"):toggle()
+	[3] = function() -- file browser
+		floater("lf"):toggle()
 	end,
 	-- TODO: only use glow on markdown files, replace with ddgr
 	[4] = function() -- view current file with glow
-		floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
+		-- quick open note if not a markdown buffer
+		open_glow()
 	end,
 	[5] = function() -- menu: web search, web bookmarks, browse notes
-		floater('$(gum choose "nap" "ddgr --rev" "docs" "oil"'):toggle()
+		floater('$(gum choose "nap" "ddgr" "oil" "tldr")'):toggle()
 	end,
 }) do
 	vim.keymap.set("n", "<F" .. cmd .. ">", func)
