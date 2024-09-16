@@ -1,5 +1,4 @@
 theme "dracula"
-default_layout "compact"
 default_shell "zsh"
 pane_frames true
 
@@ -15,7 +14,7 @@ layout {
         children
         pane size=1 borderless=true {
             plugin location="file:/home/aqua/.config/zellij/zjstatus.wasm" {
-                format_left   "{mode}"
+                format_left   ""
                 format_center "{tabs}"
                 format_right  "{command_git_branch} {datetime}"
                 format_space  ""
@@ -25,7 +24,7 @@ layout {
                 border_format   "#[fg=#6C7086]{char}"
                 border_position "top"
 
-                hide_frame_for_single_pane "false"
+                hide_frame_for_single_pane "true"
 
                 mode_normal  "#[bg=blue] "
                 mode_tmux    "#[bg=#ffc387] "

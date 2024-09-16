@@ -29,6 +29,7 @@ alias p="python"
 alias py="python"
 alias v="nvim"
 alias vnim="nvim"
+alias zj="zellij"
 
 # system info
 alias ls="exa -l"
