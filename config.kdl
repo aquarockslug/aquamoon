@@ -16,7 +16,7 @@ layout {
             plugin location="file:/home/aqua/.config/zellij/zjstatus.wasm" {
                 format_left   ""
                 format_center "{tabs}"
-                format_right  "{command_git_branch} {datetime}"
+                format_right  ""
                 format_space  ""
 
                 border_enabled  "false"
@@ -24,13 +24,13 @@ layout {
                 border_format   "#[fg=#6C7086]{char}"
                 border_position "top"
 
-                hide_frame_for_single_pane "true"
+                hide_frame_for_single_pane "false"
 
                 mode_normal  "#[bg=blue] "
                 mode_tmux    "#[bg=#ffc387] "
 
-                tab_normal   "#[fg=#6C7086] {name} "
-                tab_active   "#[fg=#9399B2,bold,italic] {name} "
+                tab_normal   "#[fg=#44475A] {name} "
+                tab_active   "#[fg=#50FA7B,bold,italic] {name} "
 
                 command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
                 command_git_branch_format      "#[fg=blue] {stdout} "
