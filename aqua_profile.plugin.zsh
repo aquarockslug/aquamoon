@@ -1,6 +1,6 @@
 # The main file of the aqua_profile plugin
 
-# settings
+# SETTINGS
 zstyle ':omz:update' mode auto
 export EDITOR='nvim'
 export BROWSER='firefox'
@@ -15,6 +15,14 @@ bindkey ' ' magic-space
 alias q="exit"
 alias s="sudo"
 alias open="wsl-open"
+
+# MOVEMENT
+alias ..='cd ../'
+alias ../='cd ../'
+alias ../../='cd ../../'
+alias ../..='cd ../../'
+alias ../../../='cd ../../../'
+alias ../../..='cd ../../../'
 
 # applications
 alias b="buku --suggest"
