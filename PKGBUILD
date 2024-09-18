@@ -35,6 +35,8 @@ package() {
 	mkdir -pv -m 775 "${pkgdir}"/usr/share/zsh/themes/lib
 
 	# glow theme
+	# TODO: glow completion zsh
+	# autoload -Uz compinit; compinit
 	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/                            # move all zsh files into /usr/share/zsh
 	echo "style: '~/.config/glow/dracula.json'" >"${pkgdir}"/home/aqua/.config/glow/glow.yml
 	echo "mouse: false" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
@@ -47,22 +49,24 @@ package() {
 
 	# zellij theme
 	# TODO: dont put any files in /home/aqua
-	mkdir -pv -m 775 "${pkgdir}"/home/aqua/.config/zellij
-	cp "${srcdir}"/config.kdl "${pkgdir}"/home/aqua/.config/zellij/config.kdl
-	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/home/aqua/.config/zellij/zjstatus.wasm
+	mkdir -pv -m 775 "${pkgdir}"/etc/zellij
+	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/config.kdl
+	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/zjstatus.wasm
 
 	# create .zshrc file
-	echo "source /usr/share/zsh/themes/lib/async.zsh" >"${pkgdir}"/home/aqua/.zshrc
-	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "then zellij attach -c; else zellij -l /home/aqua/.config/zellij/config.kdl; fi" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "" >>"${pkgdir}"/home/aqua/.zshrc
-	echo "clear && ls" >>"${pkgdir}"/home/aqua/.zshrc
+	ZSHRC="${pkgdir}"/home/aqua/.zshrc
+	echo "source /usr/share/zsh/themes/lib/async.zsh" > "$ZSHRC"
+	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"$ZSHRC"
+	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >>"$ZSHRC"
+	echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>"$ZSHRC"
+	echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" >>"$ZSHRC"
+	echo "autoload -Uz compinit && compinit" >>"$ZSHRC" # text completion
+	echo "" >>"$ZSHRC"; echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" >>"$ZSHRC" # don't autostart zellij when using WSL
+	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"$ZSHRC"
+	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"$ZSHRC"
+	echo "then zellij attach -c; else zellij; fi" >>"$ZSHRC" # -l /home/aqua/.config/zellij/config.kdl
+	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi" >>"$ZSHRC"
+	echo "" >>"$ZSHRC"; echo "clear && ls" >>"$ZSHRC"
 
 	# package neovim files
 	mkdir -pv -m 775 "${pkgdir}"/usr/share/nvim_plugged/

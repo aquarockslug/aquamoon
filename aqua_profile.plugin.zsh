@@ -53,6 +53,7 @@ alias top="htop"
 
 # clipboard
 # TODO: non-windows copy/paste
+if [[ -f /proc/ ]]
 alias yank="wcopy"
 alias put="wpaste"
 
@@ -60,3 +61,4 @@ alias put="wpaste"
 source ${0:A:h}/aqua_functions.zsh
 source ${0:A:h}/aqua_theme.zsh
 # source ${0:A:h}/aqua_tmux.zsh
+autoload -Uz compinit; compinit

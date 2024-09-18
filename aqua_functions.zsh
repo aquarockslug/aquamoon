@@ -8,7 +8,7 @@ take() { mkdir $1 && cd $1 }
 # APPS
 n() { nap $(nap list | peco) | glow } # quick open notes
 nap_import() { cd $1; for f in  */*; do nap $f < $f; done; cd ~ } # import from given nap source directory
-nap_export() { cd ~/.local/share/nap; for f in *; do cp -v $f $1$(echo $f | tr '-' '/' ); done; cd ~ }
+nap_export() { cd ~/.local/share/nap; for f in *; do rsync --mkpath -uv $f $1$(echo $f | tr '-' '/' ); done; cd ~ }
 
 docs() { $(gum choose "cht" "cheat" "cd /home/aqua/home/share/docs" "firefox overapi.com/" "firefox quickref.me" "tldr") }
 
