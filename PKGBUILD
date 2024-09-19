@@ -62,9 +62,9 @@ package() {
 	echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" >>"$ZSHRC"
 	echo "autoload -Uz compinit && compinit" >>"$ZSHRC" # text completion
 	echo "" >>"$ZSHRC"; echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" >>"$ZSHRC" # don't autostart zellij when using WSL
-	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"$ZSHRC""
+	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"$ZSHRC"
-	echo "then zellij attach -c; else zellij; fi" >>"$ZSHRC" # -l /home/aqua/.config/zellij/config.kdl
+	echo "then zellij attach -c; else zellij; fi;" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi" >>"$ZSHRC"
 	echo "" >>"$ZSHRC"; echo "clear && ls" >>"$ZSHRC"
 

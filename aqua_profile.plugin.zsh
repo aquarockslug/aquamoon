@@ -16,6 +16,18 @@ alias q="exit"
 alias s="sudo"
 alias open="wsl-open"
 
+# SYSTEM INFO
+alias ls="exa -l"
+alias lss="exa *"
+alias cls="clear && ls"
+alias clss="clear && lss"
+alias tasks="ps aux"
+alias fd="sudo fdisk -l"
+alias df="duf"
+alias du="dust"
+alias cat="bat"
+alias top="htop"
+
 # MOVEMENT
 alias ..='cd ../'
 alias ../='cd ../'
@@ -24,7 +36,7 @@ alias ../..='cd ../../'
 alias ../../../='cd ../../../'
 alias ../../..='cd ../../../'
 
-# applications
+# APPLICATIONS
 alias b="buku --suggest"
 alias f="felix"
 alias fx="felix"
@@ -39,26 +51,15 @@ alias v="nvim"
 alias vnim="nvim"
 alias zj="zellij"
 
-# system info
-alias ls="exa -l"
-alias lss="exa *"
-alias cls="clear && ls"
-alias clss="clear && lss"
-alias tasks="ps aux"
-alias fd="sudo fdisk -l"
-alias df="duf"
-alias du="dust"
-alias cat="bat"
-alias top="htop"
-
-# clipboard
-# TODO: non-windows copy/paste
-if [[ -f /proc/ ]]
-alias yank="wcopy"
-alias put="wpaste"
+# CLIPBOARD
+if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
+	alias yank="xclip -selection clipboard"
+	alias put="xclip -o"
+else # use windows clipboard if on WSL
+	alias yank="wcopy"
+	alias put="wpaste"
+fi
 
 # source other aqua plugin files
 source ${0:A:h}/aqua_functions.zsh
 source ${0:A:h}/aqua_theme.zsh
-# source ${0:A:h}/aqua_tmux.zsh
-autoload -Uz compinit; compinit
