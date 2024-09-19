@@ -49,9 +49,9 @@ package() {
 
 	# zellij theme
 	# TODO: dont put any files in /home/aqua
-	mkdir -pv -m 775 "${pkgdir}"/etc/zellij
-	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/config.kdl
-	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/zjstatus.wasm
+	mkdir -pv -m 755 "${pkgdir}"/home/aqua/.config/zellij/
+	cp "${srcdir}"/config.kdl "${pkgdir}"/home/aqua/.config/zellij/
+	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/home/aqua/.config/zellij/
 
 	# create .zshrc file
 	ZSHRC="${pkgdir}"/home/aqua/.zshrc
