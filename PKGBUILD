@@ -31,6 +31,7 @@ sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP
 package() {
 
 	# package zsh files
+	mkdir -v 775 "${pkgdir}"/home/aqua
 	mkdir -pv -m 755 "${pkgdir}"/home/aqua/.config/glow
 	mkdir -pv -m 755 "${pkgdir}"/usr/share/zsh/themes/lib
 
