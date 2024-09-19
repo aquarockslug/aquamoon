@@ -31,7 +31,6 @@ sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP
 package() {
 
 	# package zsh files
-	mkdir -v 775 "${pkgdir}"/home/aqua
 	mkdir -pv -m 755 "${pkgdir}"/home/aqua/.config/glow
 	mkdir -pv -m 755 "${pkgdir}"/usr/share/zsh/themes/lib
 
@@ -65,7 +64,7 @@ package() {
 	echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" >>"$ZSHRC" # don't autostart zellij when using WSL
 	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"$ZSHRC"
-	echo "then zellij attach -c; else zellij; fi;" >>"$ZSHRC"
+	echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi" >>"$ZSHRC"
 	echo "" >>"$ZSHRC"
 	echo "clear && ls" >>"$ZSHRC"
