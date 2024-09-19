@@ -31,46 +31,47 @@ sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP
 package() {
 
 	# package zsh files
-	mkdir -pv -m 775 "${pkgdir}"/home/aqua/.config/glow
-	mkdir -pv -m 775 "${pkgdir}"/usr/share/zsh/themes/lib
+	mkdir -pv -m 755 "${pkgdir}"/home/aqua/.config/glow
+	mkdir -pv -m 755 "${pkgdir}"/usr/share/zsh/themes/lib
 
 	# glow theme
 	# TODO: glow completion zsh
-	# autoload -Uz compinit; compinit
-	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/                            # move all zsh files into /usr/share/zsh
+	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/ # move all zsh files into /usr/share/zsh
 	echo "style: '~/.config/glow/dracula.json'" >"${pkgdir}"/home/aqua/.config/glow/glow.yml
 	echo "mouse: false" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
 	echo "pager: false" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
 	echo "width: 120" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
 
-	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh                                        # move all zsh files into /usr/share/zsh
-	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/          # then move theme files
+	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh                               # move all zsh files into /usr/share/zsh
+	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/ # then move theme files
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
 	# zellij theme
 	# TODO: dont put any files in /home/aqua
-	mkdir -pv -m 755 "${pkgdir}"/home/aqua/.config/zellij/
-	cp "${srcdir}"/config.kdl "${pkgdir}"/home/aqua/.config/zellij/
-	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/home/aqua/.config/zellij/
+	mkdir -pv -m 755 "${pkgdir}"/etc/zellij/
+	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/
+	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
 
 	# create .zshrc file
 	ZSHRC="${pkgdir}"/home/aqua/.zshrc
-	echo "source /usr/share/zsh/themes/lib/async.zsh" > "$ZSHRC"
+	echo "source /usr/share/zsh/themes/lib/async.zsh" >"$ZSHRC"
 	echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"$ZSHRC"
 	echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >>"$ZSHRC"
 	echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>"$ZSHRC"
 	echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" >>"$ZSHRC"
 	echo "autoload -Uz compinit && compinit" >>"$ZSHRC" # text completion
-	echo "" >>"$ZSHRC"; echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" >>"$ZSHRC" # don't autostart zellij when using WSL
+	echo "" >>"$ZSHRC"
+	echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" >>"$ZSHRC" # don't autostart zellij when using WSL
 	echo "if [[ -z \"\$ZELLIJ\" ]]; then" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"$ZSHRC"
 	echo "then zellij attach -c; else zellij; fi;" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi" >>"$ZSHRC"
-	echo "" >>"$ZSHRC"; echo "clear && ls" >>"$ZSHRC"
+	echo "" >>"$ZSHRC"
+	echo "clear && ls" >>"$ZSHRC"
 
 	# package neovim files
-	mkdir -pv -m 775 "${pkgdir}"/usr/share/nvim_plugged/
-	mkdir -pv -m 775 "${pkgdir}"/etc/xdg/nvim/plugin
+	mkdir -pv -m 755 "${pkgdir}"/usr/share/nvim_plugged/
+	mkdir -pv -m 755 "${pkgdir}"/etc/xdg/nvim/plugin
 	cp "${srcdir}"/*.lua "${pkgdir}"/etc/xdg/nvim/plugin
 	cp "${srcdir}"/*.vim "${pkgdir}"/etc/xdg/nvim/plugin
 }
