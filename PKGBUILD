@@ -9,9 +9,9 @@ license=('GPL')
 groups=('base-devel')
 depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'pandoc-cli'
 	'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh'
-	'zsh-syntax-highlighting' 'zsh-autosuggestions')
+	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr')
 makedepends=()
-optdepends=('ddgr' 'docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'tldr' 'nap-bin' 'geeqie')
+optdepends=('docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'tldr' 'nap-bin' 'geeqie')
 source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
@@ -36,6 +36,7 @@ package() {
 
 	# glow theme
 	# TODO: glow completion zsh
+	# TODO: dont put any files in /home/aqua
 	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/ # move all zsh files into /usr/share/zsh
 	echo "style: '~/.config/glow/dracula.json'" >"${pkgdir}"/home/aqua/.config/glow/glow.yml
 	echo "mouse: false" >>"${pkgdir}"/home/aqua/.config/glow/glow.yml
@@ -47,7 +48,6 @@ package() {
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
 	# zellij theme
-	# TODO: dont put any files in /home/aqua
 	mkdir -pv -m 755 "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/

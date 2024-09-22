@@ -14,6 +14,7 @@ export NAP_DEFAULT_LANGUAGE='md'
 export ZELLIJ_CONFIG_DIR=/etc/zellij
 export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
 bindkey ' ' magic-space
+bindkey -s '^f' 'lfcd\n'
 
 # SYSTEM
 alias q="exit"

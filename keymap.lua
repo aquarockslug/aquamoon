@@ -33,16 +33,15 @@ for cmd, func in pairs({
 		vim.cmd.write()
 		notify.clear()
 	end,
-	[3] = function() -- file browser
-		floater("lf"):toggle()
+	[3] = function() -- menu: web search, web bookmarks, browse notes
+		floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
 	end,
-	-- TODO: only use glow on markdown files, replace with ddgr
-	[4] = function() -- view current file with glow
-		-- quick open note if not a markdown buffer
+	[4] = function() -- file browser
+		floater("nap"):toggle()
+	end,
+	[5] = function() -- view current file with glow
+		-- TODO: quick open note if not a markdown buffer
 		open_glow()
-	end,
-	[5] = function() -- menu: web search, web bookmarks, browse notes
-		floater('$(gum choose "nap" "ddgr" "oil" "tldr")'):toggle()
 	end,
 }) do
 	vim.keymap.set("n", "<F" .. cmd .. ">", func)

@@ -4,6 +4,8 @@
 hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 } # give execution privileges to file
 take() { mkdir $1 && cd $1 }
+lfcd () { cd "$(lf -print-last-dir "$@")" }
+activate() { source ./bin/activate } # activate python env
 
 # APPS
 n() { nap $(nap list | peco) | glow } # quick open notes
@@ -20,8 +22,6 @@ cht() {
 # DOWNLOAD
 dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi } # download given file
 dls() { wget -q -O - $2 | nap $1 }
-activate() { source ./bin/activate } # activate python env
-
 
 # EDITING
 clip_video() {
