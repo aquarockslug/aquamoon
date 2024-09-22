@@ -13,6 +13,7 @@ export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE='md'
 export ZELLIJ_CONFIG_DIR=/etc/zellij
 export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
+export GDK_DPI_SCALE=1.5
 bindkey ' ' magic-space
 
 # SYSTEM
@@ -58,7 +59,6 @@ alias py="python"
 alias v="nvim"
 alias vnim="nvim"
 alias zj="zellij"
-
 
 # source the other aqua plugin files
 source ${0:A:h}/aqua_functions.zsh
