@@ -8,7 +8,7 @@ url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
 depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'pandoc-cli'
-	'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh'
+	'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools'
 	'zsh-syntax-highlighting' 'zsh-autosuggestions')
 makedepends=()
 optdepends=('ddgr' 'docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'tldr' 'nap-bin' 'geeqie')

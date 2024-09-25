@@ -29,8 +29,8 @@ layout {
                 mode_normal  "#[bg=blue] "
                 mode_tmux    "#[bg=#ffc387] "
 
-                tab_normal   "#[fg=#44475A] {name} "
-                tab_active   "#[fg=#50FA7B,bold,italic] {name} "
+                tab_normal   "#[fg=#44475A]<>"
+                tab_active   "#[fg=#50FA7B,bold,italic]<>"
 
                 command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
                 command_git_branch_format      "#[fg=blue] {stdout} "
