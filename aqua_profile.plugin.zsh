@@ -15,6 +15,7 @@ export ZELLIJ_CONFIG_DIR=/etc/zellij
 export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
 export GDK_DPI_SCALE=1.5
 bindkey ' ' magic-space
+bindkey -s '^f' 'lfcd\n'
 
 # SYSTEM
 alias q="exit"
