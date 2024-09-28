@@ -6,25 +6,24 @@ then WSL=true; else WSL=false; fi
 
 # SETTINGS
 zstyle ':omz:update' mode auto
-export EDITOR='nvim'
+export EDITOR='nvim';
 export BROWSER='firefox'
-if [ $WSL ]; then export OPENER='wsl-open'; fi
+[ $WSL = true ] && export OPENER='wsl-open'
+
 export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE='md'
-export ZELLIJ_CONFIG_DIR=/etc/zellij
-export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
-export GDK_DPI_SCALE=1.5
+export ZELLIJ_CONFIG_DIR=/etc/zellij; export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
+# export GDK_DPI_SCALE=1.5
 bindkey ' ' magic-space
-bindkey -s '^f' 'lfcd\n'
 
 # SYSTEM
 alias q="exit"
 alias s="sudo"
-if [ $WSL ]; then alias open="wsl-open"; fi
+[ $WSL = true ] && alias open="wsl-open"
 
 # CLIPBOARD
-alias yank="xclip -selection clipboard"; alias put="xclip -o"
-if [ $WSL ]; then alias yank="wcopy"; alias put="wpaste"; fi # use wsl-clipboard if on WSL
+alias yank="xclip -selection clipboard" && alias put="xclip -o -selection clipboard"
+[ $WSL = true ] && alias yank="wcopy" && alias put="wpaste" # use wsl-clipboard if on WSL
 
 # SYSTEM INFO
 alias ls="exa -l"
@@ -59,7 +58,14 @@ alias p="python"
 alias py="python"
 alias v="nvim"
 alias vnim="nvim"
+
 alias zj="zellij"
+alias zje="zellij action edit"
+alias zjv="zje"
+alias zjl="zellij run -- lf"
+alias zjlf="zjl"
+
+bindkey -s '^f' 'zellij run -- lf \n'
 
 # source the other aqua plugin files
 source ${0:A:h}/aqua_functions.zsh

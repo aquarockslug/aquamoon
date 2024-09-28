@@ -18,7 +18,6 @@ for _, plugname in pairs({
 	"notify",
 	"pairs",
 	"splitjoin", -- gS
-	"tabline",
 	"trailspace",
 }) do
 	Plug("echasnovski/mini." .. plugname)
@@ -64,18 +63,17 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 1000
 
 require("mini.ai").setup()
 require("mini.animate").setup()
 require("mini.comment").setup()
-require("mini.indentscope").setup({ symbol = vim.g.mapleader })
+require("mini.indentscope").setup({ symbol = "󰈿" })
 require("mini.jump").setup()
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
-require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("mini.icons").setup()
 
@@ -127,12 +125,14 @@ lint.linters_by_ft = {
 	lua = { "luacheck" },
 	markdown = { "vale" },
 	python = { "pylint" },
+	cs = { "csharp-ls" },
 }
 
 -- LANGUAGE SERVERS ------------------------------------------------------------
 local lspconfig = require("lspconfig")
 lspconfig.pyright.setup({})
 lspconfig.ts_ls.setup({})
+lspconfig.csharp_ls.setup({})
 vim.api.nvim_create_autocmd(
 	{ "BufWritePost" }, -- lint and trim on save
 	{
@@ -142,6 +142,8 @@ vim.api.nvim_create_autocmd(
 		end,
 	}
 )
+
+-- AUTO ----------------------------------------------------------------------
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.highlight.on_yank()
