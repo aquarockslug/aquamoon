@@ -24,6 +24,7 @@ for _, plugname in pairs({
 end
 
 -- load other plugins
+Plug("OmniSharp/omnisharp-vim")
 Plug("simeji/winresizer")
 Plug("L3MON4D3/LuaSnip")
 Plug("Mofiqul/dracula.nvim", { as = "dracula" })
@@ -98,6 +99,7 @@ require("conform").setup({
 		javascript = { "prettier" },
 		typescript = { "prettier" },
 		sh = { "shellcheck", "shfmt" },
+		-- cs = { "omnisharp" },
 	},
 })
 
@@ -125,15 +127,16 @@ lint.linters_by_ft = {
 	lua = { "luacheck" },
 	markdown = { "vale" },
 	python = { "pylint" },
-	cs = { "csharp-ls" },
+	-- cs = { "omnisharp" },
 }
 
 -- LANGUAGE SERVERS ------------------------------------------------------------
 local lspconfig = require("lspconfig")
 lspconfig.pyright.setup({})
 lspconfig.ts_ls.setup({})
-lspconfig.omnisharp.setup({cmd = { "/usr/lib/omnisharp-roslyn/OmniSharp",
-	"--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }})
+lspconfig.omnisharp.setup({
+	cmd = { "/usr/lib/omnisharp-roslyn/OmniSharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+})
 vim.api.nvim_create_autocmd(
 	{ "BufWritePost" }, -- lint and trim on save
 	{
