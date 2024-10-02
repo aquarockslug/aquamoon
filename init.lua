@@ -133,6 +133,8 @@ lint.linters_by_ft = {
 local lspconfig = require("lspconfig")
 lspconfig.pyright.setup({})
 lspconfig.ts_ls.setup({})
+lspconfig.omnisharp.setup({cmd = { "/usr/lib/omnisharp-roslyn/OmniSharp",
+	"--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }})
 vim.api.nvim_create_autocmd(
 	{ "BufWritePost" }, -- lint and trim on save
 	{
@@ -181,3 +183,4 @@ cmp.setup.cmdline(":", {
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lspconfig["ts_ls"].setup({ capabilities = capabilities })
 lspconfig["pyright"].setup({ capabilities = capabilities })
+lspconfig["omnisharp"].setup({ capabilities = capabilities })
