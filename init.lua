@@ -90,6 +90,10 @@ require("colorizer").setup()
 require("dracula").setup({ italic_comment = true, transparent_bg = true })
 vim.cmd([[colorscheme dracula]])
 
+vim.api.nvim_create_user_command('StartupAnalyze', function()
+	vim.cmd([[/VIM STARTING/,$ sort! f /  [^ ]*  /]])
+end, {})
+
 -- FORMATTER -------------------------------------------------------------------
 require("conform").setup({
 	formatters_by_ft = {
@@ -110,7 +114,6 @@ require("luasnip.loaders.from_vscode").load({
 		"lua",
 		"markdown",
 		"python",
-		"rust",
 		"shell",
 		"typescript",
 	},
