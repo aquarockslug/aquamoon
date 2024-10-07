@@ -4,7 +4,6 @@
 pkg/
 src/
 
-install.sh
 async.zsh
 plug.vim
 .version
