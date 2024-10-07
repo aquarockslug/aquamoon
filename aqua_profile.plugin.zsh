@@ -10,7 +10,7 @@ then WSL=true; else WSL=false; fi
 zstyle ':omz:update' mode auto
 export EDITOR='nvim';
 export BROWSER='firefox'
-[ $WSL = true ] && export BROWSER='/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe'
+[ $WSL = true ] && export BROWSER='wsl-open'
 [ $WSL = true ] && export OPENER='wsl-open'
 
 export DISABLE_AUTO_TITLE='true'
@@ -22,7 +22,7 @@ bindkey ' ' magic-space
 # SYSTEM
 alias q="exit"
 alias s="sudo"
-[ $WSL = true ] && alias open="wsl-open"
+[ $WSL = true ] && alias open='"$OPENER"'
 
 # CLIPBOARD
 alias yank="xclip -selection clipboard" && alias put="xclip -o -selection clipboard"
@@ -41,6 +41,7 @@ alias cat="bat"
 alias top="htop"
 
 # MOVEMENT
+alias h='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -63,7 +64,7 @@ alias vnim="nvim"
 
 alias zj="zellij"
 alias zje="zellij action edit"
-alias zjv="zje"
+alias zjv="zellij action edit"
 alias zjl="zellij run -- lf"
 alias zjlf="zjl"
 
