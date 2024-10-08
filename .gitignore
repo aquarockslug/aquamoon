@@ -1,4 +1,4 @@
-*.zst
+# *.zst
 *.zsh-theme
 
 pkg/
