@@ -59,7 +59,7 @@ alias p="python"
 alias py="python"
 
 alias e='"$EDITOR"'
-alias v='"$EDITOR"'
+alias v="nvim"
 alias vnim="nvim"
 
 alias zj="zellij"
@@ -68,7 +68,7 @@ alias zjv="zellij action edit"
 alias zjl="zellij run -- lf"
 alias zjlf="zjl"
 
-bindkey -s '^f' 'zellij run -- lf \n'
+bindkey -s '^f' 'lfcd \n'
 
 # source the other aqua plugin files
 source "${0:A:h}"/aqua_functions.zsh
