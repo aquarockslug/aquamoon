@@ -1,0 +1,1 @@
+NVIM_APPNAME=nvim-deps nvim -- ~/.config/nvim-deps/init.lua
