@@ -9,7 +9,6 @@ if not vim.loop.fs_stat(mini_path) then
 end
 
 require('mini.deps').setup({ path = { package = path_package } })
-
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- Safely execute immediately
@@ -24,7 +23,6 @@ now(function() require('mini.icons').setup() end)
 now(function() require('mini.tabline').setup() end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.animate').setup() end)
-now(function() require('mini.colors').setup() end)
 now(function() require('mini.starter').setup() end)
 
 -- Safely execute later

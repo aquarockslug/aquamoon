@@ -66,12 +66,12 @@ package() {
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"$ZSHRC"
 	echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi" >>"$ZSHRC"
-	echo "" >>"$ZSHRC"
-	echo "clear && ls" >>"$ZSHRC"
+	echo "" >>"$ZSHRC"; echo "clear && ls" >>"$ZSHRC"
 
 	# package neovim files
 	mkdir -pv -m 755 "${pkgdir}"/usr/share/nvim_plugged/
 	mkdir -pv -m 755 "${pkgdir}"/etc/xdg/nvim/plugin
+
 	cp "${srcdir}"/*.lua "${pkgdir}"/etc/xdg/nvim/plugin
 	cp "${srcdir}"/*.vim "${pkgdir}"/etc/xdg/nvim/plugin
 }
