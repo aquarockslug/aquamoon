@@ -33,6 +33,11 @@ end)
 -- Safely execute later
 later(function() require('mini.ai').setup() end)
 later(function() require('mini.comment').setup() end)
+later(function() require('mini.diff').setup() end)
+later(function() require('mini.doc').setup() end)
+later(function() require('mini.fuzzy').setup() end)
+later(function() require('mini.hipatterns').setup() end)
+later(function() require('mini.jump').setup() end)
 later(function() require('mini.pick').setup() end)
 later(function() require('mini.surround').setup() end)
 later(function() require('mini.pairs').setup() end)
@@ -41,40 +46,35 @@ later(function() require('mini.splitjoin').setup() end)
 later(function() require('mini.animate').setup() end)
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 
--- opt plugins
+-- OPT PLUGINS ( non mini.nvim plugins )
 now(function() -- theme
 	add({ source = 'Mofiqul/dracula.nvim', as = 'dracula' })
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd([[colorscheme dracula]])
 end)
 
-now(function()
-	add({ -- terminal
-		source = 'akinsho/toggleterm.nvim',
-	}) -- needs to load now because the config files reference it
-end)
+now(function() -- terminal
+	add({ source = 'akinsho/toggleterm.nvim' })
+end)           -- needs to load now because the config files reference it
 
 now(function() -- lsp
 	add({
-		source = 'hrsh7th/cmp-nvim-lsp.git',
+		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
-			'neovim/nvim-lspconfig', 'hrsh7th/cmp-nvim-lsp' },
+			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets' },
 	})
 	require("mason").setup()
-	require("mason-lspconfig").setup({})
-	require('cmp').setup { sources = { { name = 'nvim_lsp' } } }
-	local c = require('cmp_nvim_lsp').default_capabilities()
-	require('lspconfig').lua_ls.setup { capabilities = c }
-	require('lspconfig').ast_grep.setup { capabilities = c }
-	require('lspconfig').basedpyright.setup { capabilities = c }
-	require('lspconfig').omnisharp.setup { capabilities = c }
-	require('lspconfig').bashls.setup { capabilities = c }
+	require("mason-lspconfig").setup {}
+	require('blink.cmp').setup {}
+	require('lspconfig').lua_ls.setup {}
+	require('lspconfig').ast_grep.setup {}
+	require('lspconfig').basedpyright.setup {}
+	require('lspconfig').omnisharp.setup {}
+	require('lspconfig').bashls.setup {}
 end)
 
 later(function() -- file browsing
-	add({
-		source = 'prichrd/netrw.nvim',
-	})
+	add({ source = 'prichrd/netrw.nvim' })
 end)
 
 later(function() -- treesitter
