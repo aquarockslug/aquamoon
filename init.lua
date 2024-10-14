@@ -46,7 +46,6 @@ now(function()
 	vim.notify = require('mini.notify').make_notify()
 end)
 
--- OPT PLUGINS ( non mini.nvim plugins )
 now(function() -- theme
 	add({ source = 'Mofiqul/dracula.nvim', as = 'dracula' })
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
