@@ -1,4 +1,6 @@
 local vim = vim
+
+-- setup mini.nvim
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
@@ -57,7 +59,7 @@ now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
 end)           -- needs to load now because the config files reference it
 
-now(function() -- lsp
+now(function() -- lsp and completion
 	add({
 		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
@@ -73,8 +75,28 @@ now(function() -- lsp
 	require('lspconfig').bashls.setup {}
 end)
 
-later(function() -- file browsing
-	add({ source = 'prichrd/netrw.nvim' })
+later(function()                        -- file browsing
+	add({ source = 'prichrd/netrw.nvim' }) -- "o" and "v" to open file in a new window
+end)
+
+later(function() -- manage buffers
+	-- <C-e> to resize, then 'e' agian to switch to move mode
+	add({ source = 'simeji/winresizer', depends = { 'kwkarlwang/bufresize.nvim' } })
+end)
+
+now(function() -- movement
+	add({ source = 'swaits/zellij-nav.nvim' })
+	require('zellij-nav').setup()
+
+	vim.keymap.set("n", "<up>", vim.cmd("ZellijNavigateUp"))
+	vim.keymap.set("n", "<down>", vim.cmd("ZellijNavigateDown"))
+	vim.keymap.set("n", "<left>", vim.cmd("ZellijNavigateLeft"))
+	vim.keymap.set("n", "<right>", vim.cmd("ZellijNavigateRight"))
+
+	vim.keymap.set("n", "<C-up>", vim.cmd.tabs)
+	vim.keymap.set("n", "<C-down>", vim.cmd.quit)
+	vim.keymap.set("n", "<C-left>", vim.cmd.tabprevious)
+	vim.keymap.set("n", "<C-right>", vim.cmd.tabnext)
 end)
 
 later(function() -- treesitter
