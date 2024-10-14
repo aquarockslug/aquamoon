@@ -10,7 +10,7 @@ then WSL=true; else WSL=false; fi
 zstyle ':omz:update' mode auto
 export EDITOR='nvim';
 export BROWSER='firefox'
-[ $WSL = true ] && export BROWSER='/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe'
+[ $WSL = true ] && export BROWSER='wsl-open'
 [ $WSL = true ] && export OPENER='wsl-open'
 
 export DISABLE_AUTO_TITLE='true'
@@ -58,7 +58,7 @@ alias p="python"
 alias py="python"
 
 alias e='"$EDITOR"'
-alias v='"$EDITOR"'
+alias v="nvim"
 alias vnim="nvim"
 
 alias zj="zellij"
