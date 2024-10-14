@@ -14,7 +14,6 @@ end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
--- Safely execute immediately
 now(function()
 	vim.o.termguicolors = true
 	vim.g.mapleader = ","
@@ -22,6 +21,19 @@ now(function()
 	vim.opt.termguicolors = true
 	vim.opt.autochdir = true
 	vim.opt.scrolloff = 1000
+
+	vim.keymap.set("n", "U", "<C-r>") -- undo
+
+	for cmd, func in pairs({
+		h = vim.cmd.noh, -- clear highlighting
+		j = ":move+<CR>==", -- shift line up
+		k = ":move-2<CR>==", -- shift line down
+		e = vim.cmd.Texplore, -- open netrw in new tab
+		v = vim.cmd.Vexplore, -- open netrw in vertical pane
+		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+	}) do
+		vim.keymap.set("n", "<leader>" .. cmd, func)
+	end
 end)
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.tabline').setup() end)
@@ -31,8 +43,6 @@ now(function()
 	require('mini.notify').setup()
 	vim.notify = require('mini.notify').make_notify()
 end)
-
--- Safely execute later
 later(function() require('mini.ai').setup() end)
 later(function() require('mini.comment').setup() end)
 later(function() require('mini.diff').setup() end)
@@ -57,7 +67,37 @@ end)
 
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
-end)           -- needs to load now because the config files reference it
+
+	local Terminal = require("toggleterm.terminal").Terminal
+	local floater = function(cmd) return Terminal:new({ cmd = cmd, direction = "float" }) end
+	local open_glow = function() return floater("glow --pager " .. vim.fn.expand("%:p")):toggle() end
+
+	vim.keymap.set('n', '<leader>t', function() floater("zsh"):toggle() end)
+
+	for cmd, func in pairs({
+		[1] = function() -- git
+			floater("lazygit"):toggle()
+		end,
+		[2] = function() -- format and save
+			notify.add("Formatting...")
+			vim.lsp.buf.format()
+			vim.cmd.write()
+			notify.clear()
+		end,
+		[3] = function() -- view current file with glow
+			-- TODO: quick open note if not a markdown buffer
+			open_glow()
+		end,
+		[4] = function() -- menu: web search, web bookmarks, browse notes
+			floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
+		end,
+		[5] = function() -- file browser
+			floater("nap"):toggle()
+		end,
+	}) do
+		vim.keymap.set("n", "<F" .. cmd .. ">", func)
+	end
+end)
 
 now(function() -- lsp and completion
 	add({
@@ -84,14 +124,14 @@ later(function() -- manage buffers
 	add({ source = 'simeji/winresizer', depends = { 'kwkarlwang/bufresize.nvim' } })
 end)
 
-now(function() -- movement
+later(function() -- movement
 	add({ source = 'swaits/zellij-nav.nvim' })
 	require('zellij-nav').setup()
 
-	vim.keymap.set("n", "<up>", vim.cmd("ZellijNavigateUp"))
-	vim.keymap.set("n", "<down>", vim.cmd("ZellijNavigateDown"))
-	vim.keymap.set("n", "<left>", vim.cmd("ZellijNavigateLeft"))
-	vim.keymap.set("n", "<right>", vim.cmd("ZellijNavigateRight"))
+	vim.keymap.set("n", "<up>", function() vim.cmd("ZellijNavigateUp") end)
+	vim.keymap.set("n", "<down>", function() vim.cmd("ZellijNavigateDown") end)
+	vim.keymap.set("n", "<left>", function() vim.cmd("ZellijNavigateLeft") end)
+	vim.keymap.set("n", "<right>", function() vim.cmd("ZellijNavigateRight") end)
 
 	vim.keymap.set("n", "<C-up>", vim.cmd.tabs)
 	vim.keymap.set("n", "<C-down>", vim.cmd.quit)
