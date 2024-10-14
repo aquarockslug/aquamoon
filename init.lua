@@ -11,30 +11,32 @@ if not vim.loop.fs_stat(mini_path) then
 	vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
 
+vim.o.termguicolors = true
+vim.g.mapleader = ","
+vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
+vim.opt.termguicolors = true
+vim.opt.autochdir = true
+vim.opt.scrolloff = 1000
+
+vim.keymap.set("n", "U", "<C-r>") -- undo
+for cmd, func in pairs({
+	h = vim.cmd.noh,          -- clear highlighting
+	j = ":move+<CR>==",       -- shift line up
+	k = ":move-2<CR>==",      -- shift line down
+	e = vim.cmd.Texplore,     -- open netrw in new tab
+	v = vim.cmd.Vexplore,     -- open netrw in vertical pane
+	V = vim.cmd.Hexplore,     -- open netrw in horizontal pane
+}) do
+	vim.keymap.set("n", "<leader>" .. cmd, func)
+end
+
+vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
+vim.api.nvim_create_autocmd("TextYankPost", { callback = vim.highlight.on_yank })
+
+-- PLUGINS
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
-now(function()
-	vim.o.termguicolors = true
-	vim.g.mapleader = ","
-	vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
-	vim.opt.termguicolors = true
-	vim.opt.autochdir = true
-	vim.opt.scrolloff = 1000
-
-	vim.keymap.set("n", "U", "<C-r>") -- undo
-
-	for cmd, func in pairs({
-		h = vim.cmd.noh, -- clear highlighting
-		j = ":move+<CR>==", -- shift line up
-		k = ":move-2<CR>==", -- shift line down
-		e = vim.cmd.Texplore, -- open netrw in new tab
-		v = vim.cmd.Vexplore, -- open netrw in vertical pane
-		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-	}) do
-		vim.keymap.set("n", "<leader>" .. cmd, func)
-	end
-end)
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.tabline').setup() end)
 now(function() require('mini.statusline').setup() end)
@@ -43,20 +45,6 @@ now(function()
 	require('mini.notify').setup()
 	vim.notify = require('mini.notify').make_notify()
 end)
-later(function() require('mini.ai').setup() end)
-later(function() require('mini.comment').setup() end)
-later(function() require('mini.diff').setup() end)
-later(function() require('mini.doc').setup() end)
-later(function() require('mini.fuzzy').setup() end)
-later(function() require('mini.hipatterns').setup() end)
-later(function() require('mini.jump').setup() end)
-later(function() require('mini.pick').setup() end)
-later(function() require('mini.surround').setup() end)
-later(function() require('mini.pairs').setup() end)
-later(function() require('mini.trailspace').setup() end)
-later(function() require('mini.splitjoin').setup() end)
-later(function() require('mini.animate').setup() end)
-later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 
 -- OPT PLUGINS ( non mini.nvim plugins )
 now(function() -- theme
@@ -69,30 +57,28 @@ now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
 
 	local Terminal = require("toggleterm.terminal").Terminal
-	local floater = function(cmd) return Terminal:new({ cmd = cmd, direction = "float" }) end
-	local open_glow = function() return floater("glow --pager " .. vim.fn.expand("%:p")):toggle() end
+	vim.floater = function(cmd) return Terminal:new({ cmd = cmd, direction = "float" }) end
+	vim.open_glow = function() return vim.floater("glow --pager " .. vim.fn.expand("%:p")):toggle() end
 
-	vim.keymap.set('n', '<leader>t', function() floater("zsh"):toggle() end)
+	vim.keymap.set('n', '<leader>t', function() vim.floater("zsh"):toggle() end)
 
 	for cmd, func in pairs({
 		[1] = function() -- git
-			floater("lazygit"):toggle()
+			vim.floater("lazygit"):toggle()
 		end,
 		[2] = function() -- format and save
-			notify.add("Formatting...")
 			vim.lsp.buf.format()
 			vim.cmd.write()
-			notify.clear()
 		end,
 		[3] = function() -- view current file with glow
 			-- TODO: quick open note if not a markdown buffer
-			open_glow()
+			vim.open_glow()
 		end,
 		[4] = function() -- menu: web search, web bookmarks, browse notes
-			floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
+			vim.floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
 		end,
 		[5] = function() -- file browser
-			floater("nap"):toggle()
+			vim.floater("nap"):toggle()
 		end,
 	}) do
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
@@ -115,14 +101,27 @@ now(function() -- lsp and completion
 	require('lspconfig').bashls.setup {}
 end)
 
-later(function()                        -- file browsing
-	add({ source = 'prichrd/netrw.nvim' }) -- "o" and "v" to open file in a new window
-end)
 
-later(function() -- manage buffers
-	-- <C-e> to resize, then 'e' agian to switch to move mode
-	add({ source = 'simeji/winresizer', depends = { 'kwkarlwang/bufresize.nvim' } })
-end)
+later(function() require('mini.ai').setup() end)
+later(function() require('mini.comment').setup() end)
+later(function() require('mini.diff').setup() end)
+later(function() require('mini.doc').setup() end)
+later(function() require('mini.fuzzy').setup() end)
+later(function() require('mini.hipatterns').setup() end)
+later(function() require('mini.jump').setup() end)
+later(function() require('mini.pick').setup() end)
+later(function() require('mini.surround').setup() end)
+later(function() require('mini.pairs').setup() end)
+later(function() require('mini.trailspace').setup() end)
+later(function() require('mini.splitjoin').setup() end)
+later(function() require('mini.animate').setup() end)
+later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
+
+-- file manager, use "o" and "v" to open the selected file in a new window
+later(function() add({ source = 'prichrd/netrw.nvim' }) end)
+-- manage buffers, <C-e> to resize, then 'e' agian to switch to move mode
+later(function() add({ source = 'simeji/winresizer' }) end)
+later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end)
 
 later(function() -- movement
 	add({ source = 'swaits/zellij-nav.nvim' })
@@ -148,7 +147,3 @@ later(function() -- treesitter
 	})
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
-
--- AUTOCMD
-vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
-vim.api.nvim_create_autocmd("TextYankPost", { callback = vim.highlight.on_yank })
