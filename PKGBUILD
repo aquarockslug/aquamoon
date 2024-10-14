@@ -1,4 +1,8 @@
+#!/bin/bash
+
 # Maintainer: Aquarock <aqua.rock.slug@gmail.com>
+# My personal arch linux setup
+
 pkgname=aqua_arch
 pkgver=0.1
 pkgrel=1
@@ -7,13 +11,12 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'pandoc-cli'
-	'eza' 'duf' 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools'
-	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr')
+depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf'
+	 'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools' 'openssh'
+	 'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr' 'shellcheck')
 makedepends=()
 optdepends=('docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'tldr' 'nap-bin' 'geeqie')
-source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-	"https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
+source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
 	"https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
 	# source files
@@ -22,12 +25,11 @@ source=("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_theme.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/init.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/keymap.lua"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/telescope.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/clipboard.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.kdl"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 
 	# package zsh files
@@ -66,12 +68,9 @@ package() {
 	echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];" >>"$ZSHRC"
 	echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;" >>"$ZSHRC"
 	echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi" >>"$ZSHRC"
-	echo "" >>"$ZSHRC"
-	echo "clear && ls" >>"$ZSHRC"
+	echo "" >>"$ZSHRC"; echo "clear && ls" >>"$ZSHRC"
 
 	# package neovim files
-	mkdir -pv -m 755 "${pkgdir}"/usr/share/nvim_plugged/
 	mkdir -pv -m 755 "${pkgdir}"/etc/xdg/nvim/plugin
 	cp "${srcdir}"/*.lua "${pkgdir}"/etc/xdg/nvim/plugin
-	cp "${srcdir}"/*.vim "${pkgdir}"/etc/xdg/nvim/plugin
 }
