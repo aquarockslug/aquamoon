@@ -16,6 +16,7 @@ export BROWSER='firefox'
 export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE='md'
 export ZELLIJ_CONFIG_DIR=/etc/zellij; export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
+export PNPM_HOME="/home/aqua/.local/share/pnpm"
 # export GDK_DPI_SCALE=1.5
 bindkey ' ' magic-space
 

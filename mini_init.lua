@@ -12,18 +12,16 @@ require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- Safely execute immediately
-now(function()
-  vim.o.termguicolors = true
-end)
-now(function()
-  require('mini.notify').setup()
-  vim.notify = require('mini.notify').make_notify()
-end)
+now(function() vim.o.termguicolors = true end)
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.tabline').setup() end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.animate').setup() end)
 now(function() require('mini.starter').setup() end)
+now(function()
+  require('mini.notify').setup()
+  vim.notify = require('mini.notify').make_notify()
+end)
 
 -- Safely execute later
 later(function() require('mini.ai').setup() end)
@@ -34,7 +32,7 @@ later(function() require('mini.pairs').setup() end)
 later(function() require('mini.trailspace').setup() end)
 later(function() require('mini.splitjoin').setup() end)
 
-now(function() add({
+now(function() add({ -- theme
     source = 'Mofiqul/dracula.nvim',
     as = 'dracula'
   })
@@ -42,13 +40,23 @@ now(function() add({
   vim.cmd([[colorscheme dracula]])
 end)
 
+now(function() add({ -- terminal
+    source = 'akinsho/toggleterm.nvim',
+  }) -- needs to load now because the config files reference it
+end)
+
 now(function() add({ -- lsp
-    source = 'williamboman/mason-lspconfig.nvim',
-    depends = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
+    source = 'neovim/nvim-lspconfig',
+    depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' },
   })
   require("mason").setup()
   require("mason-lspconfig").setup()
-  require("lspconfig").lua_ls.setup()
+  require('lspconfig').lua_ls.setup()
+end)
+
+later(function() add({ -- file browsing
+    source = 'prichrd/netrw.nvim',
+  })
 end)
 
 later(function() add({ -- completion
@@ -69,13 +77,10 @@ later(function() add({ -- treesitter
   })
 end)
 
+-- AUTOCMD
 vim.api.nvim_create_autocmd("BufWritePost", {
-                callback = require("mini.trailspace").trim
-        }
-)
-vim.api.nvim_create_autocmd("TextYankPost", {
-        callback = function()
-                vim.highlight.on_yank()
-        end,
+        callback = require("mini.trailspace").trim
 })
-
+vim.api.nvim_create_autocmd("TextYankPost", {
+        callback = vim.highlight.on_yank
+})
