@@ -1,14 +1,12 @@
 local vim = vim
 
--- setup mini.nvim
-local path_package = vim.fn.stdpath('data') .. '/site/'
-local mini_path = path_package .. 'pack/deps/start/mini.nvim'
-if not vim.loop.fs_stat(mini_path) then
-	vim.cmd('echo "Installing `mini.nvim`" | redraw')
-	local clone_cmd = { 'git', 'clone', '--filter=blob:none', 'https://github.com/echasnovski/mini.nvim', mini_path }
-	vim.fn.system(clone_cmd)
-	vim.cmd('packadd mini.nvim | helptags ALL')
-	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+local function is_wsl()
+	local version_file = io.open("/proc/version", "rb")
+	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
+		version_file:close()
+		return true
+	end
+	return false
 end
 
 vim.o.termguicolors = true
@@ -17,7 +15,12 @@ vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.termguicolors = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
+vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
+vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
+vim.api.nvim_create_autocmd("TextYankPost", { callback = vim.highlight.on_yank })
+
+-- leader shortcuts
 vim.keymap.set("n", "U", "<C-r>") -- undo
 for cmd, func in pairs({
 	h = vim.cmd.noh,          -- clear highlighting
@@ -30,13 +33,31 @@ for cmd, func in pairs({
 	vim.keymap.set("n", "<leader>" .. cmd, func)
 end
 
-vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
-vim.api.nvim_create_autocmd("TextYankPost", { callback = vim.highlight.on_yank })
+-- https://github.com/memoryInject/wsl-clipboard
+if is_wsl() then
+	vim.g.clipboard = {
+		name = "wsl-clipboard",
+		copy = { ["+"] = "wcopy", ["*"] = "wcopy" },
+		paste = { ["+"] = "wpaste", ["*"] = "wpaste" },
+		cache_enabled = true,
+	}
+end
 
 -- PLUGINS
+-- setup mini.nvim
+local path_package = vim.fn.stdpath('data') .. '/site/'
+local mini_path = path_package .. 'pack/deps/start/mini.nvim'
+if not vim.loop.fs_stat(mini_path) then
+	vim.cmd('echo "Installing `mini.nvim`" | redraw')
+	local clone_cmd = { 'git', 'clone', '--filter=blob:none', 'https://github.com/echasnovski/mini.nvim', mini_path }
+	vim.fn.system(clone_cmd)
+	vim.cmd('packadd mini.nvim | helptags ALL')
+	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
+-- NOW
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.tabline').setup() end)
 now(function() require('mini.statusline').setup() end)
@@ -100,7 +121,7 @@ now(function() -- lsp and completion
 	require('lspconfig').bashls.setup {}
 end)
 
-
+-- LATER
 later(function() require('mini.ai').setup() end)
 later(function() require('mini.comment').setup() end)
 later(function() require('mini.diff').setup() end)

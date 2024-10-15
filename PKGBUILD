@@ -24,11 +24,10 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_profile.plugin.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_theme.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/init.lua"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/clipboard.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.kdl"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 
 	# package zsh files
