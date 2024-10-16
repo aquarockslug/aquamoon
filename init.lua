@@ -21,14 +21,15 @@ vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
-vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
-vim.api.nvim_create_autocmd('TextYankPost', {
-	callback = function() vim.highlight.on_yank { higroup = 'DiffAdd', timeout = 250 } end,
-})
-
+local setup_autocmd = function()
+	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
+	vim.api.nvim_create_autocmd('TextYankPost', {
+		callback = function() vim.highlight.on_yank { higroup = 'DiffAdd', timeout = 250 } end,
+	})
+end
 vim.keymap.set("n", "U", "<C-r>") -- undo
 
--- leader shortcuts
+local setup_keymap = function()
 for cmd, func in pairs({
 	h = vim.cmd.noh, -- clear highlighting
 	j = ":move+<CR>==", -- shift line up
@@ -38,6 +39,7 @@ for cmd, func in pairs({
 	V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 }) do
 	vim.keymap.set("n", "<leader>" .. cmd, func)
+end
 end
 
 -- https://github.com/memoryInject/wsl-clipboard
@@ -188,3 +190,6 @@ later(function() -- treesitter
 	})
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
+
+setup_autocmd()
+setup_keymap()
