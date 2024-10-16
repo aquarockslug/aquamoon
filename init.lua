@@ -1,5 +1,8 @@
-local vim = vim
+-- Aqua's nvim
 
+local vim = vim  -- avoid undefined warnings
+
+-- check if nvim is currently running on windows subsystem linux
 local function is_wsl()
 	local version_file = io.open("/proc/version", "rb")
 	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
@@ -9,6 +12,7 @@ local function is_wsl()
 	return false
 end
 
+-- vim settings
 vim.o.termguicolors = true
 vim.g.mapleader = ","
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
@@ -18,17 +22,20 @@ vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
 vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
-vim.api.nvim_create_autocmd("TextYankPost", { callback = vim.highlight.on_yank })
+vim.api.nvim_create_autocmd('TextYankPost', {
+	callback = function() vim.highlight.on_yank { higroup = 'DiffAdd', timeout = 250 } end,
+})
+
+vim.keymap.set("n", "U", "<C-r>") -- undo
 
 -- leader shortcuts
-vim.keymap.set("n", "U", "<C-r>") -- undo
 for cmd, func in pairs({
-	h = vim.cmd.noh,          -- clear highlighting
-	j = ":move+<CR>==",       -- shift line up
-	k = ":move-2<CR>==",      -- shift line down
-	e = vim.cmd.Texplore,     -- open netrw in new tab
-	v = vim.cmd.Vexplore,     -- open netrw in vertical pane
-	V = vim.cmd.Hexplore,     -- open netrw in horizontal pane
+	h = vim.cmd.noh, -- clear highlighting
+	j = ":move+<CR>==", -- shift line up
+	k = ":move-2<CR>==", -- shift line down
+	e = vim.cmd.Texplore, -- open netrw in new tab
+	v = vim.cmd.Vexplore, -- open netrw in vertical pane
+	V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 }) do
 	vim.keymap.set("n", "<leader>" .. cmd, func)
 end
@@ -56,6 +63,16 @@ if not vim.loop.fs_stat(mini_path) then
 end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
+local function build_blink(params)
+	vim.notify('Building blink.cmp', vim.log.levels.INFO)
+	local obj = vim.system({ 'cargo', 'build', '--release' }, { cwd = params.path }):wait()
+	if obj.code == 0 then
+		vim.notify('Building blink.cmp done', vim.log.levels.INFO)
+	else
+		vim.notify('Building blink.cmp failed', vim.log.levels.ERROR)
+	end
+end
 
 -- NOW
 now(function() require('mini.icons').setup() end)
@@ -110,6 +127,10 @@ now(function() -- lsp and completion
 		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
 			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets' },
+		hooks = { --  blink.cmp doesnt use the stable version of rust
+			post_install = build_blink,
+			post_checkout = build_blink,
+		},
 	})
 	require("mason").setup()
 	require("mason-lspconfig").setup {}
