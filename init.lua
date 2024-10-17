@@ -36,7 +36,17 @@ local setup_keymap = function()
 		h = vim.cmd.noh, -- clear highlighting
 		j = ":move+<CR>==", -- shift line up
 		k = ":move-2<CR>==", -- shift line down
-		e = vim.cmd.Texplore, -- open netrw in new tab
+
+		o = require("mini.extra").pickers.oldfiles,
+		r = require("mini.extra").pickers.registers,
+		e = require("mini.extra").pickers.spellsuggest,
+
+		a = function() require("mini.extra").pickers.treesitter() end,
+		s = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
+		d = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
+		f = require("mini.pick").builtin.grep_live,
+
+		b = vim.cmd.Texplore, -- open netrw in new tab
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 	}) do
@@ -131,18 +141,15 @@ now(function() -- lsp and completion
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
 			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets' },
 		hooks = { --  blink.cmp doesnt use the stable version of rust
-			post_install = build_blink,
-			post_checkout = build_blink,
+			post_install = build_blink, post_checkout = build_blink,
 		},
 	})
 	require("mason").setup()
 	require("mason-lspconfig").setup {}
 	require('blink.cmp').setup {}
-	require('lspconfig').lua_ls.setup {}
-	require('lspconfig').ast_grep.setup {}
-	require('lspconfig').basedpyright.setup {}
-	require('lspconfig').omnisharp.setup {}
-	require('lspconfig').bashls.setup {}
+	for _, lang_server in ipairs({
+		"lua_ls", "ast_grep", "basedpyright", "omnisharp", "bashls",
+	}) do require('lspconfig')[lang_server].setup {} end
 end)
 
 -- LATER
