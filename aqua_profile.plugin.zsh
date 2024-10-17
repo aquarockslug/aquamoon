@@ -58,6 +58,7 @@ alias ddgr="ddgr --rev"
 alias ld="lazydocker"
 alias lg="lazygit"
 alias mail="aerc"
+alias torrent="rtorrent"
 alias p="python"
 alias py="python"
 
