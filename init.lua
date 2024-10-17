@@ -1,6 +1,6 @@
 -- Aqua's nvim
 
-local vim = vim  -- avoid undefined warnings
+local vim = vim -- avoid undefined warnings
 
 -- check if nvim is currently running on windows subsystem linux
 local function is_wsl()
@@ -29,15 +29,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.keymap.set("n", "U", "<C-r>") -- undo
 
 -- leader shortcuts
-for cmd, func in pairs({
-	h = vim.cmd.noh, -- clear highlighting
-	j = ":move+<CR>==", -- shift line up
-	k = ":move-2<CR>==", -- shift line down
-	e = vim.cmd.Texplore, -- open netrw in new tab
-	v = vim.cmd.Vexplore, -- open netrw in vertical pane
-	V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-}) do
-	vim.keymap.set("n", "<leader>" .. cmd, func)
+local setupLeader = function()
+	for cmd, func in pairs({
+		h = vim.cmd.noh, -- clear highlighting
+		j = ":move+<CR>==", -- shift line up
+		k = ":move-2<CR>==", -- shift line down
+		e = vim.cmd.Texplore, -- open netrw in new tab
+		v = vim.cmd.Vexplore, -- open netrw in vertical pane
+		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+	}) do
+		vim.keymap.set("n", "<leader>" .. cmd, func)
+	end
 end
 
 -- https://github.com/memoryInject/wsl-clipboard
@@ -94,8 +96,12 @@ now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
 
 	local Terminal = require("toggleterm.terminal").Terminal
-	vim.floater = function(cmd) return Terminal:new({ cmd = cmd, direction = "float" }) end
-	vim.open_glow = function() return vim.floater("glow --pager " .. vim.fn.expand("%:p")):toggle() end
+	vim.floater = function(cmd)
+		return Terminal:new({ cmd = cmd, direction = "float" })
+	end
+	vim.open_glow = function()
+		return vim.floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
+	end
 
 	vim.keymap.set('n', '<leader>t', function() vim.floater("zsh"):toggle() end)
 
@@ -104,17 +110,12 @@ now(function() -- terminal
 			vim.floater("lazygit"):toggle()
 		end,
 		[2] = function() -- format and save
-			vim.lsp.buf.format()
-			vim.cmd.write()
+			vim.lsp.buf.format(); vim.cmd.write()
 		end,
-		[3] = function() -- view current file with glow
-			-- TODO: quick open note if not a markdown buffer
-			vim.open_glow()
-		end,
-		[4] = function() -- menu: web search, web bookmarks, browse notes
+		[3] = function() -- menu: web search, web bookmarks, browse notes
 			vim.floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
 		end,
-		[5] = function() -- file browser
+		[4] = function() -- file browser
 			vim.floater("nap"):toggle()
 		end,
 	}) do
@@ -143,19 +144,10 @@ now(function() -- lsp and completion
 end)
 
 -- LATER
-later(function() require('mini.ai').setup() end)
-later(function() require('mini.comment').setup() end)
-later(function() require('mini.diff').setup() end)
-later(function() require('mini.doc').setup() end)
-later(function() require('mini.fuzzy').setup() end)
-later(function() require('mini.hipatterns').setup() end)
-later(function() require('mini.jump').setup() end)
-later(function() require('mini.pick').setup() end)
-later(function() require('mini.surround').setup() end)
-later(function() require('mini.pairs').setup() end)
-later(function() require('mini.trailspace').setup() end)
-later(function() require('mini.splitjoin').setup() end)
-later(function() require('mini.animate').setup() end)
+for _, plug in ipairs({
+	"ai", "animate", "bracketed", "comment", "diff", "doc", "extra", "fuzzy", "hipatterns",
+	"jump", "misc", "operators", "pairs", "pick", "splitjoin", "surround", "trailspace",
+}) do later(function() require('mini.' .. plug).setup() end) end
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 
 -- file manager, use "o" and "v" to open the selected file in a new window
@@ -188,3 +180,5 @@ later(function() -- treesitter
 	})
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
+
+setupLeader()
