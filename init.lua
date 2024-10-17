@@ -3,7 +3,7 @@
 local vim = vim -- avoid undefined warnings
 
 -- check if nvim is currently running on windows subsystem linux
-local function is_wsl()
+local is_wsl = function()
 	local version_file = io.open("/proc/version", "rb")
 	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
 		version_file:close()
@@ -21,16 +21,17 @@ vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 
+vim.keymap.set("n", "U", "<C-r>") -- undo
+
 local setup_autocmd = function()
 	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
 	vim.api.nvim_create_autocmd('TextYankPost', {
 		callback = function() vim.highlight.on_yank { higroup = 'DiffAdd', timeout = 250 } end,
 	})
 end
-vim.keymap.set("n", "U", "<C-r>") -- undo
 
 -- leader shortcuts
-local setupLeader = function()
+local setup_keymap = function()
 	for cmd, func in pairs({
 		h = vim.cmd.noh, -- clear highlighting
 		j = ":move+<CR>==", -- shift line up
@@ -41,17 +42,6 @@ local setupLeader = function()
 	}) do
 		vim.keymap.set("n", "<leader>" .. cmd, func)
 	end
-local setup_keymap = function()
-for cmd, func in pairs({
-	h = vim.cmd.noh, -- clear highlighting
-	j = ":move+<CR>==", -- shift line up
-	k = ":move-2<CR>==", -- shift line down
-	e = vim.cmd.Texplore, -- open netrw in new tab
-	v = vim.cmd.Vexplore, -- open netrw in vertical pane
-	V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-}) do
-	vim.keymap.set("n", "<leader>" .. cmd, func)
-end
 end
 
 -- https://github.com/memoryInject/wsl-clipboard
@@ -193,6 +183,5 @@ later(function() -- treesitter
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
 
-setupLeader()
 setup_autocmd()
 setup_keymap()
