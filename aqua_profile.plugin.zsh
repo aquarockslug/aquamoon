@@ -48,11 +48,11 @@ alias h='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
+alias ls='eza --icons --group-directories-first -a'
 
 # APPLICATIONS
 alias b="buku --suggest"
-alias f="felix"
-alias fx="felix"
+alias rs="rsync -Phav"
 alias g="glow"
 alias ddgr="ddgr --rev"
 alias ld="lazydocker"
