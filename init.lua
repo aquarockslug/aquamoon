@@ -41,9 +41,9 @@ local setup_keymap = function()
 		r = require("mini.extra").pickers.registers,
 		e = require("mini.extra").pickers.spellsuggest,
 
-		a = function() require("mini.extra").pickers.treesitter() end,
-		s = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
-		d = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
+		a = require("mini.extra").pickers.treesitter,
+		s = require("mini.extra").pickers.lsp({ scope = "references" }),
+		d = require("mini.extra").pickers.lsp({ scope = "document_symbol" }),
 		f = require("mini.pick").builtin.grep_live,
 
 		b = vim.cmd.Texplore, -- open netrw in new tab

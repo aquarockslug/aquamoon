@@ -31,28 +31,34 @@ sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 
 	# package zsh files
-	mkdir -pv -m 755 "${pkgdir}"/home/aqua/.config/glow
-	mkdir -pv -m 755 "${pkgdir}"/usr/share/zsh/themes/lib
+	mkdir -pv "${pkgdir}"/home/aqua/.config/glow
+	mkdir -pv "${pkgdir}"/usr/share/zsh/themes/lib
 
 	# glow theme
 	# TODO: glow completion zsh
 	# TODO: dont put any files in /home/aqua
+	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/
 	{
 		echo "style: '~/.config/glow/dracula.json'"
 		echo "mouse: false"
 		echo "pager: false"
 		echo "width: 120"
-	} >>"${srcdir}"/home/aqua/.config/glow/glow.yml
-	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/ # move all zsh files into /usr/share/zsh
+	} >"${pkgdir}"/home/aqua/.config/glow/glow.yml
 
 	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh                               # move all zsh files into /usr/share/zsh
 	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/ # then move theme files
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
 	# zellij theme
-	mkdir -pv -m 755 "${pkgdir}"/etc/zellij/
+	mkdir -pv "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
+
+	# set zellij flag color by picking a random color from dracula.json
+	# COLORS=COLORS "$(jq .document.color <./dracula.json)"
+	# COLORS=COLORS "$(jq .block.color <./dracula.json)"
+	# COLORS=COLORS "$(jq .paragraph.color <./dracula.json)"
+	# use sed
 
 	# create .zshrc file
 	{
@@ -73,6 +79,6 @@ package() {
 	} >>"${pkgdir}"/home/aqua/.zshrc
 
 	# package neovim files
-	mkdir -pv -m 755 "${pkgdir}"/etc/xdg/nvim/plugin
-	cp "${srcdir}"/*.lua "${pkgdir}"/etc/xdg/nvim/plugin
+	mkdir -pv "${pkgdir}"/etc/xdg/nvim/plugin
+	cp "${srcdir}"/init.lua "${pkgdir}"/etc/xdg/nvim/plugin
 }
