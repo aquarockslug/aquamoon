@@ -29,27 +29,23 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
-
-	# package zsh files
-	mkdir -pv "${pkgdir}"/home/aqua/.config/glow
-	mkdir -pv "${pkgdir}"/usr/share/zsh/themes/lib
-
-	# glow theme
-	# TODO: glow completion zsh
-	# TODO: dont put any files in /home/aqua
-	cp "${srcdir}"/dracula.json "${pkgdir}"/home/aqua/.config/glow/
+	# glow
+	mkdir -pv "${pkgdir}"/usr/share/glow
+	cp "${srcdir}"/dracula.json "${pkgdir}"/usr/share/glow/
 	{
-		echo "style: '~/.config/glow/dracula.json'"
+		echo "style: '/usr/share/glow/dracula.json'"
 		echo "mouse: false"
 		echo "pager: false"
 		echo "width: 120"
-	} >"${pkgdir}"/home/aqua/.config/glow/glow.yml
+	} >"${pkgdir}"/usr/share/glow/glow.yml
 
+	# zsh
+	mkdir -pv "${pkgdir}"/usr/share/zsh/themes/lib
 	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh                               # move all zsh files into /usr/share/zsh
 	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/ # then move theme files
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
-	# zellij theme
+	# zellij
 	mkdir -pv "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
@@ -67,18 +63,16 @@ package() {
 		echo "source /usr/share/zsh/aqua_profile.plugin.zsh"
 		echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 		echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-		echo "autoload -Uz compinit && compinit" # text completion
-		echo ""
+		echo "autoload -Uz compinit && compinit"                       # text completion
 		echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" # don't autostart zellij when using WSL
 		echo "if [[ -z \"\$ZELLIJ\" ]]; then"
 		echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];"
 		echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;"
 		echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi"
-		echo ""
 		echo "clear && ls"
-	} >>"${pkgdir}"/home/aqua/.zshrc
+	} >"${pkgdir}"/etc/zshrc
 
-	# package neovim files
+	# neovim
 	mkdir -pv "${pkgdir}"/etc/xdg/nvim/plugin
 	cp "${srcdir}"/init.lua "${pkgdir}"/etc/xdg/nvim/plugin
 }

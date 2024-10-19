@@ -53,6 +53,7 @@ alias ls='eza --icons --group-directories-first -a'
 # APPLICATIONS
 alias b="buku --suggest"
 alias rs="rsync -Phav"
+alias glow="glow --config /usr/share/glow/config.yml"
 alias g="glow"
 alias ddgr="ddgr --rev"
 alias ld="lazydocker"
