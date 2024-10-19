@@ -32,10 +32,7 @@ alias yank="xclip -selection clipboard" && alias put="xclip -o -selection clipbo
 [ $WSL = true ] && alias yank="wcopy" && alias put="wpaste" # use wsl-clipboard if on WSL
 
 # SYSTEM INFO
-alias ls="exa -l"
-alias lss="exa *"
-alias cls="clear && ls"
-alias clss="clear && lss"
+alias ls='eza --icons --group-directories-first -a'
 alias tasks="ps aux"
 alias fd="sudo fdisk -l"
 alias df="duf"
@@ -48,7 +45,7 @@ alias h='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
-alias ls='eza --icons --group-directories-first -a'
+alias cls='clear && ls'
 
 # APPLICATIONS
 alias b="buku --suggest"
@@ -74,6 +71,8 @@ alias zjl="zellij run -- lf"
 alias zjlf="zjl"
 
 bindkey -s '^f' 'lfcd \n'
+bindkey -s '^d' 'zellij run -- lfcd \n'
+bindkey -s '^j' 'clear && ls'
 
 # source the other aqua plugin files
 source "${0:A:h}"/aqua_functions.zsh
