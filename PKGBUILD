@@ -64,11 +64,10 @@ package() {
 		echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 		echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 		echo "autoload -Uz compinit && compinit"                       # text completion
-		echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" # don't autostart zellij when using WSL
 		echo "if [[ -z \"\$ZELLIJ\" ]]; then"
 		echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];"
 		echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;"
-		echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi; fi"
+		echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi"
 		echo "clear && ls"
 	} >"${pkgdir}"/etc/zshrc
 
