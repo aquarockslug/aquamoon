@@ -11,7 +11,7 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf'
+depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop'
 	'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools' 'openssh'
 	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr' 'shellcheck')
 makedepends=()
@@ -64,10 +64,12 @@ package() {
 		echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 		echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
 		echo "autoload -Uz compinit && compinit"                       # text completion
+		# echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" # don't autostart zellij when using WSL
 		echo "if [[ -z \"\$ZELLIJ\" ]]; then"
 		echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];"
 		echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;"
 		echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi"
+		# echo "fi"
 		echo "clear && ls"
 	} >"${pkgdir}"/etc/zshrc
 
