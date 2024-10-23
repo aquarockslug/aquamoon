@@ -13,7 +13,7 @@ license=('GPL')
 groups=('base-devel')
 depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop'
 	'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools' 'openssh'
-	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr' 'shellcheck')
+	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr')
 makedepends=()
 optdepends=('docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'tldr' 'nap-bin' 'geeqie')
 source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
@@ -63,7 +63,7 @@ package() {
 		echo "source /usr/share/zsh/aqua_profile.plugin.zsh"
 		echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 		echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-		echo "autoload -Uz compinit && compinit"                       # text completion
+		echo "autoload -Uz compinit && compinit" # text completion
 		# echo "if [[ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then" # don't autostart zellij when using WSL
 		echo "if [[ -z \"\$ZELLIJ\" ]]; then"
 		echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];"

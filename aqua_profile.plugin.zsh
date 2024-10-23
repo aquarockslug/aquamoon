@@ -17,6 +17,8 @@ export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE='md'
 export ZELLIJ_CONFIG_DIR=/etc/zellij; export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
 export PNPM_HOME="/home/aqua/.local/share/pnpm"
+export PATH="$PATH:/home/aqua/.local/share/nvim/mason/bin" # mason for nvim language servers
+export PATH="$PATH:/home/aqua/.local/share/pnpm"
 export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
 export LFS="/mnt/lfs"
 # export GDK_DPI_SCALE=1.5

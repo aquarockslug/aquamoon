@@ -148,7 +148,7 @@ now(function() -- lsp and completion
 	require("mason-lspconfig").setup {}
 	require('blink.cmp').setup {}
 	for _, lang_server in ipairs({
-		"lua_ls", "ast_grep", "basedpyright", "omnisharp", "bashls",
+		"lua_ls", "basedpyright", "omnisharp", "bashls", "biome"
 	}) do require('lspconfig')[lang_server].setup {} end
 end)
 
