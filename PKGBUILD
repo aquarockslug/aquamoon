@@ -29,7 +29,7 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
-	# glow
+	# glow##################################################################
 	mkdir -pv "${pkgdir}"/usr/share/glow
 	cp "${srcdir}"/dracula.json "${pkgdir}"/usr/share/glow/
 	{
@@ -39,13 +39,30 @@ package() {
 		echo "width: 120"
 	} >"${pkgdir}"/usr/share/glow/glow.yml
 
-	# zsh
+	# lf ###################################################################
+	mkdir -pv "${pkgdir}"/etc/lf
+	echo
+	(
+		cat <<EOM
+map e \$zellij run -c -d right -- nvim \$f
+map I %{{
+if [ "\$lf_preview" = true ]; then
+        lf -remote "send \$id :set preview false; set ratios 1:5"
+    else
+        lf -remote "send \$id :set preview true; set ratios 1:2:3"
+    fi
+}}
+map zp toggle-preview
+EOM
+	) >>"${pkgdir}"/etc/lf/lfrc
+
+	# zsh ##################################################################
 	mkdir -pv "${pkgdir}"/usr/share/zsh/themes/lib
 	cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh                               # move all zsh files into /usr/share/zsh
 	mv "${pkgdir}"/usr/share/zsh/async.zsh "${pkgdir}"/usr/share/zsh/themes/lib/ # then move theme files
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
-	# zellij
+	# zellij ###############################################################
 	mkdir -pv "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/
 	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
@@ -56,7 +73,7 @@ package() {
 	# COLORS=COLORS "$(jq .paragraph.color <./dracula.json)"
 	# use sed
 
-	# create .zshrc file
+	# create .zshrc
 	{
 		echo "source /usr/share/zsh/themes/lib/async.zsh"
 		echo "source /usr/share/zsh/themes/dracula.zsh-theme"

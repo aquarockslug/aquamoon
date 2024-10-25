@@ -37,14 +37,14 @@ local setup_keymap = function()
 		j = ":move+<CR>==", -- shift line up
 		k = ":move-2<CR>==", -- shift line down
 
+		a = require("mini.extra").pickers.lsp({ scope = "references" }),
+		s = require("mini.extra").pickers.lsp({ scope = "document_symbol" }),
+		d = require("mini.extra").pickers.treesitter,
+		f = require("mini.pick").builtin.grep_live,
+
 		o = require("mini.extra").pickers.oldfiles,
 		r = require("mini.extra").pickers.registers,
 		e = require("mini.extra").pickers.spellsuggest,
-
-		a = require("mini.extra").pickers.treesitter,
-		s = require("mini.extra").pickers.lsp({ scope = "references" }),
-		d = require("mini.extra").pickers.lsp({ scope = "document_symbol" }),
-		f = require("mini.pick").builtin.grep_live,
 
 		b = vim.cmd.Texplore, -- open netrw in new tab
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
@@ -90,7 +90,7 @@ end
 
 -- NOW
 now(function() require('mini.icons').setup() end)
-now(function() require('mini.tabline').setup() end)
+-- now(function() require('mini.tabline').setup() end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.starter').setup() end)
 now(function()
@@ -127,7 +127,7 @@ now(function() -- terminal
 		[3] = function() -- menu: web search, web bookmarks, browse notes
 			vim.floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
 		end,
-		[4] = function() -- file browser
+		[4] = function() -- snippet browser
 			vim.floater("nap"):toggle()
 		end,
 	}) do
