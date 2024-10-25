@@ -1,11 +1,10 @@
 # Aqua Arch
-## my development enviroment installed with an Arch linux package
 
 ### TEXT: NEOVIM
  - I use almost all of the *mini.nvim* packages.
  - Language servers are downloaded and managed by *mason*.
  - Completions are done with *blink.cmp* because it is fast and simple to configure.
- - I avoid having too many plugins by using terminal user interfaces from within neovim using *toggleterm*.
+ - I avoid having too many plugins by using terminal user interfaces with *toggleterm*.
 
 ### SHELL: ZSH
  - I navigate files with *lf*.
