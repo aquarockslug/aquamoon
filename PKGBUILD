@@ -44,15 +44,13 @@ package() {
 	echo
 	(
 		cat <<EOM
-map e \$zellij run -c -d right -- nvim \$f
-map I %{{
-if [ "\$lf_preview" = true ]; then
-        lf -remote "send \$id :set preview false; set ratios 1:5"
-    else
-        lf -remote "send \$id :set preview true; set ratios 1:2:3"
-    fi
+cmd toggle-preview %{{
+    if [ \$lf_width -le 80 || \$lf_preview ]; then
+        lf -remote "send \$id :set preview false; set ratios 1"
+    else lf -remote "send \$id :set preview true; set ratios 1:2:3"; fi
 }}
 map zp toggle-preview
+map e \$zellij run -c -d right -- nvim \$f
 EOM
 	) >>"${pkgdir}"/etc/lf/lfrc
 

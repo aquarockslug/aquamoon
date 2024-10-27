@@ -10,10 +10,12 @@ ui {
 }
 
 layout {
-    pane_template name="files" {
+    pane_template name="sidebar" {
 	pane split_direction="horizontal" {
 
-	    pane command="lf"
+	    pane command="npm" {
+	        args "run" "start"
+	    }
 
 	    pane borderless=true size=1 {
                 plugin location="file:/etc/zellij/zjstatus.wasm" {
@@ -26,8 +28,10 @@ layout {
             }
         }
     }
-
-    files
+    pane split_direction="vertical" {
+        sidebar size=25
+	pane command="lf" borderless=true
+    }
 }
 
 themes {
