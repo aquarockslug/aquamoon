@@ -1,28 +1,15 @@
 -- Aqua's nvim
 
-local vim = vim -- avoid undefined warnings
-
--- check if nvim is currently running on windows subsystem linux
-local is_wsl = function()
-	local version_file = io.open("/proc/version", "rb")
-	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
-		version_file:close()
-		return true
-	end
-	return false
-end
 -- vim settings
-vim.o.termguicolors = true
+local vim = vim               -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
-vim.opt.termguicolors = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.keymap.set("n", "U", "<C-r>") -- undo
 
-
-local setup_autocmd = function()
+local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
 	vim.api.nvim_create_autocmd('TextYankPost', {
 		callback = function() vim.highlight.on_yank { higroup = 'DiffAdd', timeout = 250 } end,
@@ -45,7 +32,6 @@ local setup_keymap = function()
 		r = require("mini.extra").pickers.registers,
 		e = require("mini.extra").pickers.spellsuggest,
 
-		b = vim.cmd.Texplore, -- open netrw in new tab
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 	}) do
@@ -53,14 +39,22 @@ local setup_keymap = function()
 	end
 end
 
-local setup_highlighter = function()
+local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniHipatternsFixme', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C", fg = "#000000" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = "#000000" })
 end
 
--- https://github.com/memoryInject/wsl-clipboard
-if is_wsl() then
+local is_wsl = function() -- check if nvim is currently running on windows subsystem linux
+	local version_file = io.open("/proc/version", "rb")
+	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
+		version_file:close()
+		return true
+	end
+	return false
+end
+
+if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 	vim.g.clipboard = {
 		name = "wsl-clipboard",
 		copy = { ["+"] = "wcopy", ["*"] = "wcopy" },
@@ -95,7 +89,9 @@ end
 
 -- NOW
 now(function() require('mini.icons').setup() end)
--- now(function() require('mini.tabline').setup() end)
+now(function()
+	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
+end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.starter').setup() end)
 now(function()
@@ -116,8 +112,11 @@ now(function() -- terminal
 	vim.floater = function(cmd)
 		return Terminal:new({ cmd = cmd, direction = "float" })
 	end
-	vim.open_glow = function()
-		return vim.floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
+	vim.markdown = function()
+		return Terminal:new({
+			cmd = "glow --pager " .. vim.fn.expand("%:p"),
+			direction = "vertical"
+		}):toggle()
 	end
 
 	vim.keymap.set('n', '<leader>t', function() vim.floater("zsh"):toggle() end)
@@ -157,7 +156,7 @@ now(function() -- lsp and completion
 	}) do require("lspconfig")[lang_server].setup {} end
 end)
 
-now(function()
+now(function() -- highlight patterns
 	local hipatterns = require('mini.hipatterns')
 	hipatterns.setup({
 		highlighters = {
@@ -174,14 +173,9 @@ for _, plug in ipairs({
 	"misc", "operators", "pairs", "pick", "splitjoin", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
-
--- file manager, use "o" and "v" to open the selected file in a new window
-later(function() add({ source = 'prichrd/netrw.nvim' }) end)
--- manage buffers, <C-e> to resize, then 'e' agian to switch to move mode
-later(function() add({ source = 'simeji/winresizer' }) end)
-later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end)
-
-later(function() -- movement
+later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
+later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
+later(function()                                                    -- movement
 	add({ source = 'swaits/zellij-nav.nvim' })
 	require('zellij-nav').setup()
 
@@ -206,6 +200,6 @@ later(function() -- treesitter
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
 
-setup_autocmd()
+setup_autocmds()
 setup_keymap()
-setup_highlighter()
+setup_highlighters()
