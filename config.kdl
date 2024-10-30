@@ -13,7 +13,7 @@ layout {
     pane_template name="files" {
 	pane split_direction="horizontal" {
 
-	    pane command="lf"
+	    pane command="lf" borderless=true
 
 	    pane borderless=true size=1 {
                 plugin location="file:/etc/zellij/zjstatus.wasm" {

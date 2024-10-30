@@ -7,6 +7,8 @@ vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.keymap.set("n", "U", "<C-r>") -- undo
 
 local setup_autocmds = function()
@@ -23,11 +25,10 @@ local setup_keymap = function()
 		j = ":move+<CR>==", -- shift line up
 		k = ":move-2<CR>==", -- shift line down
 
-		a = require("mini.extra").pickers.lsp({ scope = "references" }),
-		s = require("mini.extra").pickers.lsp({ scope = "document_symbol" }),
+		a = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
+		s = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
 		d = require("mini.extra").pickers.treesitter,
 		f = require("mini.pick").builtin.grep_live,
-
 		o = require("mini.extra").pickers.oldfiles,
 		r = require("mini.extra").pickers.registers,
 		e = require("mini.extra").pickers.spellsuggest,
@@ -107,7 +108,6 @@ end)
 
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
-
 	local Terminal = require("toggleterm.terminal").Terminal
 	vim.floater = function(cmd)
 		return Terminal:new({ cmd = cmd, direction = "float" })
