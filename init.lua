@@ -11,7 +11,6 @@ local is_wsl = function()
 	end
 	return false
 end
-
 -- vim settings
 vim.o.termguicolors = true
 vim.g.mapleader = ","
@@ -20,8 +19,8 @@ vim.opt.termguicolors = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-
 vim.keymap.set("n", "U", "<C-r>") -- undo
+
 
 local setup_autocmd = function()
 	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
@@ -54,6 +53,12 @@ local setup_keymap = function()
 	end
 end
 
+local setup_highlighter = function()
+	vim.api.nvim_set_hl(0, 'MiniHipatternsFixme', { bg = "#FF5555", fg = "#FFFFFF" })
+	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C", fg = "#000000" })
+	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = "#000000" })
+end
+
 -- https://github.com/memoryInject/wsl-clipboard
 if is_wsl() then
 	vim.g.clipboard = {
@@ -65,7 +70,7 @@ if is_wsl() then
 end
 
 -- PLUGINS
--- setup mini.nvim
+-- setup mini.deps
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
@@ -146,16 +151,27 @@ now(function() -- lsp and completion
 	})
 	require("mason").setup()
 	require("mason-lspconfig").setup {}
-	require('blink.cmp').setup {}
+	require("blink.cmp").setup {}
 	for _, lang_server in ipairs({
 		"lua_ls", "basedpyright", "omnisharp", "bashls", "biome"
-	}) do require('lspconfig')[lang_server].setup {} end
+	}) do require("lspconfig")[lang_server].setup {} end
+end)
+
+now(function()
+	local hipatterns = require('mini.hipatterns')
+	hipatterns.setup({
+		highlighters = {
+			fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+			hack  = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			todo  = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+		}
+	})
 end)
 
 -- LATER
 for _, plug in ipairs({
-	"ai", "animate", "bracketed", "comment", "diff", "doc", "extra", "fuzzy", "hipatterns",
-	"jump", "misc", "operators", "pairs", "pick", "splitjoin", "surround", "trailspace",
+	"ai", "animate", "bracketed", "comment", "diff", "doc", "extra", "fuzzy", "jump",
+	"misc", "operators", "pairs", "pick", "splitjoin", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 
@@ -192,3 +208,4 @@ end)
 
 setup_autocmd()
 setup_keymap()
+setup_highlighter()
