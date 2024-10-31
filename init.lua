@@ -8,7 +8,8 @@ vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
+vim.g.netrw_liststyle = 3         -- set the styling of the file list to be a tree
+vim.loader.enable()
 vim.keymap.set("n", "U", "<C-r>") -- undo
 
 local setup_autocmds = function()
@@ -21,20 +22,17 @@ end
 -- leader shortcuts
 local setup_keymap = function()
 	for cmd, func in pairs({
+		g = require("mini.pick").builtin.grep_live,
+		f = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
 		h = vim.cmd.noh, -- clear highlighting
 		j = ":move+<CR>==", -- shift line up
 		k = ":move-2<CR>==", -- shift line down
-
-		a = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
-		s = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
-		d = require("mini.extra").pickers.treesitter,
-		f = require("mini.pick").builtin.grep_live,
 		o = require("mini.extra").pickers.oldfiles,
-		r = require("mini.extra").pickers.registers,
-		e = require("mini.extra").pickers.spellsuggest,
-
+		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
+		s = require("mini.extra").pickers.spellsuggest,
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+		y = require("mini.extra").pickers.registers,
 	}) do
 		vim.keymap.set("n", "<leader>" .. cmd, func)
 	end
@@ -99,13 +97,11 @@ now(function()
 	require('mini.notify').setup()
 	vim.notify = require('mini.notify').make_notify()
 end)
-
 now(function() -- theme
 	add({ source = 'Mofiqul/dracula.nvim', as = 'dracula' })
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd([[colorscheme dracula]])
 end)
-
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
 	local Terminal = require("toggleterm.terminal").Terminal
@@ -138,12 +134,11 @@ now(function() -- terminal
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
 end)
-
-now(function() -- lsp and completion
+later(function() -- lsp and completion
 	add({
 		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
-			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets' },
+			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets', 'saghen/blink.compat' },
 		hooks = { --  blink.cmp doesnt use the stable version of rust
 			post_install = build_blink, post_checkout = build_blink,
 		},
@@ -155,7 +150,6 @@ now(function() -- lsp and completion
 		"lua_ls", "basedpyright", "omnisharp", "bashls", "biome"
 	}) do require("lspconfig")[lang_server].setup {} end
 end)
-
 now(function() -- highlight patterns
 	local hipatterns = require('mini.hipatterns')
 	hipatterns.setup({
@@ -166,7 +160,6 @@ now(function() -- highlight patterns
 		}
 	})
 end)
-
 -- LATER
 for _, plug in ipairs({
 	"ai", "animate", "bracketed", "comment", "diff", "doc", "extra", "fuzzy", "jump",
@@ -189,7 +182,6 @@ later(function()                                                    -- movement
 	vim.keymap.set("n", "<C-left>", vim.cmd.tabprevious)
 	vim.keymap.set("n", "<C-right>", vim.cmd.tabnext)
 end)
-
 later(function() -- treesitter
 	add({
 		source = 'nvim-treesitter/nvim-treesitter',
