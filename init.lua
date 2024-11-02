@@ -138,7 +138,7 @@ later(function() -- lsp and completion
 	add({
 		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
-			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets', 'saghen/blink.compat' },
+			'neovim/nvim-lspconfig', 'rafamadriz/friendly-snippets' },
 		hooks = { --  blink.cmp doesnt use the stable version of rust
 			post_install = build_blink, post_checkout = build_blink,
 		},
