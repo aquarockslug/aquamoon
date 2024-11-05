@@ -19,10 +19,11 @@ local setup_autocmds = function()
 	})
 end
 
--- leader shortcuts
+-- % leader shortcuts %
 local setup_keymap = function()
 	for cmd, func in pairs({
-		g = require("mini.pick").builtin.grep_live,
+		d = require("divider").toggle_outline, -- navigate dividers
+		g = require("mini.pick").builtin.grep_live, -- find words
 		f = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
 		h = vim.cmd.noh, -- clear highlighting
 		j = ":move+<CR>==", -- shift line up
@@ -44,6 +45,7 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = "#000000" })
 end
 
+-- % WSL %
 local is_wsl = function() -- check if nvim is currently running on windows subsystem linux
 	local version_file = io.open("/proc/version", "rb")
 	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
@@ -63,7 +65,7 @@ if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 end
 
 -- PLUGINS
--- setup mini.deps
+-- % setup mini.deps %
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
@@ -86,7 +88,7 @@ local function build_blink(params)
 	end
 end
 
--- NOW
+-- % NOW %
 now(function() require('mini.icons').setup() end)
 now(function()
 	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
@@ -101,6 +103,9 @@ now(function() -- theme
 	add({ source = 'Mofiqul/dracula.nvim', as = 'dracula' })
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd([[colorscheme dracula]])
+end)
+now(function()
+	add({ source = 'niuiic/divider.nvim' }); require("divider").setup({})
 end)
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
@@ -147,20 +152,20 @@ later(function() -- lsp and completion
 	require("mason-lspconfig").setup {}
 	require("blink.cmp").setup {}
 	for _, lang_server in ipairs({
-		"lua_ls", "basedpyright", "omnisharp", "bashls", "biome"
+		"lua_ls", "basedpyright", "bashls", "biome", "csharp_ls"
 	}) do require("lspconfig")[lang_server].setup {} end
 end)
 now(function() -- highlight patterns
 	local hipatterns = require('mini.hipatterns')
 	hipatterns.setup({
 		highlighters = {
-			fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+			fixme = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsFixme' },
 			hack  = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
 			todo  = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
 		}
 	})
 end)
--- LATER
+-- % LATER %
 for _, plug in ipairs({
 	"ai", "animate", "bracketed", "comment", "diff", "doc", "extra", "fuzzy", "jump",
 	"misc", "operators", "pairs", "pick", "splitjoin", "surround", "trailspace",

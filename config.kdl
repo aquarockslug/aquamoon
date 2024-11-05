@@ -2,18 +2,14 @@ theme "dracula"
 default_shell "zsh"
 pane_frames true
 
-ui {
-    pane_frames {
-        rounded_corners true
-	hide_session_name true
-    }
-}
-
 layout {
     pane_template name="files" {
 	pane split_direction="horizontal" {
 
-	    pane command="lf" borderless=true
+	    pane {
+		command "lf"
+		borderless true
+	    }
 
 	    pane borderless=true size=1 {
                 plugin location="file:/etc/zellij/zjstatus.wasm" {
@@ -26,8 +22,13 @@ layout {
             }
         }
     }
+}
 
-    files
+ui {
+    pane_frames {
+        rounded_corners true
+	hide_session_name true
+    }
 }
 
 themes {
