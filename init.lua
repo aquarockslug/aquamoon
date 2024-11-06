@@ -25,9 +25,9 @@ local setup_keymap = function()
 		d = require("divider").toggle_outline, -- navigate dividers
 		g = require("mini.pick").builtin.grep_live, -- find words
 		f = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
-		h = vim.cmd.noh, -- clear highlighting
-		j = ":move+<CR>==", -- shift line up
-		k = ":move-2<CR>==", -- shift line down
+		h = vim.cmd.noh,              -- clear highlighting
+		j = ":move+<CR>==",           -- shift line up
+		k = ":move-2<CR>==",          -- shift line down
 		o = require("mini.extra").pickers.oldfiles,
 		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
 		s = require("mini.extra").pickers.spellsuggest,
@@ -107,6 +107,9 @@ end)
 now(function()
 	add({ source = 'niuiic/divider.nvim' }); require("divider").setup({})
 end)
+now(function()
+	add({ source = 'tadmccorkle/markdown.nvim' }); require("markdown").setup({})
+end)
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
 	local Terminal = require("toggleterm.terminal").Terminal
@@ -114,12 +117,8 @@ now(function() -- terminal
 		return Terminal:new({ cmd = cmd, direction = "float" })
 	end
 	vim.markdown = function()
-		return Terminal:new({
-			cmd = "glow --pager " .. vim.fn.expand("%:p"),
-			direction = "vertical"
-		}):toggle()
+		vim.floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
 	end
-
 	vim.keymap.set('n', '<leader>t', function() vim.floater("zsh"):toggle() end)
 
 	for cmd, func in pairs({
