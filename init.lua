@@ -105,10 +105,13 @@ now(function() -- theme
 	vim.cmd([[colorscheme dracula]])
 end)
 now(function()
-	add({ source = 'niuiic/divider.nvim' }); require("divider").setup({})
+	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
 end)
 now(function()
-	add({ source = 'tadmccorkle/markdown.nvim' }); require("markdown").setup({})
+	add({ source = 'tadmccorkle/markdown.nvim' }); require('markdown').setup({})
+end)
+now(function()
+	add({ source = 'folke/snacks.nvim' }); require('snacks').setup({})
 end)
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
@@ -129,7 +132,7 @@ now(function() -- terminal
 			vim.lsp.buf.format(); vim.cmd.write()
 		end,
 		[3] = function() -- menu: web search, web bookmarks, browse notes
-			vim.floater('$(gum choose "ddgr" "oil" "tldr")'):toggle()
+			vim.floater('sh -c $(gum choose "ddgr" "oil" "glow ~/docs" "tldr")'):toggle()
 		end,
 		[4] = function() -- snippet browser
 			vim.floater("nap"):toggle()
@@ -166,8 +169,8 @@ now(function() -- highlight patterns
 end)
 -- % LATER %
 for _, plug in ipairs({
-	"ai", "animate", "bracketed", "comment", "diff", "doc", "extra", "fuzzy", "jump",
-	"misc", "operators", "pairs", "pick", "splitjoin", "surround", "trailspace",
+	"animate", "comment", "diff", "extra", "fuzzy", "jump",
+	"misc", "pairs", "pick", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
