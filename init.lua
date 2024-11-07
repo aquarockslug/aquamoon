@@ -120,10 +120,9 @@ now(function() -- terminal
 	vim.floater = function(cmd)
 		return Terminal:new({ cmd = cmd, direction = "float" })
 	end
-	vim.markdown = function()
-		vim.floater("glow --pager " .. vim.fn.expand("%:p")):toggle()
-	end
+	vim.keymap.set('n', '<leader>t', function() Terminal:new({ cmd = '"glow --pager " .. vim.fn.expand("%:p")', direction = "float" }):toggle() end)
 	vim.keymap.set('n', '<leader>t', function() vim.floater("zsh"):toggle() end)
+	-- vim.keymap.set('n', '<leader>p', function() vim.floater('sh -c "glow --pager " .. vim.fn.expand("%:p")'):toggle() end)
 
 	for cmd, func in pairs({
 		[1] = function() -- git
@@ -143,7 +142,7 @@ now(function() -- terminal
 	end
 end)
 
- -- % lsp and completion %
+-- % lsp and completion %
 later(function()
 	add({
 		source = 'Saghen/blink.cmp',
