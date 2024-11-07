@@ -2,10 +2,11 @@
 
 ### SHELL: ZSH
  - Navigate files with *lf*.
+   - Pressing "e" opens nvim in a pane to the right
  - Manage git repositories with *lazygit*.
  - Write notes and save snippets with *nap*.
  - Write shell scripts with *gum*.
-
+ 
 ### TERMINAL: ZELLIJ
  - Minimal appearence using the *zjstatus* plugin.
 
