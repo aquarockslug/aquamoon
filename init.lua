@@ -1,6 +1,6 @@
 -- Aqua's nvim
 
--- vim settings
+-- %% Settings %%
 local vim = vim               -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
@@ -64,7 +64,6 @@ if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 	}
 end
 
--- PLUGINS
 -- % setup mini.deps %
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
@@ -88,7 +87,7 @@ local function build_blink(params)
 	end
 end
 
--- % NOW %
+-- %% NOW %%
 now(function() require('mini.icons').setup() end)
 now(function()
 	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
@@ -113,6 +112,8 @@ end)
 now(function()
 	add({ source = 'folke/snacks.nvim' }); require('snacks').setup({})
 end)
+
+-- % toggle terminal %
 now(function() -- terminal
 	add({ source = 'akinsho/toggleterm.nvim' })
 	local Terminal = require("toggleterm.terminal").Terminal
@@ -132,7 +133,7 @@ now(function() -- terminal
 			vim.lsp.buf.format(); vim.cmd.write()
 		end,
 		[3] = function() -- menu: web search, web bookmarks, browse notes
-			vim.floater('sh -c $(gum choose "ddgr" "oil" "glow ~/docs" "tldr")'):toggle()
+			vim.floater('sh -c $(gum choose "ddgr" "oil" "glow" "tldr" "lf" )'):toggle()
 		end,
 		[4] = function() -- snippet browser
 			vim.floater("nap"):toggle()
@@ -141,7 +142,9 @@ now(function() -- terminal
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
 end)
-later(function() -- lsp and completion
+
+ -- % lsp and completion %
+later(function()
 	add({
 		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
@@ -167,7 +170,8 @@ now(function() -- highlight patterns
 		}
 	})
 end)
--- % LATER %
+
+-- %% LATER %%
 for _, plug in ipairs({
 	"animate", "comment", "diff", "extra", "fuzzy", "jump",
 	"misc", "pairs", "pick", "surround", "trailspace",
