@@ -16,7 +16,7 @@ export BROWSER='firefox'
 export DISABLE_AUTO_TITLE='true'
 export NAP_DEFAULT_LANGUAGE='md'
 export ZELLIJ_CONFIG_DIR=/etc/zellij; export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
-export PAGER='gum --pager'
+export PAGER='bat'
 export PNPM_HOME="/home/aqua/.local/share/pnpm"
 export PATH="$PATH:/home/aqua/.local/share/nvim/mason/bin" # mason for nvim language servers
 export PATH="$PATH:/home/aqua/.local/share/pnpm"
