@@ -1,13 +1,13 @@
 # zsh functions
 
-# SYSTEM
+# % SYSTEM %
 hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 } # give execution privileges to file
 take() { mkdir $1 && cd $1 }
 lfcd () { cd "$(lf -print-last-dir "$@")" }
 activate() { source ./bin/activate } # activate python env
 
-# APPS
+# % APPS %
 n() { nap $(nap list | peco) | glow } # quick open notes
 nap_import() { cd $1; for f in  */*; do nap $f < $f; done; cd ~ } # import from given nap source directory
 nap_export() { cd ~/.local/share/nap; for f in *; do rsync --mkpath -uv $f $1$(echo $f | tr '-' '/' ); done; cd ~ }
@@ -19,11 +19,11 @@ cht() {
   $(gum input --placeholder "query...") | gum pager
 }
 
-# DOWNLOAD
-dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi } # download given file
+# % DOWNLOAD %
+dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi }
 dls() { wget -q -O - $2 | nap $1 }
 
-# EDITING
+# % EDITING %
 clip_video() {
 	CLIP=$1; NAME=${CLIP%.*}; OUTPUT=$NAME.clip.mp4
 	echo Start:; START=$(gum input --placeholder "00:00")

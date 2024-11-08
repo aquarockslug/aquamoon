@@ -13,7 +13,6 @@
  - I use many of the *mini.nvim* packages.
  - Language servers are downloaded and managed by *mason*.
  - Completions are done with *blink.cmp*
- - I use terminal user interfaces with *toggleterm*.
 
 ### COLOR THEME: DRACULA
  - I use the *dracula* color scheme whenever possible.

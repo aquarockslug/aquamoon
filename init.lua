@@ -1,7 +1,8 @@
--- Aqua's nvim
+-- %%% Aqua's nvim %%%
 
 -- %% Settings %%
 local vim = vim               -- avoid undefined warnings
+local Snacks = Snacks         -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.autochdir = true
@@ -22,18 +23,22 @@ end
 -- % leader shortcuts %
 local setup_keymap = function()
 	for cmd, func in pairs({
-		d = require("divider").toggle_outline, -- navigate dividers
-		g = require("mini.pick").builtin.grep_live, -- find words
-		f = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
-		h = vim.cmd.noh,              -- clear highlighting
-		j = ":move+<CR>==",           -- shift line up
-		k = ":move-2<CR>==",          -- shift line down
-		o = require("mini.extra").pickers.oldfiles,
-		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
-		s = require("mini.extra").pickers.spellsuggest,
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+		h = vim.cmd.noh, -- clear highlighting
+		i = function() Snacks.gitbrowse() end,
+		b = function() Snacks.git.blame_line() end,
+		j = function() vim.cmd(":move+<CR>==") end, -- shift line up
+		k = function() vim.cmd(":move-2<CR>==") end, -- shift line down
+		f = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
+		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
+		g = require("mini.pick").builtin.grep_live,
+		o = require("mini.extra").pickers.oldfiles,
+		s = require("mini.extra").pickers.spellsuggest,
 		y = require("mini.extra").pickers.registers,
+		d = function()
+			require("divider").toggle_outline(); vim.cmd(":wincmd h")
+		end,
 	}) do
 		vim.keymap.set("n", "<leader>" .. cmd, func)
 	end
@@ -89,58 +94,39 @@ end
 
 -- %% NOW %%
 now(function() require('mini.icons').setup() end)
-now(function()
-	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
-end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.starter').setup() end)
 now(function()
-	require('mini.notify').setup()
-	vim.notify = require('mini.notify').make_notify()
-end)
-now(function() -- theme
-	add({ source = 'Mofiqul/dracula.nvim', as = 'dracula' })
-	require("dracula").setup({ italic_comment = true, transparent_bg = true })
-	vim.cmd([[colorscheme dracula]])
+	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
 end)
 now(function()
 	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
 end)
-now(function()
-	add({ source = 'tadmccorkle/markdown.nvim' }); require('markdown').setup({})
-end)
-now(function()
-	add({ source = 'folke/snacks.nvim' }); require('snacks').setup({})
-end)
 
--- % toggle terminal %
-now(function() -- terminal
-	add({ source = 'akinsho/toggleterm.nvim' })
-	local Terminal = require("toggleterm.terminal").Terminal
-	vim.floater = function(cmd)
-		return Terminal:new({ cmd = cmd, direction = "float" })
-	end
-	vim.keymap.set('n', '<leader>t', function() Terminal:new({ cmd = '"glow --pager " .. vim.fn.expand("%:p")', direction = "float" }):toggle() end)
-	vim.keymap.set('n', '<leader>t', function() vim.floater("zsh"):toggle() end)
-	-- vim.keymap.set('n', '<leader>p', function() vim.floater('sh -c "glow --pager " .. vim.fn.expand("%:p")'):toggle() end)
-
+-- % snacks %
+now(function()
+	add({ source = 'folke/snacks.nvim' });
+	require('snacks').setup({ statuscolumn = { enabled = false }, })
+	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
+	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
+	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
 	for cmd, func in pairs({
-		[1] = function() -- git
-			vim.floater("lazygit"):toggle()
-		end,
-		[2] = function() -- format and save
-			vim.lsp.buf.format(); vim.cmd.write()
-		end,
-		[3] = function() -- menu: web search, web bookmarks, browse notes
-			vim.floater('sh -c $(gum choose "ddgr" "oil" "glow" "tldr" "lf" )'):toggle()
-		end,
-		[4] = function() -- snippet browser
-			vim.floater("nap"):toggle()
-		end,
+		[1] = function() Snacks.lazygit() end,
+		[2] = function() vim.lsp.buf.format() end,
+		[3] = function() Snacks.terminal.open("oil") end,
+		[4] = function() Snacks.terminal.open("nap") end,
 	}) do
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
 end)
+
+-- % dracula %
+now(function()
+	add({ source = 'Mofiqul/dracula.nvim', as = 'dracula' })
+	require("dracula").setup({ italic_comment = true, transparent_bg = true })
+	vim.cmd([[colorscheme dracula]])
+end)
+
 
 -- % lsp and completion %
 later(function()
@@ -172,13 +158,18 @@ end)
 
 -- %% LATER %%
 for _, plug in ipairs({
-	"animate", "comment", "diff", "extra", "fuzzy", "jump",
+	"animate", "comment", "diff", "extra", "fuzzy", "jump", "visits",
 	"misc", "pairs", "pick", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
-later(function()                                                    -- movement
+later(function()
+	add({ source = 'tadmccorkle/markdown.nvim' }); require('markdown').setup({})
+end)
+
+-- % movement %
+later(function()
 	add({ source = 'swaits/zellij-nav.nvim' })
 	require('zellij-nav').setup()
 
@@ -192,7 +183,8 @@ later(function()                                                    -- movement
 	vim.keymap.set("n", "<C-left>", vim.cmd.tabprevious)
 	vim.keymap.set("n", "<C-right>", vim.cmd.tabnext)
 end)
-later(function() -- treesitter
+-- % treesitter %
+later(function()
 	add({
 		source = 'nvim-treesitter/nvim-treesitter',
 		checkout = 'master',
