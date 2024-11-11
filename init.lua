@@ -2,7 +2,6 @@
 
 -- %% Settings %%
 local vim = vim               -- avoid undefined warnings
-local Snacks = Snacks         -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.autochdir = true
@@ -109,10 +108,10 @@ now(function()
 	require('snacks').setup({ statuscolumn = { enabled = false }, })
 	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
 	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
-	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
+	vim.keymap.set("n", "<leader>/", Snacks.terminal)
 	for cmd, func in pairs({
-		[1] = function() Snacks.lazygit() end,
-		[2] = function() vim.lsp.buf.format() end,
+		[1] = Snacks.lazygit.open,
+		[2] = vim.lsp.buf.format,
 		[3] = function() Snacks.terminal.open("oil") end,
 		[4] = function() Snacks.terminal.open("nap") end,
 	}) do
