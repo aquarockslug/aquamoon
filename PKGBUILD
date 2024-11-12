@@ -20,14 +20,13 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
 	"https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
 	# source files
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_functions.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_profile.plugin.zsh"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_theme.zsh"
+	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_dracula_theme.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/init.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.kdl"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow

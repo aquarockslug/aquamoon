@@ -8,21 +8,22 @@ then WSL=true; else WSL=false; fi
 
 # SETTINGS
 zstyle ':omz:update' mode auto
-export EDITOR='nvim';
-export BROWSER='firefox'
 [ $WSL = true ] && export BROWSER='wsl-open'
 [ $WSL = true ] && export OPENER='wsl-open'
-
+export BROWSER='firefox'
 export DISABLE_AUTO_TITLE='true'
-export NAP_DEFAULT_LANGUAGE='md'
-export ZELLIJ_CONFIG_DIR=/etc/zellij; export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
-export PAGER='bat'
-export PNPM_HOME="/home/aqua/.local/share/pnpm"
-export PATH="$PATH:/home/aqua/.local/share/nvim/mason/bin" # mason for nvim language servers
-export PATH="$PATH:/home/aqua/.local/share/pnpm"
-export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
-export LFS="/mnt/lfs"
+export EDITOR='nvim';
 # export GDK_DPI_SCALE=1.5
+export HISTFILE=""
+export LFS="/mnt/lfs"
+export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
+export NAP_DEFAULT_LANGUAGE='md'
+export PAGER='bat'
+export PATH="$PATH:~/.local/share/nvim/mason/bin" # mason for nvim language servers
+export PATH="$PATH:~/.local/share/pnpm"
+export PNPM_HOME="~/.local/share/pnpm"
+export ZELLIJ_CONFIG_DIR=/etc/zellij;
+export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
 bindkey ' ' magic-space
 
 # SYSTEM
@@ -44,41 +45,45 @@ alias cat="bat"
 alias top="htop"
 
 # MOVEMENT
-alias h='cd ~'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 alias cls='clear && ls'
 
 # APPLICATIONS
-alias b="buku --suggest"
-alias rs="rsync -Phav"
-alias rsync="rsync -Phav"
-alias glow="glow --config /usr/share/glow/config.yml"
-alias g="glow"
+alias buku="buku --suggest"
+alias chat="gomuks"
 alias ddgr="ddgr --rev"
+alias glow="glow --config /usr/share/glow/config.yml"
 alias ld="lazydocker"
 alias lg="lazygit"
 alias mail="aerc"
-alias chat="gomuks"
-alias torrent="rtorrent"
-alias p="python"
 alias py="python"
-
-alias e='"$EDITOR"'
+alias rsync="rsync -Phav"
+alias torrent="rtorrent"
 alias v="nvim"
-alias vnim="nvim"
-
 alias zj="zellij"
-alias zje="zellij action edit"
 alias zjv="zellij action edit"
-alias zjl="zellij run -- lf"
-alias zjlf="zjl"
+alias zjlf="zellij run -- lf"
 
-bindkey -s '^f' 'lfcd \n'
-bindkey -s '^d' 'zellij run -- lfcd \n'
+bindkey -s '^f' 'lfcd'
+bindkey -s '^d' 'zellij run -- lfcd'
 bindkey -s '^j' 'clear && ls'
 
-# source the other aqua plugin files
-source "${0:A:h}"/aqua_functions.zsh
 source "${0:A:h}"/aqua_theme.zsh
+
+# %% zsh functions %%
+hist() { peco < $HISTFILE } # search history
+chmodx() { sudo chmod u+x $1 } # allow a file to be executed
+take() { mkdir $1 && cd $1 }
+lfcd () { cd "$(lf -print-last-dir "$@")" }
+
+n() { nap $(nap list | peco) | glow } # quick open note
+nap_import() { cd $1; for f in  */*; do nap $f < $f; done; cd ~ } # import from given nap source directory
+nap_export() { cd ~/.local/share/nap; for f in *; do rsync --mkpath -uv $f $1$(echo $f | tr '-' '/' ); done; cd ~ }
+
+docs() { $(gum choose "cht" "cheat" "tldr" "cd ~/home/share/docs" "firefox overapi.com/" "firefox quickref.me") }
+cht() { cht.sh $(gum input --placeholder "query...") | gum pager }
+
+dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi }
+dls() { wget -q -O - $2 | nap $1 }
