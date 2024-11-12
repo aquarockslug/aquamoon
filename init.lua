@@ -105,10 +105,11 @@ end)
 -- % snacks %
 now(function()
 	add({ source = 'folke/snacks.nvim' });
+	local Snacks = Snacks -- avoid undefined warnings
 	require('snacks').setup({ statuscolumn = { enabled = false }, })
 	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
 	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
-	vim.keymap.set("n", "<leader>/", Snacks.terminal)
+	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
 	for cmd, func in pairs({
 		[1] = Snacks.lazygit.open,
 		[2] = vim.lsp.buf.format,

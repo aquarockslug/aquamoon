@@ -68,7 +68,7 @@ alias zjlf="zellij run -- lf"
 
 bindkey -s '^f' 'lfcd'
 bindkey -s '^d' 'zellij run -- lfcd'
-bindkey -s '^j' 'clear && ls'
+bindkey -s '^s' 'clear && ls'
 
 source "${0:A:h}"/aqua_theme.zsh
 
