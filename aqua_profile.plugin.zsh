@@ -70,7 +70,7 @@ bindkey -s '^f' 'lfcd'
 bindkey -s '^d' 'zellij run -- lfcd'
 bindkey -s '^s' 'clear && ls'
 
-source "${0:A:h}"/aqua_theme.zsh
+source "${0:A:h}"/aqua_dracula_theme.zsh
 
 # %% zsh functions %%
 hist() { peco < $HISTFILE } # search history

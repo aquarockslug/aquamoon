@@ -23,7 +23,7 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_profile.plugin.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_dracula_theme.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/init.lua"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/config.kdl"
+	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/zellij.kdl"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
@@ -31,12 +31,15 @@ package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow
 	cp "${srcdir}"/dracula.json "${pkgdir}"/usr/share/glow/
-	{
-		echo "style: '/usr/share/glow/dracula.json'"
-		echo "mouse: false"
-		echo "pager: false"
-		echo "width: 120"
-	} >"${pkgdir}"/usr/share/glow/glow.yml
+	echo
+	(
+		cat <<EOM
+style: '/usr/share/glow/dracula.json'
+mouse: false
+pager: false
+width: 120
+EOM
+	) >>"${pkgdir}"/usr/share/glow/glow.yml
 
 	# % lf %
 	mkdir -pv "${pkgdir}"/etc/lf
@@ -61,31 +64,29 @@ EOM
 
 	# % zellij %
 	mkdir -pv "${pkgdir}"/etc/zellij/
-	cp "${srcdir}"/config.kdl "${pkgdir}"/etc/zellij/
+	cp "${srcdir}"/zellij.kdl "${pkgdir}"/etc/zellij/config.kdl
 	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
-
-	# set zellij flag color by picking a random color from dracula.json
-	# COLORS=COLORS "$(jq .document.color <./dracula.json)"
-	# COLORS=COLORS "$(jq .block.color <./dracula.json)"
-	# COLORS=COLORS "$(jq .paragraph.color <./dracula.json)"
-	# use sed
-
-	# create .zshrc
-	{
-		echo "source /usr/share/zsh/themes/lib/async.zsh"
-		echo "source /usr/share/zsh/themes/dracula.zsh-theme"
-		echo "source /usr/share/zsh/aqua_profile.plugin.zsh"
-		echo "source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-		echo "source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh"
-		echo "autoload -Uz compinit && compinit"
-		echo "if [[ -z \"\$ZELLIJ\" ]]; then"
-		echo "if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];"
-		echo "then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;"
-		echo "if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi"
-		echo "clear && ls"
-	} >"${pkgdir}"/etc/zshrc
 
 	# % neovim %
 	mkdir -pv "${pkgdir}"/etc/xdg/nvim/plugin
 	cp "${srcdir}"/init.lua "${pkgdir}"/etc/xdg/nvim/plugin
+
+	# % create .zshrc %
+	echo
+	(
+		cat <<EOM
+source /usr/share/zsh/themes/lib/async.zsh
+source /usr/share/zsh/themes/dracula.zsh-theme
+source /usr/share/zsh/aqua_profile.plugin.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+autoload -Uz compinit && compinit
+if [[ -z \"\$ZELLIJ\" ]]; then
+if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];
+then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;
+if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi
+clear && ls
+EOM
+	) >>"${pkgdir}"/etc/zshrc
+
 }
