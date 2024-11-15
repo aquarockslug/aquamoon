@@ -1,21 +1,19 @@
-#!/bin/bash
-
 # Maintainer: Aquarock <aqua.rock.slug@gmail.com>
 # My personal arch linux setup
 
 pkgname=aqua_arch
-pkgver=0.1
-pkgrel=1
-pkgdesc="My personal zsh and nvim configuration"
+pkgver=0
+pkgrel=0
+pkgdesc="My personal zshell, zellij and neovim configuration"
 arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
 depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop'
 	'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools' 'openssh'
-	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr')
+	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr' 'tldr' 'fzf')
 makedepends=()
-optdepends=('docker' 'lazydocker' 'aerc' 'nodejs' 'pnpm' 'python' 'github-cli' 'buku-git' 'tldr' 'nap-bin' 'geeqie')
+optdepends=('aerc' 'buku-git' 'nap-bin' 'docker' 'lazydocker')
 source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
 	"https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
@@ -24,17 +22,15 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_dracula_theme.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/neovim.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/zellij.kdl"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/dracula.json"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow
-	cp "${srcdir}"/dracula.json "${pkgdir}"/usr/share/glow/
 	echo
 	(
 		cat <<EOM
-style: '/usr/share/glow/dracula.json'
+style: dracula
 mouse: false
 pager: false
 width: 120
@@ -47,12 +43,15 @@ EOM
 	(
 		cat <<EOM
 cmd toggle-preview %{{
-    if [ \$lf_width -le 80 || \$lf_preview ]; then
+    if [ \$lf_preview ]; then
         lf -remote "send \$id :set preview false; set ratios 1"
     else lf -remote "send \$id :set preview true; set ratios 1:2:3"; fi
 }}
-map zp toggle-preview
+map <enter> shell
+map \` !true # show the result of previous commands
+map d delete
 map e \$zellij run -c -d right -- nvim \$f
+map zp toggle-preview
 EOM
 	) >>"${pkgdir}"/etc/lf/lfrc
 
@@ -81,10 +80,10 @@ source /usr/share/zsh/aqua_profile.plugin.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 autoload -Uz compinit && compinit
-if [[ -z \"\$ZELLIJ\" ]]; then
-if [[ '\$ZELLIJ_AUTO_ATTACH' == 'true' ]];
+if [[ -z \$ZELLIJ ]]; then
+if [[ \$ZELLIJ_AUTO_ATTACH == "true" ]];
 then zellij attach -c; else zellij -l /etc/zellij/config.kdl; fi;
-if [[ '\$ZELLIJ_AUTO_EXIT' == 'true' ]]; then exit; fi; fi
+if [[ \$ZELLIJ_AUTO_EXIT == "true" ]]; then exit; fi; fi
 clear && ls
 EOM
 	) >>"${pkgdir}"/etc/zshrc
