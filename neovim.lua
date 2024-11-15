@@ -106,7 +106,12 @@ end)
 now(function()
 	add({ source = 'folke/snacks.nvim' });
 	local Snacks = Snacks -- avoid undefined warnings
-	require('snacks').setup({ statuscolumn = { enabled = false }, })
+	require('snacks').setup({
+		bigfile = { enabled = true },
+		notifier = { enabled = true },
+		quickfile = { enabled = true },
+		words = { enabled = true },
+	})
 	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
 	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
 	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
