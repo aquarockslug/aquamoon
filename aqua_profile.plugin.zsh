@@ -10,11 +10,13 @@ then WSL=true; else WSL=false; fi
 zstyle ':omz:update' mode auto
 [ $WSL = true ] && export BROWSER='wsl-open'
 [ $WSL = true ] && export OPENER='wsl-open'
-export BROWSER='firefox'
+export BROWSER='waterfox'
 export DISABLE_AUTO_TITLE='true'
 export EDITOR='nvim';
-# export GDK_DPI_SCALE=1.5
-export HISTFILE=""
+export HISTFILE="/home/aqua/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
+setopt SHARE_HISTORY
 export LFS="/mnt/lfs"
 export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
 export NAP_DEFAULT_LANGUAGE='md'
@@ -66,9 +68,8 @@ alias zj="zellij"
 alias zjv="zellij action edit"
 alias zjlf="zellij run -- lf"
 
-bindkey -s '^f' 'lfcd'
-bindkey -s '^d' 'zellij run -- lfcd'
-bindkey -s '^s' 'clear && ls'
+bindkey -s '^f' 'zellij run -- lfcd\n'
+bindkey -s '^d' 'clear && ls\n'
 
 source "${0:A:h}"/aqua_dracula_theme.zsh
 
@@ -76,7 +77,7 @@ source "${0:A:h}"/aqua_dracula_theme.zsh
 hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 } # allow a file to be executed
 take() { mkdir $1 && cd $1 }
-lfcd () { cd "$(lf -print-last-dir "$@")" }
+lfcd () { cd "$(command lf -print-last-dir "$@")" }
 
 n() { nap $(nap list | peco) | glow } # quick open note
 nap_import() { cd $1; for f in  */*; do nap $f < $f; done; cd ~ } # import from given nap source directory
