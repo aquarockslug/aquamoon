@@ -87,4 +87,4 @@ docs() { $(gum choose "cht" "cheat" "tldr" "cd ~/home/share/docs" "firefox overa
 cht() { cht.sh $(gum input --placeholder "query...") | gum pager }
 
 dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi }
-dls() { wget -q -O - $2 | nap $1 }
+dls() { wget -q -O - $1 | nap }
