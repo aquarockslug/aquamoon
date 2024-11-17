@@ -31,7 +31,7 @@ package() {
 	(
 		cat <<EOM
 style: dracula
-mouse: false
+mouse: true
 pager: false
 width: 120
 EOM

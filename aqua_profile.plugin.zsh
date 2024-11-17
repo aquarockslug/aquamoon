@@ -56,7 +56,6 @@ alias cls='clear && ls'
 alias buku="buku --suggest"
 alias chat="gomuks"
 alias ddgr="ddgr --rev"
-alias glow="glow --config /usr/share/glow/config.yml"
 alias ld="lazydocker"
 alias lg="lazygit"
 alias mail="aerc"
@@ -75,11 +74,11 @@ source "${0:A:h}"/aqua_dracula_theme.zsh
 
 # %% zsh functions %%
 hist() { peco < $HISTFILE } # search history
-chmodx() { sudo chmod u+x $1 } # allow a file to be executed
+chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
 lfcd () { cd "$(command lf -print-last-dir "$@")" }
 
-n() { nap $(nap list | peco) | glow } # quick open note
+n() { nap $(nap list | peco)} # quick open note
 nap_import() { cd $1; for f in  */*; do nap $f < $f; done; cd ~ } # import from given nap source directory
 nap_export() { cd ~/.local/share/nap; for f in *; do rsync --mkpath -uv $f $1$(echo $f | tr '-' '/' ); done; cd ~ }
 

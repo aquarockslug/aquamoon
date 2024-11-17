@@ -4,6 +4,8 @@
 local vim = vim               -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -21,26 +23,52 @@ end
 
 -- % leader shortcuts %
 local setup_keymap = function()
+	local Snacks = Snacks
+
+	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
+	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
+	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
+
+	-- leader keymaps
 	for cmd, func in pairs({
-		v = vim.cmd.Vexplore, -- open netrw in vertical pane
-		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-		h = vim.cmd.noh, -- clear highlighting
-		i = function() Snacks.gitbrowse() end,
-		b = function() Snacks.git.blame_line() end,
-		j = function() vim.cmd(":move+<CR>==") end, -- shift line up
-		k = function() vim.cmd(":move-2<CR>==") end, -- shift line down
-		f = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
-		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
-		g = require("mini.pick").builtin.grep_live,
-		o = require("mini.extra").pickers.oldfiles,
-		s = require("mini.extra").pickers.spellsuggest,
-		y = require("mini.extra").pickers.registers,
-		d = function()
+		a = function()
 			require("divider").toggle_outline(); vim.cmd(":wincmd h")
 		end,
-	}) do
-		vim.keymap.set("n", "<leader>" .. cmd, func)
-	end
+		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+		d = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
+		f = require("mini.pick").builtin.grep_live,
+		gb = function() Snacks.git.blame_line() end,
+		gf = function() Snacks.lazygit.log_file() end,
+		gg = function() Snacks.lazygit() end,
+		gi = function() Snacks.gitbrowse() end,
+		gl = function() Snacks.lazygit.log() end,
+		h = vim.cmd.noh,               -- clear highlighting
+		j = function() vim.cmd(":move+<CR>==") end, -- shift line up
+		k = function() vim.cmd(":move-2<CR>==") end, -- shift line down
+		m = vim.cmd.Glow,
+		o = require("mini.extra").pickers.oldfiles,
+		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
+		s = require("mini.extra").pickers.spellsuggest,
+		v = vim.cmd.Vexplore, -- open netrw in vertical pane
+		y = require("mini.extra").pickers.registers,
+	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
+
+	for cmd, func in pairs({
+		[1] = function() Snacks.lazygit() end,
+		[2] = vim.lsp.buf.format,
+		[3] = function() Snacks.terminal.open('sh -c $(gum choose ddgr oil docs)') end,
+		[4] = function() Snacks.terminal.open("nap") end,
+	}) do vim.keymap.set("n", "<F" .. cmd .. ">", func) end
+
+	-- Snacks option toggle keybinds
+	Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
+	Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
+	Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
+	Snacks.toggle.line_number():map("<leader>tl")
+	Snacks.toggle.diagnostics():map("<leader>td")
+	Snacks.toggle.option("conceallevel",
+		{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
+	Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>tb")
 end
 
 local setup_highlighters = function()
@@ -112,17 +140,6 @@ now(function()
 		quickfile = { enabled = true },
 		words = { enabled = true },
 	})
-	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
-	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
-	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
-	for cmd, func in pairs({
-		[1] = Snacks.lazygit.open,
-		[2] = vim.lsp.buf.format,
-		[3] = function() Snacks.terminal.open("oil") end,
-		[4] = function() Snacks.terminal.open("nap") end,
-	}) do
-		vim.keymap.set("n", "<F" .. cmd .. ">", func)
-	end
 end)
 
 -- % dracula %
@@ -145,7 +162,7 @@ later(function()
 	})
 	require("mason").setup()
 	require("mason-lspconfig").setup {}
-	require("blink.cmp").setup {}
+	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	for _, lang_server in ipairs({
 		"lua_ls", "basedpyright", "bashls", "biome", "csharp_ls"
 	}) do require("lspconfig")[lang_server].setup {} end
@@ -169,6 +186,9 @@ for _, plug in ipairs({
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
+later(function()
+	add({ source = 'ellisonleao/glow.nvim' }); require('glow').setup()
+end)
 later(function()
 	add({ source = 'tadmccorkle/markdown.nvim' }); require('markdown').setup({})
 end)
