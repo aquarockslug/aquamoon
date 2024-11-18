@@ -9,10 +9,10 @@ vim.opt.relativenumber = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3         -- set the styling of the file list to be a tree
+vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
-vim.keymap.set("n", "U", "<C-r>") -- undo
 
 local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
@@ -25,6 +25,7 @@ end
 local setup_keymap = function()
 	local Snacks = Snacks
 
+	vim.keymap.set("n", "U", "<C-r>") -- undo
 	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
 	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
 	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
