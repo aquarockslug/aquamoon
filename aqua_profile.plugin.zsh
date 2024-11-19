@@ -69,6 +69,7 @@ alias zjv="zellij action edit"
 
 bindkey -s '^f' 'zellij run -- lf\n'
 bindkey -s '^d' 'clear && ls\n'
+bindkey -s '^w' 'exit\n'
 
 source "${0:A:h}"/aqua_dracula_theme.zsh
 
