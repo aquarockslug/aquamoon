@@ -8,9 +8,9 @@ then WSL=true; else WSL=false; fi
 
 # SETTINGS
 zstyle ':omz:update' mode auto
+export BROWSER='waterfox'
 [ $WSL = true ] && export BROWSER='wsl-open'
 [ $WSL = true ] && export OPENER='wsl-open'
-export BROWSER='waterfox'
 export DISABLE_AUTO_TITLE='true'
 export EDITOR='nvim';
 export HISTFILE="/home/aqua/.zsh_history"
@@ -31,7 +31,7 @@ bindkey ' ' magic-space
 # SYSTEM
 alias q="exit"
 alias s="sudo"
-[ $WSL = true ] && alias open='"$OPENER"'
+[ $WSL = true ] && alias open='wsl-open'
 
 # CLIPBOARD
 alias yank="xclip -selection clipboard" && alias put="xclip -o -selection clipboard"
@@ -64,10 +64,10 @@ alias rsync="rsync -Phav"
 alias torrent="rtorrent"
 alias v="nvim"
 alias zj="zellij"
+alias zjr="zellij run --"
 alias zjv="zellij action edit"
-alias zjlf="zellij run -- lf"
 
-bindkey -s '^f' 'zellij run -- lfcd\n'
+bindkey -s '^f' 'zellij run -- lf\n'
 bindkey -s '^d' 'clear && ls\n'
 
 source "${0:A:h}"/aqua_dracula_theme.zsh
