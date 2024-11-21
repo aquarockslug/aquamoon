@@ -38,20 +38,15 @@ local setup_keymap = function()
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 		d = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
 		f = require("mini.pick").builtin.grep_live,
-		gb = function() Snacks.git.blame_line() end,
-		gf = function() Snacks.lazygit.log_file() end,
-		gg = function() Snacks.lazygit() end,
-		gi = function() Snacks.gitbrowse() end,
-		gl = function() Snacks.lazygit.log() end,
+		g = function() Snacks.gitbrowse() end,
 		h = vim.cmd.noh,               -- clear highlighting
 		j = function() vim.cmd(":move+<CR>==") end, -- shift line up
 		k = function() vim.cmd(":move-2<CR>==") end, -- shift line down
-		m = vim.cmd.Glow,
 		o = require("mini.extra").pickers.oldfiles,
 		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
 		s = require("mini.extra").pickers.spellsuggest,
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
-		y = require("mini.extra").pickers.registers,
+		p = require("mini.extra").pickers.registers,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	for cmd, func in pairs({
@@ -130,6 +125,11 @@ end)
 now(function()
 	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
 end)
+now(function()
+	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
+	require('render-markdown').setup({});
+	require('render-markdown').enable()
+end)
 
 -- % snacks %
 now(function()
@@ -149,7 +149,6 @@ now(function()
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd([[colorscheme dracula]])
 end)
-
 
 -- % lsp and completion %
 later(function()
@@ -187,12 +186,6 @@ for _, plug in ipairs({
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
-later(function()
-	add({ source = 'ellisonleao/glow.nvim' }); require('glow').setup()
-end)
-later(function()
-	add({ source = 'tadmccorkle/markdown.nvim' }); require('markdown').setup({})
-end)
 
 -- % movement %
 later(function()
