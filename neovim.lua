@@ -25,28 +25,29 @@ end
 local setup_keymap = function()
 	local Snacks = Snacks
 
-	vim.keymap.set("n", "U", "<C-r>") -- undo
-	vim.keymap.set("n", "(", function() Snacks.words.jump(-vim.v.count1) end)
-	vim.keymap.set("n", ")", function() Snacks.words.jump(vim.v.count1) end)
-	vim.keymap.set("n", "<leader>/", function() Snacks.terminal() end)
+	vim.keymap.set("n", "u", "<c-r>") -- undo
+	vim.keymap.set("n", "<c-u>", "10k")
+	vim.keymap.set("n", "<c-d>", "10j")
+	vim.keymap.set("n", "(", function() snacks.words.jump(-vim.v.count1) end)
+	vim.keymap.set("n", ")", function() snacks.words.jump(vim.v.count1) end)
+	vim.keymap.set("n", "<leader>/", function() snacks.terminal() end)
 
 	-- leader keymaps
 	for cmd, func in pairs({
 		a = function()
 			require("divider").toggle_outline(); vim.cmd(":wincmd h")
 		end,
+		w = require("mini.extra").pickers.spellsuggest,
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-		d = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
+		d = require("mini.extra").pickers.diagnostic,
 		f = require("mini.pick").builtin.grep_live,
 		g = function() Snacks.gitbrowse() end,
-		h = vim.cmd.noh,               -- clear highlighting
-		j = function() vim.cmd(":move+<CR>==") end, -- shift line up
-		k = function() vim.cmd(":move-2<CR>==") end, -- shift line down
+		h = vim.cmd.noh, -- clear highlighting
+		i = vim.lsp.buf.hover, -- documentation under cursor
 		o = require("mini.extra").pickers.oldfiles,
-		r = function() require("mini.extra").pickers.lsp({ scope = "references" }) end,
-		s = require("mini.extra").pickers.spellsuggest,
+		r = require("mini.extra").pickers.registers,
+		s = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
-		p = require("mini.extra").pickers.registers,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	for cmd, func in pairs({
