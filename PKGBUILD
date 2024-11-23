@@ -42,16 +42,16 @@ EOM
 	echo
 	(
 		cat <<EOM
-cmd toggle-preview %{{
+cmd preview-off %{{
     if [ \$lf_preview ]; then
-        lf -remote "send \$id :set preview false; set ratios 1"
-    else lf -remote "send \$id :set preview true; set ratios 1:2:3"; fi
+        lf -remote "send \$id :set preview false; set ratios 1";
+    fi
 }}
 map <enter> shell
 map \` !true # show the result of previous commands
 map d delete
 map e \$zellij run -c -d right -- nvim \$f
-map zp toggle-preview
+map zp preview-off
 EOM
 	) >>"${pkgdir}"/etc/lf/lfrc
 
