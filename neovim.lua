@@ -23,9 +23,9 @@ end
 
 -- % leader shortcuts %
 local setup_keymap = function()
-	local Snacks = Snacks
+	local snacks = Snacks
 
-	vim.keymap.set("n", "u", "<c-r>") -- undo
+	vim.keymap.set("n", "u", vim.cmd.undo)
 	vim.keymap.set("n", "<c-u>", "10k")
 	vim.keymap.set("n", "<c-d>", "10j")
 	vim.keymap.set("n", "(", function() snacks.words.jump(-vim.v.count1) end)
@@ -34,9 +34,6 @@ local setup_keymap = function()
 
 	-- leader keymaps
 	for cmd, func in pairs({
-		a = function()
-			require("divider").toggle_outline(); vim.cmd(":wincmd h")
-		end,
 		w = require("mini.extra").pickers.spellsuggest,
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 		d = require("mini.extra").pickers.diagnostic,
@@ -120,9 +117,9 @@ end
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.starter').setup() end)
-now(function()
-	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
-end)
+-- now(function()
+-- 	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
+-- end)
 now(function()
 	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
 end)
@@ -135,7 +132,6 @@ end)
 -- % snacks %
 now(function()
 	add({ source = 'folke/snacks.nvim' });
-	local Snacks = Snacks -- avoid undefined warnings
 	require('snacks').setup({
 		bigfile = { enabled = true },
 		notifier = { enabled = true },
