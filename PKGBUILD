@@ -56,6 +56,8 @@ map <enter> shell
 map \` !true # show the result of previous commands
 map d delete
 map e \$zellij run -c -d right -- nvim \$f
+map <right> \$zellij action resize increase right
+map <left> \$zellij action resize increase left
 EOM
 	) >>"${pkgdir}"/etc/lf/lfrc
 
