@@ -12,9 +12,7 @@ export DDGR_COLORS="fHgffH"
 # nap
 export PATH="$PATH:/usr/local/go/bin"
 export NAP_THEME="dracula"
-export NAP_PRIMARY_COLOR="#BD93F9"
-export NAP_RED="#FFB86C"
-export NAP_GREEN="#50FA7B"
+export NAP_GRAY="#F8F8F2"
 
 # zsh
 ZSH_THEME="dracula"
