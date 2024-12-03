@@ -37,7 +37,8 @@ local setup_keymap = function()
 		w = require("mini.extra").pickers.spellsuggest,
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
 		d = require("mini.extra").pickers.diagnostic,
-		f = require("mini.pick").builtin.grep_live,
+		a = require("mini.pick").builtin.grep_live,
+		f = function() require("flash").jump() end,
 		g = function() Snacks.gitbrowse() end,
 		h = vim.cmd.noh, -- clear highlighting
 		i = vim.lsp.buf.hover, -- documentation under cursor
@@ -161,8 +162,9 @@ later(function()
 	require("mason-lspconfig").setup {}
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	for _, lang_server in ipairs({
-		"lua_ls", "basedpyright", "bashls", "biome", "csharp_ls"
+		"lua_ls", "basedpyright", "ast_grep", "bashls", "biome", "csharp_ls"
 	}) do require("lspconfig")[lang_server].setup {} end
+	vim.cmd.LspStart()
 end)
 now(function() -- highlight patterns
 	local hipatterns = require('mini.hipatterns')
@@ -181,6 +183,7 @@ for _, plug in ipairs({
 	"misc", "pairs", "pick", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
+later(function() add({ source = 'folke/flash.nvim' }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
 
