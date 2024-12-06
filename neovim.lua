@@ -13,9 +13,15 @@ vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
+vim.flag = "󰈿"
 
 local setup_autocmds = function()
-	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		callback = function()
+			require("mini.trailspace").trim()
+			vim.notify(vim.flag .. ' wrote ' .. vim.fn.expand('%:t'), vim.log.levels.INFO)
+		end
+	})
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function() Snacks.toggle.option("cursorline"):set(true) end })
 	vim.api.nvim_create_autocmd("InsertLeave", {
@@ -31,8 +37,6 @@ local setup_keymap = function()
 	vim.keymap.set("n", "U", "<c-r>")
 	vim.keymap.set("n", "<c-u>", "10k")
 	vim.keymap.set("n", "<c-d>", "10j")
-	-- vim.keymap.set("n", "(", function() snacks.words.jump(-vim.v.count1) end)
-	-- vim.keymap.set("n", ")", function() snacks.words.jump(vim.v.count1) end)
 	vim.keymap.set("n", "<leader>/", function() snacks.terminal() end)
 
 	-- leader keymaps
@@ -54,11 +58,15 @@ local setup_keymap = function()
 	for cmd, func in pairs({
 		[1] = function() Snacks.lazygit() end,
 		[2] = function()
+			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 			vim.lsp.buf.format(); vim.cmd.write()
 		end,
 		[3] = function() Snacks.terminal.open('sh -c $(gum choose ddgr oil docs)') end,
 		[4] = function() Snacks.terminal.open("nap") end,
-	}) do vim.keymap.set("i", "<F" .. cmd .. ">", func) end
+	}) do
+		vim.keymap.set("n", "<F" .. cmd .. ">", func)
+		vim.keymap.set("i", "<F" .. cmd .. ">", func)
+	end
 
 	-- Snacks option toggle keybinds
 	Snacks.toggle.option("spell"):map("<leader>ts")
@@ -101,11 +109,10 @@ end
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
-	vim.cmd('echo "Installing `mini.nvim`" | redraw')
-	local clone_cmd = { 'git', 'clone', '--filter=blob:none', 'https://github.com/echasnovski/mini.nvim', mini_path }
-	vim.fn.system(clone_cmd)
+	vim.notify('Installing mini.nvim', vim.log.levels.INFO)
+	vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/echasnovski/mini.nvim', mini_path })
 	vim.cmd('packadd mini.nvim | helptags ALL')
-	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+	vim.notify('Installed mini.nvim', vim.log.levels.INFO)
 end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
@@ -124,9 +131,6 @@ end
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.starter').setup() end)
--- now(function()
--- 	add({ source = 'prichrd/netrw.nvim' }); require("netrw").setup({});
--- end)
 now(function()
 	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
 end)
@@ -143,7 +147,6 @@ now(function()
 		bigfile = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
-		-- words = { enabled = true },
 	})
 end)
 
@@ -207,6 +210,7 @@ later(function()
 	vim.keymap.set("n", "<C-left>", vim.cmd.tabprevious)
 	vim.keymap.set("n", "<C-right>", vim.cmd.tabnext)
 end)
+
 -- % treesitter %
 later(function()
 	add({

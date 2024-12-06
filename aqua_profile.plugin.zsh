@@ -66,7 +66,7 @@ alias v="nvim"
 alias zj="zellij"
 alias zjv="zellij action edit"
 
-bindkey -s '^w' 'exit\n'
+bindkey -s '^q' 'exit\n'
 
 source "${0:A:h}"/aqua_dracula_theme.zsh
 
