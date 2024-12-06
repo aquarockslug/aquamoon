@@ -162,7 +162,7 @@ later(function()
 	require("mason-lspconfig").setup {}
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	for _, lang_server in ipairs({
-		"lua_ls", "basedpyright", "ast_grep", "bashls", "biome", "csharp_ls"
+		"lua_ls", "basedpyright", "ruff", "bashls", "biome", "csharp_ls"
 	}) do require("lspconfig")[lang_server].setup {} end
 	vim.cmd.LspStart()
 end)
