@@ -16,28 +16,31 @@ vim.loader.enable()
 
 local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", { callback = require("mini.trailspace").trim })
-	vim.api.nvim_create_autocmd('TextYankPost', {
-		callback = function() vim.highlight.on_yank { higroup = 'DiffAdd', timeout = 250 } end,
-	})
+	vim.api.nvim_create_autocmd("InsertEnter", {
+		callback = function() Snacks.toggle.option("cursorline"):set(true) end })
+	vim.api.nvim_create_autocmd("InsertLeave", {
+		callback = function() Snacks.toggle.option("cursorline"):set(false) end })
+	vim.api.nvim_create_autocmd("TextYankPost", {
+		callback = function() vim.highlight.on_yank { higroup = "DiffAdd", timeout = 250 } end })
 end
 
 -- % leader shortcuts %
 local setup_keymap = function()
 	local snacks = Snacks
 
-	vim.keymap.set("n", "u", vim.cmd.undo)
+	vim.keymap.set("n", "U", "<c-r>")
 	vim.keymap.set("n", "<c-u>", "10k")
 	vim.keymap.set("n", "<c-d>", "10j")
-	vim.keymap.set("n", "(", function() snacks.words.jump(-vim.v.count1) end)
-	vim.keymap.set("n", ")", function() snacks.words.jump(vim.v.count1) end)
+	-- vim.keymap.set("n", "(", function() snacks.words.jump(-vim.v.count1) end)
+	-- vim.keymap.set("n", ")", function() snacks.words.jump(vim.v.count1) end)
 	vim.keymap.set("n", "<leader>/", function() snacks.terminal() end)
 
 	-- leader keymaps
 	for cmd, func in pairs({
-		w = require("mini.extra").pickers.spellsuggest,
+		S = require("mini.extra").pickers.spellsuggest,
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-		d = require("mini.extra").pickers.diagnostic,
 		a = require("mini.pick").builtin.grep_live,
+		d = require("mini.extra").pickers.diagnostic,
 		f = function() require("flash").jump() end,
 		g = function() Snacks.gitbrowse() end,
 		h = vim.cmd.noh, -- clear highlighting
@@ -50,15 +53,18 @@ local setup_keymap = function()
 
 	for cmd, func in pairs({
 		[1] = function() Snacks.lazygit() end,
-		[2] = vim.lsp.buf.format,
+		[2] = function()
+			vim.lsp.buf.format(); vim.cmd.write()
+		end,
 		[3] = function() Snacks.terminal.open('sh -c $(gum choose ddgr oil docs)') end,
 		[4] = function() Snacks.terminal.open("nap") end,
-	}) do vim.keymap.set("n", "<F" .. cmd .. ">", func) end
+	}) do vim.keymap.set("i", "<F" .. cmd .. ">", func) end
 
 	-- Snacks option toggle keybinds
-	Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>ts")
-	Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
-	Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>tL")
+	Snacks.toggle.option("spell"):map("<leader>ts")
+	Snacks.toggle.option("cursorline"):map("<leader>tC")
+	Snacks.toggle.option("wrap"):map("<leader>tw")
+	Snacks.toggle.option("relativenumber"):map("<leader>tL")
 	Snacks.toggle.line_number():map("<leader>tl")
 	Snacks.toggle.diagnostics():map("<leader>td")
 	Snacks.toggle.option("conceallevel",
@@ -137,7 +143,7 @@ now(function()
 		bigfile = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
-		words = { enabled = true },
+		-- words = { enabled = true },
 	})
 end)
 
@@ -167,8 +173,7 @@ later(function()
 	vim.cmd.LspStart()
 end)
 now(function() -- highlight patterns
-	local hipatterns = require('mini.hipatterns')
-	hipatterns.setup({
+	require('mini.hipatterns').setup({
 		highlighters = {
 			fixme = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsFixme' },
 			hack  = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
