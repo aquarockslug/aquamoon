@@ -61,7 +61,9 @@ local setup_keymap = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 			vim.lsp.buf.format(); vim.cmd.write()
 		end,
-		[3] = function() Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager") end, -- TODO detect filetype
+		[3] = function()
+			vim.cmd.write(); Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager")
+		end,                                                                                          -- TODO detect filetype
 		[4] = function() Snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 	}) do
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
