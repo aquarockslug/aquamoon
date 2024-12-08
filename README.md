@@ -10,7 +10,7 @@
  - Pressing "e" in *lf* opens neovim in a new pane
 
 ## TEXT: NEOVIM
- - I use many of the *mini.nvim* packages.
+ - I use many of the *mini.nvim* and *snacks.nvim* packages.
  - Language servers are downloaded and managed by *mason*.
  - Completions are done with *blink.cmp*
  - Startup time is *24ms*
