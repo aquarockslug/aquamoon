@@ -19,7 +19,7 @@ local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		callback = function()
 			require("mini.trailspace").trim()
-			vim.notify(vim.flag .. ' wrote ' .. vim.fn.expand('%:t'), vim.log.levels.INFO)
+			vim.notify(vim.flag .. ' wrote ' .. vim.fn.expand('%:p'), vim.log.levels.INFO)
 		end
 	})
 	vim.api.nvim_create_autocmd("InsertEnter", {
@@ -61,8 +61,8 @@ local setup_keymap = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 			vim.lsp.buf.format(); vim.cmd.write()
 		end,
-		[3] = function() Snacks.terminal.open('sh -c $(gum choose ddgr oil docs)') end,
-		[4] = function() Snacks.terminal.open("nap") end,
+		[3] = function() Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager") end, -- TODO detect filetype
+		[4] = function() Snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 	}) do
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
