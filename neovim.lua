@@ -59,11 +59,15 @@ local setup_keymap = function()
 		[1] = function() Snacks.lazygit() end,
 		[2] = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
-			vim.lsp.buf.format(); vim.cmd.write()
+			vim.lsp.buf.format()
+			vim.cmd.write()
 		end,
 		[3] = function()
-			vim.cmd.write(); Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager")
-		end,                                                                                          -- TODO detect filetype
+			vim.cmd.write()
+			vim.notify(vim.flag .. ' executing...', vim.log.levels.INFO)
+			vim.fn.jobstart('zellij run -f -- python ' .. vim.fn.expand('%:p'))
+			-- Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager")
+		end, -- TODO detect filetype
 		[4] = function() Snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 	}) do
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
@@ -133,9 +137,9 @@ end
 now(function() require('mini.icons').setup() end)
 now(function() require('mini.statusline').setup() end)
 now(function() require('mini.starter').setup() end)
-now(function()
-	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
-end)
+-- now(function() # TODO make a leader shortcut to toggle this
+-- 	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
+-- end)
 now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
 	require('render-markdown').setup({});
