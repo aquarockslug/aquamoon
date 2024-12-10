@@ -41,7 +41,7 @@ local setup_keymap = function()
 	vim.keymap.set("n", "U", "<c-r>")
 	vim.keymap.set("n", "<c-u>", "10k")
 	vim.keymap.set("n", "<c-d>", "10j")
-	vim.keymap.set("n", "<leader>/", function() snacks.terminal() end)
+	vim.keymap.set("n", "<leader>w", function() snacks.terminal() end)
 
 	-- leader keymaps
 	for cmd, func in pairs({
@@ -50,7 +50,7 @@ local setup_keymap = function()
 		a = require("mini.pick").builtin.grep_live,
 		d = require("mini.extra").pickers.diagnostic,
 		f = function() require("flash").jump() end,
-		g = function() Snacks.gitbrowse() end,
+		g = function() snacks.gitbrowse() end,
 		h = vim.cmd.noh, -- clear highlighting
 		i = vim.lsp.buf.hover, -- documentation under cursor
 		o = require("mini.extra").pickers.oldfiles,
@@ -60,7 +60,7 @@ local setup_keymap = function()
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	for cmd, func in pairs({
-		[1] = function() Snacks.lazygit() end,
+		[1] = function() snacks.lazygit() end,
 		[2] = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 			vim.lsp.buf.format()
@@ -72,7 +72,7 @@ local setup_keymap = function()
 			vim.fn.jobstart('zellij run -f -- python ' .. vim.fn.expand('%:p'))
 			-- Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager")
 		end, -- TODO detect filetype
-		[4] = function() Snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
+		[4] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 	}) do
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)

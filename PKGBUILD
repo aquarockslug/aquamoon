@@ -42,22 +42,26 @@ EOM
 	echo
 	(
 		cat <<EOM
-cmd preview-on %{{
-	lf -remote "send \$id :set ratios 1:2; set preview true";
+cmd q quit
+cmd preview_on :{{
+    set ratios 1:2:3
+    set preview
+    set info
+    map zp preview_off
 }}
-cmd preview-off %{{
-	lf -remote "send \$id :set preview false; set ratios 1";
+cmd preview_off :{{
+    set nopreview
+    set ratios 1
+    set info size:time
+    map zp preview_on
 }}
-map zp preview-on
-map zP preview-off
-set preview false
-set ratios 1
+preview_off
 map <enter> shell
 map \` !true # show the result of previous commands
 map d delete
 map e \$zellij run -c -d right -- nvim \$f
-map <right> \$zellij action resize increase right
-map <left> \$zellij action resize increase left
+map <right> \$zellij action move-focus-or-tab right
+map <left> \$zellij action move-focus-or-tab left
 EOM
 	) >>"${pkgdir}"/etc/lf/lfrc
 
