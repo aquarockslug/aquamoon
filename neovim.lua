@@ -13,7 +13,11 @@ vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
-vim.flag = "󰈿"
+vim.flag = "󰈿" -- TODO color flag
+
+vim.cmd.makepkg = function()
+	vim.fn.jobstart('zellij run -f -- makepkg -fsi')
+end
 
 local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", {
@@ -73,6 +77,7 @@ local setup_keymap = function()
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 	end
+
 
 	-- Snacks option toggle keybinds
 	Snacks.toggle.option("spell"):map("<leader>ts")
