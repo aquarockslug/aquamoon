@@ -9,8 +9,7 @@ then WSL=true; else WSL=false; fi
 # SETTINGS
 zstyle ':omz:update' mode auto
 export BROWSER='waterfox'
-[ $WSL = true ] && export BROWSER='wsl-open'
-[ $WSL = true ] && export OPENER='wsl-open'
+[ $WSL = true ] && export BROWSER='wsl-open' && export OPENER='wsl-open'
 export DISABLE_AUTO_TITLE='true'
 export EDITOR='nvim';
 export HISTFILE="/home/aqua/.zsh_history"
