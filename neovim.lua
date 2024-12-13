@@ -13,7 +13,7 @@ vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
-vim.flag = "󰈿" -- TODO color flag
+vim.flag = " 󰈿 " -- TODO color flag
 
 vim.cmd.makepkg = function()
 	vim.fn.jobstart('zellij run -f -- makepkg -fsi')
@@ -45,12 +45,13 @@ local setup_keymap = function()
 
 	-- leader keymaps
 	for cmd, func in pairs({
+		e = function() require("mini.pick").builtin.files({ tool = 'git' }) end,
 		S = require("mini.extra").pickers.spellsuggest,
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-		a = require("mini.pick").builtin.grep_live,
+		g = require("mini.pick").builtin.grep_live,
 		d = require("mini.extra").pickers.diagnostic,
 		f = function() require("flash").jump() end,
-		g = function() snacks.gitbrowse() end,
+		b = function() snacks.gitbrowse() end,
 		h = vim.cmd.noh, -- clear highlighting
 		i = vim.lsp.buf.hover, -- documentation under cursor
 		o = require("mini.extra").pickers.oldfiles,
@@ -74,7 +75,6 @@ local setup_keymap = function()
 		end, -- TODO detect filetype
 		[4] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 	}) do
-		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 	end
 
@@ -201,10 +201,14 @@ for _, plug in ipairs({
 	"animate", "comment", "diff", "extra", "fuzzy", "jump", "visits",
 	"misc", "pairs", "pick", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
-later(function() require("mini.indentscope").setup({ symbol = "󰈿" }) end)
+later(function() require("mini.indentscope").setup({ symbol = vim.flag }) end)
 later(function() add({ source = 'folke/flash.nvim' }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
+
+later(function()
+	require('mini.pick').setup(); MiniPick.config.window.prompt_prefix = vim.flag
+end)
 
 -- % movement %
 later(function()
