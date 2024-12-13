@@ -59,7 +59,8 @@ preview_off
 map <enter> shell
 map \` !true # show the result of previous commands
 map d delete
-map e \$zellij run -c -d right -- nvim \$f
+map E \$zellij run -c -d right --width 80 -- nvim \$f
+map e \$zellij run -c --in-place --width 80 -- nvim \$f
 map <right> \$zellij action move-focus-or-tab right
 map <left> \$zellij action move-focus-or-tab left
 EOM
@@ -89,6 +90,7 @@ source /usr/share/zsh/themes/dracula.zsh-theme
 source /usr/share/zsh/aqua_profile.plugin.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source $(zellij setup --generate-completion zsh)
 autoload -Uz compinit && compinit
 if [[ -z \$ZELLIJ ]]; then
 if [[ \$ZELLIJ_AUTO_ATTACH == "true" ]];
