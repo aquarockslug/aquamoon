@@ -41,41 +41,44 @@ local setup_keymap = function()
 	vim.keymap.set("n", "U", "<c-r>")
 	vim.keymap.set("n", "<c-u>", "10k")
 	vim.keymap.set("n", "<c-d>", "10j")
-	vim.keymap.set("n", "<leader>w", function() snacks.terminal() end)
 
 	-- leader keymaps
 	for cmd, func in pairs({
-		e = function() require("mini.pick").builtin.files({ tool = 'git' }) end,
 		S = require("mini.extra").pickers.spellsuggest,
 		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
-		g = require("mini.pick").builtin.grep_live,
-		d = require("mini.extra").pickers.diagnostic,
-		f = function() require("flash").jump() end,
 		b = function() snacks.gitbrowse() end,
+		d = require("mini.extra").pickers.diagnostic,
+		e = function() require("mini.pick").builtin.files({ tool = 'git' }) end,
+		f = function() require("flash").jump() end,
+		g = require("mini.pick").builtin.grep_live,
 		h = vim.cmd.noh, -- clear highlighting
 		i = vim.lsp.buf.hover, -- documentation under cursor
 		o = require("mini.extra").pickers.oldfiles,
 		r = require("mini.extra").pickers.registers,
 		s = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
 		v = vim.cmd.Vexplore, -- open netrw in vertical pane
+		w = function() snacks.terminal() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	for cmd, func in pairs({
+		-- right hand, third layer of keyboard
 		[1] = function() snacks.lazygit() end,
 		[2] = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
-		[3] = function()
+		[3] = function() snacks.scratch.open() end,
+		[4] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
+		-- left hand, second layer of keyboard
+		[5] = function()
 			vim.cmd.write()
 			vim.notify(vim.flag .. ' executing...', vim.log.levels.INFO)
-			vim.fn.jobstart('zellij run -f -- python ' .. vim.fn.expand('%:p'))
-			-- Snacks.terminal("python " .. vim.fn.expand('%:p') .. " | gum pager")
+			snacks.terminal.open('python ' .. vim.fn.expand('%:p'))
 		end, -- TODO detect filetype
-		[4] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
+		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
 
 
