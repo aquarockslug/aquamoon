@@ -13,7 +13,7 @@ vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
-vim.flag = " 󰈿 " -- TODO color flag
+vim.flag = "󰈿" -- TODO color flag
 
 vim.cmd.makepkg = function()
 	vim.fn.jobstart('zellij run -f -- makepkg -fsi')
