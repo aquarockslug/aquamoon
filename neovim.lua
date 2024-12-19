@@ -14,9 +14,8 @@ vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
 vim.flag = "󰈿" -- TODO color flag
-
-vim.cmd.makepkg = function()
-	vim.fn.jobstart('zellij run -f -- makepkg -fsi')
+vim.flag_shell = function(cmd)
+	os.execute(cmd); vim.notify(vim.flag .. ' ' .. cmd)
 end
 
 local setup_autocmds = function()
@@ -42,22 +41,39 @@ local setup_keymap = function()
 	vim.keymap.set("n", "<c-u>", "10k")
 	vim.keymap.set("n", "<c-d>", "10j")
 
+	vim.zjedit = function(zjargs)
+		require('mini.pick').builtin.files({ tool = 'git' }, {
+			source = {
+				name = 'edit...',
+				choose = function(filename)
+					vim.flag_shell('zellij run ' .. zjargs .. ' -- nvim ' .. filename)
+				end
+			}
+		})
+	end
+
 	-- leader keymaps
 	for cmd, func in pairs({
-		S = require("mini.extra").pickers.spellsuggest,
-		V = vim.cmd.Hexplore, -- open netrw in horizontal pane
+		E = function() vim.zjedit('-c -d right') end,
 		b = function() snacks.gitbrowse() end,
-		d = require("mini.extra").pickers.diagnostic,
-		e = function() require("mini.pick").builtin.files({ tool = 'git' }) end,
+		e = function() vim.zjedit('-c -i') end,
 		f = function() require("flash").jump() end,
-		g = require("mini.pick").builtin.grep_live,
 		h = vim.cmd.noh, -- clear highlighting
 		i = vim.lsp.buf.hover, -- documentation under cursor
-		o = require("mini.extra").pickers.oldfiles,
-		r = require("mini.extra").pickers.registers,
-		s = function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end,
-		v = vim.cmd.Vexplore, -- open netrw in vertical pane
 		w = function() snacks.terminal() end,
+	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
+	vim.keymap.set("n", "<leader>/", vim.lsp.buf.rename)
+
+	-- picker keymaps
+	local pickers = require("mini.extra").pickers
+	for cmd, func in pairs({
+		S = pickers.spellsuggest,
+		c = pickers.hipatterns, -- view highlighted comments
+		d = pickers.diagnostic,
+		g = require("mini.pick").builtin.grep_live,
+		m = pickers.marks,
+		r = pickers.registers,
+		s = function() pickers.lsp({ scope = "document_symbol" }) end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	for cmd, func in pairs({
@@ -68,7 +84,7 @@ local setup_keymap = function()
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
-		[3] = function() snacks.scratch.open() end,
+		[3] = function() snacks.scratch.open() end, -- TODO append current line, appendbufline
 		[4] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 		-- left hand, second layer of keyboard
 		[5] = function()
@@ -81,23 +97,23 @@ local setup_keymap = function()
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
 
-
 	-- Snacks option toggle keybinds
-	Snacks.toggle.option("spell"):map("<leader>ts")
-	Snacks.toggle.option("cursorline"):map("<leader>tC")
-	Snacks.toggle.option("wrap"):map("<leader>tw")
-	Snacks.toggle.option("relativenumber"):map("<leader>tL")
-	Snacks.toggle.line_number():map("<leader>tl")
-	Snacks.toggle.diagnostics():map("<leader>td")
-	Snacks.toggle.option("conceallevel",
+	snacks.toggle.option("spell"):map("<leader>ts")
+	snacks.toggle.option("cursorline"):map("<leader>tC")
+	snacks.toggle.option("wrap"):map("<leader>tw")
+	snacks.toggle.option("relativenumber"):map("<leader>tL")
+	snacks.toggle.line_number():map("<leader>tl")
+	snacks.toggle.diagnostics():map("<leader>td")
+	snacks.toggle.option("conceallevel",
 		{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
-	Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>tb")
+	snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>tb")
 end
 
 local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniHipatternsFixme', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C", fg = "#000000" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = "#000000" })
+	-- TODO dracula theme MiniPickBorder
 end
 
 -- % WSL %
@@ -156,12 +172,14 @@ end)
 
 -- % snacks %
 now(function()
+	-- if Snacks.did_setup then return end
 	add({ source = 'folke/snacks.nvim' });
 	require('snacks').setup({
 		bigfile = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 	})
+	Snacks.indent.enable() -- TODO use vim.flag
 end)
 
 -- % dracula %
@@ -204,13 +222,17 @@ for _, plug in ipairs({
 	"animate", "comment", "diff", "extra", "fuzzy", "jump", "visits",
 	"misc", "pairs", "pick", "surround", "trailspace",
 }) do later(function() require('mini.' .. plug).setup() end) end
-later(function() require("mini.indentscope").setup({ symbol = vim.flag }) end)
 later(function() add({ source = 'folke/flash.nvim' }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
+later(function()
+	add({ source = 'chentoast/marks.nvim' }); require('marks').setup {}
+end)
 
 later(function()
-	require('mini.pick').setup(); MiniPick.config.window.prompt_prefix = vim.flag
+	require('mini.pick').setup();
+	MiniPick.config.window.prompt_prefix = vim.flag .. ' ';
+	MiniPick.config.options.use_cache = true;
 end)
 
 -- % movement %
@@ -241,5 +263,5 @@ later(function()
 end)
 
 setup_autocmds()
-setup_keymap()
+later(setup_keymap)
 setup_highlighters()
