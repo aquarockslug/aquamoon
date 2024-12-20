@@ -1,4 +1,5 @@
 # aqua arch installer
+# WARN broken?  unrecgnized file format
 
 rm ./*.pkg.tar.lz4
 PKGEXT='.pkg.tar.lz4' makepkg >>/dev/null
