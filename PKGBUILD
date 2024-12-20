@@ -5,15 +5,15 @@ pkgname=aqua_arch
 pkgver=0
 pkgrel=0
 pkgdesc="My personal zshell, zellij and neovim configuration"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv7h')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'zellij' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop'
+depends=('sudo' 'git' 'lazygit' 'zsh' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop'
 	'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools' 'openssh'
 	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr' 'tldr' 'fzf')
 makedepends=()
-optdepends=('aerc' 'buku-git' 'nap-bin' 'docker' 'lazydocker')
+optdepends=('zellij' 'aerc' 'buku-git' 'nap-bin' 'docker' 'lazydocker')
 source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://gist.githubusercontent.com/pwang2/a6b77bbc7f6e1f7016f6566fab774a77/raw/e4406aa664bde17baa406d35b63c78b5ca6e2065/dracula.zsh-theme"
 	"https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
