@@ -90,7 +90,7 @@ source /usr/share/zsh/themes/dracula.zsh-theme
 source /usr/share/zsh/aqua_profile.plugin.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-source $(zellij setup --generate-completion zsh)
+source $(if [ -f /bin/zellij ]; then zellij setup --generate-completion zsh; fi)
 autoload -Uz compinit && compinit
 if [[ -z \$ZELLIJ ]]; then
 if [[ \$ZELLIJ_AUTO_ATTACH == "true" ]];
