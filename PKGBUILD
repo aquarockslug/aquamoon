@@ -23,7 +23,13 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/neovim.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/zellij.kdl"
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
+            'f908dde7b88e24de555e36e9c0c7b984bea768efd3ffec02af3e688863c67ba3'
+            'e87bfd986aa84c8b0c39c687bbf5634810d7df2832d53d32769b5b7961a75ecc'
+            'cba4957757c71b2bee0d3d9cb87115c70d43b94dc4145e399075eafecd8b79d9'
+            '0cea0fd335f4b7d50e77a763c5a3a600141c3dc2b3a9c91c20e36ea091388cec'
+            '0ffc7f88c85de221a2a76edcf6ad82be9ce7dc3a285be9568b67da327c5e529c'
+            '3b4d794c04864b66d0d5e20c79520d60af80f01dfee4637bd747b387cfa2311b')
 package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow
@@ -73,9 +79,11 @@ EOM
 	cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
 
 	# % zellij %
-	mkdir -pv "${pkgdir}"/etc/zellij/
-	cp "${srcdir}"/zellij.kdl "${pkgdir}"/etc/zellij/config.kdl
-	cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
+	if [ -f /bin/zellij ]; then
+		mkdir -pv "${pkgdir}"/etc/zellij/
+		cp "${srcdir}"/zellij.kdl "${pkgdir}"/etc/zellij/config.kdl
+		cp "${srcdir}"/zjstatus.wasm "${pkgdir}"/etc/zellij/
+	fi
 
 	# % neovim %
 	mkdir -pv "${pkgdir}"/etc/xdg/nvim/plugin

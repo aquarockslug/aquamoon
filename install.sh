@@ -1,5 +1,6 @@
 # aqua arch installer
 
+if [ -f /bin/updpkgsums ]; then /bin/updpkgsums; fi
 rm ./*.pkg.tar.lz4
 PKGEXT='.pkg.tar.lz4' makepkg >>/dev/null
 
