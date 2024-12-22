@@ -13,7 +13,11 @@ vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.loader.enable()
+
 vim.flag = "󰈿" -- TODO color flag
+vim.dracula_green = "#50FA7B"
+vim.dracula_orange = "#FFB86C"
+vim.dracula_bg = "#282A36"
 vim.flag_shell = function(cmd)
 	os.execute(cmd); vim.notify(vim.flag .. ' ' .. cmd)
 end
@@ -67,13 +71,13 @@ local setup_keymap = function()
 	-- picker keymaps
 	local pickers = require("mini.extra").pickers
 	for cmd, func in pairs({
-		S = pickers.spellsuggest,
+		a = function() pickers.lsp({ scope = "document_symbol" }) end,
 		c = pickers.hipatterns, -- view highlighted comments
 		d = pickers.diagnostic,
 		g = require("mini.pick").builtin.grep_live,
 		m = pickers.marks,
 		r = pickers.registers,
-		s = function() pickers.lsp({ scope = "document_symbol" }) end,
+		s = pickers.spellsuggest,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	for cmd, func in pairs({
@@ -110,13 +114,15 @@ local setup_keymap = function()
 end
 
 local setup_highlighters = function()
-	vim.api.nvim_set_hl(0, 'MiniHipatternsFixme', { bg = "#FF5555", fg = "#FFFFFF" })
-	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C", fg = "#000000" })
-	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = "#000000" })
-	-- TODO dracula theme MiniPickBorder
+	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
+	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C", fg = vim.dracula_bg })
+	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = vim.dracula_bg })
+
+	vim.api.nvim_set_hl(0, 'MiniPickBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
+	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
 end
 
--- % WSL %
+-- % wsl %
 local is_wsl = function() -- check if nvim is currently running on windows subsystem linux
 	local version_file = io.open("/proc/version", "rb")
 	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
@@ -210,9 +216,9 @@ end)
 now(function() -- highlight patterns
 	require('mini.hipatterns').setup({
 		highlighters = {
-			fixme = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsFixme' },
-			hack  = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-			todo  = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+			warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
+			hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
 		}
 	})
 end)
@@ -220,7 +226,7 @@ end)
 -- %% LATER %%
 for _, plug in ipairs({
 	"animate", "comment", "diff", "extra", "fuzzy", "jump", "visits",
-	"misc", "pairs", "pick", "surround", "trailspace",
+	"misc", "pairs", "pick", "surround", "trailspace", "colors"
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() add({ source = 'folke/flash.nvim' }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
