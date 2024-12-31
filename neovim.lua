@@ -1,17 +1,19 @@
 -- %%% Aqua's nvim %%%
 
 -- %% Settings %%
-local vim = vim               -- avoid undefined warnings
+local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
+vim.g.maplocalleader = ','
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
+vim.opt.cc = "100"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-vim.diagnostic.config({ signs = false })
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
+vim.g.netrw_liststyle = 3         -- set the styling of the file list to be a tree
+vim.diagnostic.config({ signs = false })
 vim.loader.enable()
 
 vim.flag = "󰈿" -- TODO color flag
@@ -42,8 +44,6 @@ local setup_keymap = function()
 	local snacks = Snacks
 
 	vim.keymap.set("n", "U", "<c-r>")
-	vim.keymap.set("n", "<c-u>", "10k")
-	vim.keymap.set("n", "<c-d>", "10j")
 
 	vim.zjedit = function(zjargs)
 		require('mini.pick').builtin.files({ tool = 'git' }, {
@@ -80,6 +80,7 @@ local setup_keymap = function()
 		s = pickers.spellsuggest,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
+	-- function keymaps
 	for cmd, func in pairs({
 		-- right hand, third layer of keyboard
 		[1] = function() snacks.lazygit() end,
@@ -117,9 +118,10 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C", fg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = vim.dracula_bg })
-
 	vim.api.nvim_set_hl(0, 'MiniPickBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
+	vim.api.nvim_set_hl(0, 'ColorColumn', { bg = vim.dracula_green })
+	vim.api.nvim_set_hl(0, 'SnacksNotifierBorderInfo', { fg = vim.dracula_green })
 end
 
 -- % wsl %
@@ -233,6 +235,9 @@ later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to 
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
 later(function()
 	add({ source = 'chentoast/marks.nvim' }); require('marks').setup {}
+end)
+later(function()
+	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
 end)
 
 later(function()
