@@ -74,7 +74,7 @@ local setup_keymap = function()
 		a = function() pickers.lsp({ scope = "document_symbol" }) end,
 		c = pickers.hipatterns, -- view highlighted comments
 		d = pickers.diagnostic,
-		g = require("mini.pick").builtin.grep_live,
+		g = require('grug-far').open,
 		m = pickers.marks,
 		r = pickers.registers,
 		s = pickers.spellsuggest,
@@ -122,6 +122,9 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'ColorColumn', { bg = vim.dracula_green })
 	vim.api.nvim_set_hl(0, 'SnacksNotifierBorderInfo', { fg = vim.dracula_green })
+	vim.api.nvim_set_hl(0, 'SnacksNotifierTitleInfo', { fg = vim.dracula_green })
+	vim.api.nvim_set_hl(0, 'GrugFarInputLabel', { fg = vim.dracula_green })
+	vim.api.nvim_set_hl(0, 'GrugFarHelpHeader', { fg = vim.dracula_green })
 end
 
 -- % wsl %
@@ -198,7 +201,7 @@ now(function()
 end)
 
 -- % lsp and completion %
-later(function()
+now(function()
 	add({
 		source = 'Saghen/blink.cmp',
 		depends = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim',
@@ -239,7 +242,6 @@ end)
 later(function()
 	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
 end)
-
 later(function()
 	require('mini.pick').setup();
 	MiniPick.config.window.prompt_prefix = vim.flag .. ' ';
@@ -250,12 +252,10 @@ end)
 later(function()
 	add({ source = 'swaits/zellij-nav.nvim' })
 	require('zellij-nav').setup()
-
 	vim.keymap.set("n", "<up>", function() vim.cmd("ZellijNavigateUp") end)
 	vim.keymap.set("n", "<down>", function() vim.cmd("ZellijNavigateDown") end)
 	vim.keymap.set("n", "<left>", function() vim.cmd("ZellijNavigateLeft") end)
 	vim.keymap.set("n", "<right>", function() vim.cmd("ZellijNavigateRight") end)
-
 	vim.keymap.set("n", "<C-up>", vim.cmd.tabs)
 	vim.keymap.set("n", "<C-down>", vim.cmd.quit)
 	vim.keymap.set("n", "<C-left>", vim.cmd.tabprevious)
