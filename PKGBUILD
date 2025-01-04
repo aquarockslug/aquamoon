@@ -25,11 +25,11 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 )
 sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             'f908dde7b88e24de555e36e9c0c7b984bea768efd3ffec02af3e688863c67ba3'
-            'e87bfd986aa84c8b0c39c687bbf5634810d7df2832d53d32769b5b7961a75ecc'
+            '269de5dc72d0c4dd497788f224f0fb2023bfd61788b4c15f1130e3ad4b0ea9e2'
             'a35dd2a0473bbe4a7b413c983cef37dada9501c301ecd8a05583b3fd93e0fdbd'
             '0cea0fd335f4b7d50e77a763c5a3a600141c3dc2b3a9c91c20e36ea091388cec'
-            '02347c0448d5bb95a3b4d9ca426dbabaec337fc3a5fe802e81d59a3c42d58622'
-            '3b4d794c04864b66d0d5e20c79520d60af80f01dfee4637bd747b387cfa2311b')
+            '720eb8a5889190f25209c9584e2317b99c6e86378f726cfc12ab0f5ef6a7245e'
+            '40ab4b67e79ae04bd3643fff6e4b0bd0ca5e1af63a7bd25fd08d284468138803')
 package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow

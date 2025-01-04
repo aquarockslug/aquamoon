@@ -5,7 +5,6 @@ local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ','
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
-vim.opt.cc = "100"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
@@ -32,9 +31,17 @@ local setup_autocmds = function()
 		end
 	})
 	vim.api.nvim_create_autocmd("InsertEnter", {
-		callback = function() Snacks.toggle.option("cursorline"):set(true) end })
+		callback = function()
+			Snacks.toggle.option("cursorline"):set(true)
+			vim.opt.cc = "100"
+		end
+	})
 	vim.api.nvim_create_autocmd("InsertLeave", {
-		callback = function() Snacks.toggle.option("cursorline"):set(false) end })
+		callback = function()
+			Snacks.toggle.option("cursorline"):set(false)
+			vim.opt.cc = "0"
+		end
+	})
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		callback = function() vim.highlight.on_yank { higroup = "DiffAdd", timeout = 250 } end })
 end
@@ -190,7 +197,7 @@ now(function()
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 	})
-	Snacks.indent.enable() -- TODO use vim.flag
+	Snacks.indent.enable()
 end)
 
 -- % dracula %
