@@ -3,12 +3,10 @@ default_shell "zsh"
 pane_frames true
 
 layout {
-    pane_template name="files" {
-	pane split_direction="horizontal" {
-
+	pane split_direction="vertical" {
 	    pane command="lf" borderless=true
-
-	    pane borderless=true size=1 {
+        }
+	pane borderless=true size=1 {
                 plugin location="file:/etc/zellij/zjstatus.wasm" {
                     format_center "{tabs}"
                     hide_frame_for_single_pane "false"
@@ -16,10 +14,7 @@ layout {
                     tab_normal   "#[fg=#44475A]󰈿"
                     tab_active   "#[fg=#ffc387,bold]  󰈿  "
 		}
-            }
-        }
-    }
-    files
+	}
 }
 
 ui {

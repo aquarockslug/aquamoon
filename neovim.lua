@@ -51,6 +51,8 @@ local setup_keymap = function()
 	local snacks = Snacks
 
 	vim.keymap.set("n", "U", "<c-r>")
+	-- vim.keymap.set("n", "<leader>j", "g,")
+	-- vim.keymap.set("n", "<leader>;", "g;")
 
 	vim.zjedit = function(zjargs)
 		require('mini.pick').builtin.files({ tool = 'git' }, {
@@ -66,9 +68,9 @@ local setup_keymap = function()
 	-- leader keymaps
 	for cmd, func in pairs({
 		E = function() vim.zjedit('-c -d right') end,
-		b = function() snacks.gitbrowse() end,
 		e = function() vim.zjedit('-c -i') end,
-		f = function() require("flash").jump() end,
+		f = require('grug-far').open,
+		g = function() snacks.gitbrowse() end,
 		h = vim.cmd.noh, -- clear highlighting
 		i = vim.lsp.buf.hover, -- documentation under cursor
 		w = function() snacks.terminal() end,
@@ -81,7 +83,6 @@ local setup_keymap = function()
 		a = function() pickers.lsp({ scope = "document_symbol" }) end,
 		c = pickers.hipatterns, -- view highlighted comments
 		d = pickers.diagnostic,
-		g = require('grug-far').open,
 		m = pickers.marks,
 		r = pickers.registers,
 		s = pickers.spellsuggest,
@@ -237,10 +238,10 @@ end)
 
 -- %% LATER %%
 for _, plug in ipairs({
-	"animate", "comment", "diff", "extra", "fuzzy", "jump", "visits",
+	"animate", "comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits",
 	"misc", "pairs", "pick", "surround", "trailspace", "colors"
 }) do later(function() require('mini.' .. plug).setup() end) end
-later(function() add({ source = 'folke/flash.nvim' }) end)
+-- later(function() add({ source = 'folke/flash.nvim' }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
 later(function()
