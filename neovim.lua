@@ -4,21 +4,23 @@
 local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ','
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3     -- set the styling of the file list to be a tree
+vim.opt.cmdheight = 0
 vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
 vim.opt.scrolloff = 1000
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3         -- set the styling of the file list to be a tree
 vim.diagnostic.config({ signs = false })
 vim.loader.enable()
 
-vim.flag = "󰈿" -- TODO color flag
 vim.dracula_green = "#50FA7B"
 vim.dracula_orange = "#FFB86C"
+vim.dracula_purple = "#BD93F9"
 vim.dracula_bg = "#282A36"
+vim.flag = "󰈿" -- TODO color flag
 vim.flag_shell = function(cmd)
 	os.execute(cmd); vim.notify(vim.flag .. ' ' .. cmd)
 end
@@ -54,6 +56,11 @@ local setup_keymap = function()
 	-- vim.keymap.set("n", "<leader>j", "g,")
 	-- vim.keymap.set("n", "<leader>;", "g;")
 
+	-- insert line above or below without going into insert mode
+	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+	vim.keymap.set("n", "<leader>/", vim.lsp.buf.rename)
+
 	vim.zjedit = function(zjargs)
 		require('mini.pick').builtin.files({ tool = 'git' }, {
 			source = {
@@ -75,7 +82,6 @@ local setup_keymap = function()
 		i = vim.lsp.buf.hover, -- documentation under cursor
 		w = function() snacks.terminal() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
-	vim.keymap.set("n", "<leader>/", vim.lsp.buf.rename)
 
 	-- picker keymaps
 	local pickers = require("mini.extra").pickers
@@ -128,11 +134,14 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD", fg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniPickBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
-	-- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = vim.dracula_green })
-	vim.api.nvim_set_hl(0, 'SnacksNotifierBorderInfo', { fg = vim.dracula_green })
-	vim.api.nvim_set_hl(0, 'SnacksNotifierTitleInfo', { fg = vim.dracula_green })
-	vim.api.nvim_set_hl(0, 'GrugFarInputLabel', { fg = vim.dracula_green })
-	vim.api.nvim_set_hl(0, 'GrugFarHelpHeader', { fg = vim.dracula_green })
+	vim.api.nvim_set_hl(0, 'MiniFilesBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
+	for _, group in ipairs({
+		'MiniStatuslineModeNormal', 'MiniStatuslineModeInsert', 'MiniStatuslineDevinfo',
+		'MiniStatuslineFileinfo', 'MiniStatuslineFilename', 'MiniJump', 'MiniJump2dSpot',
+		'MiniStarterHeader', 'MiniStarterFooter', 'MiniStarterQuery', 'SnacksNotifierBorderInfo',
+		'SnacksNotifierTitleInfo', 'GrugFarInputLabel', 'GrugFarHelpHeader'
+	}) do vim.api.nvim_set_hl(0, group, { fg = vim.dracula_green }) end
+	-- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = vim.dracula_green }) TODO fix color col color
 end
 
 -- % wsl %
@@ -194,9 +203,13 @@ now(function()
 	-- if Snacks.did_setup then return end
 	add({ source = 'folke/snacks.nvim' });
 	require('snacks').setup({
+		animate = { enabled = true },
 		bigfile = { enabled = true },
+		input = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
+		rename = { enabled = true },
+		scroll = { enabled = true },
 	})
 	Snacks.indent.enable()
 end)
@@ -237,11 +250,10 @@ now(function() -- highlight patterns
 end)
 
 -- %% LATER %%
-for _, plug in ipairs({
-	"animate", "comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits",
-	"misc", "pairs", "pick", "surround", "trailspace", "colors"
+for _, plug in ipairs({ -- mini plugs
+	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits",
+	"misc", "pairs", "pick", "surround", "trailspace", "colors", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
--- later(function() add({ source = 'folke/flash.nvim' }) end)
 later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
 later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
 later(function()
