@@ -7,7 +7,6 @@ vim.g.maplocalleader = ','
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.opt.cmdheight = 0
--- vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
@@ -253,7 +252,7 @@ end)
 
 -- %% LATER %%
 for _, plug in ipairs({ -- mini plugs
-	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai",
+	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai", "animate",
 	"misc", "pairs", "pick", "surround", "trailspace", "colors", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() add({ source = 'simeji/winresizer' }) end) -- <C-e> to resize, then 'e' to move
