@@ -11,8 +11,8 @@ layout {
                     format_center "{tabs}"
                     hide_frame_for_single_pane "false"
 
-                    tab_normal   "#[fg=#44475A]󰈿"
-                    tab_active   "#[fg=#ffc387,bold]  󰈿  "
+                    tab_normal   "#[fg=#FFB86C]󰈿"
+                    tab_active   "#[fg=#FFB86C,bold]  󰈿  "
 		}
 	}
 }

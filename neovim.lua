@@ -5,9 +5,9 @@ local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ','
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3     -- set the styling of the file list to be a tree
+vim.g.netrw_liststyle = 3 -- set the styling of the file list to be a tree
 vim.opt.cmdheight = 0
-vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
+-- vim.opt.mousescroll = "ver:1" -- fixes scrolling with mini.animate
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
@@ -59,7 +59,6 @@ local setup_keymap = function()
 	-- insert line above or below without going into insert mode
 	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-	vim.keymap.set("n", "<leader>/", vim.lsp.buf.rename)
 
 	vim.zjedit = function(zjargs)
 		require('mini.pick').builtin.files({ tool = 'git' }, {
@@ -74,29 +73,29 @@ local setup_keymap = function()
 
 	-- leader keymaps
 	for cmd, func in pairs({
+		a = vim.lsp.buf.hover, -- documentation under cursor
+		b = function() snacks.gitbrowse() end,
+		e = function() MiniFiles.open() end,
 		E = function() vim.zjedit('-c -d right') end,
-		e = function() vim.zjedit('-c -i') end,
-		f = require('grug-far').open,
-		g = function() snacks.gitbrowse() end,
-		h = vim.cmd.noh, -- clear highlighting
-		i = vim.lsp.buf.hover, -- documentation under cursor
+		g = require('grug-far').open,
+		r = vim.lsp.buf.rename,
 		w = function() snacks.terminal() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
+	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 
 	-- picker keymaps
 	local pickers = require("mini.extra").pickers
 	for cmd, func in pairs({
-		a = function() pickers.lsp({ scope = "document_symbol" }) end,
+		f = function() pickers.lsp({ scope = "references" }) end,
 		c = pickers.hipatterns, -- view highlighted comments
 		d = pickers.diagnostic,
-		m = pickers.marks,
-		r = pickers.registers,
+		v = pickers.registers,
 		s = pickers.spellsuggest,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
 	-- function keymaps
 	for cmd, func in pairs({
-		-- right hand, third layer of keyboard
+		-- right hand, third layer of keyboard: lazygit, format, scratch, files
 		[1] = function() snacks.lazygit() end,
 		[2] = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
@@ -106,11 +105,16 @@ local setup_keymap = function()
 		[3] = function() snacks.scratch.open() end, -- TODO append current line, appendbufline
 		[4] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
 		-- left hand, second layer of keyboard
-		[5] = function()
+		[5] = function() -- run file
 			vim.cmd.write()
 			vim.notify(vim.flag .. ' executing...', vim.log.levels.INFO)
 			snacks.terminal.open('python ' .. vim.fn.expand('%:p'))
 		end, -- TODO detect filetype
+		[6] = function() -- run file
+			vim.cmd.write()
+			vim.notify(vim.flag .. ' executing...', vim.log.levels.INFO)
+			snacks.terminal.open('node ' .. vim.fn.expand('%:p'))
+		end,
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
@@ -136,11 +140,10 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniFilesBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
 	for _, group in ipairs({
-		'MiniStatuslineModeNormal', 'MiniStatuslineModeInsert', 'MiniStatuslineDevinfo',
-		'MiniStatuslineFileinfo', 'MiniStatuslineFilename', 'MiniJump', 'MiniJump2dSpot',
-		'MiniStarterHeader', 'MiniStarterFooter', 'MiniStarterQuery', 'SnacksNotifierBorderInfo',
-		'SnacksNotifierTitleInfo', 'GrugFarInputLabel', 'GrugFarHelpHeader'
-	}) do vim.api.nvim_set_hl(0, group, { fg = vim.dracula_green }) end
+		'MiniStatuslineModeNormal', 'MiniStatuslineModeInsert', 'MiniStatuslineDevinfo', 'MiniStatuslineFileinfo',
+		'MiniStatuslineFilename', 'MiniJump', 'MiniJump2dSpot', 'MiniStarterHeader', 'MiniStarterFooter',
+		'MiniStarterQuery', 'GrugFarInputLabel', 'GrugFarHelpHeader', 'MiniNotifierBorderInfo', 'MiniNotifierTitleInfo'
+	}) do vim.api.nvim_set_hl(0, group, { fg = vim.dracula_orange }) end
 	-- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = vim.dracula_green }) TODO fix color col color
 end
 
@@ -203,7 +206,6 @@ now(function()
 	-- if Snacks.did_setup then return end
 	add({ source = 'folke/snacks.nvim' });
 	require('snacks').setup({
-		animate = { enabled = true },
 		bigfile = { enabled = true },
 		input = { enabled = true },
 		notifier = { enabled = true },
@@ -251,11 +253,10 @@ end)
 
 -- %% LATER %%
 for _, plug in ipairs({ -- mini plugs
-	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits",
+	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai",
 	"misc", "pairs", "pick", "surround", "trailspace", "colors", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
-later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
-later(function() add({ source = 'kwkarlwang/bufresize.nvim' }) end) -- automatically update buffer size
+later(function() add({ source = 'simeji/winresizer' }) end) -- <C-e> to resize, then 'e' to move
 later(function()
 	add({ source = 'chentoast/marks.nvim' }); require('marks').setup {}
 end)
@@ -264,7 +265,7 @@ later(function()
 end)
 later(function()
 	require('mini.pick').setup();
-	MiniPick.config.window.prompt_prefix = vim.flag .. ' ';
+	MiniPick.config.window.prompt_prefix = ' ' .. vim.flag .. ' ';
 	MiniPick.config.options.use_cache = true;
 end)
 

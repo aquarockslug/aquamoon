@@ -17,6 +17,7 @@
 
 ## COLOR THEME: DRACULA
  - I use the *dracula* color scheme whenever possible.
+ - I like to use thin green outlines
 
 ## SCREENSHOTS
 ![2024-11-13_15-33](https://github.com/user-attachments/assets/c9ca3e3b-c66e-4a17-bd25-ebef965dc2ff)
