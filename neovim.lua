@@ -199,6 +199,14 @@ now(function()
 	require('render-markdown').setup({});
 	require('render-markdown').enable()
 end)
+later(function()
+	add({ source = 'sphamba/smear-cursor.nvim' })
+	require('smear_cursor').setup()
+end)
+later(function()
+	add({ source = 'andrewferrier/debugprint.nvim' })
+	require('debugprint').setup()
+end)
 
 -- % snacks %
 now(function()
@@ -210,7 +218,6 @@ now(function()
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 		rename = { enabled = true },
-		scroll = { enabled = true },
 	})
 	Snacks.indent.enable()
 end)
@@ -251,8 +258,8 @@ now(function() -- highlight patterns
 end)
 
 -- %% LATER %%
-for _, plug in ipairs({ -- mini plugs
-	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai", "animate",
+for _, plug in ipairs({                                                 -- mini plugs
+	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai", -- "animate",
 	"misc", "pairs", "pick", "surround", "trailspace", "colors", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() add({ source = 'simeji/winresizer' }) end) -- <C-e> to resize, then 'e' to move

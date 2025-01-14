@@ -24,11 +24,11 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/zellij.kdl"
 )
 sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
-            'f908dde7b88e24de555e36e9c0c7b984bea768efd3ffec02af3e688863c67ba3'
+            '0e736d8f95c25e8f82eedd5e6f6a72066ef171b41e2ef2ed732582bdd3f15a13'
             '269de5dc72d0c4dd497788f224f0fb2023bfd61788b4c15f1130e3ad4b0ea9e2'
-            'a35dd2a0473bbe4a7b413c983cef37dada9501c301ecd8a05583b3fd93e0fdbd'
-            '0cea0fd335f4b7d50e77a763c5a3a600141c3dc2b3a9c91c20e36ea091388cec'
-            '952af3a6f8d7d44f73e60402fcab2d8543d00b5ded5f829916ae64e9d7410752'
+            '7c1357208180a2b1951d09093ac7fa70546b06354ad3e948e7c6647c2584d296'
+            '4aebd1bc82836648c575c4afb60e97d67c126cec5749e316344dc1d327b97732'
+            '93ec96d3bcae83f9034f76b480c2a4f1cc277b9844f9e4665b452af78d761b91'
             '33ab061fd9f3c734c488cb1e8122dd809588e89bd6ebb7cd597eabd4498aa4e8')
 package() {
 	# % glow %

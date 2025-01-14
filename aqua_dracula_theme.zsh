@@ -16,7 +16,7 @@ export NAP_GRAY="#F8F8F2"
 
 # zsh
 ZSH_THEME="dracula"
-DRACULA_ARROW_ICON=" 󰈿"
+DRACULA_ARROW_ICON=" 󰈿" # TODO make flag orange
 COMPLETION_WAITING_DOTS="true"
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
 typeset -gA ZSH_HIGHLIGHT_STYLES

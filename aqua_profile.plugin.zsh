@@ -27,6 +27,8 @@ export ZELLIJ_CONFIG_DIR=/etc/zellij;
 export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
 bindkey " " magic-space
 # TODO bindkey "^E" zellij action edit-scrollback
+# TODO bindkey -s '^c' '^uclear && ls^M'
+# TODO look at zsh widgets
 
 # SYSTEM
 alias q="exit"
