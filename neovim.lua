@@ -138,6 +138,7 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniPickBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniFilesBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
+	vim.api.nvim_set_hl(0, 'MiniStatuslineModeOther', { fg = vim.dracula_orange })
 	for _, group in ipairs({
 		'MiniStatuslineModeNormal', 'MiniStatuslineModeInsert', 'MiniStatuslineDevinfo', 'MiniStatuslineFileinfo',
 		'MiniStatuslineFilename', 'MiniJump', 'MiniJump2dSpot', 'MiniStarterHeader', 'MiniStarterFooter',
@@ -199,13 +200,17 @@ now(function()
 	require('render-markdown').setup({});
 	require('render-markdown').enable()
 end)
+now(function()
+	add({ source = 'andrewferrier/debugprint.nvim' })
+	require('debugprint').setup({ keymaps = { normal = { variable_below = "F4" } } })
+end)
 later(function()
 	add({ source = 'sphamba/smear-cursor.nvim' })
 	require('smear_cursor').setup()
 end)
 later(function()
-	add({ source = 'andrewferrier/debugprint.nvim' })
-	require('debugprint').setup()
+	add({ source = 'tzachar/highlight-undo.nvim' })
+	require('highlight-undo').setup()
 end)
 
 -- % snacks %
