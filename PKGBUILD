@@ -27,8 +27,8 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '0e736d8f95c25e8f82eedd5e6f6a72066ef171b41e2ef2ed732582bdd3f15a13'
             '269de5dc72d0c4dd497788f224f0fb2023bfd61788b4c15f1130e3ad4b0ea9e2'
             '7c1357208180a2b1951d09093ac7fa70546b06354ad3e948e7c6647c2584d296'
-            '4aebd1bc82836648c575c4afb60e97d67c126cec5749e316344dc1d327b97732'
-            'd34256586f711a5e0e4d9ec3378a1d36990b226d01f2f22025c9565cee96217e'
+            'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
+            '2afe329c692c43f6e1adf39bb0b7479eac0272ee2d9759462fca141c3690a6c0'
             '33ab061fd9f3c734c488cb1e8122dd809588e89bd6ebb7cd597eabd4498aa4e8')
 package() {
 	# % glow %
@@ -53,13 +53,13 @@ cmd preview_on :{{
     set ratios 1:3
     set preview
     set info
-    map zp preview_off
+    map <tab> preview_off
 }}
 cmd preview_off :{{
     set nopreview
     set ratios 1
     set info size:time
-    map zp preview_on
+    map <tab> preview_on
 }}
 cmd edit :{{
 	preview_off

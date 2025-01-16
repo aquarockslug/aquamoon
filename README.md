@@ -1,19 +1,21 @@
 # Aqua Arch
-
+     
 ## SHELL: ZSHELL
- - Navigate files with *lf*.
+ - Navigate and preview files with *lf*.
  - Manage git repositories with *lazygit*.
  - Write notes and save snippets with *nap*
 
 ## TERMINAL: ZELLIJ
  - Minimal appearence using the *zjstatus* plugin.
- - Pressing "e" in *lf* opens neovim in a new pane
+ - Pressing "e" in *lf* opens the selected file in a new pane
+ - I use zellij panes instead of neovim panes usually
 
 ## TEXT: NEOVIM
  - I use many of the *mini.nvim* and *snacks.nvim* packages.
  - Language servers are downloaded and managed by *mason*.
  - Completions are done with *blink.cmp*
- - Startup time is *24ms*
+ - Jump to marks using mini.pick
+ - Instead of using registers, I paste and yank from snacks.scratch
 
 ## COLOR THEME: DRACULA
  - I use the *dracula* color scheme whenever possible.

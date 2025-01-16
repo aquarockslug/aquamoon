@@ -52,8 +52,8 @@ local setup_keymap = function()
 	local snacks = Snacks
 
 	vim.keymap.set("n", "U", "<c-r>")
-	-- vim.keymap.set("n", "<leader>j", "g,")
-	-- vim.keymap.set("n", "<leader>;", "g;")
+	-- vim.keymap.set("n", "<leader>j", "g,") next change
+	-- vim.keymap.set("n", "<leader>;", "g;") last change
 
 	-- insert line above or below without going into insert mode
 	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
@@ -71,24 +71,22 @@ local setup_keymap = function()
 	end
 
 	-- leader keymaps
+	local pickers = require("mini.extra").pickers
+	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 	for cmd, func in pairs({
-		a = vim.lsp.buf.hover, -- documentation under cursor
+		-- r = vim.lsp.buf.rename,
+		E = function() vim.zjedit('-c -d right') end,
+		a = vim.lsp.buf.hover, -- read documentation under cursor
 		b = function() snacks.gitbrowse() end,
 		e = function() MiniFiles.open() end,
-		E = function() vim.zjedit('-c -d right') end,
-		g = require('grug-far').open,
-		r = vim.lsp.buf.rename,
+		r = require('grug-far').open, -- search and replace
 		w = function() snacks.terminal() end,
-	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
-	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 
-	-- picker keymaps
-	local pickers = require("mini.extra").pickers
-	for cmd, func in pairs({
-		f = function() pickers.lsp({ scope = "references" }) end,
+		-- picker keymaps
 		c = pickers.hipatterns, -- view highlighted comments
 		d = pickers.diagnostic,
-		v = pickers.registers,
+		f = pickers.marks,
+		g = require("mini.pick").builtin.grep_live,
 		s = pickers.spellsuggest,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 
@@ -196,13 +194,13 @@ now(function() require('mini.starter').setup() end)
 -- 	add({ source = 'niuiic/divider.nvim' }); require('divider').setup({})
 -- end)
 now(function()
+	add({ source = 'andrewferrier/debugprint.nvim' }) -- generates print statements for variables
+	require('debugprint').setup({ keymaps = { normal = { variable_below = "gp", delete_debug_prints = "gP" } } })
+end)
+now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
 	require('render-markdown').setup({});
 	require('render-markdown').enable()
-end)
-now(function()
-	add({ source = 'andrewferrier/debugprint.nvim' })
-	require('debugprint').setup({ keymaps = { normal = { variable_below = "F4" } } })
 end)
 later(function()
 	add({ source = 'sphamba/smear-cursor.nvim' })
@@ -211,20 +209,6 @@ end)
 later(function()
 	add({ source = 'tzachar/highlight-undo.nvim' })
 	require('highlight-undo').setup()
-end)
-
--- % snacks %
-now(function()
-	-- if Snacks.did_setup then return end
-	add({ source = 'folke/snacks.nvim' });
-	require('snacks').setup({
-		bigfile = { enabled = true },
-		input = { enabled = true },
-		notifier = { enabled = true },
-		quickfile = { enabled = true },
-		rename = { enabled = true },
-	})
-	Snacks.indent.enable()
 end)
 
 -- % dracula %
@@ -248,11 +232,11 @@ now(function()
 	require("mason-lspconfig").setup {}
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	for _, lang_server in ipairs({
-		"lua_ls", "basedpyright", "ruff", "bashls", "biome", "csharp_ls"
+		"lua_ls", "basedpyright", "ruff", "bashls", "biome", "csharp_ls", "markdown_oxide"
 	}) do require("lspconfig")[lang_server].setup {} end
 	vim.cmd.LspStart()
 end)
-now(function() -- highlight patterns
+now(function()
 	require('mini.hipatterns').setup({
 		highlighters = {
 			warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
@@ -262,20 +246,34 @@ now(function() -- highlight patterns
 	})
 end)
 
+-- % snacks %
+now(function()
+	-- if Snacks.did_setup then exit func
+	add({ source = 'folke/snacks.nvim' });
+	require('snacks').setup({
+		bigfile = { enabled = true },
+		input = { enabled = true },
+		notifier = { enabled = true },
+		quickfile = { enabled = true },
+		rename = { enabled = true },
+	})
+	Snacks.indent.enable()
+end)
+
 -- %% LATER %%
 for _, plug in ipairs({                                                 -- mini plugs
 	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai", -- "animate",
 	"misc", "pairs", "pick", "surround", "trailspace", "colors", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
 later(function() add({ source = 'simeji/winresizer' }) end) -- <C-e> to resize, then 'e' to move
-later(function()
+later(function()                                            -- TODO highlight the line instead of showing the register
 	add({ source = 'chentoast/marks.nvim' }); require('marks').setup {}
 end)
-later(function()
+later(function() -- search and replace
 	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
 end)
 later(function()
-	require('mini.pick').setup();
+	-- require('mini.pick').setup();
 	MiniPick.config.window.prompt_prefix = ' ' .. vim.flag .. ' ';
 	MiniPick.config.options.use_cache = true;
 end)
