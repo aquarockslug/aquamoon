@@ -52,8 +52,6 @@ local setup_keymap = function()
 	local snacks = Snacks
 
 	vim.keymap.set("n", "U", "<c-r>")
-	-- vim.keymap.set("n", "<leader>j", "g,") next change
-	-- vim.keymap.set("n", "<leader>;", "g;") last change
 
 	-- insert line above or below without going into insert mode
 	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
@@ -85,7 +83,7 @@ local setup_keymap = function()
 		-- picker keymaps
 		c = pickers.hipatterns, -- view highlighted comments
 		d = pickers.diagnostic,
-		f = pickers.marks,
+		-- f = pickers.marks,
 		g = require("mini.pick").builtin.grep_live,
 		s = pickers.spellsuggest,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
@@ -265,15 +263,27 @@ for _, plug in ipairs({                                                 -- mini 
 	"comment", "diff", "extra", "fuzzy", "jump", "jump2d", "visits", "ai", -- "animate",
 	"misc", "pairs", "pick", "surround", "trailspace", "colors", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
-later(function() add({ source = 'simeji/winresizer' }) end) -- <C-e> to resize, then 'e' to move
-later(function()                                            -- TODO highlight the line instead of showing the register
-	add({ source = 'chentoast/marks.nvim' }); require('marks').setup {}
+later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to resize, then 'e' to move
+later(function()
+	add({ source = 'chentoast/marks.nvim' }); require('marks').setup { -- builtin_marks = { "<", ">", "^", "." },
+		mappings = {                                        -- up/down navigates marks, left right navigates flag bookmark
+			prev = '9',
+			next = '8',
+			prev_bookmark0 = '7',
+			next_bookmark0 = '0',
+			set_bookmark0 = ',f',
+			delete_bookmark0 = ',F'
+		},
+		bookmark_0 = {
+			sign = vim.flag,
+			virt_text = vim.flag,
+		},
+	}
 end)
 later(function() -- search and replace
 	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
 end)
 later(function()
-	-- require('mini.pick').setup();
 	MiniPick.config.window.prompt_prefix = ' ' .. vim.flag .. ' ';
 	MiniPick.config.options.use_cache = true;
 end)
