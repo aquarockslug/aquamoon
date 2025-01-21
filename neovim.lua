@@ -267,10 +267,7 @@ later(function() add({ source = 'simeji/winresizer' }) end)         -- <C-e> to 
 later(function()
 	add({ source = 'chentoast/marks.nvim' }); require('marks').setup { -- builtin_marks = { "<", ">", "^", "." },
 		mappings = {                                        -- up/down navigates marks, left right navigates flag bookmark
-			prev = '9',
-			next = '8',
-			prev_bookmark0 = '7',
-			next_bookmark0 = '0',
+			next_bookmark0 = '<C-f>',
 			set_bookmark0 = ',f',
 			delete_bookmark0 = ',F'
 		},

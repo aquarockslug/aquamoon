@@ -28,7 +28,7 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '269de5dc72d0c4dd497788f224f0fb2023bfd61788b4c15f1130e3ad4b0ea9e2'
             '7c1357208180a2b1951d09093ac7fa70546b06354ad3e948e7c6647c2584d296'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
-            'c32e6cb12dcc0076ffb4cd1ceb4cefafee9b15717f2aa13776bf85036db7f394'
+            '5a13160ad0cbb360a4153ea3fd0354b560c79ed301dbb80446dad9f56da6e93d'
             '33ab061fd9f3c734c488cb1e8122dd809588e89bd6ebb7cd597eabd4498aa4e8')
 package() {
 	# % glow %
@@ -63,9 +63,9 @@ cmd preview_off :{{
 }}
 cmd edit :{{
 	preview_off
-	# TODO calculate width
 	\$zellij run -c -d right --width 80 -- nvim \$f
 }}
+map f \$\$EDITOR \$(fzf)
 map c \$cat \$f | wcopy # copy contents of file to clipboard
 preview_off
 map <enter> shell
