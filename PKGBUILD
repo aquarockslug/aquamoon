@@ -20,7 +20,7 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	# aqua source files
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_profile.plugin.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/aqua_dracula_theme.zsh"
-	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/neovim.lua"
+	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/light_neovim.lua"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/zellij.kdl"
 )
 sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
@@ -28,7 +28,7 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '269de5dc72d0c4dd497788f224f0fb2023bfd61788b4c15f1130e3ad4b0ea9e2'
             '7c1357208180a2b1951d09093ac7fa70546b06354ad3e948e7c6647c2584d296'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
-            '5a13160ad0cbb360a4153ea3fd0354b560c79ed301dbb80446dad9f56da6e93d'
+            '6a784293a66b85362086278d9e4465862a24b6848da5c3e0e402dc74f499e111'
             '33ab061fd9f3c734c488cb1e8122dd809588e89bd6ebb7cd597eabd4498aa4e8')
 package() {
 	# % glow %
@@ -93,7 +93,7 @@ EOM
 
 	# % neovim %
 	mkdir -pv "${pkgdir}"/etc/xdg/nvim/plugin
-	cp "${srcdir}"/neovim.lua "${pkgdir}"/etc/xdg/nvim/plugin/init.lua
+	cp "${srcdir}"/light_neovim.lua "${pkgdir}"/etc/xdg/nvim/plugin/init.lua
 
 	# % create .zshrc %
 	echo

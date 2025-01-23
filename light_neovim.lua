@@ -144,7 +144,7 @@ end)
 later(function()
 	add({ source = 'chentoast/marks.nvim' }); require('marks').setup { -- builtin_marks = { "<", ">", "^", "." },
 		mappings = {                                        -- up/down navigates marks, left right navigates flag bookmark
-			next_bookmark0 = '<C-f>',
+			next_bookmark0 = '<F4>',
 			set_bookmark0 = ',f',
 			delete_bookmark0 = ',F'
 		},
