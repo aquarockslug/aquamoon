@@ -1,7 +1,7 @@
 -- %%% Aqua's nvim %%%
 
 -- %% Settings %%
-local vim = vim -- avoid undefined warnings
+local vim = vim           -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ','
 vim.g.netrw_banner = 0
