@@ -65,16 +65,6 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD" })
-	-- vim.api.nvim_set_hl(0, 'MiniPickBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
-	-- vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
-	-- vim.api.nvim_set_hl(0, 'MiniFilesBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
-	-- vim.api.nvim_set_hl(0, 'MiniStatuslineModeOther', { fg = vim.dracula_orange })
-	-- for _, group in ipairs({
-	-- 	'MiniStatuslineModeNormal', 'MiniStatuslineModeInsert', 'MiniStatuslineDevinfo', 'MiniStatuslineFileinfo',
-	-- 	'MiniStatuslineFilename', 'MiniJump', 'MiniJump2dSpot', 'MiniStarterHeader', 'MiniStarterFooter',
-	-- 	'MiniStarterQuery', 'GrugFarInputLabel', 'GrugFarHelpHeader', 'MiniNotifierBorderInfo', 'MiniNotifierTitleInfo'
-	-- }) do vim.api.nvim_set_hl(0, group, { fg = vim.dracula_orange }) end
-	-- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = vim.dracula_green }) TODO fix color col color
 end
 
 -- MINI
