@@ -1,6 +1,7 @@
 -- minimal config for javascript
 local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
+vim.opt.signcolumn = "no"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cmdheight = 0
@@ -33,20 +34,20 @@ local setup_keymap = function()
 		b = function() snacks.gitbrowse() end,
 		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
 		d = function() require("mini.extra").pickers.diagnostic() end,
-		e = function() MiniFiles.open() end,
+		e = function() require("mini.files").open() end,
 		r = function() require('grug-far').open() end, -- search and replace
 		w = function() snacks.terminal() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 
 	for cmd, func in pairs({
-		[1] = function() snacks.lazygit() end,
+		[1] = function() require("lazygit-confirm").confirm() end,
 		[2] = function()
 			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
-			vim.lsp.buf.format()
+			require('conform').format()
 			vim.cmd.write()
 		end,
-		[3] = function() snacks.terminal.open('sh -c $(gum choose nap cht ddgr oil docs)') end,
+		-- [3] previou flag bookmark
 		-- [4] next flag bookmark
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
@@ -62,6 +63,8 @@ local setup_keymap = function()
 	snacks.toggle.diagnostics():map("<leader>td")
 end
 local setup_highlighters = function()
+	vim.api.nvim_set_hl(0, 'StatusLine', { fg = "none" })
+	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD" })
@@ -79,7 +82,8 @@ end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 for _, plug in ipairs({
-	"basics", "comment", "diff", "jump", "jump2d", "ai", "pairs", "surround", "trailspace", "files", "pick",
+	"basics", "comment", "diff", "starter", "visits", "jump", "jump2d",
+	"bracketed", "ai", "pairs", "surround", "trailspace", "files", "pick",
 }) do later(function() require('mini.' .. plug).setup() end) end
 
 -- SNACKS
@@ -90,8 +94,15 @@ now(function()
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 		rename = { enabled = true },
+		indent = {
+			enabled = true,
+			animate = { style = 'down' },
+			chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰", } },
+			scope = { enabled = false }
+		}
 	})
-	require('snacks').indent.enable()
+	add({ source = 'dchae/canter.nvim' })
+	add({ source = 'thelastpsion/lazygit-confirm.nvim' })
 end)
 
 -- BLINK
@@ -103,6 +114,10 @@ now(function()
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	require("lspconfig")["biome"].setup {}
 	require("lspconfig")["lua_ls"].setup {}
+	add({ source = 'stevearc/conform.nvim' })
+	require("conform").setup({ -- cant use vim.lsp.buf.format because it clears marks
+		formatters_by_ft = { javascript = { "biome" } },
+	})
 end)
 
 -- OTHER
@@ -118,25 +133,34 @@ end)
 now(function()
 	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
 	add({ source = '2giosangmitom/nightfall.nvim' }); require("nightfall").setup({})
-	vim.cmd.colorscheme('deepernight') -- 'nightfall', 'maron'
+	-- vim.cmd.colorscheme('deepernight') -- 'nightfall', 'maron'
+	vim.cmd.colorscheme('nightfall')
 end)
 now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
 	require('render-markdown').setup({});
 	require('render-markdown').enable()
 end)
+now(function()
+	add({
+		source = 'nvim-treesitter/nvim-treesitter',
+		checkout = 'master',
+		monitor = 'main',
+		hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
+	})
+	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
+end)
 later(function() -- search and replace
 	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
-
 	add({ source = 'tzachar/highlight-undo.nvim' })
-	require('highlight-undo').setup()
-
 	add({ source = 'andrewferrier/debugprint.nvim' }) -- generates print statements for variables
+	require('highlight-undo').setup()
 	require('debugprint').setup({ keymaps = { normal = { variable_below = "gp", delete_debug_prints = "gP" } } })
 end)
 later(function()
 	add({ source = 'chentoast/marks.nvim' }); require('marks').setup { -- builtin_marks = { "<", ">", "^", "." },
 		mappings = {                                        -- up/down navigates marks, left right navigates flag bookmark
+			prev_bookmark0 = '<F3>',
 			next_bookmark0 = '<F4>',
 			set_bookmark0 = ',f',
 			delete_bookmark0 = ',F'
@@ -146,15 +170,6 @@ later(function()
 			virt_text = vim.flag,
 		},
 	}
-end)
-later(function()
-	add({
-		source = 'nvim-treesitter/nvim-treesitter',
-		checkout = 'master',
-		monitor = 'main',
-		hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
-	})
-	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
 later(function()
 	add({ source = 'swaits/zellij-nav.nvim' })
