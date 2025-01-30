@@ -29,7 +29,7 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '7c1357208180a2b1951d09093ac7fa70546b06354ad3e948e7c6647c2584d296'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
             'f8c7f07eaa33c381c629854aff3a1c3f307fa11928bbd716228d0269cbc8d381'
-            '33ab061fd9f3c734c488cb1e8122dd809588e89bd6ebb7cd597eabd4498aa4e8')
+            '8fe6cf1a373234399b3b344110fb549fe9978b595beea1a74b7e451c672ccf25')
 package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow
