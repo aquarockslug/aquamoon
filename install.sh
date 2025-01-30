@@ -15,8 +15,15 @@ install() {
 	gum style --foreground 212 --align center --margin "1 2" "󰈿  $msg  󰈿"
 }
 
-pacman -Q --info aqua_arch | grep 'Install Date'
-sudo echo
-build
-install
-pacman -Q --info aqua_arch | grep 'Install Date'
+if [ ! "$1" ] || [ "$1" = 'install' ]; then
+	pacman -Q --info aqua_arch | grep 'Install Date'
+	sudo echo
+	build
+	install
+	pacman -Q --info aqua_arch | grep 'Install Date'
+fi
+
+if [ "$1" = "light" ] || [ "$2" = "light" ]; then
+	sudo cp light_neovim.lua /etc/xdg/nvim/plugin/init.lua
+	echo 'using light neovim'
+fi
