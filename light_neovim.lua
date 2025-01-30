@@ -1,16 +1,60 @@
--- minimal config for javascript
+-- minimal config for javascript by Aquarock
 local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
-vim.opt.signcolumn = "no"
+vim.opt.autochdir = true
+vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.opt.cmdheight = 0
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.cmdheight = 0
-vim.opt.autochdir = true
-vim.opt.scrolloff = 1000
-vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.opt.scrolloff = 10000
+vim.opt.signcolumn = "no"
 vim.diagnostic.config({ signs = false })
-vim.flag = "󰈿" -- TODO color flag
+vim.flag = "󰈿"
 
+local function format()
+	vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
+	require('conform').format()
+	vim.cmd.write()
+end
+local function cycle_colorscheme(colorschemes)
+	local i = #colorschemes
+	return function()
+		i = i + 1
+		vim.cmd.colorscheme(colorschemes[(i % #colorschemes) + 1])
+		vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "none" }) -- use the default color after switching
+	end
+end
+local setup_keymap = function()
+	local snacks = Snacks
+	for cmd, func in pairs({
+		a = vim.lsp.buf.hover,                           -- read documentation under cursor
+		b = function() snacks.gitbrowse() end,
+		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
+		d = function() require("mini.extra").pickers.diagnostic() end,
+		e = function() require("mini.files").open() end,
+		r = function() require('grug-far').open() end, -- search and replace
+		w = function() snacks.terminal() end,
+		t = cycle_colorscheme({ "nightfall", "deepernight", "maron" })
+	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
+	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
+	for cmd, func in pairs({
+		[1] = function() require("lazygit-confirm").confirm() end,
+		[2] = format,
+		-- [3] previou flag bookmark
+		-- [4] next flag bookmark
+	}) do
+		vim.keymap.set("i", "<F" .. cmd .. ">", func)
+		vim.keymap.set("n", "<F" .. cmd .. ">", func)
+	end
+
+	-- insert line above or below without going into insert mode
+	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+
+	vim.keymap.set("n", "U", "<c-r>")
+	snacks.toggle.option("spell"):map("<leader>ts")
+	snacks.toggle.diagnostics():map("<leader>td")
+end
 local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		callback = function()
@@ -27,44 +71,10 @@ local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		callback = function() vim.highlight.on_yank { higroup = "DiffAdd", timeout = 250 } end })
 end
-local setup_keymap = function()
-	local snacks = Snacks
-	for cmd, func in pairs({
-		a = vim.lsp.buf.hover,                           -- read documentation under cursor
-		b = function() snacks.gitbrowse() end,
-		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
-		d = function() require("mini.extra").pickers.diagnostic() end,
-		e = function() require("mini.files").open() end,
-		r = function() require('grug-far').open() end, -- search and replace
-		w = function() snacks.terminal() end,
-	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
-	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
-
-	for cmd, func in pairs({
-		[1] = function() require("lazygit-confirm").confirm() end,
-		[2] = function()
-			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
-			require('conform').format()
-			vim.cmd.write()
-		end,
-		-- [3] previou flag bookmark
-		-- [4] next flag bookmark
-	}) do
-		vim.keymap.set("i", "<F" .. cmd .. ">", func)
-		vim.keymap.set("n", "<F" .. cmd .. ">", func)
-	end
-
-	-- insert line above or below without going into insert mode
-	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-
-	vim.keymap.set("n", "U", "<c-r>")
-	snacks.toggle.option("spell"):map("<leader>ts")
-	snacks.toggle.diagnostics():map("<leader>td")
-end
 local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'StatusLine', { fg = "none" })
-	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" })
+	-- vim.api.nvim_set_hl(0, 'ColorColumn', { fg = "#FF5555" }) -- TODO make letters warn color
+	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" }) -- TODO remove lines completely instead of hiding them
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD" })
@@ -82,9 +92,10 @@ end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 for _, plug in ipairs({
-	"basics", "comment", "diff", "starter", "visits", "jump", "jump2d",
-	"bracketed", "ai", "pairs", "surround", "trailspace", "files", "pick",
+	"basics", "comment", "diff", "visits", "jump", "jump2d", "bracketed",
+	"ai", "pairs", "surround", "trailspace", "files", "pick",
 }) do later(function() require('mini.' .. plug).setup() end) end
+now(function() require("mini.starter").setup() end)
 
 -- SNACKS
 now(function()
@@ -99,7 +110,7 @@ now(function()
 			animate = { style = 'down' },
 			chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰", } },
 			scope = { enabled = false }
-		}
+		},
 	})
 	add({ source = 'dchae/canter.nvim' })
 	add({ source = 'thelastpsion/lazygit-confirm.nvim' })
@@ -113,7 +124,6 @@ now(function()
 	})
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	require("lspconfig")["biome"].setup {}
-	require("lspconfig")["lua_ls"].setup {}
 	add({ source = 'stevearc/conform.nvim' })
 	require("conform").setup({ -- cant use vim.lsp.buf.format because it clears marks
 		formatters_by_ft = { javascript = { "biome" } },
@@ -133,7 +143,6 @@ end)
 now(function()
 	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
 	add({ source = '2giosangmitom/nightfall.nvim' }); require("nightfall").setup({})
-	-- vim.cmd.colorscheme('deepernight') -- 'nightfall', 'maron'
 	vim.cmd.colorscheme('nightfall')
 end)
 now(function()
@@ -187,8 +196,7 @@ local is_wsl = function() -- check if nvim is currently running on windows subsy
 	end
 	return false
 end
-vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-if is_wsl() then                  -- https://github.com/memoryInject/wsl-clipboard
+if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 	vim.g.clipboard = {
 		name = "wsl-clipboard",
 		copy = { ["+"] = "wcopy", ["*"] = "wcopy" },

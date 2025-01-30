@@ -1,7 +1,7 @@
 -- %%% Aqua's nvim %%%
 
 -- %% Settings %%
-local vim = vim           -- avoid undefined warnings
+local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ','
 vim.g.netrw_banner = 0
@@ -34,13 +34,11 @@ local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function()
 			Snacks.toggle.option("cursorline"):set(true)
-			vim.opt.cc = "100"
 		end
 	})
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		callback = function()
 			Snacks.toggle.option("cursorline"):set(false)
-			vim.opt.cc = "0"
 		end
 	})
 	vim.api.nvim_create_autocmd("TextYankPost", {
@@ -124,7 +122,7 @@ local setup_keymap = function()
 	snacks.toggle.diagnostics():map("<leader>td")
 	snacks.toggle.option("conceallevel",
 		{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>tc")
-	snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>tb")
+	snacks.toggle.option("background", { off = "light", on = "dark" }):map("<leader>tb")
 end
 
 local setup_highlighters = function()
@@ -135,6 +133,7 @@ local setup_highlighters = function()
 	vim.api.nvim_set_hl(0, 'MiniPickPrompt', { fg = vim.dracula_orange, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniFilesBorder', { fg = vim.dracula_green, bg = vim.dracula_bg })
 	vim.api.nvim_set_hl(0, 'MiniStatuslineModeOther', { fg = vim.dracula_orange })
+	vim.api.nvim_set_hl(0, 'ColorColumn', { fg = vim.dracula_green })
 	for _, group in ipairs({
 		'MiniStatuslineModeNormal', 'MiniStatuslineModeInsert', 'MiniStatuslineDevinfo', 'MiniStatuslineFileinfo',
 		'MiniStatuslineFilename', 'MiniJump', 'MiniJump2dSpot', 'MiniStarterHeader', 'MiniStarterFooter',
