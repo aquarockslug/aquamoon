@@ -33,7 +33,7 @@ local setup_keymap = function()
 		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
 		d = function() require("mini.extra").pickers.diagnostic() end,
 		e = function() require("mini.files").open() end,
-		r = function() require('grug-far').open() end, -- search and replace
+		r = function() require("grug-far").open() end, -- search and replace
 		w = function() snacks.terminal() end,
 		t = cycle_colorscheme({ "nightfall", "deepernight", "maron" })
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
@@ -96,7 +96,16 @@ for _, plug in ipairs({
 	"basics", "comment", "diff", "visits", "jump", "jump2d", "bracketed",
 	"ai", "pairs", "surround", "trailspace", "files", "pick",
 }) do later(function() require('mini.' .. plug).setup() end) end
-now(function() require("mini.starter").setup() end)
+now(function() -- mini setup
+	require("mini.starter").setup()
+	require('mini.hipatterns').setup({
+		highlighters = {
+			warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
+			hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+		}
+	})
+end)
 
 -- SNACKS
 now(function()
@@ -107,7 +116,6 @@ now(function()
 		quickfile = { enabled = true },
 		rename = { enabled = true },
 		indent = {
-			enabled = true,
 			animate = { style = 'down' },
 			chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰", } },
 			scope = { enabled = false }
@@ -125,32 +133,27 @@ now(function()
 	})
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	require("lspconfig")["biome"].setup {}
+	require("lspconfig")["lua"].setup {}
 	add({ source = 'stevearc/conform.nvim' })
 	require("conform").setup({ -- cant use vim.lsp.buf.format because it clears marks
-		formatters_by_ft = { javascript = { "biome" } },
+		formatters_by_ft = {
+			javascript = { "biome" },
+			lua = { "lua_ls" }
+		},
 	})
 end)
 
 -- OTHER
-now(function()
-	require('mini.hipatterns').setup({
-		highlighters = {
-			warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
-			hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-			todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-		}
-	})
-end)
-now(function()
+now(function() -- style
 	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
 	add({ source = '2giosangmitom/nightfall.nvim' }); require("nightfall").setup({})
+	add({ source = 'tzachar/highlight-undo.nvim' }); require('highlight-undo').setup()
 	vim.cmd.colorscheme('nightfall')
 end)
 now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
-	require('render-markdown').setup({});
-	require('render-markdown').enable()
-	add({ source = 'jghauser/follow-md-links.nvim' });
+	require('render-markdown').setup({}); require('render-markdown').enable()
+	-- add({ source = 'jghauser/follow-md-links.nvim' });
 	-- require('follow-md-links').setup();
 	vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
 
@@ -164,11 +167,9 @@ now(function()
 	})
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
-later(function() -- search and replace
-	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
-	add({ source = 'tzachar/highlight-undo.nvim' })
+later(function()
+	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {} -- find and replace
 	add({ source = 'andrewferrier/debugprint.nvim' }) -- generates print statements for variables
-	require('highlight-undo').setup()
 	require('debugprint').setup({ keymaps = { normal = { variable_below = "gp", delete_debug_prints = "gP" } } })
 end)
 later(function()
