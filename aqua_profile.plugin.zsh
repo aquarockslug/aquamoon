@@ -66,6 +66,7 @@ alias py="python"
 alias rsync="rsync -Phav"
 alias torrent="rtorrent"
 alias v="nvim"
+alias vi="nvim"
 alias zj="zellij"
 alias zjv="zellij action edit"
 
@@ -76,13 +77,8 @@ hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
 lfcd () { cd "$(command lf -print-last-dir "$@")" }
-
-n() { nap $(nap list | peco)} # quick open note
-nap_import() { cd $1; for f in  */*; do nap $f < $f; done; cd ~ } # import from given nap source directory
-nap_export() { cd ~/.local/share/nap; for f in *; do rsync --mkpath -uv $f $1$(echo $f | tr '-' '/' ); done; cd ~ }
-
+softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
 docs() { $(gum choose "cht" "cheat" "tldr" "cd ~/home/share/docs" "firefox overapi.com/" "firefox quickref.me") }
 cht() { cht.sh $(gum input --placeholder "query...") | gum pager }
-
 dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi }
 dls() { wget -q -O - $1 | nap }

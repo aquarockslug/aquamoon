@@ -24,9 +24,9 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 	"https://github.com/aquarockslug/aqua_arch_configs/raw/main/zellij.kdl"
 )
 sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
-            '0e736d8f95c25e8f82eedd5e6f6a72066ef171b41e2ef2ed732582bdd3f15a13'
-            '269de5dc72d0c4dd497788f224f0fb2023bfd61788b4c15f1130e3ad4b0ea9e2'
-            '7c1357208180a2b1951d09093ac7fa70546b06354ad3e948e7c6647c2584d296'
+            'f908dde7b88e24de555e36e9c0c7b984bea768efd3ffec02af3e688863c67ba3'
+            '45961a04d2141c76a5464f65c462aa925719e2ef312e7f1fe943ddd9bbb36954'
+            '00740c8e421bab3009c78abbdf072923ca6ceffd775fd6e08e7d9d82142deb67'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
             '5796b57bf9e2c7f26739c7904c86b74e2c0c0245ffeda6dceccf6c94bdf09709'
             '8fe6cf1a373234399b3b344110fb549fe9978b595beea1a74b7e451c672ccf25')

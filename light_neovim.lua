@@ -1,6 +1,7 @@
 -- minimal config for javascript by Aquarock
 local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 vim.opt.autochdir = true
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 0
@@ -149,6 +150,10 @@ now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
 	require('render-markdown').setup({});
 	require('render-markdown').enable()
+	add({ source = 'jghauser/follow-md-links.nvim' });
+	-- require('follow-md-links').setup();
+	vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
+
 end)
 now(function()
 	add({
