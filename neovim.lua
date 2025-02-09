@@ -28,14 +28,19 @@ end
 local setup_keymap = function()
 	local snacks = Snacks
 	for cmd, func in pairs({
+		-- left hand
 		a = vim.lsp.buf.hover,                           -- read documentation under cursor
 		b = function() snacks.gitbrowse() end,
 		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
 		d = function() require("mini.extra").pickers.diagnostic() end,
 		e = function() require("mini.files").open() end,
 		r = function() require("grug-far").open() end, -- search and replace
+		t = cycle_colorscheme({ "nightfall", "deeper-night", "dracula"}),
 		w = function() snacks.terminal() end,
-		t = cycle_colorscheme({ "nightfall", "deepernight", "maron" })
+		-- right hand
+		j = function() snacks.picker.jumps() end,
+		u = function() snacks.picker.undo() end,
+		m = function() snacks.picker.colorschemes() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 	for cmd, func in pairs({
@@ -82,7 +87,7 @@ local setup_highlighters = function()
 end
 
 -- MINI
-local path_package = vim.fn.stdpath('data') .. '/site_light/'
+local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
 	vim.notify('Installing mini.nvim', vim.log.levels.INFO)
@@ -92,18 +97,22 @@ if not vim.loop.fs_stat(mini_path) then
 end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
-for _, plug in ipairs({
+for _, plug in ipairs({ -- mini plug to load later using thier default config
 	"basics", "comment", "diff", "visits", "jump", "jump2d", "bracketed",
-	"ai", "pairs", "surround", "trailspace", "files", "pick",
+	"ai", "pairs", "surround", "trailspace", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
 now(function() -- mini setup
 	require("mini.starter").setup()
-	require('mini.hipatterns').setup({
+	require("mini.hipatterns").setup({
 		highlighters = {
-			warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
-			hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-			todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+			WARN = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
+			HACK = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			TODO = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
 		}
+	})
+	require("mini.pick").setup({
+		window = { prompt_prefix = vim.flag .. ' '},
+		options = { content_from_bottom = true }
 	})
 end)
 
@@ -133,29 +142,25 @@ now(function()
 	})
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	require("lspconfig")["biome"].setup {}
-	require("lspconfig")["lua"].setup {}
 	add({ source = 'stevearc/conform.nvim' })
 	require("conform").setup({ -- cant use vim.lsp.buf.format because it clears marks
-		formatters_by_ft = {
-			javascript = { "biome" },
-			lua = { "lua_ls" }
-		},
+		formatters_by_ft = { javascript = { "biome" } },
 	})
 end)
 
 -- OTHER
 now(function() -- style
-	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
 	add({ source = '2giosangmitom/nightfall.nvim' }); require("nightfall").setup({})
+	add({ source = 'Mofiqul/dracula.nvim' }); require("dracula").load()
 	add({ source = 'tzachar/highlight-undo.nvim' }); require('highlight-undo').setup()
-	vim.cmd.colorscheme('nightfall')
+	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
+	require("nightfall").load("nightfall")
 end)
 now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
 	require('render-markdown').setup({}); require('render-markdown').enable()
-	-- add({ source = 'jghauser/follow-md-links.nvim' });
-	-- require('follow-md-links').setup();
-	vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
+	-- add({ source = 'jghauser/follow-md-links.nvim' }); require('follow-md-links').setup();
+	-- vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
 
 end)
 now(function()
