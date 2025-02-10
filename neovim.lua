@@ -38,9 +38,9 @@ local setup_keymap = function()
 		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
 		d = function() require("mini.extra").pickers.diagnostic() end,
 		e = function() require("mini.files").open() end,
-		-- f for jump to flag bookmark
 		r = function() require("grug-far").open() end, -- search and replace
 		w = function() snacks.terminal() end,
+		W = function() snacks.terminal() end, -- TODO open on the right side
 		-- right hand
 		j = function() snacks.picker.jumps() end,
 		m = function() snacks.picker.colorschemes() end,
@@ -48,7 +48,7 @@ local setup_keymap = function()
 		u = function() snacks.picker.undo() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
-	vim.keymap.set("n", "q:", "quit") -- clear highlighting
+	vim.keymap.set("n", "q:", "") -- prevent this typo from opening a menu
 	snacks.toggle.option("spell"):map("<leader>ts")
 	snacks.toggle.diagnostics():map("<leader>td")
 	vim.keymap.set("n", "U", "<c-r>")
@@ -63,6 +63,7 @@ local setup_keymap = function()
 			require('conform').format()
 			vim.cmd.write()
 		end,
+		-- TODO ddgr function in snack terminal
 		-- [3] previou flag bookmark
 		-- [4] next flag bookmark
 	}) do

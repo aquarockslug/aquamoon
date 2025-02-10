@@ -8,6 +8,11 @@ layout {
         }
 	pane borderless=true size=1 {
                 plugin location="file:/etc/zellij/zjstatus.wasm" {
+		    format_right  "{datetime}"
+                    datetime      "#[fg=#FFB86C,bold] {format} "
+		    datetime_format "%A, %b %d %I:%M %p"
+                    datetime_timezone "America/Chicago"
+
                     format_center "{tabs}"
                     hide_frame_for_single_pane "false"
 

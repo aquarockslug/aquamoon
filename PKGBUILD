@@ -9,7 +9,7 @@ arch=('i686' 'x86_64' 'armv7h')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('sudo' 'git' 'lazygit' 'zsh' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop'
+depends=('sudo' 'git' 'lazygit' 'zsh' 'neovim' 'glow' 'wget' 'bat' 'eza' 'duf' 'htop' 'pacman-contrib'
 	'dust' 'ripgrep' 'peco' 'gum' 'p7zip' 'rsync' 'openssh' 'net-tools' 'openssh'
 	'zsh-syntax-highlighting' 'zsh-autosuggestions' 'lf' 'ddgr' 'tldr' 'fzf')
 makedepends=()
@@ -28,8 +28,8 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '45961a04d2141c76a5464f65c462aa925719e2ef312e7f1fe943ddd9bbb36954'
             '00740c8e421bab3009c78abbdf072923ca6ceffd775fd6e08e7d9d82142deb67'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
-            '3cccc34c1809903c8620792e63f8867373de700d53a241582d4089cabfcf0056'
-            '8fe6cf1a373234399b3b344110fb549fe9978b595beea1a74b7e451c672ccf25')
+            '69f3db19f94eee9bb5379f0b0921725ae8f6a30a2a9d5a27442e2746a91c71bf'
+            'da5ebd591bbb33b27ee0e0d5c0340e19bf29c27501d45d05d224485d098a3e4f')
 package() {
 	# % glow %
 	mkdir -pv "${pkgdir}"/usr/share/glow
