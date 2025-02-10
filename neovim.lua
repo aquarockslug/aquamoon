@@ -63,7 +63,6 @@ local setup_keymap = function()
 			require('conform').format()
 			vim.cmd.write()
 		end,
-		-- TODO ddgr function in snack terminal
 		-- [3] previou flag bookmark
 		-- [4] next flag bookmark
 	}) do

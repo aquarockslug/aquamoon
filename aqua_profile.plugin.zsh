@@ -59,6 +59,7 @@ alias l='clear && ls'
 alias buku="buku --suggest"
 alias chat="gomuks"
 alias ddgr="ddgr --rev"
+alias d="ddgr --rev"
 alias ld="lazydocker"
 alias lg="lazygit"
 alias mail="aerc"
