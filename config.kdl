@@ -10,7 +10,7 @@ layout {
                 plugin location="file:/etc/zellij/zjstatus.wasm" {
 		    format_right  "{datetime}"
                     datetime      "#[fg=#FFB86C,bold] {format} "
-		    datetime_format "%A, %b %d %H:%M"
+		    datetime_format "%A, %b %d %I:%M %p"
                     datetime_timezone "America/Chicago"
 
                     format_center "{tabs}"
