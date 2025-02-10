@@ -1,9 +1,11 @@
 -- minimal config for javascript by Aquarock
 local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
+vim.g.maplocalleader = ","
 vim.opt.autochdir = true
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 0
+vim.opt.laststatus = 1
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 10000
@@ -11,6 +13,7 @@ vim.opt.signcolumn = "no"
 vim.diagnostic.config({ signs = false })
 vim.flag = "󰈿"
 
+vim.api.nvim_create_user_command("W", "w", { nargs = 0 })
 local function format()
 	vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 	require('conform').format()
@@ -27,16 +30,29 @@ end
 local setup_keymap = function()
 	local snacks = Snacks
 	for cmd, func in pairs({
+		-- left hand
 		a = vim.lsp.buf.hover,                           -- read documentation under cursor
 		b = function() snacks.gitbrowse() end,
 		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
 		d = function() require("mini.extra").pickers.diagnostic() end,
 		e = function() require("mini.files").open() end,
-		r = function() require('grug-far').open() end, -- search and replace
+		-- f for jump to flag bookmark
+		r = function() require("grug-far").open() end, -- search and replace
 		w = function() snacks.terminal() end,
-		t = cycle_colorscheme({ "nightfall", "deepernight", "maron" })
+		-- right hand
+		j = function() snacks.picker.jumps() end,
+		m = function() snacks.picker.colorschemes() end,
+		n = cycle_colorscheme({ "nightfall", "dracula", "desert"}), -- "deeper-night" }),
+		u = function() snacks.picker.undo() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
+	snacks.toggle.option("spell"):map("<leader>ts")
+	snacks.toggle.diagnostics():map("<leader>td")
+	vim.keymap.set("n", "U", "<c-r>")
+	-- insert line above or below without going into insert mode
+	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+
 	for cmd, func in pairs({
 		[1] = function() require("lazygit-confirm").confirm() end,
 		[2] = format,
@@ -46,14 +62,6 @@ local setup_keymap = function()
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
-
-	-- insert line above or below without going into insert mode
-	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-
-	vim.keymap.set("n", "U", "<c-r>")
-	snacks.toggle.option("spell"):map("<leader>ts")
-	snacks.toggle.diagnostics():map("<leader>td")
 end
 local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", {
@@ -72,7 +80,6 @@ local setup_autocmds = function()
 		callback = function() vim.highlight.on_yank { higroup = "DiffAdd", timeout = 250 } end })
 end
 local setup_highlighters = function()
-	vim.api.nvim_set_hl(0, 'StatusLine', { fg = "none" })
 	-- vim.api.nvim_set_hl(0, 'ColorColumn', { fg = "#FF5555" }) -- TODO make letters warn color
 	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" }) -- TODO remove lines completely instead of hiding them
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
@@ -81,7 +88,7 @@ local setup_highlighters = function()
 end
 
 -- MINI
-local path_package = vim.fn.stdpath('data') .. '/site_light/'
+local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
 	vim.notify('Installing mini.nvim', vim.log.levels.INFO)
@@ -91,11 +98,24 @@ if not vim.loop.fs_stat(mini_path) then
 end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
-for _, plug in ipairs({
+for _, plug in ipairs({ -- mini plug to load later using thier default config
 	"basics", "comment", "diff", "visits", "jump", "jump2d", "bracketed",
-	"ai", "pairs", "surround", "trailspace", "files", "pick",
+	"ai", "pairs", "surround", "trailspace", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
-now(function() require("mini.starter").setup() end)
+now(function() -- mini setup
+	require("mini.starter").setup()
+	require("mini.hipatterns").setup({
+		highlighters = {
+			WARN = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
+			HACK = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			TODO = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+		}
+	})
+	require("mini.pick").setup({
+		window = { prompt_prefix = vim.flag .. ' '},
+		options = { content_from_bottom = true }
+	})
+end)
 
 -- SNACKS
 now(function()
@@ -106,7 +126,6 @@ now(function()
 		quickfile = { enabled = true },
 		rename = { enabled = true },
 		indent = {
-			enabled = true,
 			animate = { style = 'down' },
 			chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰", } },
 			scope = { enabled = false }
@@ -131,24 +150,19 @@ now(function()
 end)
 
 -- OTHER
-now(function()
-	require('mini.hipatterns').setup({
-		highlighters = {
-			warn = { pattern = '%f[%w]()WARN()%f[%W]', group = 'MiniHipatternsWarn' },
-			hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-			todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-		}
-	})
-end)
-now(function()
-	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
+now(function() -- style
 	add({ source = '2giosangmitom/nightfall.nvim' }); require("nightfall").setup({})
-	vim.cmd.colorscheme('nightfall')
+	add({ source = 'Mofiqul/dracula.nvim' }); require("dracula").load()
+	add({ source = 'tzachar/highlight-undo.nvim' }); require('highlight-undo').setup()
+	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
+	require("nightfall").load("nightfall")
 end)
 now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
-	require('render-markdown').setup({});
-	require('render-markdown').enable()
+	require('render-markdown').setup({}); require('render-markdown').enable()
+	-- add({ source = 'jghauser/follow-md-links.nvim' }); require('follow-md-links').setup();
+	-- vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
+
 end)
 now(function()
 	add({
@@ -159,11 +173,9 @@ now(function()
 	})
 	require('nvim-treesitter.configs').setup({ highlight = { enable = true } })
 end)
-later(function() -- search and replace
-	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {}
-	add({ source = 'tzachar/highlight-undo.nvim' })
+later(function()
+	add({ source = 'MagicDuck/grug-far.nvim' }); require('grug-far').setup {} -- find and replace
 	add({ source = 'andrewferrier/debugprint.nvim' }) -- generates print statements for variables
-	require('highlight-undo').setup()
 	require('debugprint').setup({ keymaps = { normal = { variable_below = "gp", delete_debug_prints = "gP" } } })
 end)
 later(function()
