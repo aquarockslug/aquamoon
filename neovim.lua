@@ -13,7 +13,9 @@ vim.opt.signcolumn = "no"
 vim.diagnostic.config({ signs = false })
 vim.flag = "󰈿"
 
-vim.api.nvim_create_user_command("W", "w", { nargs = 0 })
+vim.api.nvim_create_user_command("W", "write", { nargs = 0 })
+vim.api.nvim_create_user_command("S", "source %", { nargs = 0 })
+
 local function format()
 	vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 	require('conform').format()
@@ -42,10 +44,11 @@ local setup_keymap = function()
 		-- right hand
 		j = function() snacks.picker.jumps() end,
 		m = function() snacks.picker.colorschemes() end,
-		n = cycle_colorscheme({ "nightfall", "dracula", "desert"}), -- "deeper-night" }),
+		n = cycle_colorscheme({ "nightfall", "dracula", "desert"}), -- set based on time of day?
 		u = function() snacks.picker.undo() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
+	vim.keymap.set("n", "q:", "quit") -- clear highlighting
 	snacks.toggle.option("spell"):map("<leader>ts")
 	snacks.toggle.diagnostics():map("<leader>td")
 	vim.keymap.set("n", "U", "<c-r>")
@@ -55,7 +58,11 @@ local setup_keymap = function()
 
 	for cmd, func in pairs({
 		[1] = function() require("lazygit-confirm").confirm() end,
-		[2] = format,
+		[2] = function()
+			vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
+			require('conform').format()
+			vim.cmd.write()
+		end,
 		-- [3] previou flag bookmark
 		-- [4] next flag bookmark
 	}) do
