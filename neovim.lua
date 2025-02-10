@@ -5,6 +5,7 @@ vim.g.maplocalleader = ","
 vim.opt.autochdir = true
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 0
+vim.opt.laststatus = 1
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 10000
@@ -12,6 +13,7 @@ vim.opt.signcolumn = "no"
 vim.diagnostic.config({ signs = false })
 vim.flag = "󰈿"
 
+vim.api.nvim_create_user_command("W", "w", { nargs = 0 })
 local function format()
 	vim.notify(vim.flag .. ' formatting...', vim.log.levels.INFO)
 	require('conform').format()
@@ -34,15 +36,23 @@ local setup_keymap = function()
 		c = function() require("mini.extra").pickers.hipatterns() end, -- view highlighted comments
 		d = function() require("mini.extra").pickers.diagnostic() end,
 		e = function() require("mini.files").open() end,
+		-- f for jump to flag bookmark
 		r = function() require("grug-far").open() end, -- search and replace
-		t = cycle_colorscheme({ "nightfall", "deeper-night", "dracula"}),
 		w = function() snacks.terminal() end,
 		-- right hand
 		j = function() snacks.picker.jumps() end,
-		u = function() snacks.picker.undo() end,
 		m = function() snacks.picker.colorschemes() end,
+		n = cycle_colorscheme({ "nightfall", "dracula", "desert"}), -- "deeper-night" }),
+		u = function() snacks.picker.undo() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
+	snacks.toggle.option("spell"):map("<leader>ts")
+	snacks.toggle.diagnostics():map("<leader>td")
+	vim.keymap.set("n", "U", "<c-r>")
+	-- insert line above or below without going into insert mode
+	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+
 	for cmd, func in pairs({
 		[1] = function() require("lazygit-confirm").confirm() end,
 		[2] = format,
@@ -52,14 +62,6 @@ local setup_keymap = function()
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
-
-	-- insert line above or below without going into insert mode
-	vim.keymap.set('n', 'gO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-	vim.keymap.set('n', 'go', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-
-	vim.keymap.set("n", "U", "<c-r>")
-	snacks.toggle.option("spell"):map("<leader>ts")
-	snacks.toggle.diagnostics():map("<leader>td")
 end
 local setup_autocmds = function()
 	vim.api.nvim_create_autocmd("BufWritePost", {
@@ -78,7 +80,6 @@ local setup_autocmds = function()
 		callback = function() vim.highlight.on_yank { higroup = "DiffAdd", timeout = 250 } end })
 end
 local setup_highlighters = function()
-	vim.api.nvim_set_hl(0, 'StatusLine', { fg = "none" })
 	-- vim.api.nvim_set_hl(0, 'ColorColumn', { fg = "#FF5555" }) -- TODO make letters warn color
 	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" }) -- TODO remove lines completely instead of hiding them
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
