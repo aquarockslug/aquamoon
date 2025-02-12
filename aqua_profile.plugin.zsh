@@ -73,13 +73,13 @@ alias zjv="zellij action edit"
 
 source "${0:A:h}"/aqua_dracula_theme.zsh
 
-# %% zsh functions %%
+# zsh functions
 hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
 lfcd () { cd "$(command lf -print-last-dir "$@")" }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
-docs() { $(gum choose "cht" "cheat" "tldr" "cd ~/home/share/docs" "firefox overapi.com/" "firefox quickref.me") }
 cht() { cht.sh $(gum input --placeholder "query...") | gum pager }
 dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi }
 dls() { wget -q -O - $1 | nap }
+rgv() { nvim "./$(rg $1 | peco | cut -d: -f1)" }
