@@ -21,8 +21,8 @@ export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
 export NAP_DEFAULT_LANGUAGE='md'
 export PAGER='bat'
 export PATH="$PATH:/home/aqua/.local/share/nvim/mason/bin" # mason for nvim language servers
-export PATH="$PATH:~/.local/share/pnpm"
-export PNPM_HOME="~/.local/share/pnpm"
+export PATH="$PATH:$HOME/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export ZELLIJ_CONFIG_DIR=/etc/zellij;
 export ZELLIJ_CONFIG_FILE=/etc/zellij/config.kdl
 bindkey " " magic-space

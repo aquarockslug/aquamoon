@@ -26,9 +26,9 @@ source=("https://raw.githubusercontent.com/mafredri/zsh-async/main/async.zsh"
 sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             'f908dde7b88e24de555e36e9c0c7b984bea768efd3ffec02af3e688863c67ba3'
             '45961a04d2141c76a5464f65c462aa925719e2ef312e7f1fe943ddd9bbb36954'
-            '00740c8e421bab3009c78abbdf072923ca6ceffd775fd6e08e7d9d82142deb67'
+            'edcaca3b3bb0d4d6a87a844af779dcc7ca6c09b6730f8b307379f8867e9db971'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
-            'd0775db5c48fc6fdf5e7e7f0af71f8bdf734c5dec5ec436713fe1c9010df0871'
+            '10abaac5d1c7933adf488ccf519ef78fdb025021ac0baead83daa245c77d77be'
             'da5ebd591bbb33b27ee0e0d5c0340e19bf29c27501d45d05d224485d098a3e4f')
 package() {
 	# % glow %
