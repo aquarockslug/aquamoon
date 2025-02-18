@@ -29,6 +29,15 @@ local function cycle_colorscheme(colorschemes)
 		vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "none" }) -- use the default color after switching
 	end
 end
+local is_wsl = function() -- check if nvim is currently running on windows subsystem linux
+	local version_file = io.open("/proc/version", "rb")
+	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
+		version_file:close()
+		return true
+	end
+	return false
+end
+
 local setup_keymap = function()
 	local snacks = Snacks
 	for cmd, func in pairs({
@@ -40,11 +49,10 @@ local setup_keymap = function()
 		e = function() require("mini.files").open() end,
 		r = function() require("grug-far").open() end, -- search and replace
 		w = function() snacks.terminal() end,
-		W = function() snacks.terminal() end, -- TODO open on the right side
 		-- right hand
 		j = function() snacks.picker.jumps() end,
 		m = function() snacks.picker.colorschemes() end,
-		n = cycle_colorscheme({ "nightfall", "dracula", "desert"}), -- set based on time of day?
+		n = cycle_colorscheme({"dracula", "desert", "nightfall"}), -- TODO set based on time of day?
 		u = function() snacks.picker.undo() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
@@ -88,7 +96,7 @@ local setup_autocmds = function()
 end
 local setup_highlighters = function()
 	-- vim.api.nvim_set_hl(0, 'ColorColumn', { fg = "#FF5555" }) -- TODO make letters warn color
-	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" }) -- TODO remove lines completely instead of hiding them
+	vim.api.nvim_set_hl(0, 'SnacksIndent', { fg = "#0E131B" }) -- TODO remove lines completely, or link bg color hl group
 	vim.api.nvim_set_hl(0, 'MiniHipatternsWarn', { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsHack', { bg = "#FFB86C" })
 	vim.api.nvim_set_hl(0, 'MiniHipatternsTodo', { bg = "#8BE9FD" })
@@ -157,12 +165,11 @@ now(function()
 end)
 
 -- OTHER
-now(function() -- style
+now(function()
 	add({ source = '2giosangmitom/nightfall.nvim' }); require("nightfall").setup({})
 	add({ source = 'Mofiqul/dracula.nvim' }); require("dracula").load()
 	add({ source = 'tzachar/highlight-undo.nvim' }); require('highlight-undo').setup()
 	add({ source = 'sphamba/smear-cursor.nvim' }); require('smear_cursor').setup()
-	require("nightfall").load("nightfall")
 end)
 now(function()
 	add({ source = 'MeanderingProgrammer/render-markdown.nvim' });
@@ -207,14 +214,6 @@ later(function()
 	vim.keymap.set("n", "<left>", function() vim.cmd("ZellijNavigateLeft") end)
 	vim.keymap.set("n", "<right>", function() vim.cmd("ZellijNavigateRight") end)
 end)
-local is_wsl = function() -- check if nvim is currently running on windows subsystem linux
-	local version_file = io.open("/proc/version", "rb")
-	if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
-		version_file:close()
-		return true
-	end
-	return false
-end
 if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 	vim.g.clipboard = {
 		name = "wsl-clipboard",
@@ -222,5 +221,5 @@ if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 		paste = { ["+"] = "wpaste", ["*"] = "wpaste" },
 		cache_enabled = true,
 	}
-end
+else require("nightfall").load("nightfall") end -- use the nightfall theme when not on wsl
 setup_autocmds(); setup_highlighters(); setup_keymap()
