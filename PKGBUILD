@@ -28,7 +28,7 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '45961a04d2141c76a5464f65c462aa925719e2ef312e7f1fe943ddd9bbb36954'
             'edcaca3b3bb0d4d6a87a844af779dcc7ca6c09b6730f8b307379f8867e9db971'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
-            '1d33a6f11a0ad375a3dd0ea5751940a9ac840223bf19dcc9700ab15111b512ef'
+            'a6afcd141ce685ddbb40c18b52da21408740e315e89639dd06f81fb2b453ecb8'
             'da5ebd591bbb33b27ee0e0d5c0340e19bf29c27501d45d05d224485d098a3e4f')
 package() {
 	# % glow %
@@ -43,7 +43,7 @@ width: 120
 EOM
 	) >>"${pkgdir}"/usr/share/glow/glow.yml
 
-	# % lf %
+	# % lf % TODO map F1 to lazygit like in nvim
 	mkdir -pv "${pkgdir}"/etc/lf
 	echo
 	(
