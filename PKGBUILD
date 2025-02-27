@@ -28,7 +28,7 @@ sha256sums=('deefe9fecfe709a02a99cc846928a73703ffd18dd282afd5f07d8d8a593f8ea3'
             '45961a04d2141c76a5464f65c462aa925719e2ef312e7f1fe943ddd9bbb36954'
             'edcaca3b3bb0d4d6a87a844af779dcc7ca6c09b6730f8b307379f8867e9db971'
             'e8d123476472a1a8caeaf7e2eabad000767b6d19ffc3efa53d043b9d7a3f7c01'
-            'a6afcd141ce685ddbb40c18b52da21408740e315e89639dd06f81fb2b453ecb8'
+            'b86de5e8fe80474b9d770a177eb8b4102214cf601d8eba5f1b044b3da6c89ae1'
             'da5ebd591bbb33b27ee0e0d5c0340e19bf29c27501d45d05d224485d098a3e4f')
 package() {
 	# % glow %

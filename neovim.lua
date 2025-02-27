@@ -158,6 +158,7 @@ now(function()
 	})
 	require("blink.cmp").setup { keymap = { preset = 'super-tab' } }
 	require("lspconfig")["biome"].setup {}
+	require("lspconfig")["lua_ls"].setup {}
 	add({ source = 'stevearc/conform.nvim' })
 	require("conform").setup({ -- cant use vim.lsp.buf.format because it clears marks
 		formatters_by_ft = { javascript = { "biome" } },
