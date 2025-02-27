@@ -52,11 +52,11 @@ local setup_keymap = function()
 		-- right hand
 		j = function() snacks.picker.jumps() end,
 		m = function() snacks.picker.colorschemes() end,
-		n = cycle_colorscheme({"dracula", "desert", "nightfall"}), -- TODO set based on time of day?
+		n = cycle_colorscheme({"dracula", "desert", "nightfall"}),
 		u = function() snacks.picker.undo() end,
 	}) do vim.keymap.set("n", "<leader>" .. cmd, func) end
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
-	vim.keymap.set("n", "q:", "") -- prevent this typo from opening a menu
+	vim.keymap.set("n", "q:", "") -- prevent this typo from opening a window 
 	snacks.toggle.option("spell"):map("<leader>ts")
 	snacks.toggle.diagnostics():map("<leader>td")
 	vim.keymap.set("n", "U", "<c-r>")
@@ -71,7 +71,7 @@ local setup_keymap = function()
 			require('conform').format()
 			vim.cmd.write()
 		end,
-		-- [3] previou flag bookmark
+		-- [3] previous flag bookmark
 		-- [4] next flag bookmark
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
@@ -113,7 +113,7 @@ if not vim.loop.fs_stat(mini_path) then
 end
 require('mini.deps').setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
-for _, plug in ipairs({ -- mini plug to load later using thier default config
+for _, plug in ipairs({ -- mini plug to load later using their default config
 	"basics", "comment", "diff", "visits", "jump", "jump2d", "bracketed",
 	"ai", "pairs", "surround", "trailspace", "files"
 }) do later(function() require('mini.' .. plug).setup() end) end
@@ -164,6 +164,7 @@ now(function()
 		formatters_by_ft = { javascript = { "biome" } },
 	})
 end)
+-- TODO automatically build on update
 
 -- OTHER
 now(function()
@@ -222,5 +223,6 @@ if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 		paste = { ["+"] = "wpaste", ["*"] = "wpaste" },
 		cache_enabled = true,
 	}
-else require("nightfall").load("nightfall") end -- use the nightfall theme when not on wsl
+else require("nightfall").load("nightfall") end
+ -- TODO set theme based on time of day
 setup_autocmds(); setup_highlighters(); setup_keymap()

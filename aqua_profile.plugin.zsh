@@ -7,7 +7,6 @@ if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop || "$TERM_PROGRAM" = 'vscode' ]]
 then WSL=true; else WSL=false; fi
 
 # SETTINGS
-zstyle ':omz:update' mode auto
 export BROWSER='waterfox'
 [ $WSL = true ] && export BROWSER='wsl-open' && export OPENER='wsl-open'
 export DISABLE_AUTO_TITLE='true'
