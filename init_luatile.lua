@@ -94,7 +94,7 @@ local river_options = {
 	["focus-follows-cursor"] = "normal",
 	["set-cursor-warp"] = "on-output-change",
 	["attach-mode"] = "bottom",
-	["default-layout"] = "rivertile",
+	["default-layout"] = "lua-rivertile",
 }
 
 local gsettings = {

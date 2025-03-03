@@ -1,2 +1,3 @@
 cd /home/aqua/.aquamoon
-lua /home/aqua/.aquamoon/init.lua
+# lua /home/aqua/.aquamoon/init.lua
+lua /home/aqua/.aquamoon/init_luatile.lua
