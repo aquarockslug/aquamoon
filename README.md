@@ -12,6 +12,6 @@ https://luakit.github.io/docs/pages/05-configuration.html
     - lush shell
     - tym
 
-## to find ( cosmic? )
+## to find
     - launcher
     - sleep lockscreen
