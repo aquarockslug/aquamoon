@@ -1,0 +1,2 @@
+cd /home/aqua/.aquamoon
+lua /home/aqua/.aquamoon/init.lua
