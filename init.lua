@@ -24,8 +24,6 @@ end
 -- All the setting tables ──────────────────────────────────────────────────────
 
 local wl_script_dir = os.getenv("HOME") .. "/.local/libexec/wayland"
-local drun_menu = "rofi -show drun"
-local run_menu = "rofi -show run"
 
 local startup_commands = {
 	-- Inform dbus about the environment variables
@@ -163,85 +161,13 @@ local mappings = {
 			{
 				mod = "Super",
 				key = "D",
-				command = { "spawn", string.format([['%s']], drun_menu) },
-			},
-			{
-				mod = { "Super", "Shift" },
-				key = "D",
-				command = { "spawn", string.format([['%s']], run_menu) },
-			},
-			-- Web search
-			{
-				mod = { "Super", "Alt" },
-				key = "S",
-				command = { "spawn", string.format([['%s/searchmenu']], wl_script_dir) },
-			},
-			-- Quickly open offline manga
-			{
-				mod = { "Super", "Alt" },
-				key = "M",
-				command = { "spawn", string.format([['%s/mangamenu']], wl_script_dir) },
-			},
-			-- Browser bookmarks (buku)
-			{
-				mod = { "Super", "Alt" },
-				key = "B",
-				command = { "spawn", string.format([['%s/bukumenu']], wl_script_dir) },
-			},
-			-- Open current MPD playlist
-			{
-				mod = { "Super", "Alt" },
-				key = "U",
-				command = { "spawn", string.format([['%s/musicmenu']], wl_script_dir) },
-			},
-			-- Rofi has qalc and file-browsenshots
-			{
-				mod = "Super",
-				key = "Print",
-				command = { "spawn", string.format([['%s/screenshot --full']], wl_script_dir) },
-			},
-			{
-				mod = "None",
-				key = "Print",
-				command = { "spawn", string.format([['%s/screenshot --region']], wl_script_dir) },
-			},
-			{
-				mod = "Alt",
-				key = "Print",
-				command = { "spawn", string.format([['%s/screenshot --region-optional']], wl_script_dir) },
-			},
-			{
-				mod = "Control",
-				key = "Print",
-				command = { "spawn", string.format([['%s/screenshot --full-optional']], wl_script_dir) },
-			},
-			{
-				mod = { "Super", "Alt" },
-				key = "Print",
-				command = { "spawn", string.format([['%s/screenshot --region-copy']], wl_script_dir) },
-			},
-			{
-				mod = { "Super", "Control" },
-				key = "Print",
-				command = { "spawn", string.format([['%s/screenshot --full-copy']], wl_script_dir) },
+				command = { "spawn", [['onagre --scale 2']] },
 			},
 			-- Super+Q to close the focused view
 			{
 				mod = "Super",
 				key = "Q",
 				command = "close",
-			},
-			-- Super+Shift+Q to exit river (requires 'swaynag' program from sway)
-			{
-				mod = { "Super", "Shift" },
-				key = "Q",
-				command = { "spawn", [['swaynag -t warning -m "Exit river?" -b "Yes" "riverctl exit"']] },
-			},
-			-- Super+Shift+X to lock the screen
-			{
-				mod = { "Super", "Shift" },
-				key = "X",
-				command = { "spawn", "swaylock" },
 			},
 			-- Super+{J,K} to focus next/previous view in the layout stack
 			{
@@ -264,28 +190,6 @@ local mappings = {
 				mod = { "Super", "Shift" },
 				key = "K",
 				command = { "swap", "next" },
-			},
-			-- Super+{P,N} to focus next/previous output
-			{
-				mod = "Super",
-				key = "P",
-				command = { "focus-output", "previous" },
-			},
-			{
-				mod = "Super",
-				key = "N",
-				command = { "focus-output", "next" },
-			},
-			-- Super+Shift+{P,N} to send the focused view to next/previous output
-			{
-				mod = { "Super", "Shift" },
-				key = "P",
-				command = { "send-to-output", "previous" },
-			},
-			{
-				mod = { "Super", "Shift" },
-				key = "N",
-				command = { "send-to-output", "next" },
 			},
 			-- Super+E to bump the focused view to the top of the layout stack
 			{

@@ -1,14 +1,20 @@
--- echo "/usr/bin/lush" | sudo tee -a /etc/shells >/dev/null
-
--- This file is the init.lua for lush
--- lush will look for it at $HOME/.lush/init.lua
+-- LUSH LUNAR SHELL CONFIGURATION
 
 -- ENVIROMENT 
 local path = lush.getenv("HOME") .. "/bin:" .. lush.getenv("PATH")
 lush.setenv("PATH", path)
 
+local aqua_path = lush.getenv("HOME") .. "/.aquamoon"
+lush.setenv("XDG_CONFIG_DIR", aqua_path)
+lush.setenv("SHELL", "/usr/bin/lush")
+lush.setenv("EDITOR", "nvim -u " ..  aqua_path .. "/editor.lua")
+
 -- ALIAS
+lush.alias("q", "exit")
 lush.alias("h", "help")
+lush.alias("lg", "lazygit")
+lush.alias("cls", "clear && ls")
+lush.alias("v", lush.getenv("EDITOR"))
 
 -- BEHAVIOR
 lush.setPrompt("%w 󰈿")
