@@ -1,8 +1,26 @@
+-- https://github.com/endaaman/tym/tree/master
 local tym = require("tym")
 
 tym.set("width", 100)
 tym.set("font", "FairiesevkaTerm Nerd Font Mono 18")
 tym.set_config({
+	name = "shell"
 	shell = "/usr/bin/lush",
 	color_foreground = "green",
+	cursor_shape = "ibeam",
+	bold_is_bright = true,
+	autohide = true,
 })
+
+tym.set_hook('scroll', function(dx, dy, x, y)
+  if tym.check_mod_state('<Ctrl>') then
+    if dy > 0 then
+      s = tym.get('scale') - 10
+    else
+      s = tym.get('scale') + 10
+    end
+    tym.set('scale', s)
+    tym.notify('set scale: ' .. s .. '%')
+    return true
+  end
+end)
