@@ -39,21 +39,6 @@ local startup_commands = {
 		"swayidle",
 		'timeout 300 "swaylock"',
 	},
-	{
-		wl_script_dir .. "/launch_waybar",
-		"-c",
-		"~/.config/waybar/river/config",
-		"-s",
-		"~/.config/waybar/river/style.css",
-	},
-	{ wl_script_dir .. "/clipboard", "--start" },
-	wl_script_dir .. "/launch_pipewire",
-	wl_script_dir .. "/launch_mpd",
-	wl_script_dir .. "/launch_notify",
-	wl_script_dir .. "/wlwpp",
-	{ wl_script_dir .. "/launch_xdg_portal", "wlr" },
-	{ wl_script_dir .. "/launch_xdg_portal", "gtk" },
-	wl_script_dir .. "/launch_mpdris",
 }
 
 local outputs = {
@@ -61,7 +46,7 @@ local outputs = {
 		mode = "3840x2160",
 		pos = "0,0",
 		transform = "normal",
-		scale = "1.000000",
+		scale = "1.500000",
 		preferred = true,
 	},
 }
@@ -80,7 +65,7 @@ local inputs = {
 
 local river_options = {
 	-- Theme options
-	["border-width"] = 2,
+	["border-width"] = 1,
 	["border-color-focused"] = "0xeceff4",
 	["border-color-unfocused"] = "0x81a1c1",
 	["border-color-urgent"] = "0xbf616a",
@@ -99,6 +84,7 @@ local gsettings = {
 	["org.gnome.desktop.interface"] = {
 		["gtk-theme"] = "Nordic",
 		["icon-theme"] = "Papirus-Dark",
+		["gtk-scale"] = "Nordic",
 		["cursor-theme"] = river_options["xcursor-theme"][1],
 		["cursor-size"] = river_options["xcursor-theme"][2],
 	},
@@ -161,7 +147,13 @@ local mappings = {
 			{
 				mod = "Super",
 				key = "D",
-				command = { "spawn", [['onagre --scale 2']] },
+				command = { "spawn", [['onagre --scale 2']] }, -- TODO use a floating terminal window
+			},
+			-- Browser
+			{
+				mod = { "Super", "Shift" },
+				key = "Return",
+				command = { "spawn", "luakit" },
 			},
 			-- Super+Q to close the focused view
 			{
