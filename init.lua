@@ -65,29 +65,28 @@ local inputs = {
 
 local river_options = {
 	-- Theme options
-	["border-width"] = 1,
-	["border-color-focused"] = "0xeceff4",
-	["border-color-unfocused"] = "0x81a1c1",
-	["border-color-urgent"] = "0xbf616a",
+	-- ["border-width"] = 1,
+	-- ["border-color-focused"] = "0xeceff4",
+	-- ["border-color-unfocused"] = "0x81a1c1",
+	-- ["border-color-urgent"] = "0xbf616a",
 	["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
-	["background-color"] = "0x2e3440",
+	["background-color"] = "0x3C4841", -- "0xe3440",
 
 	-- Other options
 	["set-repeat"] = { 50, 300 },
 	["focus-follows-cursor"] = "normal",
-	["set-cursor-warp"] = "on-output-change",
 	["attach-mode"] = "bottom",
 	["default-layout"] = "rivertile",
 }
 
-local gsettings = {
-	["org.gnome.desktop.interface"] = {
-		["gtk-theme"] = "Nordic",
-		["icon-theme"] = "Papirus-Dark",
-		["gtk-scale"] = "Nordic",
-		["cursor-theme"] = river_options["xcursor-theme"][1],
-		["cursor-size"] = river_options["xcursor-theme"][2],
-	},
+local gsettings = { -- TODO use this table instead of nwg-look
+	-- ["org.gnome.desktop.interface"] = {
+	-- 	["gtk-theme"] = "Nordic",
+	-- 	["icon-theme"] = "Papirus-Dark",
+	-- 	["gtk-scale"] = "Nordic",
+	-- 	["cursor-theme"] = river_options["xcursor-theme"][1],
+	-- 	["cursor-size"] = river_options["xcursor-theme"][2],
+	-- },
 }
 
 local window_rules = {
@@ -430,7 +429,6 @@ for key, value in pairs(window_rules) do
 end
 
 -- Launch the layout generator as the final initial process.
---
 -- River run the init file as a process group leader and send
 -- SIGTERM to the group on exit. Therefore, keep the main init
 -- process running (replace it with the layout generator process).

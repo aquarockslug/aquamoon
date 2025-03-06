@@ -6,8 +6,8 @@ local theme = {}
 
 -- Default settings
 theme.font = "24px FairiesevkaTerm Nerd Font Mono"
-theme.fg = "#fff"
-theme.bg = "#000"
+theme.fg = "#7FBBB3"
+theme.bg = "#1E2326"
 
 -- General colours
 theme.success_fg = "#0f0"
@@ -46,8 +46,8 @@ theme.proxy_inactive_menu_fg = "#888"
 theme.proxy_inactive_menu_bg = "#FFF"
 
 -- Statusbar specific
-theme.sbar_fg = "#fff"
-theme.sbar_bg = "#000"
+theme.sbar_fg = theme.fg
+theme.sbar_bg = theme.bg
 
 -- Downloadbar specific
 theme.dbar_fg = "#fff"
@@ -55,19 +55,19 @@ theme.dbar_bg = "#000"
 theme.dbar_error_fg = "#F00"
 
 -- Input bar specific
-theme.ibar_fg = "#000"
-theme.ibar_bg = "rgba(0,0,0,0)"
+theme.ibar_fg = theme.fg
+theme.ibar_bg = theme.bg
 
 -- Tab label
-theme.tab_fg = "#888"
-theme.tab_bg = "#222"
+theme.tab_fg = theme.fg
+theme.tab_bg = theme.bg
 theme.tab_hover_bg = "#292929"
 theme.tab_ntheme = "#ddd"
-theme.selected_fg = "#fff"
-theme.selected_bg = "#000"
+theme.selected_fg = theme.fg
+theme.selected_bg = "#3C4841"
 theme.selected_ntheme = "#ddd"
-theme.loading_fg = "#33AADD"
-theme.loading_bg = "#000"
+theme.loading_fg = theme.fg 
+theme.loading_bg = theme.bg 
 
 theme.selected_private_tab_bg = "#3d295b"
 theme.private_tab_bg = "#22254a"
@@ -78,17 +78,17 @@ theme.notrust_fg = "#F00"
 
 -- Follow mode hints
 theme.hint_font = "24px FairiesevkaTerm Nerd Font Mono"
-theme.hint_fg = "#fff"
-theme.hint_bg = "#000088"
+theme.hint_fg = theme.fg
+theme.hint_bg = theme.bg
 theme.hint_border = "1px dashed #000"
 theme.hint_opacity = "0.3"
-theme.hint_overlay_bg = "rgba(255,255,153,0.3)"
+theme.hint_overlay_bg = theme.bg
 theme.hint_overlay_border = "1px dotted #000"
 theme.hint_overlay_selected_bg = "rgba(0,255,0,0.3)"
 theme.hint_overlay_selected_border = theme.hint_overlay_border
 
 -- General colour pairings
-theme.ok = { fg = "#000", bg = "#FFF" }
+theme.ok = { fg = theme.fg, bg = theme.bg }
 theme.warn = { fg = "#F00", bg = "#FFF" }
 theme.error = { fg = "#FFF", bg = "#F00" }
 

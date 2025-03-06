@@ -12,6 +12,7 @@ vim.opt.scrolloff = 10000
 vim.opt.signcolumn = "no"
 vim.diagnostic.config({ signs = false })
 vim.flag = "󰈿"
+-- TODO remove extra netrw decorations
 
 vim.api.nvim_create_user_command("W", "write", { nargs = 0 })
 vim.api.nvim_create_user_command("S", "source %", { nargs = 0 })
@@ -68,7 +69,7 @@ local setup_keymap = function()
 		m = function()
 			snacks.picker.colorschemes()
 		end,
-		n = cycle_colorscheme({ "dracula", "desert", "nightfall" }),
+		n = cycle_colorscheme({ "dracula", "desert", "everforest", "nightfall" }),
 		u = function()
 			snacks.picker.undo()
 		end,
@@ -125,7 +126,7 @@ local setup_autocmds = function()
 end
 local setup_highlighters = function()
 	-- vim.api.nvim_set_hl(0, 'ColorColumn', { fg = "#FF5555" }) -- TODO make letters warn color
-	vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#0E131B" }) -- TODO remove lines completely, or link bg color hl group
+	-- vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#0E131B" }) -- TODO remove lines completely, or link bg color hl group
 	vim.api.nvim_set_hl(0, "MiniHipatternsWarn", { bg = "#FF5555", fg = "#FFFFFF" })
 	vim.api.nvim_set_hl(0, "MiniHipatternsHack", { bg = "#FFB86C" })
 	vim.api.nvim_set_hl(0, "MiniHipatternsTodo", { bg = "#8BE9FD" })
@@ -215,6 +216,8 @@ now(function()
 	require("nightfall").setup({})
 	add({ source = "Mofiqul/dracula.nvim" })
 	require("dracula").load()
+	add({ source = "neanias/everforest-nvim.git" })
+	require("everforest").setup()
 	add({ source = "tzachar/highlight-undo.nvim" })
 	require("highlight-undo").setup()
 	add({ source = "sphamba/smear-cursor.nvim" })
@@ -284,8 +287,10 @@ if is_wsl() then -- https://github.com/memoryInject/wsl-clipboard
 		paste = { ["+"] = "wpaste", ["*"] = "wpaste" },
 		cache_enabled = true,
 	}
+	require("dracula").load()
 else
-	require("nightfall").load("nightfall")
+	-- require("nightfall").load("nightfall")
+	require("everforest").load()
 end
 -- TODO set theme based on time of day
 setup_autocmds()
