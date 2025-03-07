@@ -231,6 +231,7 @@ now(function()
 	-- vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
 end)
 now(function()
+	add({ source = "tpope/vim-eunuch" })
 	add({
 		source = "brianhuster/dirvish-git.nvim",
 		depends = { "justinmk/vim-dirvish" },

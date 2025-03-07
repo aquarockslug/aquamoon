@@ -1,12 +1,9 @@
 #!/usr/bin/lua5.4
-
 require("settings")
 
 --[[
 
-NOTE:
 - execp() needs 'lua-posix' package
-- bitwise operands for tag mappings need Lua version >= 5.3
 
 --]]
 
