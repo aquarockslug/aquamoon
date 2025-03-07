@@ -2,7 +2,7 @@
 local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-vim.opt.autochdir = true
+-- vim.opt.autochdir = true
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 1
@@ -229,6 +229,12 @@ now(function()
 	require("render-markdown").enable()
 	-- add({ source = 'jghauser/follow-md-links.nvim' }); require('follow-md-links').setup();
 	-- vim.keymap.set('n', '<bs>', ':edit #<cr>', { silent = true })
+end)
+now(function()
+	add({
+		source = "brianhuster/dirvish-git.nvim",
+		depends = { "justinmk/vim-dirvish" },
+	})
 end)
 now(function()
 	add({
