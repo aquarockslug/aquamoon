@@ -1,11 +1,12 @@
 -- LUSH LUNAR SHELL CONFIGURATION
 
 -- ENVIROMENT
-local path = lush.getenv("HOME") .. "/bin:" .. lush.getenv("PATH")
+local home = lush.getenv("HOME")
+local aqua_path = home .. "/.aquamoon"
+local path = lush.getenv("PATH") .. ":" .. aqua_path .. ":" .. home .. "/.cargo/bin"
 lush.setenv("PATH", path)
-
-local aqua_path = lush.getenv("HOME") .. "/.aquamoon"
 lush.setenv("XDG_CONFIG_DIR", aqua_path)
+lush.setenv("XDG_CONFIG_HOME", aqua_path)
 lush.setenv("SHELL", "/usr/bin/lush")
 lush.setenv("BROWSER", "luakit")
 lush.setenv("EDITOR", "nvim -u " .. aqua_path .. "/editor.lua")
