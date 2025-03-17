@@ -1,5 +1,5 @@
 #!/usr/bin/lua5.4
-require("settings")
+S = require("settings")
 
 --[[
 
@@ -19,7 +19,6 @@ local function concat(...)
 		return tostring(list)
 	end
 end
-
 
 -- These mappings are repeated, so they are separated from the mappings table
 local function tag_mappings()
@@ -51,13 +50,13 @@ end
 --
 -- 'riverctl spawn ...' always returns (even when the child process is a daemon)
 -- so we don't need to resort to posix.unistd.spawn()
-for _, cmd in ipairs(startup_commands) do
+for _, cmd in ipairs(S.startup_commands) do
 	os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
 end
 
 -- Configure outputs
 local randr_cmd = "wlr-randr"
-for output, options in pairs(outputs) do
+for output, options in pairs(S.outputs) do
 	randr_cmd = randr_cmd .. " --output " .. output
 
 	for opt, value in pairs(options) do
@@ -74,26 +73,26 @@ end
 os.execute(randr_cmd)
 
 -- Configure input devices
-for device, options in pairs(inputs) do
+for device, options in pairs(S.inputs) do
 	for key, val in pairs(options) do
 		os.execute(string.format("riverctl input %s %s %s", device, key, val))
 	end
 end
 
 -- GNOME-related settings
-for group, tbl in pairs(gsettings) do
+for group, tbl in pairs(S.gsettings) do
 	for key, value in pairs(tbl) do
 		os.execute(string.format("gsettings set %s %s %s", group, key, value))
 	end
 end
 
 -- Set river's options
-for key, value in pairs(river_options) do
+for key, value in pairs(S.river_options) do
 	os.execute(string.format("riverctl %s %s", key, concat(value, " ")))
 end
 
 -- Additional modes (beside 'normal' and 'locked')
-for _, mode in ipairs(modes) do
+for _, mode in ipairs(S.modes) do
 	local mode_name = mode.name
 	local modifiers = concat(mode.mod, "+")
 
@@ -106,7 +105,7 @@ for _, mode in ipairs(modes) do
 end
 
 -- Keyboard and mouse bindings
-for map_type, tbl in pairs(mappings) do
+for map_type, tbl in pairs(S.mappings) do
 	for mode, value in pairs(tbl) do
 		for _, binding in ipairs(value) do
 			local modifiers = concat(binding.mod, "+")
@@ -134,7 +133,7 @@ end
 tag_mappings()
 
 -- Window rules (float/csd filters)
-for key, value in pairs(window_rules) do
+for key, value in pairs(S.window_rules) do
 	for type, patterns in pairs(value) do
 		for _, pattern in ipairs(patterns) do
 			os.execute(string.format("riverctl %s %s %s", key, type, pattern))
