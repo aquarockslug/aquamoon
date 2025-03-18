@@ -1,17 +1,12 @@
 # AQUAMOON
-A desktop enviroment that is fully configured with lua
-
-https://luakit.github.io/docs/pages/05-configuration.html
+A desktop enviroment that is configured with lua
 
 ## apps
     - riverwm
     - river-luatile
-    - neovim
-
-## apps to configure
-    - lush shell
     - tym
-
-## to find
-    - launcher
-    - sleep lockscreen
+    - lush
+    - luakit
+   
+## docs
+https://luakit.github.io/docs/pages/05-configuration.html
