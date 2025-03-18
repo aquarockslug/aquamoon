@@ -27,18 +27,6 @@ Settings = {
 		},
 	},
 
-	inputs = {
-		["pointer-2-7-SynPS/2_Synaptics_TouchPad"] = {
-			["events"] = "disabled-on-external-mouse",
-			["drag"] = "enabled",
-			["tap"] = "enabled",
-			["tap-button-map"] = "left-right-middle",
-			["disable-while-typing"] = "enabled",
-			["natural-scroll"] = "enabled",
-			["scroll-method"] = "two-finger",
-		},
-	},
-
 	river_options = {
 		-- Theme options
 		-- ["border-width"] = 1,
@@ -46,14 +34,13 @@ Settings = {
 		-- ["border-color-unfocused"] = "0x81a1c1",
 		-- ["border-color-urgent"] = "0xbf616a",
 		["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
-		["background-color"] = "0x3C4841", -- "0xe3440"
+		["background-color"] = "0x83C092", -- "0xe3440"
 		-- Other options
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "bottom",
 		["default-layout"] = "rivertile",
 	},
-
 	gsettings = { -- TODO use this table instead of nwg-look
 		-- ["org.gnome.desktop.interface"] = {
 		-- 	["gtk-theme"] = "Nordic",
@@ -63,7 +50,6 @@ Settings = {
 		-- 	["cursor-size"] = river_options["xcursor-theme"][2],
 		-- },
 	},
-
 	window_rules = {
 		["float-filter-add"] = {
 			["app-id"] = {
@@ -82,7 +68,6 @@ Settings = {
 			["app-id"] = { "swappy" },
 		},
 	},
-
 	-- Additional modes and their mappings to switch between them and 'normal' mode
 	--
 	-- name: string (the name of the additional mode)
@@ -95,7 +80,6 @@ Settings = {
 			key = "F11",
 		},
 	},
-
 	-- Each mapping contains 4 keys:
 	--
 	-- mod: string|list (modifiers, concanated by '+')

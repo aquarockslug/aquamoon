@@ -72,13 +72,6 @@ for output, options in pairs(S.outputs) do
 end
 os.execute(randr_cmd)
 
--- Configure input devices
-for device, options in pairs(S.inputs) do
-	for key, val in pairs(options) do
-		os.execute(string.format("riverctl input %s %s %s", device, key, val))
-	end
-end
-
 -- GNOME-related settings
 for group, tbl in pairs(S.gsettings) do
 	for key, value in pairs(tbl) do
@@ -156,5 +149,5 @@ unistd.execp("rivertile", {
 	"-main-count",
 	1,
 	"-main-ratio",
-	0.54,
+	0.65,
 })
