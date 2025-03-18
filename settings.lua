@@ -14,7 +14,7 @@ Settings = {
 		-- Startup programs
 		{
 			"swayidle",
-			'timeout 300 "swaylock --color 7A8478"',
+			'timeout 300 "swaylock --color 232A2E"',
 		},
 	},
 	outputs = {
