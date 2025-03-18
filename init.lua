@@ -148,9 +148,9 @@ end
 local unistd = require("posix.unistd")
 unistd.execp("rivertile", {
 	"-view-padding",
-	5,
+	2,
 	"-outer-padding",
-	5,
+	2,
 	"-main-location",
 	"left",
 	"-main-count",

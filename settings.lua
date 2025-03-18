@@ -14,7 +14,7 @@ Settings = {
 		-- Startup programs
 		{
 			"swayidle",
-			'timeout 300 "swaylock"',
+			'timeout 300 "swaylock --color 7A8478"',
 		},
 	},
 	outputs = {
@@ -46,8 +46,7 @@ Settings = {
 		-- ["border-color-unfocused"] = "0x81a1c1",
 		-- ["border-color-urgent"] = "0xbf616a",
 		["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
-		["background-color"] = "0x000000", -- "0x3C4841", -- "0xe3440",
-
+		["background-color"] = "0x3C4841", -- "0xe3440"
 		-- Other options
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
@@ -113,17 +112,16 @@ Settings = {
 					key = "Return",
 					command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua']] },
 				},
+				{
+					mod = "Super",
+					key = "T",
+					command = { "spawn", "foot" },
+				},
 				-- Browser
 				{
 					mod = { "Super", "Shift" },
 					key = "Return",
 					command = { "spawn", "luakit" },
-				},
-				-- Application launcher
-				{
-					mod = "Super",
-					key = "D",
-					command = { "spawn", [['onagre --scale 2']] }, -- TODO use a floating terminal window
 				},
 				-- Super+Q to close the focused view
 				{

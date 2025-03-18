@@ -2,7 +2,7 @@
 local tym = require("tym")
 
 tym.set("width", 100)
-tym.set("font", "FairiesevkaTerm Nerd Font Mono 12")
+tym.set("font", "IosevkaTermSlab NFM 20")
 tym.set_config({
 	shell = "/usr/bin/lush",
 	color_foreground = "#7FBBB3",
