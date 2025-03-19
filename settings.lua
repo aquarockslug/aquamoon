@@ -107,6 +107,12 @@ Settings = {
 					key = "Return",
 					command = { "spawn", "luakit" },
 				},
+				-- Launcher
+				{
+					mod = "Super",
+					key = "D",
+					command = { "spawn", "/home/aqua/.aquamoon/launch.sh" },
+				},
 				-- Super+Q to close the focused view
 				{
 					mod = "Super",
