@@ -8,4 +8,4 @@ modes.add_binds("normal", {
    function (w) w:enter_cmd(":tabopen ") end},
 })
 
-Settings.window.home_page = "www.google.com"
+Settings.window.home_page = "www.duckduckgo.com"

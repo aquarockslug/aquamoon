@@ -1,7 +1,6 @@
 -- All the setting tables ──────────────────────────────────────────────────────
 
-Settings = {
-	wl_script_dir = os.getenv("HOME") .. "/.local/libexec/wayland",
+M = {
 	startup_commands = {
 		-- Inform dbus about the environment variables
 		{
@@ -16,26 +15,14 @@ Settings = {
 			"swayidle",
 			'timeout 300 "swaylock --color 232A2E"',
 		},
-	},
-	outputs = {
-		["HDMI-A-1"] = {
-			mode = "3840x2160",
-			pos = "0,0",
-			transform = "normal",
-			scale = "1.500000",
-			preferred = true,
+		{
+			"swaync",
 		},
 	},
-
 	river_options = {
 		-- Theme options
-		-- ["border-width"] = 1,
-		-- ["border-color-focused"] = "0xeceff4",
-		-- ["border-color-unfocused"] = "0x81a1c1",
-		-- ["border-color-urgent"] = "0xbf616a",
-		["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
-		["background-color"] = "0x83C092", -- "0xe3440"
-		-- Other options
+		-- ["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
+		["border-width"] = 2,
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "bottom",
@@ -56,28 +43,13 @@ Settings = {
 				"float",
 				"popup",
 				"swappy",
-				"pinentry-qt",
-				"pavucontrol-qt",
 			},
 			["title"] = {
-				"Picture-in-Picture",
-				-- 'About *',
+				"Picture-in-Picture", -- 'About *',
 			},
 		},
 		["csd-filter-add"] = {
 			["app-id"] = { "swappy" },
-		},
-	},
-	-- Additional modes and their mappings to switch between them and 'normal' mode
-	--
-	-- name: string (the name of the additional mode)
-	-- mod: string|list (modifiers for key binding, concanated by '+')
-	-- key: string
-	modes = {
-		{
-			name = "passthrough",
-			mod = "Super",
-			key = "F11",
 		},
 	},
 	-- Each mapping contains 4 keys:
@@ -96,11 +68,6 @@ Settings = {
 					key = "Return",
 					command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua']] },
 				},
-				{
-					mod = "Super",
-					key = "T",
-					command = { "spawn", "foot" },
-				},
 				-- Browser
 				{
 					mod = { "Super", "Shift" },
@@ -112,6 +79,12 @@ Settings = {
 					mod = "Super",
 					key = "D",
 					command = { "spawn", "/home/aqua/.aquamoon/launch.sh" },
+				},
+				-- Show Notifications TODO add a key for executing non-river commands
+				{
+					mod = "Super",
+					key = "N",
+					command = { "spawn", "swaync-client -t" },
 				},
 				-- Super+Q to close the focused view
 				{
@@ -266,4 +239,4 @@ Settings = {
 		},
 	},
 }
-return Settings
+return M

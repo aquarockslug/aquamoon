@@ -1,5 +1,6 @@
 #!/usr/bin/lua5.4
 S = require("settings")
+T = require("theme")
 
 --[[
 
@@ -47,30 +48,9 @@ end
 -- Apply settings ──────────────────────────────────────────────────────────────
 
 -- Run startup commands
---
--- 'riverctl spawn ...' always returns (even when the child process is a daemon)
--- so we don't need to resort to posix.unistd.spawn()
 for _, cmd in ipairs(S.startup_commands) do
 	os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
 end
-
--- Configure outputs
-local randr_cmd = "wlr-randr"
-for output, options in pairs(S.outputs) do
-	randr_cmd = randr_cmd .. " --output " .. output
-
-	for opt, value in pairs(options) do
-		if opt ~= "preferred" then
-			randr_cmd = string.format(randr_cmd .. " --%s %s", opt, value)
-		end
-	end
-
-	-- Ensure '--preferred' is the last argument for each monitor
-	if options.preferred then
-		randr_cmd = randr_cmd .. " --preferred"
-	end
-end
-os.execute(randr_cmd)
 
 -- GNOME-related settings
 for group, tbl in pairs(S.gsettings) do
@@ -84,18 +64,9 @@ for key, value in pairs(S.river_options) do
 	os.execute(string.format("riverctl %s %s", key, concat(value, " ")))
 end
 
--- Additional modes (beside 'normal' and 'locked')
-for _, mode in ipairs(S.modes) do
-	local mode_name = mode.name
-	local modifiers = concat(mode.mod, "+")
-
-	-- Declare the mode
-	os.execute("riverctl declare-mode " .. mode_name)
-
-	-- Setup key bindings to enter/exit the mode
-	os.execute(string.format("riverctl map normal %s %s enter-mode %s", modifiers, mode.key, mode_name))
-	os.execute(string.format("riverctl map %s %s %s enter-mode normal", mode_name, modifiers, mode.key))
-end
+-- Set river's colors
+os.execute("riverctl border-color-focused #" .. T.fg)
+os.execute("riverctl background-color #" .. T.bg)
 
 -- Keyboard and mouse bindings
 for map_type, tbl in pairs(S.mappings) do

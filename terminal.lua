@@ -1,11 +1,12 @@
 -- https://github.com/endaaman/tym/tree/master
 local tym = require("tym")
+local theme = require("aquamoon/theme")
 
 tym.set("width", 100)
 tym.set("font", "IosevkaTermSlab NFM 20")
 tym.set_config({
 	shell = "/usr/bin/lush",
-	color_foreground = "#82C092", -- "#7FBBB3",
+	color_foreground = "#" .. theme.fg, -- "#82C092", -- "#7FBBB3",
 	color_background = "#1E2326",
 	cursor_shape = "ibeam",
 	bold_is_bright = true,
