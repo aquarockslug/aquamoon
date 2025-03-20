@@ -4,17 +4,13 @@ A desktop enviroment that is fully configured with lua
 https://luakit.github.io/docs/pages/05-configuration.html
 
 ## apps
-    - riverwm
-    - river-luatile
-    - neovim
-
-## apps to configure
-    - lush shell
-    - tym
-
-## to find
-    - launcher
-    - sleep lockscreen
+    - WM:       riverwm + river-luatile
+    - Editor:   neovim
+    - Browser:  luakit
+    - Shell:    lush
+    - Launcher: tofi
+    - Terminal: tym
+    - Misc:     swayidle, swaylock, swaync
 
 ### Arch packages on 3/20/2024
 7zip 24.09-3
