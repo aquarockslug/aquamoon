@@ -1,4 +1,4 @@
-tofi-drun --font "/usr/share/fonts/TTF/IosevkaTermSlabNerdFontPropo-ExtraBoldOblique.ttf" \
+tofi-run --font "/usr/share/fonts/TTF/IosevkaTermSlabNerdFontPropo-ExtraBoldOblique.ttf" \
 	--width="15%" \
 	--prompt-text="󰈿 " \
 	--selection-color="#FFFFFF" \

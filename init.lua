@@ -65,8 +65,8 @@ for key, value in pairs(S.river_options) do
 end
 
 -- Set river's colors
-os.execute("riverctl border-color-focused #" .. T.fg)
-os.execute("riverctl background-color #" .. T.bg)
+os.execute("riverctl border-color-focused 0x" .. T.fg) -- WARN
+os.execute("riverctl background-color 0x" .. T.bg2)
 
 -- Keyboard and mouse bindings
 for map_type, tbl in pairs(S.mappings) do
@@ -112,9 +112,9 @@ end
 local unistd = require("posix.unistd")
 unistd.execp("rivertile", {
 	"-view-padding",
-	2,
+	4,
 	"-outer-padding",
-	2,
+	4,
 	"-main-location",
 	"left",
 	"-main-count",

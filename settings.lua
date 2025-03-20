@@ -22,7 +22,7 @@ M = {
 	river_options = {
 		-- Theme options
 		-- ["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
-		["border-width"] = 2,
+		-- ["border-width"] = 2,
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "bottom",
