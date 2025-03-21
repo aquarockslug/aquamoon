@@ -29,7 +29,8 @@ function Setup_Keymap()
 	vim.keymap.set("n", "U", "<c-r>")
 
 	vim.keymap.set("n", "<leader>d", vim.lsp.buf.hover)
-	vim.keymap.set("n", "<leader>m", MiniFiles.open)
+	vim.keymap.set("n", "<leader>e", MiniFiles.open)
+
 	vim.keymap.set("n", "<leader>j", Snacks.picker.jumps)
 	vim.keymap.set("n", "<leader>u", Snacks.picker.undo)
 

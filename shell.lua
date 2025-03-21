@@ -14,6 +14,8 @@ lush.alias("q", "exit")
 lush.alias("s", "sudo")
 lush.alias("df", "duf")
 lush.alias("h", "help")
+lush.alias("hist", "cat " .. home .. "/.lush/.history")
+lush.alias("cd ..", "cd ../")
 lush.alias("..", "cd ../")
 lush.alias("...", "cd ../../")
 lush.alias("cls", "clear && ls")
@@ -31,4 +33,5 @@ lush.suggestions(true)
 lush.altShell("bash")
 
 -- INIT
-lush.exec("lf")
+-- open lf if it isnt already open TODO make optional with keybind
+-- if not lush.getenv("LF_LEVEL") then lush.exec("lf") end
