@@ -7,7 +7,7 @@ local aqua_path = home .. "/.aquamoon"
 
 lush.setenv("SHELL", "lush")
 lush.setenv("BROWSER", "luakit")
-lush.setenv("EDITOR", "nvim -u " .. aqua_path .. "/editor.lua")
+lush.setenv("EDITOR", "nvim -u " .. aqua_path .. "/editor/init.lua")
 
 -- ALIAS
 lush.alias("q", "exit")

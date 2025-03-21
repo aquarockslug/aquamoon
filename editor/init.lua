@@ -1,7 +1,7 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
 -- Theme
-require("aquamoon/rocks_nvim").setup()
+require("aquamoon/editor/rocks_nvim").setup()
 T = require("aquamoon/theme")
 if T.active_theme == "everforest" then require("everforest").load() end
 
