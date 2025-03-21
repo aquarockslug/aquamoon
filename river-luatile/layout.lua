@@ -1,21 +1,24 @@
+-- You can define your global state here
 local main_ratio = 0.65
-local gaps = 0
+local gaps = 10
 local smart_gaps = false
 
+-- The most important function - the actual layout generator
+--
 -- The argument is a table with:
 --  * Focused tags (`args.tags`)
 --  * Window count (`args.count`)
 --  * Output width (`args.width`)
 --  * Output height (`args.height`)
 --  * Output name (`args.output`)
-
+--
 -- The return value must be a table with exactly `count` entries. Each entry is a table with four
 -- numbers:
 --  * X coordinate
 --  * Y coordinate
 --  * Window width
 --  * Window height
-
+--
 -- This example is a simplified version of `rivertile`
 function handle_layout(args)
 	local retval = {}
@@ -52,7 +55,7 @@ end
 -- Currently only `name` is supported, the name of the layout. It get's passed
 -- the same `args` as handle_layout()
 function handle_metadata(args)
-	return { name = "default" }
+	return { name = "rivertile-simple" }
 end
 
 -- IMPORTANT: User commands send via `riverctl send-layout-cmd` are treated as lua code.
@@ -61,7 +64,7 @@ end
 
 -- Here is an example of a function that can be mapped to some key
 -- Run with `riverctl send-layout-cmd luatile "toggle_gaps()"`
-local gaps_alt = 2
+local gaps_alt = 0
 function toggle_gaps()
 	local tmp = gaps
 	gaps = gaps_alt
