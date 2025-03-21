@@ -12,7 +12,18 @@ https://luakit.github.io/docs/pages/05-configuration.html
     - Terminal: tym
     - Misc:     swayidle, swaylock, swaync
 
-### Arch packages on 3/20/2024
+# If the plugin name contains a dot then you must add quotes to the key name!
+
+# Rocks.nvim packages
+[plugins]
+"rocks.nvim" = "2.44.0"
+"mini.nvim" = "0.15.0"
+"snacks.nvim" = "2.22.0"
+"rocks-treesitter.nvim" = "1.3.0"
+nvim-lspconfig = "1.7.0"
+everforest-nvim = "scm"
+
+### Arch packages
 7zip 24.09-3
 amd-ucode 20250311.b69d4b74-3
 base 3-2
@@ -45,7 +56,7 @@ ripgrep 14.1.1-1
 river 0.3.7-1
 rustup 1.28.1-1
 scdoc 1.11.3-1
-stylua 2.0.2-1
+lua-language-server
 swayidle 1.8.0-2
 swaylock 1.8.0-1
 swaync 0.10.1-4
