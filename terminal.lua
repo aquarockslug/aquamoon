@@ -1,5 +1,5 @@
 -- https://github.com/endaaman/tym/tree/master
-local tym = require("tym")
+local tym = tym
 local theme = require("aquamoon/settings/theme")
 
 tym.set("font", theme.fonts.term_font .. " 14")
@@ -33,7 +33,7 @@ tym.set_hook("scroll", function(dx, dy, x, y)
 end)
 
 -- search history
-tym.set_keymap("<Ctrl>h", function() print(require("aquamoon/scripts/hist")) end)
+tym.set_keymap("<Ctrl>h", function() tym.put(require("aquamoon/scripts/hist")) end)
 
 -- enter filename
 tym.set_keymap("<Ctrl>f", function()
