@@ -32,6 +32,9 @@ tym.set_hook("scroll", function(dx, dy, x, y)
 	end
 end)
 
+-- search history
+tym.set_keymap("<Ctrl>h", function() print(require("aquamoon/scripts/hist")) end)
+
 -- enter filename
 tym.set_keymap("<Ctrl>f", function()
 	local ls = io.popen("ls") -- TODO search the cwd
