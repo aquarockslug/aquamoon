@@ -1,24 +1,30 @@
 -- https://github.com/endaaman/tym/tree/master
 local tym = require("tym")
-local theme = require("aquamoon/theme")
+local theme = require("aquamoon/settings/theme")
 
-tym.set("width", 100)
-tym.set("font", "IosevkaTermSlab NFM 14")
+tym.set("font", theme.fonts.term_font .. " 14")
 tym.set_config({
 	shell = "/usr/bin/lush",
-	color_foreground = "#" .. theme.fg, -- "#82C092", -- "#7FBBB3",
-	color_background = "#1E2326",
+	color_foreground = "#" .. theme.fg,
+	color_background = "#" .. theme.bg,
 	cursor_shape = "ibeam",
 	bold_is_bright = true,
 	autohide = true,
 })
 
+tym.set("title", "󰈿")
+tym.set_hook("title", function(t)
+	tym.set("title", "󰈿" .. t)
+	return true
+end)
+
 tym.set_hook("scroll", function(dx, dy, x, y)
 	if tym.check_mod_state("<Ctrl>") then
+		local s
 		if dy > 0 then
-			s = tym.get("scale") - 10
+			s = tym.get("scale") - 5
 		else
-			s = tym.get("scale") + 10
+			s = tym.get("scale") + 5
 		end
 		tym.set("scale", s)
 		tym.notify("set scale: " .. s .. "%")
@@ -26,8 +32,14 @@ tym.set_hook("scroll", function(dx, dy, x, y)
 	end
 end)
 
--- TODO open current dir in nvim
-tym.set_keymap("<Ctrl><Shift>o", function()
-	local h = tym.get("height")
-	tym.put(h)
+-- enter filename
+tym.set_keymap("<Ctrl>f", function()
+	local ls = io.popen("ls") -- TODO search the cwd
+	if not ls then return end
+	local files = {}
+	for i = 1, 100 do
+		files[i] = ls:read("*line")
+		if not files[i] then break end
+	end
+	tym.put(require("aquamoon/scripts/pick").with_tofi(files))
 end)

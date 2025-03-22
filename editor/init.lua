@@ -2,7 +2,7 @@
 
 -- Theme
 require("aquamoon/editor/rocks_nvim").setup()
-T = require("aquamoon/theme")
+T = require("aquamoon/settings/theme")
 if T.active_theme == "everforest" then require("everforest").load() end
 
 -- OPTIONS

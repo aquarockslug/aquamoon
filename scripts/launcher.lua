@@ -1,6 +1,18 @@
--- TODO convert launch.sh into a lua script
 local theme = require("aquamoon/theme")
 
+local cmd = {
+	"tofi-run",
+	theme.tofi_style[1],
+	theme.tofi_style[2],
+	theme.tofi_style[3],
+	theme.tofi_style[4],
+	theme.tofi_style[5],
+	theme.tofi_style[6],
+	theme.tofi_style[7],
+	"| xargs riverctl spawn",
+}
+
+-- pass launch arg to run it from the command line
 local launch = function()
 	local execute
 	if lush then
@@ -8,16 +20,8 @@ local launch = function()
 	else
 		execute = os.execute
 	end
-
-	execute("tofi-run " ..
-		"--font=" .. theme.fonts.iosevka .. " " ..
-		"--width=15% " ..
-		"--prompt-text=󰈿 " ..
-		"--selection-color=#FFFFFF " ..
-		"--text-color=#82C092 " ..
-		"--border-color=#82C092 " ..
-		"--background-color=#272E33 " ..
-		"| xargs riverctl spawn"
-	)
+	execute(table.concat(cmd, " "))
 end
-return launch()
+
+if arg and arg[1] == "launch" then launch() end
+return launch

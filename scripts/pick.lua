@@ -1,11 +1,22 @@
+local theme = require("aquamoon/settings/theme")
 
-function pick(...)
-	local choices = table.concat(..., "\n")
-	local cmd = "echo '" .. choices .. "' | peco"
+local pick = function(picker_name, args)
+	local choices = table.concat(args, "\n")
+	local cmd = "echo '" .. choices .. "' | " .. picker_name
 	local picker = io.popen(cmd)
-	local result = picker:read("*a")
-	picker:close()
+	local result = ""
+	if picker then
+		result = picker:read("*a")
+		picker:close()
+	end
 	return result
 end
 
-print(pick(args))
+M = {
+	with_tofi = function(args) return pick("tofi " .. table.concat(theme.tofi_style, " "), args) end,
+	with_peco = function(args) return pick("peco ", args) end
+}
+
+if args then print(M.with_peco( args )) end
+
+return M

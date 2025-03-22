@@ -24,7 +24,6 @@ lush.alias("lg", "lazygit")
 lush.alias("v", lush.getenv("EDITOR"))
 lush.alias("nvim", lush.getenv("EDITOR"))
 
--- TODO softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
 -- TODO take() { mkdir $1 && cd $1 }
 
 -- BEHAVIOR

@@ -3,7 +3,8 @@ M = {}
 M.active_theme = "everforest"
 
 M.fonts = {
-	iosevka = "/usr/share/fonts/TTF/IosevkaTermSlabNerdFontPropo-ExtraBoldOblique.ttf"
+	iosevka = "/usr/share/fonts/TTF/IosevkaTermSlabNerdFontPropo-ExtraBoldOblique.ttf",
+	term_font = "IosevkaTermSlab NFM"
 }
 M.my_flag = "󰈿"
 

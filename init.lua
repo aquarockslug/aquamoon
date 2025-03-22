@@ -1,6 +1,6 @@
 #!/usr/bin/lua5.4
 S = require("settings")
-T = require("theme")
+T = require("settings/theme")
 
 --[[
 
