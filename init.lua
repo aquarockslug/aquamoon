@@ -83,11 +83,13 @@ for map_type, tbl in pairs(S.mappings) do
 				opt = "-" .. opt
 			end
 
-			os.execute(string.format("riverctl %s %s %s %s %s %s", map_type, opt, mode, modifiers, binding.key, cmd))
+			os.execute(string.format("riverctl %s %s %s %s %s %s", map_type, opt, mode, modifiers,
+				binding.key, cmd))
 
 			-- Duplicate mappings of mode 'locked' for mode 'normal'
 			if mode == "locked" then
-				os.execute(string.format("riverctl %s %s normal %s %s %s", map_type, opt, modifiers, binding.key, cmd))
+				os.execute(string.format("riverctl %s %s normal %s %s %s", map_type, opt, modifiers,
+					binding.key, cmd))
 			end
 		end
 	end
