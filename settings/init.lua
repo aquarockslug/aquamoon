@@ -38,19 +38,11 @@ M = {
 		["org.gnome.desktop.interface"] = {
 			["gtk-theme"] = "Colloid-Green-Dark-Everforest",
 			["icon-theme"] = "Everforest-Dark",
-			-- ["gtk-scale"] = "Nordic",
-			-- 	["cursor-theme"] = river_options["xcursor-theme"][1],
-			-- 	["cursor-size"] = river_options["xcursor-theme"][2],
+			-- ["cursor-theme"] = river_options["xcursor-theme"][1],
+			-- ["cursor-size"] = river_options["xcursor-theme"][2],
 		},
 	},
-	-- window_rules = { "rule-add -app-id tym ssd" },
-	window_rules = { ["ssd"] = { "tym", "luakit" } },
-	-- Each mapping contains 4 keys:
-	--
-	-- mod: string|list (modifiers, concanated by '+')
-	-- key: string
-	-- command: string|list (the command passed to riverctl)
-	-- opt: string ('release' or 'repeat')
+	window_rules = { ["ssd"] = { "tym", "luakit" } }, -- use server side decorations
 	mappings = require("settings/mappings")
 }
 return M
