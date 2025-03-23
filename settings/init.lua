@@ -26,9 +26,9 @@ M = {
 	river_options = {
 		-- Theme options
 		-- ["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
-		["border-width"] = 8,
-		["border-color-focused"] = "0x" .. theme.white,
-		["border-color-unfocused"] = "0x" .. theme.black,
+		["border-width"] = theme.border_width,
+		["border-color-focused"] = "0x" .. theme.fg,
+		["border-color-unfocused"] = "0x" .. theme.bg,
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "bottom",
@@ -39,17 +39,12 @@ M = {
 			["gtk-theme"] = "Colloid-Green-Dark-Everforest",
 			["icon-theme"] = "Everforest-Dark",
 			-- ["gtk-scale"] = "Nordic",
-		-- 	["cursor-theme"] = river_options["xcursor-theme"][1],
-		-- 	["cursor-size"] = river_options["xcursor-theme"][2],
+			-- 	["cursor-theme"] = river_options["xcursor-theme"][1],
+			-- 	["cursor-size"] = river_options["xcursor-theme"][2],
 		},
 	},
-	window_rules = {
-		["float-filter-add"] = {
-			["app-id"] = {},
-			["title"] = {},
-		},
-		["csd-filter-add"] = {},
-	},
+	-- window_rules = { "rule-add -app-id tym ssd" },
+	window_rules = { ["ssd"] = { "tym", "luakit" } },
 	-- Each mapping contains 4 keys:
 	--
 	-- mod: string|list (modifiers, concanated by '+')

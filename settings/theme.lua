@@ -8,6 +8,8 @@ M.fonts = {
 	term_font = "IosevkaTermSlab NFM"
 }
 
+M.border_width = 4
+
 -- everforest colors
 M.teal = "83C092"
 M.blue = "7FBBB3"
@@ -26,6 +28,7 @@ if M.active_theme == "everforest" then
 	M.tofi_style = {
 		"--font=" .. M.fonts.iosevka,
 		"--width=33%",
+		"--border-width=" .. M.border_width,
 		"--prompt-text=󰈿_",
 		"--selection-color=#" .. M.white,
 		"--text-color=#" .. M.teal,

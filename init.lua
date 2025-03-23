@@ -99,11 +99,9 @@ end
 tag_mappings()
 
 -- Window rules (float/csd filters)
-for key, value in pairs(S.window_rules) do
-	for type, patterns in pairs(value) do
-		for _, pattern in ipairs(patterns) do
-			os.execute(string.format("riverctl %s %s %s", key, type, pattern))
-		end
+for rule, apps in pairs(S.window_rules) do
+	for _, app in ipairs(apps) do
+		os.execute(string.format("riverctl rule-add -app-id %s %s", app, rule))
 	end
 end
 
@@ -114,9 +112,9 @@ end
 local unistd = require("posix.unistd")
 unistd.execp("rivertile", {
 	"-view-padding",
-	24,
+	T.border_width * 2,
 	"-outer-padding",
-	24,
+	0,
 	"-main-location",
 	"left",
 	"-main-count",
