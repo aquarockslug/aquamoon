@@ -40,5 +40,5 @@ end)
 -- select from search history
 tym.set_keymap("<Ctrl>h", function() tym.put(io.popen("lush -c history.lua"):read()) end)
 
--- enter filename
-tym.set_keymap("<Ctrl>h", function() tym.put(io.popen("lush -c history.lua"):read()) end)
+-- TODO open dir in $EDITOR
+tym.set_keymap("<Ctrl>d", function() os.execute("lush -c 'launch_nvim.lua'") end)

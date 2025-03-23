@@ -10,6 +10,7 @@ local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.opt.autochdir = true
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 1
 vim.opt.number = true

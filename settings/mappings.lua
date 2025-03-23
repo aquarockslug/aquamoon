@@ -13,6 +13,7 @@ mapping.map = {
 			mod = { "Super", "Shift" },
 			key = "Return",
 			command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua -- nvim -u /home/aqua/.aquamoon/editor/init.lua']] }
+			-- command = { "spawn", [['lush -c nvim_launcher']] }
 		},
 		-- Browser
 		{
@@ -24,7 +25,7 @@ mapping.map = {
 		{
 			mod = "Super",
 			key = "D",
-			command = { "spawn", [['lush -c launcher.lua']] },
+			command = { "spawn", [['lush -c app_launcher.lua']] },
 		},
 		-- Show Notifications TODO add a key for executing non-river commands
 		{

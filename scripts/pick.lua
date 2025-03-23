@@ -17,6 +17,6 @@ M = {
 	with_peco = function(args) return pick("peco ", args) end
 }
 
-if args then print(M.with_peco( args )) end
+if args then io.write(M.with_tofi(args)) end
 
 return M

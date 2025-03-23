@@ -25,21 +25,20 @@ M = {
 	},
 	river_options = {
 		-- Theme options
-		-- ["xcursor-theme"] = { "Bibata-Modern-Ice", 24 },
 		["border-width"] = theme.border_width,
 		["border-color-focused"] = "0x" .. theme.fg,
 		["border-color-unfocused"] = "0x" .. theme.bg,
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
-		["attach-mode"] = "bottom",
+		["attach-mode"] = "right",
 		["default-layout"] = "rivertile",
 	},
-	gsettings = { -- TODO use this table instead of nwg-look
+	gsettings = {
 		["org.gnome.desktop.interface"] = {
 			["gtk-theme"] = "Colloid-Green-Dark-Everforest",
 			["icon-theme"] = "Everforest-Dark",
-			-- ["cursor-theme"] = river_options["xcursor-theme"][1],
-			-- ["cursor-size"] = river_options["xcursor-theme"][2],
+			-- ["cursor-theme"] = "",
+			-- ["cursor-size"] = 24,
 		},
 	},
 	window_rules = { ["ssd"] = { "tym", "luakit" } }, -- use server side decorations
