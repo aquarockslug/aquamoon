@@ -1,4 +1,4 @@
-local theme = require("aquamoon/theme")
+local theme = require("aquamoon/settings/theme")
 
 local cmd = {
 	"tofi-run",
@@ -13,15 +13,4 @@ local cmd = {
 }
 
 -- pass launch arg to run it from the command line
-local launch = function()
-	local execute
-	if lush then
-		execute = lush.exec
-	else
-		execute = os.execute
-	end
-	execute(table.concat(cmd, " "))
-end
-
-if arg and arg[1] == "launch" then launch() end
-return launch
+lush.exec(table.concat(cmd, " "))

@@ -25,7 +25,7 @@ M.tofi_style = {
 if M.active_theme == "everforest" then
 	M.fg = M.teal
 	M.bg = M.grey
-	M.bg2 = M.teal
+	M.bg2 = M.grey
 end
 
 return M

@@ -10,11 +10,16 @@ tym.set_config({
 	cursor_shape = "ibeam",
 	bold_is_bright = true,
 	autohide = true,
+	-- color_window_background = "#" .. theme.fg,
+	-- padding_top = 2,
+	-- padding_bottom = 2,
+	-- padding_left = 2,
+	-- padding_right = 2,
 })
 
 tym.set("title", "󰈿")
 tym.set_hook("title", function(t)
-	tym.set("title", "󰈿" .. t)
+	tym.set("title", "󰈿 - " .. t)
 	return true
 end)
 
@@ -32,17 +37,8 @@ tym.set_hook("scroll", function(dx, dy, x, y)
 	end
 end)
 
--- search history
-tym.set_keymap("<Ctrl>h", function() tym.put(require("aquamoon/scripts/hist")) end)
+-- select from search history
+tym.set_keymap("<Ctrl>h", function() tym.put(io.popen("lush -c history.lua"):read()) end)
 
 -- enter filename
-tym.set_keymap("<Ctrl>f", function()
-	local ls = io.popen("ls") -- TODO search the cwd
-	if not ls then return end
-	local files = {}
-	for i = 1, 100 do
-		files[i] = ls:read("*line")
-		if not files[i] then break end
-	end
-	tym.put(require("aquamoon/scripts/pick").with_tofi(files))
-end)
+tym.set_keymap("<Ctrl>h", function() tym.put(io.popen("lush -c history.lua"):read()) end)

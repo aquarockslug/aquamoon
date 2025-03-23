@@ -24,7 +24,7 @@ mapping.map = {
 		{
 			mod = "Super",
 			key = "D",
-			command = { "spawn", [['lua /home/aqua/.aquamoon/scripts/launcher.lua launch']] },
+			command = { "spawn", [['lush -c launcher.lua']] },
 		},
 		-- Show Notifications TODO add a key for executing non-river commands
 		{
