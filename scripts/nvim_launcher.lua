@@ -4,6 +4,8 @@ local pick = require("aquamoon/scripts/pick")
 
 local cmd = { "tym", "-c", "nvim", "-c" }
 
+-- has to be on cli so that there is a cwd
+
 -- options = files in the cwd
 
 -- pick the file or directory to be opened in nvim
