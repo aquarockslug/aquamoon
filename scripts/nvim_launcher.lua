@@ -1,4 +1,3 @@
-local paths = require("aquamoon/settings/paths")
 local pick = require("aquamoon/scripts/pick")
 
 local cmd = { "tym", "-u", lush.getenv("HOME") .. "/.aquamoon/terminal.lua", "-e", "\"" .. lush.getenv("EDITOR") .. " " }

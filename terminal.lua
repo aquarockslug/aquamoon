@@ -27,7 +27,10 @@ tym.set_hook("scroll", function(dx, dy, x, y)
 end)
 
 -- select from search history
-tym.set_keymap("<Ctrl>h", function() tym.put(io.popen("lush -c history.lua"):read()) end)
+tym.set_keymap("<Ctrl>h", function()
+	local choice = io.popen("lush -c 'history.lua'"):read()
+	if choice then tym.put(choice) end
+end)
 
 -- launch a file from the cwd in neovim
-tym.set_keymap("<Ctrl>d", function() os.execute("lush -c 'nvim_launcher.lua'") end)
+-- tym.set_keymap("<Ctrl>d", function() os.execute("lush -c 'nvim_launcher.lua'") end)
