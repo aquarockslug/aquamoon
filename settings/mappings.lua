@@ -1,5 +1,7 @@
 -- All the setting tables ──────────────────────────────────────────────────────
 
+local paths = require("aquamoon/settings/paths")
+
 local mapping = {}
 mapping.map = {
 	normal = {
@@ -12,7 +14,8 @@ mapping.map = {
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
-			command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua -- nvim -u /home/aqua/.aquamoon/editor/init.lua']] }
+			command = { "spawn", "tym -u " .. paths.terminal .. 
+			" -- nvim -u /home/aqua/.aquamoon/editor/init.lua']]" }
 			-- command = { "spawn", [['lush -c nvim_launcher']] }
 		},
 		-- Browser
