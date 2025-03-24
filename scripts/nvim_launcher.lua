@@ -1,18 +1,32 @@
-local theme = require("aquamoon/settings/theme")
+local paths = require("aquamoon/settings/paths")
 local pick = require("aquamoon/scripts/pick")
 
+local cmd = { "tym", "-u", lush.getenv("HOME") .. "/.aquamoon/terminal.lua", "-e", "\"" .. lush.getenv("EDITOR") .. " " }
 
-local cmd = { "tym", "-c", "nvim", "-c" }
+-- read from "~/.local/share/nvim/mimi-visits-index"
+local get_frequent_files = function()
+	local mini_visits = require('mini-visits-index')[lush.getenv("HOME")]
+	local files = {}
+	local i = 1
+	for file, _ in pairs(mini_visits) do
+		files[i] = file; i = i + 1
+	end
+	return files
+end
 
--- has to be on cli so that there is a cwd
-
--- options = files in the cwd
-
--- pick the file or directory to be opened in nvim
-local file = pick.with_tofi(options)
-
--- pass choice to river spawn at the end of the command
-cmd[#theme.tofi_style + 1] = "| xargs riverctl spawn"
+local file
+if args then
+	-- a file was passed through args
+	file = table.concat(args, " ")
+else
+	-- pick from recent files
+	file = pick.with_tofi(get_frequent_files())
+	file = string.gsub(file, "\n", "")
+end
 
 -- pass launch arg to run it from the command line
-lush.exec(table.concat(cmd, " "))
+if lush.isReadable(file) or lush.isDir(file) then
+	lush.exec(table.concat(cmd, " ") .. file .. "\"")
+else
+	lush.exec(table.concat(cmd, " ") .. "\"")
+end

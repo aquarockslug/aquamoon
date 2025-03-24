@@ -14,9 +14,7 @@ mapping.map = {
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
-			command = { "spawn", "tym -u " .. paths.terminal .. 
-			" -- nvim -u /home/aqua/.aquamoon/editor/init.lua']]" }
-			-- command = { "spawn", [['lush -c nvim_launcher']] }
+			command = { "spawn", [['lush -c nvim_launcher.lua']] },
 		},
 		-- Browser
 		{
