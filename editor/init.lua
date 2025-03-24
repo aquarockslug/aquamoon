@@ -23,6 +23,7 @@ vim.flag = "󰈿"
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
 require("lspconfig")["lua_ls"].setup({})
+require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
 
 -- KEYMAP
 function Setup_Keymap()
@@ -35,21 +36,20 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>j", Snacks.picker.jumps)
 	vim.keymap.set("n", "<leader>u", Snacks.picker.undo)
 
+	for cmd, func in pairs({
+		[1] = function() Snacks.lazygit.open() end,
+		[2] = function()
+			vim.notify(vim.flag .. " formatting...", vim.log.levels.INFO)
+			vim.lsp.buf.format()
+			vim.cmd.write()
+		end,
+	}) do
+		vim.keymap.set("i", "<F" .. cmd .. ">", func)
+		vim.keymap.set("n", "<F" .. cmd .. ">", func)
+	end
 	-- insert line above or below without going into insert mode
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-end
-
-for cmd, func in pairs({
-	[1] = function() Snacks.lazygit.open() end,
-	[2] = function()
-		vim.notify(vim.flag .. " formatting...", vim.log.levels.INFO)
-		vim.lsp.buf.format()
-		vim.cmd.write()
-	end,
-}) do
-	vim.keymap.set("i", "<F" .. cmd .. ">", func)
-	vim.keymap.set("n", "<F" .. cmd .. ">", func)
 end
 
 -- AUTOCOMMANDS
@@ -88,7 +88,7 @@ for _, plug in ipairs({
 	"pairs",
 	"surround",
 	"trailspace",
-	"files", 
+	"files",
 }) do
 	require("mini." .. plug).setup()
 end
