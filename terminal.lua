@@ -10,18 +10,7 @@ tym.set_config({
 	cursor_shape = "ibeam",
 	bold_is_bright = true,
 	autohide = true,
-	-- color_window_background = "#" .. theme.fg,
-	-- padding_top = 2,
-	-- padding_bottom = 2,
-	-- padding_left = 2,
-	-- padding_right = 2,
 })
-
-tym.set("title", "󰈿")
-tym.set_hook("title", function(t)
-	tym.set("title", "󰈿 - " .. t)
-	return true
-end)
 
 tym.set_hook("scroll", function(dx, dy, x, y)
 	if tym.check_mod_state("<Ctrl>") then

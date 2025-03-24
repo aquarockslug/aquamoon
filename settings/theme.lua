@@ -28,6 +28,7 @@ if M.active_theme == "everforest" then
 	M.tofi_style = {
 		"--font=" .. M.fonts.iosevka,
 		"--width=33%",
+		"--outline-width=0",
 		"--border-width=" .. M.border_width,
 		"--prompt-text=󰈿_",
 		"--selection-color=#" .. M.white,
