@@ -1,7 +1,4 @@
 -- All the setting tables ──────────────────────────────────────────────────────
-
-local paths = require("aquamoon/settings/paths")
-
 local mapping = {}
 mapping.map = {
 	normal = {
