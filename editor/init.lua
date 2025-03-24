@@ -72,7 +72,7 @@ function Setup_Autocmd()
 end
 
 -- MINI
-for _, plug in ipairs({ -- mini plug to load later using their default config
+for _, plug in ipairs({
 	"snippets",
 	"icons",
 	"completion",
@@ -88,7 +88,7 @@ for _, plug in ipairs({ -- mini plug to load later using their default config
 	"pairs",
 	"surround",
 	"trailspace",
-	"files", -- TODO use netrw or snacks explorer instead?
+	"files", 
 }) do
 	require("mini." .. plug).setup()
 end
