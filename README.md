@@ -12,8 +12,6 @@ https://luakit.github.io/docs/pages/05-configuration.html
     - Terminal: tym
     - Misc:     swayidle, swaylock, swaync
 
-# If the plugin name contains a dot then you must add quotes to the key name!
-
 # Rocks.nvim packages
 [plugins]
 "rocks.nvim" = "2.44.0"
