@@ -43,6 +43,8 @@ function Setup_Keymap()
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
+		[3] = function() MiniVisits.iterate_paths("backward") end,
+		[4] = function() MiniVisits.iterate_paths("forward") end,
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
@@ -69,35 +71,49 @@ function Setup_Autocmd()
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		callback = function() vim.highlight.on_yank({ higroup = "DiffAdd", timeout = 250 }) end,
 	})
+	-- TODO
+	-- vim.api.nvim_create_autocmd("BufEnter", { close mini file explore when a file is opened
+	-- 	callback = function() MiniFiles.close() end,
+	-- })
 end
 
 -- MINI
 for _, plug in ipairs({
-	"snippets",
-	"icons",
-	"completion",
-	"starter",
+	"ai",
 	"basics",
+	"bracketed",
 	"comment",
 	"diff",
-	"visits",
+	"files",
+	"icons",
 	"jump",
 	"jump2d",
-	"bracketed",
-	"ai",
 	"pairs",
+	"snippets",
+	"starter",
 	"surround",
 	"trailspace",
-	"files",
+	"visits",
 }) do
 	require("mini." .. plug).setup()
 end
+
+-- use <Tab> to accept completions
+vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
+
 require("mini.hipatterns").setup({
 	highlighters = {
 		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
 		HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
 		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 	},
+})
+
+require("mini.files").setup({
+	windows = { -- TODO toggle preview with snacks toggle?
+		preview = true,
+		width_preview = 80
+	}
 })
 
 -- SNACKS

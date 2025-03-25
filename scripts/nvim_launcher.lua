@@ -4,11 +4,13 @@ local cmd = { "tym", "-u", lush.getenv("HOME") .. "/.aquamoon/terminal.lua", "-e
 
 -- read from "~/.local/share/nvim/mimi-visits-index"
 local get_frequent_files = function()
-	local mini_visits = require('mini-visits-index')[lush.getenv("HOME")]
+	local mini_visits = require('mini-visits-index')
 	local files = {}
-	local i = 1
-	for file, _ in pairs(mini_visits) do
-		files[i] = file; i = i + 1
+	for _, path in pairs(mini_visits) do
+		local i = 1
+		for file, _ in pairs(path) do
+			files[i] = file; i = i + 1
+		end
 	end
 	return files
 end
@@ -24,7 +26,8 @@ else
 end
 
 -- pass launch arg to run it from the command line
-if lush.isReadable(file) or lush.isDir(file) then
+-- WARN it seems like not all the files are avalible
+if lush.isReadable(file) then -- or lush.isDir(file) then
 	lush.exec(table.concat(cmd, " ") .. file .. "\"")
 else
 	lush.exec(table.concat(cmd, " ") .. "\"")
