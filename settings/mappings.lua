@@ -1,4 +1,5 @@
 -- All the setting tables ──────────────────────────────────────────────────────
+
 local mapping = {}
 mapping.map = {
 	normal = {
@@ -11,7 +12,8 @@ mapping.map = {
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
-			command = { "spawn", [['lush -c nvim_launcher.lua']] },
+			command = { "spawn", [['lush -c "nvim_launcher.lua /home/aqua/"']] },
+			script = "nvim_launcher"
 		},
 		-- Browser
 		{
@@ -24,6 +26,7 @@ mapping.map = {
 			mod = "Super",
 			key = "D",
 			command = { "spawn", [['lush -c app_launcher.lua']] },
+			script = "app_launcher"
 		},
 		-- Show Notifications TODO add a key for executing non-river commands
 		{

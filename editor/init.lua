@@ -31,15 +31,23 @@ function Setup_Keymap()
 	vim.keymap.set("n", "U", "<c-r>")
 
 	vim.keymap.set("n", "<leader>d", vim.lsp.buf.hover)
-	vim.keymap.set("n", "<leader>e", MiniFiles.open)
+	local oil = require("oil"); oil.setup({
+		keymaps = {
+			["q"] = { "actions.close", mode = "n" },
+			["h"] = { "actions.parent", mode = "n" },
+			["l"] = { "actions.select", mode = "n" },
+			["e"] = { "actions.select", mode = "n", opts = { vertical = true } },
+			["zh"] = { "actions.toggle_hidden", mode = "n" },
+		}
+	})
+	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO make colored and fullscreen
 
-	vim.keymap.set("n", "<leader>j", Snacks.picker.jumps)
-	vim.keymap.set("n", "<leader>u", Snacks.picker.undo)
+	-- TODO navigate nvim windows with arrow keys in edit mode
 
 	for cmd, func in pairs({
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
-			vim.notify(vim.flag .. " formatting...", vim.log.levels.INFO)
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
@@ -52,15 +60,15 @@ function Setup_Keymap()
 	-- insert line above or below without going into insert mode
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+
+	-- use <Tab> to accept completions
+	vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
 end
 
 -- AUTOCOMMANDS
 function Setup_Autocmd()
 	vim.api.nvim_create_autocmd("BufWritePost", {
-		callback = function()
-			MiniTrailspace.trim()
-			vim.notify(vim.flag .. " wrote " .. vim.fn.expand("%:p"), vim.log.levels.INFO)
-		end,
+		callback = function() MiniTrailspace.trim() end,
 	})
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function() Snacks.toggle.option("cursorline"):set(true) end,
@@ -98,9 +106,6 @@ for _, plug in ipairs({
 	require("mini." .. plug).setup()
 end
 
--- use <Tab> to accept completions
-vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
-
 require("mini.hipatterns").setup({
 	highlighters = {
 		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
@@ -128,4 +133,5 @@ require("snacks").setup({
 		scope = { enabled = false },
 	},
 })
+
 Setup_Keymap(); Setup_Autocmd()
