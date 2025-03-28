@@ -48,6 +48,7 @@ function Setup_Keymap()
 	for cmd, func in pairs({
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
+			MiniTrailspace.trim()
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
@@ -67,9 +68,6 @@ end
 
 -- AUTOCOMMANDS
 function Setup_Autocmd()
-	vim.api.nvim_create_autocmd("BufWritePost", {
-		callback = function() MiniTrailspace.trim() end,
-	})
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		callback = function() Snacks.toggle.option("cursorline"):set(true) end,
 	})
@@ -79,10 +77,6 @@ function Setup_Autocmd()
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		callback = function() vim.highlight.on_yank({ higroup = "DiffAdd", timeout = 250 }) end,
 	})
-	-- TODO
-	-- vim.api.nvim_create_autocmd("BufEnter", { close mini file explore when a file is opened
-	-- 	callback = function() MiniFiles.close() end,
-	-- })
 end
 
 -- MINI

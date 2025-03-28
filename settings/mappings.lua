@@ -9,11 +9,21 @@ mapping.map = {
 			key = "Return",
 			script = "nvim_launcher"
 		},
-		-- Browser
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
+			command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua']] },
+		},
+		-- Browser
+		{
+			mod = { "Super", "Control" },
+			key = "Return",
 			command = { "spawn", "luakit" },
+		},
+		{
+			mod = { "Super", "Control", "Shift" },
+			key = "Return",
+			command = { "spawn", "firefox" },
 		},
 		-- Launcher
 		{
