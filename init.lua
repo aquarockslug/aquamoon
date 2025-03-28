@@ -8,7 +8,6 @@ T = require("settings/theme")
 
 --]]
 
--- Convenient functions ────────────────────────────────────────────────────────
 
 -- Wrapper around table.concat() to also handle other types
 local function concat(...)
@@ -69,7 +68,16 @@ for map_type, tbl in pairs(S.mappings) do
 	for mode, value in pairs(tbl) do
 		for _, binding in ipairs(value) do
 			local modifiers = concat(binding.mod, "+")
-			local cmd = concat(binding.command, " ")
+			local cmd
+			if binding.script then
+				-- binding runs a lua script
+				local args = ""
+				if binding.args then args = table.concat(binding.args, " ") end
+				cmd = string.format("spawn 'lush -c %s.lua %s'", binding.script, args)
+			else
+				-- binding runs a bash command
+				cmd = concat(binding.command, " ")
+			end
 
 			-- Options -release and -repeat for 'map' and 'unmap' commands
 			local opt = binding.opt

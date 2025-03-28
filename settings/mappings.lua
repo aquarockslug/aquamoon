@@ -3,21 +3,15 @@
 local mapping = {}
 mapping.map = {
 	normal = {
-		-- Terminal emulators
+		-- Terminal
 		{
 			mod = "Super",
 			key = "Return",
-			command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua']] },
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "Return",
-			command = { "spawn", [['lush -c "nvim_launcher.lua /home/aqua/"']] },
 			script = "nvim_launcher"
 		},
 		-- Browser
 		{
-			mod = { "Super", "Control" },
+			mod = { "Super", "Shift" },
 			key = "Return",
 			command = { "spawn", "luakit" },
 		},
@@ -25,10 +19,9 @@ mapping.map = {
 		{
 			mod = "Super",
 			key = "D",
-			command = { "spawn", [['lush -c app_launcher.lua']] },
-			script = "app_launcher"
+			script = "app_launcher",
 		},
-		-- Show Notifications TODO add a key for executing non-river commands
+		-- Show Notifications
 		{
 			mod = "Super",
 			key = "N",
