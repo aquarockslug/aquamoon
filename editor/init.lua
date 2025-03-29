@@ -30,7 +30,6 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 	vim.keymap.set("n", "U", "<c-r>")
 
-	vim.keymap.set("n", "<leader>d", vim.lsp.buf.hover)
 	local oil = require("oil"); oil.setup({
 		keymaps = {
 			["q"] = { "actions.close", mode = "n" },
@@ -40,8 +39,22 @@ function Setup_Keymap()
 			["zh"] = { "actions.toggle_hidden", mode = "n" },
 		}
 	})
+
+	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
+	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
+	vim.keymap.set("n", "<leader>d", function() Snacks.picker.buffers() end)
+	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
+
+	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO make colored and fullscreen
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO make colorful
+
+	-- insert line above or below without going into insert mode
+	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
+	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+
+	-- use <Tab> to accept completions
+	-- vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
 
 	-- TODO navigate nvim windows with arrow keys in edit mode
 
@@ -52,18 +65,13 @@ function Setup_Keymap()
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
+		-- TODO switch between open buffers instead
 		[3] = function() MiniVisits.iterate_paths("backward") end,
 		[4] = function() MiniVisits.iterate_paths("forward") end,
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
 	end
-	-- insert line above or below without going into insert mode
-	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-
-	-- use <Tab> to accept completions
-	vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
 end
 
 -- AUTOCOMMANDS
@@ -85,8 +93,8 @@ for _, plug in ipairs({
 	"basics",
 	"bracketed",
 	"comment",
+	"completion",
 	"diff",
-	"files",
 	"icons",
 	"jump",
 	"jump2d",
@@ -100,6 +108,8 @@ for _, plug in ipairs({
 	require("mini." .. plug).setup()
 end
 
+require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } })
+
 require("mini.hipatterns").setup({
 	highlighters = {
 		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
@@ -108,19 +118,13 @@ require("mini.hipatterns").setup({
 	},
 })
 
-require("mini.files").setup({
-	windows = { -- TODO toggle preview with snacks toggle?
-		preview = true,
-		width_preview = 80
-	}
-})
-
 -- SNACKS
 require("snacks").setup({
 	bigfile = { enabled = true },
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
+	terminal = { win = { width = 1080, height = 1080 } },
 	indent = {
 		animate = { style = "down" },
 		chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰" } },
