@@ -14,7 +14,7 @@ M = {
 		-- Startup programs
 		{
 			"swayidle",
-			'timeout 300 "swaylock --color 232A2E"',
+			'timeout 600 "swaylock --color 232A2E"', -- lock screen after 10 minutes
 		},
 		{
 			"swaync",
@@ -31,7 +31,8 @@ M = {
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "right",
-		["default-layout"] = "rivertile",
+		["default-layout"] = "luatile",
+		["output-layout"] = "luatile",
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {
@@ -41,7 +42,7 @@ M = {
 			-- ["cursor-size"] = 24,
 		},
 	},
-	window_rules = { ["ssd"] = { "tym", "luakit" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "tym", "luakit", "firefox" } }, -- use server side decorations
 	mappings = require("settings/mappings")
 }
 return M

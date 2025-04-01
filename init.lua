@@ -114,15 +114,4 @@ end
 -- SIGTERM to the group on exit. Therefore, keep the main init
 -- process running (replace it with the layout generator process).
 local unistd = require("posix.unistd")
-unistd.execp("rivertile", {
-	"-view-padding",
-	0,
-	"-outer-padding",
-	0,
-	"-main-location",
-	"left",
-	"-main-count",
-	1,
-	"-main-ratio",
-	0.65,
-})
+unistd.execp("river-luatile", {})
