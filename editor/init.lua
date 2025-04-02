@@ -1,4 +1,4 @@
--- NEOVIM CONFIGURATION FOR AQUAMOON
+-- NEOVIM CONFIGURATION FOR AQUAMOON
 
 -- Theme
 require("aquamoon/editor/rocks_nvim").setup()
@@ -53,7 +53,7 @@ function Setup_Keymap()
 
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO make colorful
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make colorful
 
 	-- insert line above or below without going into insert mode
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
@@ -128,7 +128,8 @@ require("snacks").setup({
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
-	terminal = { win = { width = 1080, height = 1080 } },
+	terminal = { win = { style = "terminal", position = "right" } },
+	lazygit = { win = { position = "float" } },
 	indent = {
 		animate = { style = "down" },
 		chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰" } },
