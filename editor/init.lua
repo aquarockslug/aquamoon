@@ -30,6 +30,12 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 	vim.keymap.set("n", "U", "<c-r>")
 
+	-- navigate nvim windows using arrow keys
+	vim.keymap.set("n", "<Left>", "<c-w>h")
+	vim.keymap.set("n", "<Right>", "<c-w>l")
+	vim.keymap.set("n", "<Down>", "<c-w>j")
+	vim.keymap.set("n", "<Up>", "<c-w>k")
+
 	local oil = require("oil"); oil.setup({
 		keymaps = {
 			["q"] = { "actions.close", mode = "n" },
@@ -55,8 +61,6 @@ function Setup_Keymap()
 
 	-- use <Tab> to accept completions
 	-- vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
-
-	-- TODO navigate nvim windows with arrow keys in edit mode
 
 	for cmd, func in pairs({
 		[1] = function() Snacks.lazygit.open() end,

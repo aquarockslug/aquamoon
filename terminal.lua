@@ -2,7 +2,7 @@
 local tym = tym
 local theme = require("aquamoon/settings/theme")
 
-tym.set("font", theme.fonts.term_font .. " 14")
+tym.set("font", theme.fonts.term_font .. " 12")
 tym.set_config({
 	shell = "/usr/bin/lush",
 	color_foreground = "#" .. theme.fg,
