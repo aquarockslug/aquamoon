@@ -64,7 +64,7 @@ function Setup_Keymap()
 	-- left hand above row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make snacks term colorful
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match tym foreground color
 	vim.keymap.set("n", "<leader>q", vim.cmd.close)
 
 	-- insert line above or below without going into insert mode
