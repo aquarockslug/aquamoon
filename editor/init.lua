@@ -36,31 +36,40 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<Down>", "<c-w>j")
 	vim.keymap.set("n", "<Up>", "<c-w>k")
 
+	-- TODO automatically resize windows?
+
 	local oil = require("oil"); oil.setup({
 		keymaps = {
 			["q"] = { "actions.close", mode = "n" },
 			["h"] = { "actions.parent", mode = "n" },
+			["e"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
+			-- ["e"] = { "actions.select", mode = "n", opts = { vertical = true } },
 			["l"] = { "actions.select", mode = "n" },
-			["e"] = { "actions.select", mode = "n", opts = { vertical = true } },
+			["p"] = { "actions.preview", mode = "n", opts = { vertical = true } },
 			["zh"] = { "actions.toggle_hidden", mode = "n" },
-		}
+		},
+		columns = {
+			"icon",
+			"permissions",
+		},
+		watch_for_changes = true
 	})
 
+	-- left hand home row
 	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function() Snacks.picker.buffers() end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
 
+	-- left hand above row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make colorful
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make snacks term colorful
+	vim.keymap.set("n", "<leader>q", vim.cmd.close)
 
 	-- insert line above or below without going into insert mode
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
-
-	-- use <Tab> to accept completions
-	-- vim.keymap.set('i', '<Tab>', [[pumvisible() ? "<CR>" : "<Tab>"]], { expr = true })
 
 	for cmd, func in pairs({
 		[1] = function() Snacks.lazygit.open() end,
@@ -87,7 +96,7 @@ function Setup_Autocmd()
 		callback = function() Snacks.toggle.option("cursorline"):set(false) end,
 	})
 	vim.api.nvim_create_autocmd("TextYankPost", {
-		callback = function() vim.highlight.on_yank({ higroup = "DiffAdd", timeout = 250 }) end,
+		callback = function() vim.highlight.on_yank({ higroup = "DiffAdd", timeout = 250 }) end, -- TODO use a different highlight group?
 	})
 end
 
@@ -128,7 +137,8 @@ require("snacks").setup({
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
-	terminal = { win = { style = "terminal", position = "right" } },
+	-- TODO add decorations to the terminals?
+	terminal = { win = { style = "terminal", position = "float" } },
 	lazygit = { win = { position = "float" } },
 	indent = {
 		animate = { style = "down" },
