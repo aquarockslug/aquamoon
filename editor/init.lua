@@ -45,12 +45,7 @@ function Setup_Keymap()
 			["e"] = { "actions.select", mode = "n" },
 			-- ["e"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
 			["l"] = { "actions.select", mode = "n" },
-			["p"] = { "actions.preview", mode = "n", opts = { vertical = true } },
 			["zh"] = { "actions.toggle_hidden", mode = "n" },
-		},
-		columns = {
-			"icon",
-			"permissions",
 		},
 		watch_for_changes = true
 	})
