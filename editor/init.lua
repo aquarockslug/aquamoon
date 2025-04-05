@@ -42,8 +42,8 @@ function Setup_Keymap()
 		keymaps = {
 			["q"] = { "actions.close", mode = "n" },
 			["h"] = { "actions.parent", mode = "n" },
-			["e"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
-			-- ["e"] = { "actions.select", mode = "n", opts = { vertical = true } },
+			["e"] = { "actions.select", mode = "n" },
+			-- ["e"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
 			["l"] = { "actions.select", mode = "n" },
 			["p"] = { "actions.preview", mode = "n", opts = { vertical = true } },
 			["zh"] = { "actions.toggle_hidden", mode = "n" },
