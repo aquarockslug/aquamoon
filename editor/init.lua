@@ -53,7 +53,7 @@ function Setup_Keymap()
 	-- left hand home row
 	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
-	vim.keymap.set("n", "<leader>d", function() Snacks.picker.buffers() end)
+	vim.keymap.set("n", "<leader>d", function() Snacks.picker.diagnostics() end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
 
 	-- left hand above row
@@ -73,9 +73,8 @@ function Setup_Keymap()
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
-		-- TODO switch between open buffers instead
-		[3] = function() MiniVisits.iterate_paths("backward") end,
-		[4] = function() MiniVisits.iterate_paths("forward") end,
+		[3] = vim.cmd.bnext,
+		[4] = vim.cmd.bprev
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)

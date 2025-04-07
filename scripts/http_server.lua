@@ -6,5 +6,7 @@ local server = pegasus:new({
 })
 
 server:start(function(request, response)
-	print "Server running on localhost:9090"
+	print "Serving files..."
 end)
+
+lush.exec("firefox localhost:9090")

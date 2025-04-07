@@ -1,7 +1,18 @@
 -- All the setting tables ──────────────────────────────────────────────────────
-local theme = require("aquamoon/settings/theme")
+local theme = require("settings/theme")
 
 M = {
+	river_options = {
+		-- Theme options
+		["border-width"] = theme.border_width,
+		["border-color-focused"] = "0x" .. theme.fg,
+		["border-color-unfocused"] = "0x" .. theme.bg,
+		["set-repeat"] = { 50, 300 },
+		["focus-follows-cursor"] = "normal",
+		["attach-mode"] = "right",
+		["default-layout"] = "luatile",
+		["output-layout"] = "luatile",
+	},
 	startup_commands = {
 		-- Inform dbus about the environment variables
 		{
@@ -14,7 +25,7 @@ M = {
 		-- Startup programs
 		{
 			"swayidle",
-			'timeout 600 "swaylock --color 232A2E"', -- lock screen after 10 minutes
+			'timeout 3600 "swaylock --color 232A2E"', -- lock the screen after an hour
 		},
 		{
 			"swaync",
@@ -22,17 +33,6 @@ M = {
 		{
 			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
 		}
-	},
-	river_options = {
-		-- Theme options
-		["border-width"] = theme.border_width,
-		["border-color-focused"] = "0x" .. theme.fg,
-		["border-color-unfocused"] = "0x" .. theme.bg,
-		["set-repeat"] = { 50, 300 },
-		["focus-follows-cursor"] = "normal",
-		["attach-mode"] = "right",
-		["default-layout"] = "luatile",
-		["output-layout"] = "luatile",
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {
