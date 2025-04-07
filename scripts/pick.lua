@@ -1,4 +1,4 @@
-local theme = require("aquamoon/settings/theme")
+local theme = require "aquamoon/settings/theme"
 
 local pick = function(picker_name, args)
 	local choices = table.concat(args, "\n")

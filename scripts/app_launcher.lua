@@ -1,5 +1,5 @@
-local theme = require("aquamoon/settings/theme")
-local pick = require("aquamoon/scripts/pick")
+local theme = require "aquamoon/settings/theme"
+local pick = require "aquamoon/scripts/pick"
 
 local cmd = "tofi-run "
 local tofi_style = table.concat(theme.tofi_style, " ")

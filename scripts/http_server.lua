@@ -8,7 +8,7 @@ local server = pegasus:new({
 	location = dir
 })
 
-lush.exec("firefox localhost:9090 &; clear")
+lush.exec "firefox localhost:9090 &; clear"
 server:start(function(request, response)
 	print "Serving files..."
 end)

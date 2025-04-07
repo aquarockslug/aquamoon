@@ -1,5 +1,4 @@
--- All the setting tables ──────────────────────────────────────────────────────
-local theme = require("settings/theme")
+local theme = require "settings/theme"
 
 M = {
 	river_options = {

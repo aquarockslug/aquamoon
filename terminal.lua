@@ -1,6 +1,6 @@
 -- https://github.com/endaaman/tym/tree/master
 local tym = tym
-local theme = require("aquamoon/settings/theme")
+local theme = require "aquamoon/settings/theme"
 
 tym.set("font", theme.fonts.term_font .. " 12")
 tym.set_config({

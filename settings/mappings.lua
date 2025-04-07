@@ -1,5 +1,3 @@
--- All the setting tables ──────────────────────────────────────────────────────
-
 local mapping = {}
 mapping.map = {
 	normal = {
