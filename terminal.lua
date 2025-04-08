@@ -32,5 +32,4 @@ tym.set_keymap("<Ctrl>h", function()
 	if choice then tym.put(choice) end
 end)
 
--- launch a file from the cwd in neovim
--- tym.set_keymap("<Ctrl>d", function() os.execute("lush -c 'nvim_launcher.lua'") end)
+-- TODO open a new tym window in the same cwd
