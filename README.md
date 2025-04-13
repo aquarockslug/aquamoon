@@ -9,7 +9,7 @@ https://luakit.github.io/docs/pages/05-configuration.html
     - Browser:  luakit
     - Shell:    lush
     - Launcher: tofi
-    - Terminal: tym
+    - Terminal: tym / wezterm
     - Misc:     swayidle, swaylock, swaync
 
 # Rocks.nvim packages
