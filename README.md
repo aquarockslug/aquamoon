@@ -12,7 +12,7 @@ https://luakit.github.io/docs/pages/05-configuration.html
     - Terminal: tym / wezterm
     - Misc:     swayidle, swaylock, swaync
 
-# Rocks.nvim packages
+## Rocks.nvim packages
 [plugins]
 "rocks.nvim" = "2.44.0"
 "mini.nvim" = "0.15.0"
