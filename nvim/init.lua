@@ -2,7 +2,10 @@
 
 -- Theme
 require("aquamoon/nvim/rocks_nvim").setup()
-require("everforest").load()
+
+-- TODO set based on time of day
+-- require("everforest").load()
+require("dracula").load()
 
 -- OPTIONS
 local vim = vim -- avoid undefined warnings
@@ -130,6 +133,7 @@ require("snacks").setup({
 	notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
+	image = { enabled = true },
 	-- TODO add decorations to the terminals?
 	terminal = { win = { style = "terminal", position = "float" } },
 	lazygit = { win = { position = "float" } },

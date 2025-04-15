@@ -12,3 +12,6 @@
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
 "rocks.nvim" = "2.43.1" # rocks.nvim can also manage itself :D
+"dracula.nvim" = "scm"
+tree-sitter-javascript = "0.0.36"
+tree-sitter-bash = "0.0.40"
