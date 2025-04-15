@@ -4,7 +4,7 @@ local config = wezterm.config_builder()
 -- ctrl + shift + p for command pallet
 
 -- TODO detect OS
-config.default_prog = { 'wsl.exe' }
+config.default_prog = { 'wsl.exe', '--user', 'aqua', '--cd', '~'}
 
 -- config.color_scheme = 'Everblush (Gogh)'
 config.color_scheme = 'Dracula (Official)'
@@ -16,6 +16,5 @@ config.default_cursor_style = 'BlinkingBar'
 config.window_background_opacity = 0.2
 config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
--- config.tab_bar_at_bottom = true
 
 return config

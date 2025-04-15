@@ -17,6 +17,6 @@ autoload -Uz compinit && compinit
 if [[ -z $ZELLIJ ]]; then
 if [[ $ZELLIJ_AUTO_ATTACH == "true" ]];
 then zellij attach -c;
-else zellij -l /home/aqua/.aquamoon/zellij.kdl; fi;
+else zellij -l /home/aqua/.aquamoon/layout.kdl; fi;
 if [[ $ZELLIJ_AUTO_EXIT == "true" ]]; then exit; fi; fi
-# clear && ls
+clear && ls
