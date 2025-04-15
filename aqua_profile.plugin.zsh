@@ -16,7 +16,6 @@ export HISTFILE="/home/aqua/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 setopt SHARE_HISTORY
-export LFS="/mnt/lfs"
 export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
 export NAP_DEFAULT_LANGUAGE='md'
 export PAGER='bat'
@@ -27,8 +26,6 @@ export ZELLIJ_CONFIG_DIR=/home/aqua/.aquamoon
 export ZELLIJ_CONFIG_FILE=/home/aqua/.aquamoon/zellij.kdl
 bindkey " " magic-space
 # TODO bindkey "^E" zellij action edit-scrollback
-# TODO bindkey -s '^c' '^uclear && ls^M'
-# TODO look at zsh widgets
 
 # SYSTEM
 alias q="exit"
@@ -57,9 +54,7 @@ alias l='clear && ls'
 
 # APPLICATIONS
 alias buku="buku --suggest"
-alias chat="gomuks"
 alias ddgr="ddgr --rev"
-alias ld="lazydocker"
 alias lg="lazygit"
 alias mail="aerc"
 alias py="python"
@@ -81,4 +76,3 @@ softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
 docs() { $(gum choose "cht" "cheat" "tldr" "cd ~/home/share/docs" "firefox overapi.com/" "firefox quickref.me") }
 cht() { cht.sh $(gum input --placeholder "query...") | gum pager }
 dlp() { if [ -z ${*+x} ]; then yt-dlp $(gum write); else yt-dlp $*; fi }
-dls() { wget -q -O - $1 | nap }
