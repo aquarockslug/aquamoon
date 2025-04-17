@@ -30,7 +30,7 @@
 			"enabled": true,
 			"indentStyle": "tab",
 			"quoteStyle": "single",
-			"lineWidth": 100
+			"lineWidth": 80
 		}
 	}
 }

@@ -45,7 +45,8 @@ function Setup_Keymap()
 			["q"] = { "actions.close", mode = "n" },
 			["h"] = { "actions.parent", mode = "n" },
 			["e"] = { "actions.select", mode = "n" },
-			-- ["e"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
+			-- ["E"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
+			-- zellij run -c -d right --width 80 -- nvim \$f
 			["l"] = { "actions.select", mode = "n" },
 			["zh"] = { "actions.toggle_hidden", mode = "n" },
 		},
