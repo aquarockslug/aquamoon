@@ -1,11 +1,14 @@
--- NEOVIM CONFIGURATION FOR AQUAMOON
+-- NEOVIM CONFIGURATION FOR AQUAMOON
 
--- Theme
 require("aquamoon/nvim/rocks_nvim").setup()
 
--- TODO set based on time of day
--- require("everforest").load()
-require("dracula").load()
+-- THEME
+local currenthour = tonumber(os.date("%H"))
+if currenthour >= 8 and currenthour <= 20 then
+	require("everforest").load()
+else
+	require("dracula").load()
+end
 
 -- OPTIONS
 local vim = vim -- avoid undefined warnings
@@ -44,9 +47,6 @@ function Setup_Keymap()
 		keymaps = {
 			["q"] = { "actions.close", mode = "n" },
 			["h"] = { "actions.parent", mode = "n" },
-			["e"] = { "actions.select", mode = "n" },
-			-- ["E"] = { "actions.open_external", mode = "n" }, -- TODO open text with nvim in a new terminal
-			-- zellij run -c -d right --width 80 -- nvim \$f
 			["l"] = { "actions.select", mode = "n" },
 			["zh"] = { "actions.toggle_hidden", mode = "n" },
 		},
@@ -62,7 +62,7 @@ function Setup_Keymap()
 	-- left hand above row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match tym foreground color
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match the theme
 	vim.keymap.set("n", "<leader>q", vim.cmd.close)
 
 	-- insert line above or below without going into insert mode
