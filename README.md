@@ -1,6 +1,7 @@
 # AQUAMOON CONFIGURATION
 
-Terminal: wezterm + zellij
+Terminal: wezterm
+- zellij
 - zjstatus
 
 Shell: zsh
@@ -18,3 +19,7 @@ Browser: firefox
 Theme:
 - dracula
 - everforest
+
+Font:
+- big blue
+- iosevka slab

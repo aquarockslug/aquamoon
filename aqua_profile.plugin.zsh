@@ -3,13 +3,13 @@
 # The main file of the aqua_profile plugin
 
 # check for Windows Subsystem for Linux
-if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop || "$TERM_PROGRAM" = 'vscode' ]]
+if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]]
 then WSL=true; else WSL=false; fi
 
 # SETTINGS
 zstyle ':omz:update' mode auto
-export BROWSER='waterfox'
 [ $WSL = true ] && export BROWSER='wsl-open' && export OPENER='wsl-open'
+export BROWSER='waterfox'
 export DISABLE_AUTO_TITLE='true'
 export EDITOR='nvim';
 export HISTFILE="/home/aqua/.zsh_history"
@@ -17,7 +17,6 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 setopt SHARE_HISTORY
 export MAKEFLAGS=-j$(nproc) # use all available cores when running "make"
-export NAP_DEFAULT_LANGUAGE='md'
 export PAGER='bat'
 export PATH="$PATH:~/.local/bin"
 export PATH="$PATH:~/.local/share/pnpm"
@@ -60,9 +59,7 @@ alias mail="aerc"
 alias serve="simple-http-server --cors --index --open --nocache --threads 6 ./"
 alias py="python"
 alias rsync="rsync -Phav"
-alias torrent="rtorrent"
 alias v="nvim"
-alias vi="nvim"
 alias zj="zellij"
 alias zjv="zellij action edit"
 
