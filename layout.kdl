@@ -4,8 +4,10 @@ pane_frames true
 
 layout {
 	pane split_direction="vertical" {
-	    // pane command="nvim" { args "-c" "Oil" }
-	    pane command="lf"
+	    	// pane command="lf"
+		pane command="nvim" { 
+	        	args "-c" "Oil" 
+		}
         }
 	pane borderless=true size=1 {
                 plugin location="file:/home/aqua/.aquamoon/zjstatus.wasm" {

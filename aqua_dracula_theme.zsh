@@ -12,11 +12,6 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 # ddgr
 export DDGR_COLORS="fHgffH"
 
-# nap
-export PATH="$PATH:/usr/local/go/bin"
-export NAP_THEME="dracula"
-export NAP_GRAY="#F8F8F2"
-
 # zsh
 ZSH_THEME="dracula"
 DRACULA_ARROW_ICON=" 󰈿" # TODO make flag orange

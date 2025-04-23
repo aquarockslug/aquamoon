@@ -4,10 +4,11 @@ require("aquamoon/nvim/rocks_nvim").setup()
 
 -- THEME
 local currenthour = tonumber(os.date("%H"))
-if currenthour >= 8 and currenthour <= 20 then
-	require("everforest").load()
+if currenthour >= 12 and currenthour <= 20 then
+	vim.cmd [[colorscheme everforest]]
 else
-	require("dracula").load()
+	require("dracula").setup({ italic_comment = true, transparent_bg = true })
+	vim.cmd [[colorscheme dracula]]
 end
 
 -- OPTIONS
@@ -41,8 +42,6 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<Down>", "<c-w>j")
 	vim.keymap.set("n", "<Up>", "<c-w>k")
 
-	-- TODO automatically resize windows?
-
 	local oil = require("oil"); oil.setup({
 		keymaps = {
 			["q"] = { "actions.close", mode = "n" },
@@ -57,6 +56,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function() Snacks.picker.diagnostics() end)
+	vim.keymap.set("n", "<leader>D", function() require("trouble").open({ mode = "diagnostics" }) end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
 
 	-- left hand above row
@@ -64,6 +64,9 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
 	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match the theme
 	vim.keymap.set("n", "<leader>q", vim.cmd.close)
+
+	-- right hand
+	vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
 
 	-- insert line above or below without going into insert mode
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
@@ -142,6 +145,29 @@ require("snacks").setup({
 		animate = { style = "down" },
 		chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰" } },
 		scope = { enabled = false },
+	},
+})
+
+-- DIAGNOSTICS
+require("trouble").setup({
+	auto_close = true,
+	auto_refresh = true,
+	focus = true,
+	win = { position = "right" },
+	icons = {
+		indent = {
+			middle = " ",
+			last = " ",
+			top = " ",
+			ws = "│  ",
+		},
+	},
+	modes = {
+		diagnostics = {
+			groups = {
+				{ "filename", format = "{file_icon} {basename:Title} {count}" },
+			},
+		},
 	},
 })
 
