@@ -31,6 +31,18 @@ require("lspconfig")["biome"].setup({})
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
 
+require("oil").setup({
+	keymaps = {
+		["q"] = { "actions.close", mode = "n" },
+		["h"] = { "actions.parent", mode = "n" },
+		["l"] = { "actions.select", mode = "n" },
+		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
+		["zh"] = { "actions.toggle_hidden", mode = "n" },
+		["<Tab>"] = { "actions.preview", mode = "n" },
+	},
+	watch_for_changes = true,
+})
+
 -- KEYMAP
 function Setup_Keymap()
 	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
@@ -42,15 +54,6 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<Down>", "<c-w>j")
 	vim.keymap.set("n", "<Up>", "<c-w>k")
 
-	local oil = require("oil"); oil.setup({
-		keymaps = {
-			["q"] = { "actions.close", mode = "n" },
-			["h"] = { "actions.parent", mode = "n" },
-			["l"] = { "actions.select", mode = "n" },
-			["zh"] = { "actions.toggle_hidden", mode = "n" },
-		},
-		watch_for_changes = true
-	})
 
 	-- left hand home row
 	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
@@ -61,7 +64,7 @@ function Setup_Keymap()
 
 	-- left hand above row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
-	vim.keymap.set("n", "<leader>e", function() oil.open(nil, { preview = {} }) end)
+	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
 	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match the theme
 	vim.keymap.set("n", "<leader>q", vim.cmd.close)
 

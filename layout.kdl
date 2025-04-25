@@ -5,8 +5,8 @@ pane_frames true
 layout {
 	pane split_direction="vertical" {
 	    	// pane command="lf"
-		pane command="nvim" { 
-	        	args "-c" "Oil" 
+		pane command="nvim" {
+	        	args "+Oil"
 		}
         }
 	pane borderless=true size=1 {
