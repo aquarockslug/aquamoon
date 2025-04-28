@@ -3,31 +3,15 @@ mapping.map = {
 	normal = {
 		-- Terminal
 		{
-			mod = "Super",
+			mod = { "Super" },
 			key = "Return",
-			script = "nvim_launcher"
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "Return",
-			command = { "spawn", [['tym -u /home/aqua/.aquamoon/terminal.lua']] },
+			command = { "spawn", "wezterm" },
 		},
 		-- Browser
 		{
 			mod = { "Super", "Control" },
 			key = "Return",
-			command = { "spawn", "luakit" },
-		},
-		{
-			mod = { "Super", "Control", "Shift" },
-			key = "Return",
 			command = { "spawn", "firefox" },
-		},
-		-- Launcher
-		{
-			mod = "Super",
-			key = "D",
-			script = "app_launcher",
 		},
 		-- Show Notifications
 		{
