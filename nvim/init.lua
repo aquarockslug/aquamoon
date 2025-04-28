@@ -5,7 +5,8 @@ require("aquamoon/nvim/rocks_nvim").setup()
 -- THEME
 local currenthour = tonumber(os.date("%H"))
 if currenthour >= 12 and currenthour <= 20 then
-	vim.cmd [[colorscheme everforest]]
+	-- vim.cmd [[colorscheme everforest]]
+	vim.cmd [[colorscheme desert]]
 else
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
