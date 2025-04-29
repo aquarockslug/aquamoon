@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
 export TERM="wezterm"
 
