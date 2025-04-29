@@ -1,13 +1,8 @@
 M = {}
 
 M.active_theme = "dracula"
+
 M.my_flag = "󰈿"
-
-M.fonts = {
-	iosevka = "/usr/share/fonts/TTF/IosevkaTermSlabNerdFontPropo-ExtraBoldOblique.ttf",
-	term_font = "IosevkaTermSlab NFM"
-}
-
 M.border_width = 4
 
 -- everforest colors
@@ -18,7 +13,6 @@ M.white = "FFFFFF"
 M.black = "000000"
 
 -- theme
-if M.active_theme == "everforest" then
 	M.fg = M.teal
 	M.fg2 = M.blue
 	M.bg = M.grey
@@ -26,7 +20,7 @@ if M.active_theme == "everforest" then
 
 	-- apps
 	M.tofi_style = {
-		"--font=" .. M.fonts.iosevka,
+		-- "--font=" .. M.fonts.iosevka,
 		"--width=33%",
 		"--outline-width=0",
 		"--border-width=" .. M.border_width,
@@ -36,6 +30,5 @@ if M.active_theme == "everforest" then
 		"--border-color=#" .. M.teal,
 		"--background-color=#" .. M.grey,
 	}
-end
 
 return M
