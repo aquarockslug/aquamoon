@@ -1,7 +1,7 @@
--- NEOVIM CONFIGURATION FOR AQUAMOON
+-- NEOVIM CONFIGURATION FOR AQUAMOON
 
 -- Theme
-require("rocks_nvim").setup()
+require("nvim/rocks_nvim").setup()
 
 require("dracula").setup({ transparent_bg = true, italic_comment = true })
 require("dracula").load({ })

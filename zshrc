@@ -1,4 +1,4 @@
-export LUA_PATH="/home/aqua/.aquamoon"
+export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
 
 # ZSH
 export ZSH_THEME="dracula"
