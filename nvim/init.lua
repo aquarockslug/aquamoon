@@ -3,8 +3,13 @@
 -- Theme
 require("nvim/rocks_nvim").setup()
 
-require("dracula").setup({ transparent_bg = true, italic_comment = true })
-require("dracula").load({ })
+T = require("settings/theme")
+if T.active_theme == "dracula" then
+	require("dracula").setup({ transparent_bg = true, italic_comment = true })
+	require("dracula").load({ })
+else
+	require("everforest").load({ })
+end
 
 -- OPTIONS
 local vim = vim -- avoid undefined warnings

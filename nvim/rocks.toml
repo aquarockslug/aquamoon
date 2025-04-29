@@ -15,4 +15,5 @@ tree-sitter-markdown = "0.0.40"
 "trouble.nvim" = "3.7.1"
 nvim-lspconfig = "2.1.0"
 "oil.nvim" = "2.15.0"
+everforest-nvim = "scm"
 
