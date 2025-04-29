@@ -1,4 +1,5 @@
 export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
+export TERM="wezterm"
 
 # ZSH
 export ZSH_THEME="dracula"

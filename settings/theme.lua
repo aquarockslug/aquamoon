@@ -1,6 +1,6 @@
 M = {}
 
-M.active_theme = "everforest"
+M.active_theme = "dracula"
 M.my_flag = "󰈿"
 
 M.fonts = {
