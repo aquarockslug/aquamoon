@@ -4,10 +4,7 @@
 -- path.package = "/home/aqua/.aquamoon" ?
 require("rocks_nvim").setup()
 
--- T = require("theme")
--- if T.active_theme == "everforest" then require("everforest").load() end
-
--- require("dracula").load({ transparent_bg = true, italic_comment = true })
+require("dracula").setup({ transparent_bg = true, italic_comment = true })
 require("dracula").load({ })
 
 -- OPTIONS
