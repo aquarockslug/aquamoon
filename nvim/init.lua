@@ -1,10 +1,14 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
 -- Theme
--- path.package = "/home/aqua/.aquamoon"
-require("aquamoon/editor/rocks_nvim").setup()
-T = require("aquamoon/settings/theme")
-if T.active_theme == "everforest" then require("everforest").load() end
+-- path.package = "/home/aqua/.aquamoon" ?
+require("rocks_nvim").setup()
+
+-- T = require("theme")
+-- if T.active_theme == "everforest" then require("everforest").load() end
+
+-- require("dracula").load({ transparent_bg = true, italic_comment = true })
+require("dracula").load({ })
 
 -- OPTIONS
 local vim = vim -- avoid undefined warnings
