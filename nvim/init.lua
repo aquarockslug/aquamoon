@@ -1,7 +1,6 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
 -- Theme
--- path.package = "/home/aqua/.aquamoon" ?
 require("rocks_nvim").setup()
 
 require("dracula").setup({ transparent_bg = true, italic_comment = true })
