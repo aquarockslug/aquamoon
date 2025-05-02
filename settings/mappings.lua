@@ -13,6 +13,12 @@ mapping.map = {
 			key = "Return",
 			command = { "spawn", "firefox" },
 		},
+		-- Laucher
+		{
+			mod = { "Super" },
+			key = "D",
+			command = { "spawn", "sherlock" },
+		},
 		-- Show Notifications
 		{
 			mod = "Super",
