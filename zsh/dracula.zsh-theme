@@ -13,7 +13,7 @@
 # @maintainer Avalon Williams <avalonwilliams@protonmail.com>
 
 # Initialization {{{
-source ${0:A:h}/lib/async.zsh
+source ${0:A:h}/async.zsh
 autoload -Uz add-zsh-hook
 setopt PROMPT_SUBST
 async_init
