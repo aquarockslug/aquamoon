@@ -16,7 +16,7 @@ end
 config.color_scheme = 'Dracula (Official)'
 
 config.font = wezterm.font('BigBlueTermPlus Nerd Font')
-config.font_size = 14
+config.font_size = 10 
 config.default_cursor_style = 'BlinkingBar'
 
 config.window_background_opacity = 0.2
