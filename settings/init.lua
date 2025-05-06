@@ -41,7 +41,7 @@ M = {
 			-- ["cursor-size"] = 24,
 		},
 	},
-	window_rules = { ["ssd"] = { "tym", "luakit", "firefox" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "firefox" } }, -- use server side decorations
 	mappings = require("settings/mappings")
 }
 return M
