@@ -1,6 +1,6 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
-require("aquamoon/nvim/rocks_nvim").setup()
+require("nvim/rocks_nvim").setup()
 
 -- THEME
 local currenthour = tonumber(os.date("%H"))

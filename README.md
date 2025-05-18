@@ -19,7 +19,13 @@ Browser: firefox
 Theme:
 - dracula
 - everforest
+- desert
 
 Font:
 - big blue
 - iosevka slab
+
+## symbolic links
+- ~/.config/nvim -> ./nvim
+- ~/.config/river/init -> ./river
+- ~/.zshrc -> ./zsh/zshrc
