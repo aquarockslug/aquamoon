@@ -1,13 +1,10 @@
-#!/bin/zsh
 
 export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
 export TERM="wezterm"
 
 # ZSH
 export ZSH_THEME="dracula"
-export DRACULA_ARROW_ICON=" 󰈿 " # TODO make flag orange
-export ZSH=$HOME/.zsh
-export HISTFILE=$ZSH/.zsh_history
+export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
@@ -19,10 +16,10 @@ alias s="sudo"
 
 # APPLICATIONS
 alias buku="buku --suggest"
-alias ddgr="ddgr --rev"
+alias ddgr="ddgr --rev" # open ddgr with a keybind
 alias lg="lazygit"
 #TODO when opening links with w3m, use wsl-open instead of xdg-open
-alias mail="aerc"  
+alias mail="aerc"
 alias serve="simple-http-server --cors --index --open --nocache --threads 6 ./"
 alias py="python"
 alias rsync="rsync -Phav"
@@ -51,10 +48,15 @@ take() { mkdir $1 && cd $1 }
 lfcd () { cd "$(command lf -print-last-dir "$@")" }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
 
-# FZF
-export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+if [[ $ZSH_THEME == "dracula" ]]; then
 
-# DDGR
-export DDGR_COLORS="fHgffH"
+	# FZF
+	export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 
-source /home/aqua/.aquamoon/zsh/dracula.zsh-theme
+	# DDGR
+	export DDGR_COLORS="fHgffH"
+
+	# ZSH
+	export DRACULA_ARROW_ICON=" 󰈿 " # TODO make flag orange
+	source /home/aqua/.aquamoon/zsh/dracula.zsh-theme
+fi
