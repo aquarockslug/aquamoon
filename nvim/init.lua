@@ -24,7 +24,10 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 10000
 vim.opt.signcolumn = "no"
-vim.diagnostic.config({ signs = false })
+vim.diagnostic.config({
+	signs = false,
+	virtual_lines = true
+})
 vim.flag = "󰈿"
 
 -- LANGUAGE SERVERS
@@ -73,6 +76,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
 
 	-- insert line above or below without going into insert mode
+	-- TODO use the built-in keybinds [<Space> and ]<Space> instead
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
 
