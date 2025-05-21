@@ -5,8 +5,8 @@ Terminal: wezterm
 - zjstatus
 
 Shell: zsh
-- zsh-syntax-highlighting
-- zsh-autosuggestions
+- TODO zsh-syntax-highlighting
+- TODO zsh-autosuggestions
 
 Editor: neovim
 - mini.nvim
@@ -26,6 +26,8 @@ Font:
 - iosevka slab
 
 ## symbolic links
-- ~/.config/nvim -> ./nvim
-- ~/.config/river/init -> ./river
+TODO create a lua script that checks the symlinks
 - ~/.zshrc -> ./zsh/zshrc
+- ~/.config/nvim -> ./nvim
+- ~/.config/zellij -> ./zellij
+- ~/.config/river/init -> ./river

@@ -10,7 +10,7 @@ layout {
 		}
         }
 	pane borderless=true size=1 {
-                plugin location="file:/home/aqua/.aquamoon/zjstatus.wasm" {
+                plugin location="file:/home/aqua/.aquamoon/zellij/zjstatus.wasm" {
 		    format_right  "{datetime}"
                     datetime      "#[fg=#FFB86C,bold] {format} "
 		    datetime_format "%A, %b %d %I:%M %p"
