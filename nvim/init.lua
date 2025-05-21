@@ -2,18 +2,19 @@
 
 require("nvim/rocks_nvim").setup()
 
+-- OPTIONS
+local vim = vim -- avoid undefined warnings
+
 -- THEME
+require("dracula").setup({ italic_comment = true, transparent_bg = true })
 local currenthour = tonumber(os.date("%H"))
 if currenthour >= 12 and currenthour <= 20 then
 	-- vim.cmd [[colorscheme everforest]]
 	vim.cmd [[colorscheme desert]]
 else
-	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
 end
 
--- OPTIONS
-local vim = vim -- avoid undefined warnings
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -66,7 +67,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>D", function() require("trouble").open({ mode = "diagnostics" }) end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
 
-	-- left hand above row
+	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
 	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match the theme
