@@ -1,6 +1,10 @@
 local theme = require "settings/theme"
 
 M = {
+	path = "/home/aqua/.aquamoon",
+	wsl = true,
+	theme,
+	mappings = require("settings/mappings"),
 	river_options = {
 		-- Theme options
 		["border-width"] = theme.border_width,
@@ -42,6 +46,5 @@ M = {
 		},
 	},
 	window_rules = { ["ssd"] = { "firefox" } }, -- use server side decorations
-	mappings = require("settings/mappings")
 }
 return M

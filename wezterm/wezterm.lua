@@ -1,17 +1,16 @@
-
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- ctrl + shift + p for command pallet
 
 -- TODO detect OS
-config.default_prog = { 'wsl.exe', '--user', 'aqua', '--cd', '~'}
+config.default_prog = { 'wsl.exe', '--user', 'aqua', '--cd', '~' }
 
 -- config.color_scheme = 'Everblush (Gogh)'
 config.color_scheme = 'Dracula (Official)'
 
 config.font = wezterm.font('BigBlueTermPlus Nerd Font')
-config.font_size = 10 
+config.font_size = 10
 config.default_cursor_style = 'BlinkingBar'
 
 config.window_background_opacity = 0.2
