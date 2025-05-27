@@ -1,4 +1,4 @@
-
+export PATH="$PATH:/home/aqua/.local/bin"
 export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
 export TERM="wezterm"
 
