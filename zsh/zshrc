@@ -60,5 +60,3 @@ if [[ $ZSH_THEME == "dracula" ]]; then
 	export DRACULA_ARROW_ICON=" 󰈿 " # TODO make flag orange
 	source /home/aqua/.aquamoon/zsh/dracula.zsh-theme
 fi
-
-eval "$(zellij setup --generate-auto-start zsh)"
