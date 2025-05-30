@@ -1,5 +1,5 @@
-local mapping = {}
-mapping.map = {
+local mappings = {}
+mappings.map = {
 	normal = {
 		-- Terminal
 		{
@@ -158,8 +158,9 @@ mapping.map = {
 		},
 	},
 }
--- Mappings for pointer (mouse)
-mapping["map-pointer"] = {
+
+-- mappings for pointer (mouse)
+mappings["map-pointer"] = {
 	normal = {
 		-- Super + Left Mouse Button to move views
 		{
@@ -175,4 +176,15 @@ mapping["map-pointer"] = {
 		},
 	},
 }
-return mapping
+
+-- mappings for wezterm
+local wezterm = require 'wezterm'
+mappings.wezterm = {
+	{
+		mods = 'CMD',
+		key = 'p',
+		action = wezterm.action.SplitVertical { args = { 'zsh' } },
+	}
+}
+
+return mappings
