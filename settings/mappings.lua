@@ -177,14 +177,4 @@ mappings["map-pointer"] = {
 	},
 }
 
--- mappings for wezterm
-local wezterm = require 'wezterm'
-mappings.wezterm = {
-	{
-		mods = 'CMD',
-		key = 'p',
-		action = wezterm.action.SplitVertical { args = { 'zsh' } },
-	}
-}
-
 return mappings
