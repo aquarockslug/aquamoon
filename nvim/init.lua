@@ -65,7 +65,8 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function() Snacks.picker.diagnostics() end)
 	vim.keymap.set("n", "<leader>D", function() require("trouble").open({ mode = "diagnostics" }) end)
-	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
+	vim.keymap.set("n", "<leader>s", function() Snacks.picker.spelling() end)
+	vim.keymap.set("n", "<leader>S", function() Snacks.picker.lsp_symbols() end)
 
 	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
