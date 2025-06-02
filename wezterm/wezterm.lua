@@ -36,8 +36,13 @@ config.keys = {
 	},
 	{
 		mods = 'ALT',
-		key = 't',
+		key = 'y',
 		action = act.SpawnTab 'DefaultDomain',
+	},
+	{
+		mods = 'ALT',
+		key = 'u',
+		action = act.ShowTabNavigator,
 	},
 	{
 		mods = 'ALT',
