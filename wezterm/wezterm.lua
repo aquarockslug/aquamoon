@@ -20,43 +20,43 @@ config.enable_tab_bar = false
 
 config.keys = {
 	{
-		mods = 'CTRL',
-		key = 'p',
+		mods = 'ALT',
+		key = 'm',
+		action = act.SplitVertical {},
+	},
+	{
+		mods = 'ALT',
+		key = 'n',
 		action = act.SplitHorizontal {},
 	},
 	{
-		mods = 'SHIFT|CTRL',
-		key = 'p',
-		action = act.CloseCurrentPane {},
+		mods = 'ALT',
+		key = 'x',
+		action = act.CloseCurrentPane { confirm = false },
 	},
 	{
-		mods = 'CTRL',
-		key = 'o',
-		action = act.SpawnTab {},
+		mods = 'ALT',
+		key = 't',
+		action = act.SpawnTab 'DefaultDomain',
 	},
 	{
-		mods = 'SHIFT|CTRL',
-		key = 'o',
-		action = act.CloseCurrentTab {},
-	},
-	{
-		key = 'LeftArrow',
-		mods = 'CTRL',
+		mods = 'ALT',
+		key = 'h',
 		action = act.ActivatePaneDirection 'Left',
 	},
 	{
-		key = 'RightArrow',
-		mods = 'CTRL',
+		mods = 'ALT',
+		key = 'l',
 		action = act.ActivatePaneDirection 'Right',
 	},
 	{
-		key = 'UpArrow',
-		mods = 'CTRL',
+		mods = 'ALT',
+		key = 'k',
 		action = act.ActivatePaneDirection 'Up',
 	},
 	{
-		key = 'DownArrow',
-		mods = 'CTRL',
+		mods = 'ALT',
+		key = 'j',
 		action = act.ActivatePaneDirection 'Down',
 	},
 }
