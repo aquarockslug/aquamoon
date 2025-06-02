@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local act = wezterm.action
 local config = wezterm.config_builder()
 
 -- ctrl + shift + p for command pallet
@@ -21,8 +22,43 @@ config.keys = {
 	{
 		mods = 'CTRL',
 		key = 'p',
-		action = wezterm.action.SplitHorizontal { },
-	}
+		action = act.SplitHorizontal {},
+	},
+	{
+		mods = 'SHIFT|CTRL',
+		key = 'p',
+		action = act.CloseCurrentPane {},
+	},
+	{
+		mods = 'CTRL',
+		key = 'o',
+		action = act.SpawnTab {},
+	},
+	{
+		mods = 'SHIFT|CTRL',
+		key = 'o',
+		action = act.CloseCurrentTab {},
+	},
+	{
+		key = 'LeftArrow',
+		mods = 'CTRL',
+		action = act.ActivatePaneDirection 'Left',
+	},
+	{
+		key = 'RightArrow',
+		mods = 'CTRL',
+		action = act.ActivatePaneDirection 'Right',
+	},
+	{
+		key = 'UpArrow',
+		mods = 'CTRL',
+		action = act.ActivatePaneDirection 'Up',
+	},
+	{
+		key = 'DownArrow',
+		mods = 'CTRL',
+		action = act.ActivatePaneDirection 'Down',
+	},
 }
 
 return config
