@@ -33,9 +33,9 @@ M = {
 		{
 			"swaync",
 		},
-		{
-			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
-		}
+		-- {
+			-- "swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
+		-- }
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {

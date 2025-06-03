@@ -17,7 +17,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "spawn", "sherlock" },
+			command = { "spawn", "nwg-drawer" },
 		},
 		-- Show Notifications
 		{
