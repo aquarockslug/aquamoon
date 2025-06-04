@@ -61,4 +61,4 @@ if [[ $ZSH_THEME == "dracula" ]]; then
 	source /home/aqua/.aquamoon/zsh/dracula.zsh-theme
 fi
 
-# zellij --config-dir ~/.config/zellij
+source /home/aqua/.aquamoon/zsh/zsh-syntax-highlighting.zsh
