@@ -1,9 +1,9 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
-require("nvim/rocks_nvim").setup()
-
--- OPTIONS
 local vim = vim -- avoid undefined warnings
+require("nvim/rocks_nvim").setup()
+require("smear_cursor").enabled = true
+require("snipe").setup({ ui = { position = "center" } })
 
 -- THEME
 require("dracula").setup({ italic_comment = true, transparent_bg = true })
@@ -50,23 +50,11 @@ require("oil").setup({
 
 -- KEYMAP
 function Setup_Keymap()
-	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
-	vim.keymap.set("n", "U", "<c-r>")
-
 	-- navigate nvim windows using arrow keys
 	vim.keymap.set("n", "<Left>", "<c-w>h")
 	vim.keymap.set("n", "<Right>", "<c-w>l")
 	vim.keymap.set("n", "<Down>", "<c-w>j")
 	vim.keymap.set("n", "<Up>", "<c-w>k")
-
-
-	-- left hand home row
-	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
-	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
-	vim.keymap.set("n", "<leader>d", function() Snacks.picker.diagnostics() end)
-	vim.keymap.set("n", "<leader>D", function() require("trouble").open({ mode = "diagnostics" }) end)
-	vim.keymap.set("n", "<leader>s", function() Snacks.picker.spelling() end)
-	vim.keymap.set("n", "<leader>S", function() Snacks.picker.lsp_symbols() end)
 
 	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
@@ -74,11 +62,25 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match the theme
 	vim.keymap.set("n", "<leader>q", vim.cmd.close)
 
+
+	-- left hand home row
+	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
+	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
+	vim.keymap.set("n", "<leader>d", function()
+		Snacks.toggle.diagnostics():toggle()
+		require("trouble").toggle({ mode = "diagnostics" })
+	end)
+	vim.keymap.set("n", "<leader>s", function() Snacks.picker.spelling() end)
+	vim.keymap.set("n", "<leader>a", function() Snacks.picker.lsp_symbols() end)
+
 	-- right hand
 	vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
+	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
+	vim.keymap.set("n", "U", "<c-r>")
+
 
 	-- insert line above or below without going into insert mode
-	-- TODO use the built-in keybinds [<Space> and ]<Space> instead
+	-- TODO start using the built-in keybinds [<Space> and ]<Space> instead
 	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
 	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
 
@@ -90,7 +92,9 @@ function Setup_Keymap()
 			vim.cmd.write()
 		end,
 		[3] = vim.cmd.bnext,
-		[4] = vim.cmd.bprev
+		[4] = function() require("snipe").open_buffer_menu() end,
+
+		-- [6] = vim.cmd.bprev
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
@@ -149,7 +153,7 @@ require("snacks").setup({
 	scroll = { enabled = true },
 	image = { enabled = true },
 	-- TODO add decorations to the terminals?
-	terminal = { win = { style = "terminal", position = "float" } },
+	terminal = { win = { position = "float", width = 200, height = 200 } },
 	lazygit = { win = { position = "float" } },
 	indent = {
 		animate = { style = "down" },
@@ -158,7 +162,9 @@ require("snacks").setup({
 	},
 })
 
+
 -- DIAGNOSTICS
+Snacks.toggle.diagnostics():set(false)
 require("trouble").setup({
 	auto_close = true,
 	auto_refresh = true,

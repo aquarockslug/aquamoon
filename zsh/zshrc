@@ -30,7 +30,7 @@ alias ls='eza --icons --group-directories-first'
 alias tasks="ps aux"
 alias fd="sudo fdisk -l"
 alias df="duf"
-alias du="dust"
+alias du="dust -X .git"
 alias cat="bat"
 alias top="htop"
 
