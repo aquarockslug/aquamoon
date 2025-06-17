@@ -44,7 +44,7 @@ require("oil").setup({
 		["l"] = { "actions.select", mode = "n" },
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
-		["<Tab>"] = { "actions.preview", mode = "n" }, //TODO shows an error on image preview
+		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
 	},
 	watch_for_changes = true,
 })
