@@ -9,8 +9,9 @@ require("snipe").setup({ ui = { position = "center" } })
 require("dracula").setup({ italic_comment = true, transparent_bg = true })
 local currenthour = tonumber(os.date("%H"))
 if currenthour >= 12 and currenthour <= 20 then
-	-- vim.cmd [[colorscheme everforest]]
 	vim.cmd [[colorscheme desert]]
+	-- vim.cmd [[colorscheme everforest]]
+	-- vim.cmd [[colorscheme habamax]]
 else
 	vim.cmd [[colorscheme dracula]]
 end
@@ -43,7 +44,7 @@ require("oil").setup({
 		["l"] = { "actions.select", mode = "n" },
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
-		["<Tab>"] = { "actions.preview", mode = "n" },
+		["<Tab>"] = { "actions.preview", mode = "n" }, //TODO shows an error on image preview
 	},
 	watch_for_changes = true,
 })
@@ -111,6 +112,12 @@ function Setup_Autocmd()
 	})
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		callback = function() vim.highlight.on_yank({ higroup = "DiffAdd", timeout = 250 }) end, -- TODO use a different highlight group?
+	})
+	vim.api.nvim_create_autocmd("BufEnter", {
+		pattern = { '*.jpg', '*.png' },
+		callback = function(ev)
+			vim.cmd([[ terminal timg %]])
+		end
 	})
 end
 

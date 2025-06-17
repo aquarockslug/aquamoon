@@ -20,7 +20,6 @@ alias ddgr="ddgr --rev" # open ddgr with a keybind
 alias lg="lazygit"
 #TODO when opening links with w3m, use wsl-open instead of xdg-open
 alias mail="aerc"
-alias serve="simple-http-server --cors --index --open --nocache --threads 6 ./"
 alias py="python"
 alias rsync="rsync -Phav"
 alias v="nvim"
@@ -45,8 +44,9 @@ alias l='clear && ls'
 hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
-lfcd () { cd "$(command lf -print-last-dir "$@")" }
+lfcd() { cd "$(command lf -print-last-dir "$@")" }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
+serve() { simple-http-server --cors --index --nocache --threads 6 ./ } # TODO open localhost:8080 in browser
 
 if [[ $ZSH_THEME == "dracula" ]]; then
 
