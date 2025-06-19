@@ -60,7 +60,7 @@ function Setup_Keymap()
 	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end) -- TODO make foreground color match the theme
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end)
 	vim.keymap.set("n", "<leader>q", vim.cmd.close)
 
 
@@ -159,7 +159,6 @@ require("snacks").setup({
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
 	image = { enabled = true },
-	-- TODO add decorations to the terminals?
 	terminal = { win = { position = "float", width = 200, height = 200 } },
 	lazygit = { win = { position = "float" } },
 	indent = {
