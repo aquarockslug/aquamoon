@@ -33,18 +33,23 @@ config.keys = {
 	},
 	{
 		mods = 'ALT',
+		key = 'p',
+		action = act.SpawnTab 'DefaultDomain',
+	},
+	{
+		mods = 'ALT',
 		key = 'x',
 		action = act.CloseCurrentPane { confirm = false },
 	},
 	{
 		mods = 'ALT',
-		key = 'y',
-		action = act.SpawnTab 'DefaultDomain',
+		key = '[',
+		action = act.ActivateTabRelative(-1),
 	},
 	{
 		mods = 'ALT',
-		key = 'u',
-		action = act.ShowTabNavigator,
+		key = ']',
+		action = act.ActivateTabRelative(1),
 	},
 	{
 		mods = 'ALT',
