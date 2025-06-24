@@ -23,6 +23,7 @@ alias mail="aerc"
 alias py="python"
 alias rsync="rsync -Phav"
 alias v="nvim"
+alias open="wsl-open"
 
 # SYSTEM INFO
 alias ls='eza --icons --group-directories-first'
@@ -46,7 +47,7 @@ chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
 lfcd() { cd "$(command lf -print-last-dir "$@")" }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
-serve() { simple-http-server --cors --index --nocache --threads 6 ./ } # TODO open localhost:8080 in browser
+serve() { simple-http-server -i -o --nocache --ip 127.0.0.1 ${1-./} }
 
 if [[ $ZSH_THEME == "dracula" ]]; then
 
