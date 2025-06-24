@@ -23,7 +23,11 @@ alias mail="aerc"
 alias py="python"
 alias rsync="rsync -Phav"
 alias v="nvim"
+
+# WSL
 alias open="wsl-open"
+alias yank="wcopy"
+alias put ="wpaste"
 
 # SYSTEM INFO
 alias ls='eza --icons --group-directories-first'
