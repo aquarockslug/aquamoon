@@ -1,0 +1,1 @@
+-- TODO use this file instead of zshrc

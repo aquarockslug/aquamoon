@@ -6,15 +6,24 @@ require("smear_cursor").enabled = true
 require("snipe").setup({ ui = { position = "center" } })
 
 -- THEME
-require("dracula").setup({ italic_comment = true, transparent_bg = true })
 local currenthour = tonumber(os.date("%H"))
 if currenthour >= 8 and currenthour <= 14 then
 	vim.cmd [[colorscheme desert]]
 	-- vim.cmd [[colorscheme everforest]]
+	require("colorful-winsep").setup({})
 elseif currenthour > 14 and currenthour <= 20 then
 	vim.cmd [[colorscheme habamax]]
+	require("colorful-winsep").setup({})
 else
+	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
+	require("colorful-winsep").setup({
+		hi = {
+			bg = "#282A36",
+			fg = "#50FA7B",
+		},
+	})
+	-- TODO make the bar at the bottom green
 end
 
 vim.g.mapleader = ","
@@ -62,7 +71,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
 	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end)
-	vim.keymap.set("n", "<leader>q", vim.cmd.close)
+	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 
 	-- left hand home row
