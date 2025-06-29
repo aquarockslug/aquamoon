@@ -66,7 +66,8 @@ function Setup_Keymap()
 
 
 	-- left hand home row
-	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
+	-- vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
+	vim.keymap.set("n", "<leader>g", function() vim.cmd("GrugFar") end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function()
 		Snacks.toggle.diagnostics():toggle()

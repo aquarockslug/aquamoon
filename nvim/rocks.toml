@@ -27,3 +27,6 @@ rev = "2a1b738dfae8502e6162eddfc774da65ed404142"
 [plugins.smear_cursor]
 git = "sphamba/smear-cursor.nvim"
 rev = "v0.4.7"
+
+[plugins.grug_far]
+git = "MagicDuck/grug-far.nvim"
