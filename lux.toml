@@ -1,0 +1,21 @@
+package = "aquamoon"
+version = "0.1.0"
+lua = ">=5.1"
+
+[description]
+summary = "My configuration files"
+maintainer = "aqua"
+labels = [ "" ]
+
+[dependencies]
+luaposix = "36.3-1"
+
+[run]
+command = "nvim"
+args = [ "-l", "river.lua" ]
+
+[build]
+type = "builtin"
+
+[source]
+url = "https://github.com/aquarockslug/aquamoon.git"
