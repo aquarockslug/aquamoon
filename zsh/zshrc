@@ -1,6 +1,5 @@
 export PATH="$PATH:/home/aqua/.local/bin"
 export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
-export TERM="wezterm"
 
 # ZSH
 export ZSH_THEME="dracula"
@@ -27,7 +26,7 @@ alias v="nvim"
 # WSL
 alias open="wsl-open"
 alias yank="wcopy"
-alias put ="wpaste"
+alias put="wpaste"
 
 # SYSTEM INFO
 alias ls='eza --icons --group-directories-first'
@@ -67,3 +66,6 @@ if [[ $ZSH_THEME == "dracula" ]]; then
 fi
 
 source /home/aqua/.aquamoon/zsh/zsh-syntax-highlighting.zsh
+
+lua /home/aqua/.aquamoon/zsh/zshrc.lua
+if [[ $AQUAMOON_STATE != "using_nvim" ]]; then exit; fi
