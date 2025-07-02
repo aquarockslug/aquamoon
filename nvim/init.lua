@@ -7,6 +7,7 @@ require("snipe").setup({ ui = { position = "center" } })
 
 -- THEME
 local currenthour = tonumber(os.date("%H"))
+require("dracula").setup({ italic_comment = true, transparent_bg = true })
 if currenthour >= 8 and currenthour <= 14 then
 	vim.cmd [[colorscheme desert]]
 	-- vim.cmd [[colorscheme everforest]]
@@ -15,7 +16,6 @@ elseif currenthour > 14 and currenthour <= 20 then
 	vim.cmd [[colorscheme habamax]]
 	require("colorful-winsep").setup({})
 else
-	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
 	require("colorful-winsep").setup({
 		hi = {
@@ -75,15 +75,15 @@ function Setup_Keymap()
 
 
 	-- left hand home row
-	-- vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
-	vim.keymap.set("n", "<leader>g", function() vim.cmd("GrugFar") end)
+	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function()
 		Snacks.toggle.diagnostics():toggle()
 		require("trouble").toggle({ mode = "diagnostics" })
 	end)
-	vim.keymap.set("n", "<leader>s", function() Snacks.picker.spelling() end)
-	vim.keymap.set("n", "<leader>a", function() Snacks.picker.lsp_symbols() end)
+	vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
+	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
+	vim.keymap.set("n", "<leader>a", function() vim.cmd("GrugFar") end)
 
 	-- right hand
 	vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
