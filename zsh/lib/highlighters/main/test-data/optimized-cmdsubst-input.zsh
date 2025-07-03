@@ -28,7 +28,7 @@
 # vim: ft=zsh sw=2 ts=2 et
 # -------------------------------------------------------------------------------------------------
 
-# See getoutput() and getoutputfile() in zsh's C source code.
+# See getouttest() and getouttestfile() in zsh's C source code.
 
 BUFFER=$': $(<*)'
 

@@ -28,7 +28,7 @@
 # -------------------------------------------------------------------------------------------------
 
 # This tests for a regression during development of issue #328: an interim version
-# of that branch failed that test with "Bail out! output on stderr".
+# of that branch failed that test with "Bail out! outtest on stderr".
 BUFFER='${'
 
 expected_region_highlight=(

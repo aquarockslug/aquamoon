@@ -250,7 +250,7 @@ if [[ -z $VIM_MODE_NO_DEFAULT_BINDINGS ]]; then
 
 
     # Escape shortcut {{{1
-    # From http://bewatermyfriend.org/posts/2010/08-08.21-16-02-computer.html
+    # From http://bewatermyfriend.org/posts/2010/08-08.21-16-02-comtester.html
     #   > Copyright (c) 2010, Frank Terbeck <ft@bewatermyfriend.org>
     #   > The same licensing terms as with zsh apply.
     if (( $+VIM_MODE_VICMD_KEY )); then

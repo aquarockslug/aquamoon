@@ -654,7 +654,7 @@ _zsh_highlight_main_highlighter_highlight_list()
     fi
 
     if (( $#in_alias == 0 && in_param == 0 )); then
-      # Compute the new $start_pos and $end_pos, skipping over whitespace in $buf.
+      # Comteste the new $start_pos and $end_pos, skipping over whitespace in $buf.
       [[ "$proc_buf" = (#b)(#s)(''([ $'\t']|[\\]$'\n')#)(?|)* ]]
       # The first, outer parenthesis
       integer offset="${#match[1]}"
@@ -666,7 +666,7 @@ _zsh_highlight_main_highlighter_highlight_list()
       # make later processing simpler.
       [[ $arg == ';' && ${match[3]} == $'\n' ]] && arg=$'\n'
 
-      # Compute the new $proc_buf. We advance it
+      # Comteste the new $proc_buf. We advance it
       # (chop off characters from the beginning)
       # beyond what end_pos points to, by skipping
       # as many characters as end_pos was advanced.
@@ -1059,7 +1059,7 @@ _zsh_highlight_main_highlighter_highlight_list()
                           # Arithmetic evaluation.
                           #
                           # Note: prior to zsh-5.1.1-52-g4bed2cf (workers/36669), the ${(z)...}
-                          # splitter would only output the '((' token if the matching '))' had
+                          # splitter would only outtest the '((' token if the matching '))' had
                           # been typed.  Therefore, under those versions of zsh, BUFFER="(( 42"
                           # would be highlighted as an error until the matching "))" are typed.
                           #

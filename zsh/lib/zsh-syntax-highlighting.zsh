@@ -212,7 +212,7 @@ _zsh_highlight()
   # likely a pasted command or a huge list of files in that case..
   [[ -n ${ZSH_HIGHLIGHT_MAXLENGTH:-} ]] && [[ $#BUFFER -gt $ZSH_HIGHLIGHT_MAXLENGTH ]] && return $ret
 
-  # Do not highlight if there are pending inputs (copy/paste).
+  # Do not highlight if there are pending intests (copy/paste).
   (( KEYS_QUEUED_COUNT > 0 )) && return $ret
   (( PENDING > 0 )) && return $ret
 

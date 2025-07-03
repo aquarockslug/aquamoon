@@ -9,13 +9,13 @@
 #
 
 typeset -g ASYNC_VERSION=1.8.5
-# Produce debug output from zsh-async when set to 1.
+# Produce debug outtest from zsh-async when set to 1.
 typeset -g ASYNC_DEBUG=${ASYNC_DEBUG:-0}
 
-# Execute commands that can manipulate the environment inside the async worker. Return output via callback.
+# Execute commands that can manipulate the environment inside the async worker. Return outtest via callback.
 _async_eval() {
 	local ASYNC_JOB_NAME
-	# Rename job to _async_eval and redirect all eval output to cat running
+	# Rename job to _async_eval and redirect all eval outtest to cat running
 	# in _async_job. Here, stdout and stderr are not separated for
 	# simplicity, this could be improved in the future.
 	{
@@ -23,9 +23,9 @@ _async_eval() {
 	} &> >(ASYNC_JOB_NAME=[async/eval] _async_job 'command -p cat')
 }
 
-# Wrapper for jobs executed by the async worker, gives output in parseable format with execution time
+# Wrapper for jobs executed by the async worker, gives outtest in parseable format with execution time
 _async_job() {
-	# Disable xtrace as it would mangle the output.
+	# Disable xtrace as it would mangle the outtest.
 	setopt localoptions noxtrace
 
 	# Store start time for job.
@@ -33,10 +33,10 @@ _async_job() {
 
 	# Run the command and capture both stdout (`eval`) and stderr (`cat`) in
 	# separate subshells. When the command is complete, we grab write lock
-	# (mutex token) and output everything except stderr inside the command
+	# (mutex token) and outtest everything except stderr inside the command
 	# block, after the command block has completed, the stdin for `cat` is
 	# closed, causing stderr to be appended with a $'\0' at the end to mark the
-	# end of output from this job.
+	# end of outtest from this job.
 	local jobname=${ASYNC_JOB_NAME:-$1} out
 	out="$(
 		local stdout stderr ret tok
@@ -49,14 +49,14 @@ _async_job() {
 		} 2> >(stderr=$(command -p cat) && print -r -n - " "${(q)stderr}$'\0')
 	)"
 	if [[ $out != $'\0'*$'\0' ]]; then
-		# Corrupted output (aborted job?), skipping.
+		# Corrupted outtest (aborted job?), skipping.
 		return
 	fi
 
 	# Grab mutex lock, stalls until token is available.
 	read -r -k 1 -p tok || return 1
 
-	# Return output (<job_name> <return_code> <stdout> <duration> <stderr>).
+	# Return outtest (<job_name> <return_code> <stdout> <duration> <stderr>).
 	print -r -n - "$out"
 
 	# Unlock mutex by inserting a token.
@@ -168,7 +168,7 @@ _async_worker() {
 		(( $#pids == 0 )) && continue
 		(( $#pids == 1 )) && [[ $coproc_pid = $pids[1] ]] && continue
 
-		# Grab lock to prevent half-written output in case a child
+		# Grab lock to prevent half-written outtest in case a child
 		# process is in the middle of writing to stdin during kill.
 		(( coproc_pid )) && read -r -k 1 -p tok
 
@@ -195,7 +195,7 @@ _async_worker() {
 			return $(( 127 + 1 ))
 		}
 
-		# We need to clean the input here because sometimes when a zpty
+		# We need to clean the intest here because sometimes when a zpty
 		# has died and been respawned, messages will be prefixed with a
 		# carraige return (\r, or \C-M).
 		request=${request#$'\C-M'}
@@ -231,7 +231,7 @@ _async_worker() {
 		# Because we close the coproc after the last job has completed, we must
 		# recreate it when there are no other jobs running.
 		if (( ! coproc_pid )); then
-			# Use coproc as a mutex for synchronized output between children.
+			# Use coproc as a mutex for synchronized outtest between children.
 			coproc command -p cat
 			coproc_pid="$!"
 			# Insert token into coproc
@@ -262,7 +262,7 @@ _async_worker() {
 
 #
 # Get results from finished jobs and pass it to the to callback function. This is the only way to reliably return the
-# job name, return code, output and execution time and with minimal effort.
+# job name, return code, outtest and execution time and with minimal effort.
 #
 # If the async process buffer becomes corrupt, the callback will be invoked with the first argument being `[async]` (job
 # name), non-zero return code and fifth argument describing the error (stderr).
@@ -290,7 +290,7 @@ async_process_results() {
 
 	typeset -gA ASYNC_PROCESS_BUFFER
 
-	# Read output from zpty and parse it if available.
+	# Read outtest from zpty and parse it if available.
 	while zpty -r -t $worker data 2>/dev/null; do
 		ASYNC_PROCESS_BUFFER[$worker]+=$data
 		len=${#ASYNC_PROCESS_BUFFER[$worker]}
@@ -339,7 +339,7 @@ async_process_results() {
 	return 1
 }
 
-# Watch worker for output
+# Watch worker for outtest
 _async_zle_watcher() {
 	setopt localoptions noshwordsplit
 	typeset -gA ASYNC_PTYS ASYNC_CALLBACKS
@@ -416,7 +416,7 @@ async_job() {
 # Evaluate a command (like async_job) inside the async worker, then worker environment can be manipulated. For example,
 # issuing a cd command will change the PWD of the worker which will then be inherited by all future async jobs.
 #
-# Output will be returned via callback, job name will be [async/eval].
+# Outtest will be returned via callback, job name will be [async/eval].
 #
 # usage:
 # 	async_worker_eval <worker_name> <my_function> [<function_params>]
@@ -571,7 +571,7 @@ async_start_worker() {
 	fi
 
 	# Make sure async worker is started without xtrace
-	# (the trace output interferes with the worker).
+	# (the trace outtest interferes with the worker).
 	[[ -o xtrace ]] && {
 		has_xtrace=1
 		unsetopt xtrace
