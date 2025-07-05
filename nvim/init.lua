@@ -9,7 +9,8 @@ require("snipe").setup({ ui = { position = "center" } })
 
 -- THEME
 local currenthour = tonumber(os.date("%H"))
-require("dracula").setup({ italic_comment = true, transparent_bg = true })
+
+vim.cmd [[ highlight Normal guibg=none ]]
 if currenthour >= 8 and currenthour <= 14 then
 	vim.cmd [[colorscheme desert]]
 	-- vim.cmd [[colorscheme everforest]]
@@ -18,6 +19,7 @@ elseif currenthour > 14 and currenthour <= 20 then
 	vim.cmd [[colorscheme habamax]]
 	require("colorful-winsep").setup({})
 else
+	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
 	require("colorful-winsep").setup({
 		hi = {
