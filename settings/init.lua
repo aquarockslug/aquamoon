@@ -37,27 +37,29 @@ M = {
 			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
 		},
 		{
-			"nwg-panel",
-		},
-		{
 			"wlr-randr --output eDP-1 --off"
 		},
 		{
+			"wlr-randr --output HDMI-A-1 --scale 1.5"
+		},
+		-- {
+		-- 	"nwg-panel",
+		-- },
+		{
 			"nm-applet"
-		}
+		},
 	},
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0
-		["org.gnome.desktop.interface"] = {
-			["gtk-theme"] = "dracula",
-			["icon-theme"] = "Tela circle dracula dark",
-			["cursor-theme"] = "macOS-White",
-			["cursor-size"] = 24,
-		},
-		["org.gnome.desktop.peripherals.touchpad"] = {
-			["natural-scroll"] = true
-
-		}
+		-- ["org.gnome.desktop.interface"] = {
+		-- 	["gtk-theme"] = "Dracula",
+		-- 	["icon-theme"] = "Tela circle dracula dark",
+		-- 	["cursor-theme"] = "macOS-White",
+		-- 	["cursor-size"] = 24,
+		-- },
+		-- ["org.gnome.desktop.peripherals.touchpad"] = {
+		-- 	-- ["natural-scroll"] = true
+		-- }
 	},
 	window_rules = { ["ssd"] = { "firefox" } }, -- use server side decorations
 }

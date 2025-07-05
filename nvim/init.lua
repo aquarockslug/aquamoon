@@ -57,6 +57,7 @@ require("oil").setup({
 		["h"] = { "actions.parent", mode = "n" },
 		["l"] = { "actions.select", mode = "n" },
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
+		["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
 	},

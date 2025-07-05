@@ -13,7 +13,7 @@ config.default_prog = { 'zsh' }
 config.color_scheme = 'Dracula (Official)'
 
 config.font = wezterm.font('BigBlueTermPlus Nerd Font')
-config.font_size = 10
+config.font_size = 12
 config.default_cursor_style = 'BlinkingBar'
 
 config.window_background_opacity = 0.2
