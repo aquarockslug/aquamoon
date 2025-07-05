@@ -41,6 +41,9 @@ M = {
 		},
 		{
 			"wlr-randr --output eDP-1 --off"
+		},
+		{
+			"nm-applet"
 		}
 	},
 	gsettings = {
