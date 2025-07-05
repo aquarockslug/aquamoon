@@ -5,8 +5,8 @@ local config = wezterm.config_builder()
 -- ctrl + shift + p for command pallet
 
 -- TODO detect OS
-config.default_prog = { 'wsl.exe', '--user', 'aqua', '--cd', '~' }
--- config.default_prog = { 'zsh' }
+-- config.default_prog = { 'wsl.exe', '--user', 'aqua', '--cd', '~' }
+config.default_prog = { 'zsh' }
 
 
 -- config.color_scheme = 'Everblush (Gogh)'

@@ -2,7 +2,7 @@ local theme = require "settings/theme"
 
 M = {
 	path = "/home/aqua/.aquamoon",
-	wsl = true,
+	wsl = false,
 	theme,
 	mappings = require("settings/mappings"),
 	river_options = {
@@ -33,17 +33,28 @@ M = {
 		{
 			"swaync",
 		},
-		-- {
-			-- "swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
-		-- }
+		{
+			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
+		},
+		{
+			"nwg-panel",
+		},
+		{
+			"wlr-randr --output eDP-1 --off"
+		}
 	},
 	gsettings = {
+		-- these settings overwrite the ones in ~/.config/gtk-3.0
 		["org.gnome.desktop.interface"] = {
-			["gtk-theme"] = "Colloid-Green-Dark-Everforest",
-			["icon-theme"] = "Everforest-Dark",
-			-- ["cursor-theme"] = "",
-			-- ["cursor-size"] = 24,
+			["gtk-theme"] = "dracula",
+			["icon-theme"] = "Tela circle dracula dark",
+			["cursor-theme"] = "macOS-White",
+			["cursor-size"] = 24,
 		},
+		["org.gnome.desktop.peripherals.touchpad"] = {
+			["natural-scroll"] = true
+
+		}
 	},
 	window_rules = { ["ssd"] = { "firefox" } }, -- use server side decorations
 }

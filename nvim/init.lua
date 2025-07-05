@@ -1,7 +1,9 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
 local vim = vim -- avoid undefined warnings
+
 require("nvim/rocks_nvim").setup()
+
 require("smear_cursor").enabled = true
 require("snipe").setup({ ui = { position = "center" } })
 

@@ -3,7 +3,7 @@ M = {}
 M.active_theme = "dracula"
 
 M.my_flag = "󰈿"
-M.border_width = 4
+M.border_width = 1
 
 -- everforest colors
 M.teal = "83C092"
