@@ -5,19 +5,21 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", "wezterm" },
+			-- TODO use wezterm instead of foot if on wsl
+			-- command = { "spawn", "wezterm" },
+			command = { "spawn", "foot" },
 		},
 		-- Browser
 		{
-			mod = { "Super", "Control" },
+			mod = { "Super", "Shift" },
 			key = "Return",
 			command = { "spawn", "firefox" },
 		},
-		-- Laucher
+		-- Launcher
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "spawn", "nwg-drawer" },
+			command = { "spawn", "/home/aqua/.aquamoon/tofi_aqua.sh" }
 		},
 		-- Show Notifications
 		{

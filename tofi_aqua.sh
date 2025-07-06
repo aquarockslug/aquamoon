@@ -1,0 +1,1 @@
+tofi-drun --font="IosevkaTermSlab NFM" --width="33%" --outline-width=0 --border-width=1 --prompt-text="󰈿_" --selection-color="#FFFFFF" --text-color="#83C092" --border-color="#83C092" --background-color="#272E33"

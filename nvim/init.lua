@@ -10,7 +10,6 @@ require("snipe").setup({ ui = { position = "center" } })
 -- THEME
 local currenthour = tonumber(os.date("%H"))
 
-vim.cmd [[ highlight Normal guibg=none ]]
 if currenthour >= 8 and currenthour <= 14 then
 	vim.cmd [[colorscheme desert]]
 	-- vim.cmd [[colorscheme everforest]]
@@ -29,6 +28,7 @@ else
 	})
 	-- TODO make the bar at the bottom green
 end
+vim.cmd [[ highlight Normal guibg=none ]]
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
