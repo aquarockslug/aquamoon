@@ -1,6 +1,8 @@
 -- TODO use this file instead of zshrc
 -- generate and write .zshrc?
--- run from /etc/zsh/zprofile before .zshrc is sourced
+-- only use lua for exporting env variables?
+-- run from /etc/zsh/zprofile before .zshrc is sourced?
+-- only use terminal from inside nvim to allow lua only zsh config?
 
 if os.getenv('AQUAMOON_STATE') == 'using_nvim' then os.exit() end
 
