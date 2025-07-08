@@ -42,12 +42,12 @@ M = {
 		-- {
 		-- 	"wlr-randr --output eDP-1 --off"
 		-- },
-		{
-			"nwg-panel",
-		},
-		{
-			"nm-applet"
-		},
+		-- {
+		-- 	"nwg-panel",
+		-- },
+		-- {
+		-- 	"nm-applet"
+		-- },
 	},
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0
