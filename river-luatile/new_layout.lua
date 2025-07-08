@@ -30,9 +30,10 @@ end
 function handle_layout(args)
 	CURRENT_TAGS = args.tags -- export tags to global
 
-  -- stylua: ignore
+	-- stylua: ignore
 	function bring_to_front() return fn.bring_to_front(args) end
-  -- stylua: ignore
+
+	-- stylua: ignore
 	function flip(prev) return fn.flip(args, prev) end
 
 	current_layout = utils.get_current_layout(config, CURRENT_TAGS, CMD_OUTPUT)

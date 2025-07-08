@@ -185,9 +185,9 @@ end
 ---@return string
 M.get_current_layout = function(config, tags, monitor)
 	return M.get_layout_from_tagfile(tags, monitor)
-		or config[monitor]["layout"]
-		or config["default"]["layout"]
-		or "centered"
+	    or config[monitor]["layout"]
+	    or config["default"]["layout"]
+	    or "centered"
 end
 
 ---TODO: improve this function
@@ -196,11 +196,11 @@ end
 ---handle_layout function of each layout.
 M.get_available_layouts = function()
 	for layout in
-		io.popen(
-			[[ls -1 ]]
-				.. os.getenv("HOME")
-				.. [[/.config/river-luatile/layouts | grep -E ".*\.lua$" | sed -e "s/\.lua$//"]]
-		):lines()
+	io.popen(
+		[[ls -1 ]]
+		.. os.getenv("HOME")
+		.. [[/.config/river-luatile/layouts | grep -E ".*\.lua$" | sed -e "s/\.lua$//"]]
+	):lines()
 	do
 		if layout ~= "utils" then
 			layouts[layout] = require("layouts." .. layout).handle_layout
