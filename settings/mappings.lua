@@ -5,8 +5,6 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			-- TODO use wezterm instead of foot if on wsl
-			-- command = { "spawn", "wezterm" },
 			command = { "spawn", "foot" },
 		},
 		-- Browser
