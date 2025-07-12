@@ -40,10 +40,7 @@ M = {
 			"wlr-randr --output HDMI-A-1 --scale 1.5"
 		},
 		-- {
-		-- 	"wlr-randr --output eDP-1 --off"
-		-- },
-		-- {
-		-- 	"nwg-panel",
+		-- 	"ironbar"
 		-- },
 		-- {
 		-- 	"nm-applet"
