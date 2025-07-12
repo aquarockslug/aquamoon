@@ -1,5 +1,5 @@
 export PATH="$PATH:/home/aqua/.local/bin"
-export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
+export LUA_PATH="/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;"
 
 # ZSH
 export ZSH_THEME="dracula"
@@ -73,5 +73,5 @@ MODE_CURSOR_SEARCH="#ff00ff steady underline"
 MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
 MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
-# lua /home/aqua/.aquamoon/zsh/zshrc.lua
-# if [[ $AQUAMOON_STATE != "using_nvim" ]]; then exit; fi
+lua /home/aqua/.aquamoon/zsh/zshrc.lua
+if [[ $AQUAMOON_STATE != "using_nvim" ]]; then exit; fi

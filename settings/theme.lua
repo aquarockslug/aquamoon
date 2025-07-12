@@ -1,18 +1,18 @@
 M = {}
 
 M.active_theme = "dracula"
+M.fonts = {
+	iosevka = "'IosevkaTermSlab NFP'"
+}
 
 M.my_flag = "󰈿"
 M.border_width = 1
 
--- everforest colors
 M.teal = "83C092"
 M.blue = "7FBBB3"
 M.grey = "272E33"
 M.white = "FFFFFF"
 M.black = "000000"
-
--- dracula colors
 M.green = "50FA7B"
 
 -- theme
@@ -25,7 +25,7 @@ M.bg2 = M.grey
 
 -- apps
 M.tofi_style = {
-	-- "--font=" .. M.fonts.iosevka,
+	"--font=" .. M.fonts.iosevka,
 	"--width=33%",
 	"--outline-width=0",
 	"--border-width=" .. M.border_width,

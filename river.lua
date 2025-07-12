@@ -1,5 +1,5 @@
 #!/usr/bin/lua5.4
-S = require "settings/init"
+S = require "settings"
 
 --[[
 

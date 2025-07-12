@@ -3,8 +3,8 @@ local theme = require "settings/theme"
 M = {
 	path = "/home/aqua/.aquamoon",
 	wsl = false,
-	theme,
 	mappings = require("settings/mappings"),
+	theme = theme,
 	river_options = {
 		-- Theme options
 		["border-width"] = theme.border_width,

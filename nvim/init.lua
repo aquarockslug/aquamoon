@@ -29,6 +29,7 @@ else
 	-- TODO make the bar at the bottom green
 end
 vim.cmd [[ highlight Normal guibg=none ]]
+vim.cmd [[ highlight Terminal guibg=none ]]
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -75,9 +76,8 @@ function Setup_Keymap()
 	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
-	vim.keymap.set("n", "<leader>w", function() Snacks.terminal.toggle() end)
+	vim.keymap.set("n", "<leader>w", vim.cmd.terminal)
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
-
 
 	-- left hand home row
 	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
@@ -90,28 +90,28 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
 	vim.keymap.set("n", "<leader>a", function() vim.cmd("GrugFar") end)
 
-	-- right hand
-	vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
-	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
+	-- right hand top
 	vim.keymap.set("n", "U", "<c-r>")
 
-
-	-- insert line above or below without going into insert mode
-	-- TODO start using the built-in keybinds [<Space> and ]<Space> instead
-	vim.keymap.set("n", "gO", "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>")
-	vim.keymap.set("n", "go", "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>")
+	-- righ hand bottom
+	vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
+	vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 
 	for cmd, func in pairs({
+		-- right hand
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
 			MiniTrailspace.trim()
 			vim.lsp.buf.format()
 			vim.cmd.write()
 		end,
-		[3] = vim.cmd.bnext,
-		[4] = function() require("snipe").open_buffer_menu() end,
+		[3] = function() vim.cmd.split("./") end,
+		[4] = function() vim.cmd.vsplit("./") end,
 
-		-- [6] = vim.cmd.bprev
+		-- left hand
+		[5] = vim.cmd.bnext,
+		[6] = vim.cmd.bprev,
+		[7] = function() require("snipe").open_buffer_menu() end,
 	}) do
 		vim.keymap.set("i", "<F" .. cmd .. ">", func)
 		vim.keymap.set("n", "<F" .. cmd .. ">", func)
@@ -134,6 +134,14 @@ function Setup_Autocmd()
 		callback = function(ev)
 			vim.cmd([[ terminal timg %]])
 		end
+	})
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "OilActionsPost",
+		callback = function(event)
+			if event.data.actions.type == "move" then
+				Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+			end
+		end,
 	})
 end
 
@@ -175,7 +183,7 @@ require("snacks").setup({
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
 	image = { enabled = true },
-	terminal = { win = { position = "float", width = 200, height = 200 } },
+	terminal = { win = { position = "bottom", width = 200, height = 200 } },
 	lazygit = { win = { position = "float" } },
 	indent = {
 		animate = { style = "down" },
