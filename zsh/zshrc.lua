@@ -1,25 +1,25 @@
 -- TODO use this file instead of zshrc
--- generate and write .zshrc?
--- only use lua for exporting env variables?
--- run from /etc/zsh/zprofile before .zshrc is sourced?
--- only use terminal from inside nvim to allow lua only zsh config?
 
-if os.getenv('AQUAMOON_STATE') == 'using_nvim' then os.exit() end
+-- os.execute('source /home/aqua/.aquamoon/zsh/lib/dracula.zsh-theme')
+
+-- check if zsh is already running inside nvim to prevent a loop
+if os.getenv('NVIM') then os.exit() end
 
 local unistd = require("posix.unistd")
 local set = require("posix.stdlib").setenv
 
-set('AQUAMOON_STATE', 'using_nvim')
+set('PATH', os.getenv('PATH') .. ':/home/aqua/.local/bin')
+set('LUA_PATH', '/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;')
+
+set('ZSH_THEME', 'dracula')
+set('TERM', 'foot') -- check if on wsl
+set('HISTSIZE', '10000')
+set('SAVEHIST', '10000')
+
+set('FZF_DEFAULT_OPTS',
+	'--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4')
+set('DDGR_COLORS', 'fHgffH')
+set('DRACULA_ARROW_ICON', ' 󰈿 ')
+
+-- os.execute('echo ' .. alias_cmd .. ' > /home/aqua/.aquamoon/zsh/zshrc')
 os.execute('nvim +Oil')
-
--- set('ZSH_THEME', 'dracula')
--- set('TERM', 'wezterm')
-
--- export PATH="$PATH:/home/aqua/.local/bin"
--- export LUA_PATH="/home/aqua/.aquamoon/?.lua;;"
--- export TERM="wezterm"
--- export HISTFILE=$HOME/.zsh_history
--- export HISTSIZE=10000
--- export SAVEHIST=10000
-
--- print(string.format('alias %s="%s"', "iv", "nvim"))

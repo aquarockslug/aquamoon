@@ -49,23 +49,8 @@ hist() { peco < $HISTFILE } # search history
 chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
-serve() { simple-http-server -i -o --nocache --threads 6 --ip 127.0.0.1 ${1-./} }
+serve() { simple-http-server -i --nocache --threads 6 --ip 127.0.0.1 ${1-./} }
 
-if [[ $ZSH_THEME == "dracula" ]]; then
-
-	# FZF
-	export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-
-	# DDGR
-	export DDGR_COLORS="fHgffH"
-
-	# ZSH
-	export DRACULA_ARROW_ICON=" 󰈿 " # TODO make flag orange
-	source /home/aqua/.aquamoon/zsh/lib/dracula.zsh-theme
-fi
-
-source /home/aqua/.aquamoon/zsh/lib/zsh-syntax-highlighting.zsh
-source /home/aqua/.aquamoon/zsh/lib/zsh-vim-mode.plugin.zsh
 MODE_CURSOR_VIINS="#50FA7B blinking bar"
 MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
 MODE_CURSOR_VICMD="#50FA7B block"
@@ -74,4 +59,7 @@ MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
 MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
 lua /home/aqua/.aquamoon/zsh/zshrc.lua
-if [[ $AQUAMOON_STATE != "using_nvim" ]]; then exit; fi
+
+if [[ $ZSH_THEME == "dracula" ]]; then source /home/aqua/.aquamoon/zsh/lib/dracula.zsh-theme; fi
+source /home/aqua/.aquamoon/zsh/lib/zsh-syntax-highlighting.zsh
+source /home/aqua/.aquamoon/zsh/lib/zsh-vim-mode.plugin.zsh
