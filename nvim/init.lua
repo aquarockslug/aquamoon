@@ -183,7 +183,6 @@ require("snacks").setup({
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
 	image = { enabled = true },
-	terminal = { win = { position = "bottom", width = 200, height = 200 } },
 	lazygit = { win = { position = "float" } },
 	indent = {
 		animate = { style = "down" },
