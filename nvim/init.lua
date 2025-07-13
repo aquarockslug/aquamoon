@@ -26,10 +26,23 @@ else
 			fg = "#50FA7B",
 		},
 	})
-	-- TODO make the bar at the bottom green
 end
-vim.cmd [[ highlight Normal guibg=none ]]
-vim.cmd [[ highlight Terminal guibg=none ]]
+
+local highlights = {
+	"Normal",
+	"LineNr",
+	"Folded",
+	"NonText",
+	"SpecialKey",
+	"VertSplit",
+	"SignColumn",
+	"EndOfBuffer",
+	"Terminal",
+	"TablineFill"
+}
+for _, name in pairs(highlights) do
+	vim.cmd.highlight(name .. ' guibg=none ctermbg=none')
+end
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -53,6 +66,8 @@ require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
 
 require("oil").setup({
+	watch_for_changes = true,
+	use_default_keymaps = false,
 	keymaps = {
 		["q"] = { "actions.close", mode = "n" },
 		["h"] = { "actions.parent", mode = "n" },
@@ -62,7 +77,10 @@ require("oil").setup({
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
 	},
-	watch_for_changes = true,
+	columns = {
+		"icon",
+		"size"
+	},
 })
 
 -- KEYMAP
@@ -162,12 +180,12 @@ for _, plug in ipairs({
 	"surround",
 	"trailspace",
 	"visits",
+	"indentscope"
 }) do
 	require("mini." .. plug).setup()
 end
-
+require("mini.indentscope").setup({ symbol = "│", draw = { delay = 300 } })
 require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } })
-
 require("mini.hipatterns").setup({
 	highlighters = {
 		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
@@ -184,11 +202,6 @@ require("snacks").setup({
 	scroll = { enabled = true },
 	image = { enabled = true },
 	lazygit = { win = { position = "float" } },
-	indent = {
-		animate = { style = "down" },
-		chunk = { enabled = true, char = { corner_top = "╭", corner_bottom = "╰" } },
-		scope = { enabled = false },
-	},
 })
 
 
