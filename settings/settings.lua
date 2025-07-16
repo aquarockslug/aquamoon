@@ -39,12 +39,12 @@ M = {
 		{
 			"wlr-randr --output HDMI-A-1 --scale 1.5"
 		},
-		-- {
-		-- 	"ironbar"
-		-- },
-		-- {
-		-- 	"nm-applet"
-		-- },
+		{
+			"ironbar"
+		},
+		{
+			"nm-applet"
+		},
 	},
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0
@@ -58,6 +58,6 @@ M = {
 			["natural-scroll"] = true
 		}
 	},
-	window_rules = { ["ssd"] = { "firefox" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "firefox", "thunar" } }, -- use server side decorations
 }
 return M

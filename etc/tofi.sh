@@ -1,1 +1,1 @@
-exec $(tofi-drun --font="IosevkaTermSlab NFM" --width="33%" --outline-width=0 --border-width=1 --prompt-text="󰈿_" --selection-color="#FFFFFF" --text-color="#50FA7B" --border-color="#50FA7B" --background-color="#272E33")
+exec $(tofi-drun --font="BigBlueTermPlus Nerd Font Propo" --width="33%" --outline-width=0 --border-width=1 --prompt-text="󰈿_" --selection-color="#FFFFFF" --text-color="#50FA7B" --border-color="#50FA7B" --background-color="#272E33")

@@ -17,7 +17,8 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "spawn", "/home/aqua/.aquamoon/etc/tofi.sh" }
+			-- command = { "spawn", "/home/aqua/.aquamoon/etc/tofi.sh" }
+			command = { "spawn", "/home/aqua/.aquamoon/etc/wofi.sh" },
 			-- command = { "spawn", [[ 'nvim -l /home/aqua/.aquamoon/etc/tofi.lua' ]] }
 		},
 		-- Show Notifications
