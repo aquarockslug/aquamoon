@@ -13,20 +13,18 @@ local currenthour = tonumber(os.date("%H"))
 if currenthour >= 8 and currenthour <= 14 then
 	vim.cmd [[colorscheme desert]]
 	-- vim.cmd [[colorscheme everforest]]
-	require("colorful-winsep").setup({})
 elseif currenthour > 14 and currenthour <= 20 then
 	vim.cmd [[colorscheme habamax]]
-	require("colorful-winsep").setup({})
 else
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
-	require("colorful-winsep").setup({
-		hi = {
-			bg = "#282A36",
-			fg = "#50FA7B",
-		},
-	})
 end
+require("colorful-winsep").setup({
+	hi = {
+		bg = "#282A36",
+		fg = "#50FA7B",
+	},
+})
 
 local highlights = {
 	"Normal",
@@ -70,9 +68,9 @@ function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
 	local dir = require("oil").get_current_dir(bufnr)
 	if dir then
-		return vim.fn.fnamemodify(dir, ":~")
+		return " " .. vim.flag .. " " .. vim.fn.fnamemodify(dir, ":~")
 	else
-		return vim.api.nvim_buf_get_name(0)
+		return " " .. vim.flag .. " " .. vim.api.nvim_buf_get_name(0)
 	end
 end
 

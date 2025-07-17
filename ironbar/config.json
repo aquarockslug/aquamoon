@@ -1,7 +1,7 @@
 {
   "anchor_to_edges": true,
   "position": "bottom",
-  "height": 12,
+  "height": 8,
   "start": [
     {
       "type": "clock",
@@ -10,11 +10,11 @@
   ],
   "end": [
     {
-      "type": "tray",
-      "truncate": {
-        "mode": "end",
-        "length": 50
-      }
+      "type": "tray"
+    },
+    {
+      "type": "label",
+      "label": " "
     },
     {
       "type": "volume",
@@ -74,13 +74,13 @@
                 {
                   "type": "button",
                   "class": "power-btn",
-                  "label": "<span font-size='40pt'></span>",
+                  "label": "<span font-size='24pt'></span>",
                   "on_click": "!shutdown now"
                 },
                 {
                   "type": "button",
                   "class": "power-btn",
-                  "label": "<span font-size='40pt'></span>",
+                  "label": "<span font-size='24pt'></span>",
                   "on_click": "!reboot"
                 }
               ]
