@@ -55,18 +55,22 @@ end
 -- Currently only `name` is supported, the name of the layout. It get's passed
 -- the same `args` as handle_layout()
 function handle_metadata(args)
-	return { name = "rivertile-simple" }
+	return { name = "rivertile" }
 end
 
 -- IMPORTANT: User commands send via `riverctl send-layout-cmd` are treated as lua code.
 -- Active tags are stored in `CMD_TAGS` global variable.
 -- Output name is stored in `CMD_OUTPUT` global variable.
 
--- Here is an example of a function that can be mapped to some key
 -- Run with `riverctl send-layout-cmd luatile "toggle_gaps()"`
 local gaps_alt = 0
 function toggle_gaps()
 	local tmp = gaps
 	gaps = gaps_alt
 	gaps_alt = tmp
+end
+
+function launcher()
+	-- require('etc/launcher')
+	os.execute("wofi --show drun")
 end

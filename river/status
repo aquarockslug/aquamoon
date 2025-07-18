@@ -1,0 +1,31 @@
+#!/bin/env sh
+
+datetime() {
+datetime="$(date "+%a, %b %d %I:%M%P")"
+}
+
+bat() {
+read -r bat_capacity </sys/class/power_supply/BAT1/capacity
+bat="$bat_capacity%"
+}
+
+display() {
+echo "all status $bat 󰈿 $datetime" >"$FIFO"
+}
+
+printf "%s" "$$" > "$XDG_RUNTIME_DIR/status_pid"
+FIFO="$XDG_RUNTIME_DIR/sandbar"
+[ -e "$FIFO" ] || mkfifo "$FIFO"
+sec=0
+
+while true; do
+sleep 1 &
+wait && {
+[ $((sec % 60)) -eq 0 ] && bat
+[ $((sec % 5)) -eq 0 ] && vol
+[ $((sec % 5)) -eq 0 ] && datetime
+[ $((sec % 5)) -eq 0 ] && display
+
+sec=$((sec + 1))
+}
+done

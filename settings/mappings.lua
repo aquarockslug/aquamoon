@@ -17,9 +17,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			-- command = { "spawn", "/home/aqua/.aquamoon/etc/tofi.sh" }
-			command = { "spawn", "/home/aqua/.aquamoon/etc/wofi.sh" },
-			-- command = { "spawn", [[ 'nvim -l /home/aqua/.aquamoon/etc/tofi.lua' ]] }
+			command = { "send-layout-cmd", "luatile", [[ 'launcher()' ]] }
 		},
 		-- Show Notifications
 		{
@@ -61,69 +59,54 @@ mappings.map = {
 			key = "E",
 			command = "zoom",
 		},
-		-- Super+{H,L} to decrease/increase the main_factor value of rivertile by 0.02
+		-- Super+F to toggle fullscreen
+		{
+			mod = "Super",
+			key = "F",
+			command = "toggle-fullscreen",
+		},
+		-- Super+{H,L} to decrease/increase the main_factor value of luatile by 0.02
 		{
 			mod = "Super",
 			key = "H",
-			command = { "send-layout-cmd", "rivertile", [['main-ratio -0.02']] },
+			command = { "send-layout-cmd", "luatile", [['main-ratio -0.02']] },
 		},
 		{
 			mod = "Super",
 			key = "L",
-			command = { "send-layout-cmd", "rivertile", [['main-ratio +0.02']] },
+			command = { "send-layout-cmd", "luatile", [['main-ratio +0.02']] },
 		},
-		-- Super+Shift+{H,L} to increment/decrement the main_count value of rivertile
+		-- Super+Shift+{H,L} to increment/decrement the main_count value of luatile
 		{
 			mod = { "Super", "Shift" },
 			key = "H",
-			command = { "send-layout-cmd", "rivertile", [['main-count +1']] },
+			command = { "send-layout-cmd", "luatile", [['main-count +1']] },
 		},
 		{
 			mod = { "Super", "Shift" },
 			key = "L",
-			command = { "send-layout-cmd", "rivertile", [['main-count -1']] },
+			command = { "send-layout-cmd", "luatile", [['main-count -1']] },
 		},
 		-- Control+Alt+{H,J,K,L} to change layout orientation
 		{
 			mod = { "Control", "Alt" },
 			key = "H",
-			command = { "send-layout-cmd", "rivertile", [['main-location left']] },
+			command = { "send-layout-cmd", "luatile", [['main-location left']] },
 		},
 		{
 			mod = { "Control", "Alt" },
 			key = "J",
-			command = { "send-layout-cmd", "rivertile", [['main-location bottom']] },
+			command = { "send-layout-cmd", "luatile", [['main-location bottom']] },
 		},
 		{
 			mod = { "Control", "Alt" },
 			key = "K",
-			command = { "send-layout-cmd", "rivertile", [['main-location top']] },
+			command = { "send-layout-cmd", "luatile", [['main-location top']] },
 		},
 		{
 			mod = { "Control", "Alt" },
 			key = "L",
-			command = { "send-layout-cmd", "rivertile", [['main-location right']] },
-		},
-		-- Super+Alt+{H,J,K,L} to move views (floating)
-		{
-			mod = { "Super", "Alt" },
-			key = "H",
-			command = { "move", "left", 100 },
-		},
-		{
-			mod = { "Super", "Alt" },
-			key = "J",
-			command = { "move", "down", 100 },
-		},
-		{
-			mod = { "Super", "Alt" },
-			key = "K",
-			command = { "move", "up", 100 },
-		},
-		{
-			mod = { "Super", "Alt" },
-			key = "L",
-			command = { "move", "right", 100 },
+			command = { "send-layout-cmd", "luatile", [['main-location right']] },
 		},
 		-- Super+Control+{H,J,K,L} to resize views
 		{
@@ -145,18 +128,6 @@ mappings.map = {
 			mod = { "Super", "Control" },
 			key = "L",
 			command = { "resize", "horizontal", 100 },
-		},
-		-- Super+Space to toggle float
-		{
-			mod = "Super",
-			key = "Space",
-			command = "toggle-float",
-		},
-		-- Super+F to toggle fullscreen
-		{
-			mod = "Super",
-			key = "F",
-			command = "toggle-fullscreen",
 		},
 	},
 }

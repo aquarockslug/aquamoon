@@ -37,8 +37,11 @@ M = {
 			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
 		},
 		{
-			"ironbar"
+			"/home/aqua/.aquamoon/river/bar"
 		},
+		{
+			"/home/aqua/.aquamoon/river/status"
+		}
 	},
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0

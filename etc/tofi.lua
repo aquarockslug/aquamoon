@@ -9,4 +9,4 @@ for i, arg in ipairs(S.theme.tofi_style) do
 	cmd = cmd .. " " .. arg
 end
 print(cmd)
-os.execute(cmd)
+os.execute(cmd .. " &")
