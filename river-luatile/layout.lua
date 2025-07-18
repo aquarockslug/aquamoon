@@ -71,6 +71,8 @@ function toggle_gaps()
 end
 
 function launcher()
+	-- TODO set LUA_PATH
 	-- require('etc/launcher')
-	os.execute("wofi --show drun")
+	-- os.execute("wofi --show drun")
+	os.execute("/home/aqua/.aquamoon/etc/tofi.sh")
 end

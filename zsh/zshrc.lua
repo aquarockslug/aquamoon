@@ -12,7 +12,7 @@ set('PATH', os.getenv('PATH') .. ':/home/aqua/.local/bin')
 set('LUA_PATH', '/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;')
 
 set('ZSH_THEME', 'dracula')
-set('TERM', 'foot') -- check if on wsl
+set('TERMINAL', 'foot') -- check if on wsl
 set('HISTSIZE', '10000')
 set('SAVEHIST', '10000')
 

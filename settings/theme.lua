@@ -27,6 +27,7 @@ M.bg2 = M.grey
 -- apps
 M.tofi_style = {
 	"--font=" .. M.fonts.bigblue,
+	"--font-size=18",
 	"--width=33%",
 	"--outline-width=0",
 	"--border-width=" .. M.border_width,
@@ -35,6 +36,7 @@ M.tofi_style = {
 	"--text-color=#" .. M.green,
 	"--border-color=#" .. M.green,
 	"--background-color=#" .. M.grey,
+	"--text-cursor=true",
 }
 
 return M
