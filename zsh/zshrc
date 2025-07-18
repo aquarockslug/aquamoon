@@ -15,18 +15,16 @@ alias s="sudo"
 
 # APPLICATIONS
 alias buku="buku --suggest"
-alias ddgr="ddgr --rev" # open ddgr with a keybind
+alias ddgr="ddgr --rev" # TODO open ddgr with a keybind
 alias lg="lazygit"
 #TODO when opening links with w3m, use wsl-open instead of xdg-open
 alias mail="aerc"
 alias py="python"
 alias rsync="rsync -Phav"
 alias v="nvim"
-
-# WSL
-alias open="wsl-open"
-alias yank="wcopy"
-alias put="wpaste"
+alias open="xdg-open"
+alias yank="wl-copy"
+alias put="wl-paste"
 
 # SYSTEM INFO
 alias ls='eza --icons --group-directories-first'
