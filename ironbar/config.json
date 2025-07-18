@@ -54,7 +54,7 @@
         {
           "type": "button",
           "name": "power-btn",
-          "label": "",
+          "label": "󰈿",
           "on_click": "popup:toggle"
         }
       ],
@@ -66,7 +66,7 @@
             {
               "type": "label",
               "name": "header",
-              "label": "Power menu"
+              "label": "󰈿"
             },
             {
               "type": "box",

@@ -15,7 +15,7 @@
 }
 
 box, menubar, button {
-    background-color: @color_bg;
+    background-color: @color_bg_dark;
     background-image: none;
     box-shadow: none;
 }
@@ -217,11 +217,15 @@ scale trough {
     font-size: 1.4em;
     padding-bottom: 0.4em;
     margin-bottom: 0.6em;
-    border-bottom: 1px solid @color_border;
+    border-bottom: 1px solid @color_text;
+}
+
+.popup-power-menu #uptime {
+    margin-top: 1em;
 }
 
 .popup-power-menu .power-btn {
-    border: 1px solid @color_border;
+    border: 1px solid @color_text;
     padding: 0.6em 1em;
 }
 
