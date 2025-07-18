@@ -6,11 +6,13 @@ mkfifo "$FIFO"
 
 while cat "$FIFO"; do :; done | sandbar \
 -font "BigBlueTermPlus Nerd Font Propo:Pixelsize" \
--active-fg-color "#50FA7B" \
--active-bg-color "#282A36" \
--inactive-fg-color "#F8F8F2" \
+-bottom \
+-no-mode \
+-active-fg-color "#282A36" \
+-active-bg-color "#50FA7B" \
+-inactive-fg-color "#50FA7B" \
 -inactive-bg-color "#282A36" \
--urgent-fg-color "#F8F8F2" \
+-urgent-fg-color "#50FA7B" \
 -urgent-bg-color "#282A36" \
 -title-fg-color "#50FA7B" \
 -title-bg-color "#282A36"

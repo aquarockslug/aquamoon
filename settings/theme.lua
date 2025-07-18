@@ -2,7 +2,8 @@ M = {}
 
 M.active_theme = "dracula"
 M.fonts = {
-	iosevka = "'IosevkaTermSlab NFP'"
+	iosevka = "'IosevkaTermSlab NFP'",
+	bigblue = "'BigBlueTermPlus Nerd Font Propo'"
 }
 
 M.my_flag = "󰈿"
@@ -25,14 +26,14 @@ M.bg2 = M.grey
 
 -- apps
 M.tofi_style = {
-	"--font=" .. M.fonts.iosevka,
+	"--font=" .. M.fonts.bigblue,
 	"--width=33%",
 	"--outline-width=0",
 	"--border-width=" .. M.border_width,
 	"--prompt-text=󰈿_",
 	"--selection-color=#" .. M.white,
-	"--text-color=#" .. M.teal,
-	"--border-color=#" .. M.teal,
+	"--text-color=#" .. M.green,
+	"--border-color=#" .. M.green,
 	"--background-color=#" .. M.grey,
 }
 
