@@ -37,13 +37,7 @@ M = {
 			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
 		},
 		{
-			"wlr-randr --output HDMI-A-1 --scale 1.5"
-		},
-		{
 			"ironbar"
-		},
-		{
-			"nm-applet"
 		},
 	},
 	gsettings = {
@@ -58,6 +52,6 @@ M = {
 			["natural-scroll"] = true
 		}
 	},
-	window_rules = { ["ssd"] = { "firefox", "thunar" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "firefox", "thunar", "gimp" } }, -- use server side decorations
 }
 return M

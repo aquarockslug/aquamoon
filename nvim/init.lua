@@ -1,11 +1,36 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 
 local vim = vim -- avoid undefined warnings
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
+vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+vim.opt.autochdir = true
+vim.opt.cmdheight = 0
+vim.opt.laststatus = 1
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 10000
+vim.opt.signcolumn = "no"
+vim.diagnostic.config({
+	signs = false,
+	virtual_lines = true
+})
+vim.flag = "󰈿"
 
 require("nvim/rocks_nvim").setup()
 
 require("smear_cursor").enabled = true
-require("snipe").setup({ ui = { position = "center" } })
+require("snipe").setup({
+	ui = {
+		position = "center",
+		text_align = "file-first",
+		open_win_override = {
+			title = vim.flag,
+			border = "rounded"
+		}
+	},
+	navigate = { open_vsplit = "e", open_split = "E" }
+})
 
 -- THEME
 local currenthour = tonumber(os.date("%H"))
@@ -42,21 +67,6 @@ for _, name in pairs(highlights) do
 	vim.cmd.highlight(name .. ' guibg=none ctermbg=none')
 end
 
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
-vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-vim.opt.autochdir = true
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 1
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.scrolloff = 10000
-vim.opt.signcolumn = "no"
-vim.diagnostic.config({
-	signs = false,
-	virtual_lines = true
-})
-vim.flag = "󰈿"
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
