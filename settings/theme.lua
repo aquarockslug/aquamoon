@@ -29,6 +29,7 @@ M.tofi_style = {
 	"--font=" .. M.fonts.bigblue,
 	"--font-size=18",
 	"--width=33%",
+	"--drun-launch=true",
 	"--outline-width=0",
 	"--border-width=" .. M.border_width,
 	"--prompt-text=󰈿_",

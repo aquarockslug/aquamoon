@@ -74,5 +74,7 @@ function launcher()
 	-- TODO set LUA_PATH
 	-- require('etc/launcher')
 	-- os.execute("wofi --show drun")
-	os.execute("/home/aqua/.aquamoon/etc/tofi.sh")
+	local handle = io.popen("/home/aqua/.aquamoon/etc/tofi.sh")
+	local app = handle:read("*a")
+	os.execute(app)
 end
