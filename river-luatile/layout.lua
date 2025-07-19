@@ -55,7 +55,7 @@ end
 -- Currently only `name` is supported, the name of the layout. It get's passed
 -- the same `args` as handle_layout()
 function handle_metadata(args)
-	return { name = "rivertile" }
+	return { name = "Rivertile" }
 end
 
 -- IMPORTANT: User commands send via `riverctl send-layout-cmd` are treated as lua code.

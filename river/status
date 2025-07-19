@@ -11,7 +11,7 @@ bat="$bat_capacity%"
 }
 
 display() {
-echo "all status $bat 󱑻 $datetime" >"$FIFO"
+echo "all status $bat 󱑻 $datetime " >"$FIFO"
 }
 # 
 printf "%s" "$$" > "$XDG_RUNTIME_DIR/status_pid"
