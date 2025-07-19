@@ -19,6 +19,11 @@ mappings.map = {
 			key = "D",
 			command = { "spawn", "/home/aqua/.aquamoon/etc/tofi.sh" }
 		},
+		{
+			mod = { "Super" },
+			key = "W",
+			command = { "spawn", "/home/aqua/.aquamoon/etc/nm_tofi.sh" }
+		},
 		-- Show Notifications
 		{
 			mod = "Super",
