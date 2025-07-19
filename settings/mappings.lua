@@ -17,7 +17,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "send-layout-cmd", "luatile", [[ 'launcher()' ]] }
+			command = { "spawn", "/home/aqua/.aquamoon/etc/tofi.sh"}
 		},
 		-- Show Notifications
 		{

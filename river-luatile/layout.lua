@@ -69,12 +69,3 @@ function toggle_gaps()
 	gaps = gaps_alt
 	gaps_alt = tmp
 end
-
-function launcher()
-	-- TODO set LUA_PATH
-	-- require('etc/launcher')
-	-- os.execute("wofi --show drun")
-	local handle = io.popen("/home/aqua/.aquamoon/etc/tofi.sh")
-	local app = handle:read("*a")
-	os.execute(app)
-end
