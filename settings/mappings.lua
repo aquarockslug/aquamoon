@@ -5,7 +5,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", "foot" },
+			command = { "spawn", "/home/aqua/.aquamoon/etc/foot.sh" },
 		},
 		-- Browser
 		{

@@ -100,9 +100,10 @@ require("oil").setup({
 		"icon",
 		"size"
 	},
-	win_options = {
-		winbar = "%!v:lua.get_oil_winbar()",
-	},
+	-- TODO fix winbar colors
+	-- win_options = {
+	-- 	winbar = "%!v:lua.get_oil_winbar()",
+	-- },
 })
 
 -- KEYMAP
