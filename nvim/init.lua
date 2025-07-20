@@ -134,6 +134,7 @@ function Setup_Keymap()
 	end)
 	vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
+	vim.keymap.set("n", "<leader>z", function() Snacks.zen() end)
 
 	-- right hand top
 	vim.keymap.set("n", "U", "<c-r>")
