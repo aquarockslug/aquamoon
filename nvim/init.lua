@@ -122,6 +122,7 @@ function Setup_Keymap()
 
 	-- left hand home row
 	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
+	vim.keymap.set("n", "<leader>G", function() Snacks.terminal("glow --pager " .. vim.fn.expand('%:p')) end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function()
 		Snacks.toggle.diagnostics():toggle()
@@ -207,7 +208,7 @@ for _, plug in ipairs({
 }) do
 	require("mini." .. plug).setup()
 end
-require("mini.indentscope").setup({ symbol = "│", draw = { delay = 300 } })
+require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } }) -- │
 require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } })
 require("mini.hipatterns").setup({
 	highlighters = {
