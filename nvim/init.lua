@@ -100,7 +100,7 @@ require("oil").setup({
 		"icon",
 		"size"
 	},
-	-- TODO fix winbar colors
+	-- TODO winbar is the wrong color
 	-- win_options = {
 	-- 	winbar = "%!v:lua.get_oil_winbar()",
 	-- },
