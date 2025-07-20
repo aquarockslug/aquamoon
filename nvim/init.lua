@@ -103,9 +103,9 @@ require("oil").setup({
 		"size"
 	},
 	-- TODO winbar is the wrong color
-	-- win_options = {
-	-- 	winbar = "%!v:lua.get_oil_winbar()",
-	-- },
+	win_options = {
+		winbar = "%!v:lua.get_oil_winbar()",
+	},
 })
 
 -- KEYMAP
@@ -119,8 +119,9 @@ function Setup_Keymap()
 	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
-	vim.keymap.set("n", "<leader>w", vim.cmd.terminal) -- TODO use Snacks terminal
-	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
+	-- vim.keymap.set("n", "<leader>w", vim.cmd.terminal)
+	vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO delete the current window after opening snacks terminal
+	vim.keymap.set("n", "<leader>q", vim.cmd.bd)                -- buffer delete
 
 	-- left hand home row
 	vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
@@ -228,6 +229,10 @@ require("snacks").setup({
 	scroll = { enabled = true },
 	image = { enabled = true },
 	lazygit = { win = { position = "float" } },
+	styles = {
+		terminal = { height = 0.999, width = 0.999, position = "top", backdrop = false },
+		notification = { border = "top" }
+	}
 })
 
 
