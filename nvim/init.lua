@@ -35,11 +35,13 @@ require("snipe").setup({
 -- THEME
 local currenthour = tonumber(os.date("%H"))
 
-if currenthour >= 8 and currenthour <= 14 then
+if currenthour >= 0 and currenthour <= 6 then
+	vim.cmd [[colorscheme nightfall]]
+elseif currenthour > 6 and currenthour <= 12 then
+	vim.cmd [[colorscheme everforest]]
+elseif currenthour > 12 and currenthour <= 18 then
+	-- vim.cmd [[colorscheme habamax]]
 	vim.cmd [[colorscheme desert]]
-	-- vim.cmd [[colorscheme everforest]]
-elseif currenthour > 14 and currenthour <= 20 then
-	vim.cmd [[colorscheme habamax]]
 else
 	require("dracula").setup({ italic_comment = true, transparent_bg = true })
 	vim.cmd [[colorscheme dracula]]
@@ -121,8 +123,9 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 	-- left hand home row
-	vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
-	vim.keymap.set("n", "<leader>G", function() Snacks.terminal("glow --pager " .. vim.fn.expand('%:p')) end)
+	vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
+	-- vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
+	-- vim.keymap.set("n", "<leader>G", function() Snacks.terminal("glow --pager " .. vim.fn.expand('%:p')) end)
 	vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
 	vim.keymap.set("n", "<leader>d", function()
 		Snacks.toggle.diagnostics():toggle()
@@ -130,7 +133,6 @@ function Setup_Keymap()
 	end)
 	vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
-	vim.keymap.set("n", "<leader>a", function() vim.cmd("GrugFar") end)
 
 	-- right hand top
 	vim.keymap.set("n", "U", "<c-r>")
@@ -174,7 +176,7 @@ function Setup_Autocmd()
 	vim.api.nvim_create_autocmd("BufEnter", {
 		pattern = { '*.jpg', '*.png' },
 		callback = function(ev)
-			vim.cmd([[ terminal timg %]])
+			vim.cmd([[ terminal timg % ]])
 		end
 	})
 	vim.api.nvim_create_autocmd("User", {

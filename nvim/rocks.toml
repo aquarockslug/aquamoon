@@ -37,3 +37,6 @@ rev = "1.6.42"
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.0.0"
+
+[plugins.nightfall]
+git = "2giosangmitom/nightfall.nvim"
