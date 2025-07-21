@@ -9,30 +9,30 @@
 "dracula.nvim" = "scm"
 "mini.nvim" = "0.16.0"
 "oil.nvim" = "2.15.0"
-"rocks-git.nvim" = "2.5.3"
-"rocks-treesitter.nvim" = "1.3.0"
-"rocks.nvim" = "2.45.0"
+"rocks-git.nvim" = "2.5.4"
+"rocks-treesitter.nvim" = "1.3.1"
+"rocks.nvim" = "2.45.1"
 "snacks.nvim" = "2.22.0"
 "trouble.nvim" = "3.7.1"
 everforest-nvim = "scm"
 friendly-snippets = "scm"
 nvim-lspconfig = "2.3.0"
 tree-sitter-bash = "0.0.43"
-tree-sitter-javascript = "0.0.36"
+tree-sitter-javascript = "0.0.37"
 tree-sitter-lua = "0.0.35"
 tree-sitter-markdown = "0.0.44"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
-rev = "2a1b738dfae8502e6162eddfc774da65ed404142"
+rev = "3da8e9770d6619ad51b724a7c1cebb6aae37c08f"
 
 [plugins.smear_cursor]
 git = "sphamba/smear-cursor.nvim"
-rev = "v0.4.7"
+rev = "v0.5.0"
 
 [plugins.grug_far]
 git = "MagicDuck/grug-far.nvim"
-rev = "1.6.42"
+rev = "1.6.43"
 
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
@@ -40,3 +40,4 @@ rev = "v6.0.0"
 
 [plugins.nightfall]
 git = "2giosangmitom/nightfall.nvim"
+rev = "72284659b6e6d255ca43dd08bad42acdc45efd76"
