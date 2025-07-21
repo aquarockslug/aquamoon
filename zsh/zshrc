@@ -60,4 +60,3 @@ lua /home/aqua/.aquamoon/zsh/zshrc.lua
 
 if [[ $ZSH_THEME == "dracula" ]]; then source /home/aqua/.aquamoon/zsh/lib/dracula.zsh-theme; fi
 source /home/aqua/.aquamoon/zsh/lib/zsh-syntax-highlighting.zsh
-# source /home/aqua/.aquamoon/zsh/lib/zsh-vim-mode.plugin.zsh
