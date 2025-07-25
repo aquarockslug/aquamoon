@@ -120,7 +120,10 @@ function Setup_Keymap()
 	-- left hand top row
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
-	vim.keymap.set("n", "<leader>w", vim.cmd.terminal)
+	vim.keymap.set("n", "<leader>w", function()
+		vim.cmd.bd()
+		vim.cmd.terminal()
+	end)
 	-- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO delete the current window after opening snacks terminal
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
@@ -149,7 +152,9 @@ function Setup_Keymap()
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
 			MiniTrailspace.trim()
-			vim.lsp.buf.format()
+			if vim.o.filetype ~= "oil" then
+				vim.lsp.buf.format()
+			end
 			vim.cmd.write()
 		end,
 		[3] = function() vim.cmd.split("./") end,
