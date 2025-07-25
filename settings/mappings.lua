@@ -17,14 +17,17 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			-- command = { "spawn", "/home/aqua/.aquamoon/etc/tofi.sh" }
-			-- command = { "/home/aqua/.aquamoon/etc/run_lua.sh", " tofi" }
-			command = { "send-layout-cmd", "luatile", [[ 'launcher()' ]] }
+			command = { "send-layout-cmd", "luatile", [[ 'Launcher()' ]] }
 		},
 		{
 			mod = { "Super" },
 			key = "W",
-			command = { "send-layout-cmd", "luatile", [[ 'network_menu()' ]] }
+			command = { "send-layout-cmd", "luatile", [[ 'Network_Menu()' ]] }
+		},
+		{
+			mod = { "Super" },
+			key = "S",
+			command = { "send-layout-cmd", "luatile", [[ 'Web_Search()' ]] }
 		},
 		-- Show Notifications
 		{

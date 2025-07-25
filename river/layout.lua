@@ -50,10 +50,18 @@ end
 -- require('etc/launcher')
 local lua_path = 'export LUA_PATH="/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;";'
 
-function launcher()
+function Launcher()
 	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/tofi.lua')
 end
 
-function network_menu()
+function Network_Menu()
 	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/nm_tofi.lua')
+end
+
+function Web_Search()
+	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/ddgr.lua')
+end
+
+function Terminal()
+	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/foot.lua')
 end

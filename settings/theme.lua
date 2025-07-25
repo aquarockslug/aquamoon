@@ -26,8 +26,8 @@ M.bg2 = M.grey
 -- apps
 M.tofi_style = {
 	"--font=" .. M.fonts.bigblue_path,
-	"--font-size=16",
-	"--width=25%",
+	"--font-size=14",
+	"--width=33%",
 	"--drun-launch=true",
 	"--outline-width=0",
 	"--border-width=" .. M.border_width,
