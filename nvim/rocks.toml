@@ -1,7 +1,9 @@
 
 # List of non-Neovim rocks.
-# This includes things like `toml` or other lua packages.
+# TODO put this in a seperate file
 [rocks]
+pegasus = "1.0.8"
+microlight = "1.0-1"
 
 # List of Neovim plugins to install alongside their versions.
 [plugins]

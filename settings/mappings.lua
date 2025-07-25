@@ -21,6 +21,11 @@ mappings.map = {
 		},
 		{
 			mod = { "Super" },
+			key = "Z",
+			command = { "send-layout-cmd", "luatile", [[ 'System_Menu()' ]] }
+		},
+		{
+			mod = { "Super" },
 			key = "W",
 			command = { "send-layout-cmd", "luatile", [[ 'Network_Menu()' ]] }
 		},
