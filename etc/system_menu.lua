@@ -1,3 +1,4 @@
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
 S = require "settings"
 cmd = "tofi"
 for i, arg in ipairs(S.theme.tofi_style) do

@@ -1,6 +1,7 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
-
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
 local vim = vim -- avoid undefined warnings
+
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -262,3 +263,4 @@ require("trouble").setup({
 })
 
 Setup_Keymap(); Setup_Autocmd()
+vim.cmd.Oil()

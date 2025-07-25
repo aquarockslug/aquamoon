@@ -1,3 +1,4 @@
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
 S = require "settings"
 cmd = "networkmanager_dmenu"
 default_style = S.theme.tofi_style

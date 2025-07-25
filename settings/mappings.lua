@@ -5,7 +5,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", "/home/aqua/.aquamoon/etc/foot.sh" },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/foot.lua nvim"' ]] },
 		},
 		-- Browser
 		{
@@ -17,22 +17,22 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "send-layout-cmd", "luatile", [[ 'Launcher()' ]] }
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/tofi.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
 			key = "Z",
-			command = { "send-layout-cmd", "luatile", [[ 'System_Menu()' ]] }
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/system_menu.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
 			key = "W",
-			command = { "send-layout-cmd", "luatile", [[ 'Network_Menu()' ]] }
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/nm_tofi.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
 			key = "S",
-			command = { "send-layout-cmd", "luatile", [[ 'Web_Search()' ]] }
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/foot.lua ddgr"' ]] },
 		},
 		-- Show Notifications
 		{

@@ -44,30 +44,3 @@ function toggle_gaps()
 	gaps = gaps_alt
 	gaps_alt = tmp
 end
-
--- TODO set LUA_PATH
--- package.path = '/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;'
--- require('etc/launcher')
--- nvim -es?
-local lua_path = 'export LUA_PATH="/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;";'
-
-function Launcher()
-	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/tofi.lua')
-end
-
-function Network_Menu()
-	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/nm_tofi.lua')
-end
-
-function Web_Search()
-	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/ddgr.lua')
-end
-
--- WARN the terminal window is not being added to the layout
-function Terminal()
-	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/foot.lua')
-end
-
-function System_Menu()
-	os.execute(lua_path .. ' lua /home/aqua/.aquamoon/etc/system_menu.lua')
-end
