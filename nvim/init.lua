@@ -33,43 +33,6 @@ require("snipe").setup({
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
 
--- THEME
-local currenthour = tonumber(os.date("%H"))
-
-if currenthour >= 0 and currenthour <= 6 then
-	vim.cmd [[colorscheme nightfall]]
-elseif currenthour > 6 and currenthour <= 12 then
-	vim.cmd [[colorscheme everforest]]
-elseif currenthour > 12 and currenthour <= 18 then
-	-- vim.cmd [[colorscheme habamax]]
-	vim.cmd [[colorscheme desert]]
-else
-	require("dracula").setup({ italic_comment = true, transparent_bg = true })
-	vim.cmd [[colorscheme dracula]]
-end
-require("colorful-winsep").setup({
-	hi = {
-		bg = "#282A36",
-		fg = "#50FA7B",
-	},
-})
-
-local highlights = {
-	"Normal",
-	"LineNr",
-	"Folded",
-	"NonText",
-	"SpecialKey",
-	"VertSplit",
-	"SignColumn",
-	"EndOfBuffer",
-	"Terminal",
-	"TablineFill"
-}
-for _, name in pairs(highlights) do
-	vim.cmd.highlight(name .. ' guibg=none ctermbg=none')
-end
-
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
@@ -87,6 +50,7 @@ function _G.get_oil_winbar()
 	end
 end
 
+-- OIL
 require("oil").setup({
 	watch_for_changes = true,
 	use_default_keymaps = false,
@@ -108,6 +72,44 @@ require("oil").setup({
 		winbar = "%!v:lua.get_oil_winbar()",
 	},
 })
+
+-- THEME
+function Setup_Theme()
+	local themes = {
+		"nightfall",
+		"everforest",
+		"desert",
+		"habamax",
+		"tokyonight",
+		"dracula"
+	}
+	-- divide the day into parts and choose a theme based on the current hour
+	local theme_index = math.ceil(tonumber(os.date("%H")) / #themes)
+	vim.cmd.colorscheme(themes[theme_index])
+
+	require("colorful-winsep").setup({
+		hi = {
+			bg = "#282A36",
+			fg = "#50FA7B",
+		},
+	})
+
+	local highlights = {
+		"Normal",
+		"LineNr",
+		"Folded",
+		"NonText",
+		"SpecialKey",
+		"VertSplit",
+		"SignColumn",
+		"EndOfBuffer",
+		"Terminal",
+		"TablineFill"
+	}
+	for _, name in pairs(highlights) do
+		vim.cmd.highlight(name .. ' guibg=none ctermbg=none')
+	end
+end
 
 -- KEYMAP
 function Setup_Keymap()
@@ -267,5 +269,5 @@ require("trouble").setup({
 	},
 })
 
-Setup_Keymap(); Setup_Autocmd()
+Setup_Theme(); Setup_Keymap(); Setup_Autocmd()
 vim.cmd.Oil()
