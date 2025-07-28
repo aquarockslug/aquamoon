@@ -5,7 +5,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/foot.lua nvim"' ]] },
+			command = { "spawn", "neovide" },
 		},
 		-- Browser
 		{

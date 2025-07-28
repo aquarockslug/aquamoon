@@ -20,7 +20,6 @@ vim.flag = "󰈿"
 
 require("nvim/rocks_nvim").setup()
 
-require("smear_cursor").enabled = true
 require("snipe").setup({
 	ui = {
 		position = "center",
@@ -33,6 +32,12 @@ require("snipe").setup({
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
 
+-- NEOVIDE
+vim.g.neovide_opacity = 0.33
+vim.o.guifont = "BigBlueTermPlus Nerd Font Propo:h14"
+vim.g.neovide_text_gamma = 0.0
+vim.g.neovide_text_contrast = 0.5
+-- vim.g.neovide_cursor_vfx_mode = "torpedo"
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
@@ -124,7 +129,8 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
 	vim.keymap.set("n", "<leader>w", function()
 		vim.cmd.bd()
-		vim.cmd.terminal()
+		-- vim.cmd.terminal()
+		vim.cmd "Terminal"
 	end)
 	-- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO delete the current window after opening snacks terminal
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
