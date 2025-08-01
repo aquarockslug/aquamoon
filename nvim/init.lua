@@ -37,7 +37,7 @@ vim.g.neovide_opacity = 0.33
 vim.o.guifont = "BigBlueTermPlus Nerd Font Propo:h14"
 vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_text_contrast = 0.5
-vim.g.neovide_padding_bottom = 15
+-- vim.g.neovide_padding_bottom = 15
 -- vim.g.neovide_cursor_vfx_mode = "torpedo"
 
 -- LANGUAGE SERVERS
