@@ -37,6 +37,7 @@ vim.g.neovide_opacity = 0.33
 vim.o.guifont = "BigBlueTermPlus Nerd Font Propo:h14"
 vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_text_contrast = 0.5
+vim.g.neovide_padding_bottom = 15
 -- vim.g.neovide_cursor_vfx_mode = "torpedo"
 
 -- LANGUAGE SERVERS
@@ -89,7 +90,7 @@ function Setup_Theme()
 		"dracula"
 	}
 	-- divide the day into parts and choose a theme based on the current hour
-	local theme_index = math.ceil(tonumber(os.date("%H")) / #themes)
+	local theme_index = math.ceil(1 + tonumber(os.date("%H")) / #themes)
 	vim.cmd.colorscheme(themes[theme_index])
 
 	require("colorful-winsep").setup({
@@ -130,7 +131,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>w", function()
 		vim.cmd.bd()
 		-- vim.cmd.terminal()
-		vim.cmd "Terminal"
+		vim.cmd "terminal"
 	end)
 	-- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO delete the current window after opening snacks terminal
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
@@ -167,7 +168,6 @@ function Setup_Keymap()
 		end,
 		[3] = function() vim.cmd.split("./") end,
 		[4] = function() vim.cmd.vsplit("./") end,
-
 		-- left hand
 		[5] = vim.cmd.bnext,
 		[6] = vim.cmd.bprev,
