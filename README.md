@@ -1,7 +1,5 @@
 # AQUAMOON CONFIGURATION
 
-My configuration files
-
 - I like using Lua as a configuration language and I try to use it as much as possible
 
 - I use the river window manager with river-luatile so that I can use lua to configure the window manager and window layout.
