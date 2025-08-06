@@ -81,6 +81,7 @@ require("oil").setup({
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
 		["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
+		["R"] = { "actions.open_external" },
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
 	},
 	columns = {
@@ -161,6 +162,8 @@ function Setup_Keymap()
 	end)
 	vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
+
+	-- left hand bottom
 	vim.keymap.set("n", "<leader>z", function() Snacks.zen() end)
 
 	-- right hand top
@@ -175,6 +178,7 @@ function Setup_Keymap()
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
 			MiniTrailspace.trim()
+			-- TODO prevent the oil warning that occurs when writing to a file while oil is open
 			if vim.o.filetype ~= "oil" then
 				vim.lsp.buf.format()
 			end
