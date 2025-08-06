@@ -13,4 +13,9 @@
 # SOFTWARE
 Riverwm, River-luatile, Sandbar, Tofi, Neovide, Zsh
 
-![2025-05-21_15-38](https://github.com/user-attachments/assets/2a143d41-6035-45c1-94b1-bd02d94e6ebc)
+# SCREENSHOTS
+<img width="3840" height="2160" alt="20250806_00h54m16s_grim" src="https://github.com/user-attachments/assets/ca67a7bc-511d-4dae-acf1-599d42763a6e" />
+
+<img width="3840" height="2160" alt="20250806_01h01m38s_grim" src="https://github.com/user-attachments/assets/8c644ec8-b1c2-492a-a604-b3102f54d1b9" />
+
+<img width="3840" height="2160" alt="20250806_01h03m13s_grim" src="https://github.com/user-attachments/assets/d44b5b14-ff40-4592-b31f-b4ebd80b9474" />
