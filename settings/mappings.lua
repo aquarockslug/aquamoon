@@ -17,7 +17,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/tofi.lua"' ]] },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/drun.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
