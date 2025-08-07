@@ -29,11 +29,6 @@ mappings.map = {
 			key = "W",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/nm_tofi.lua"' ]] },
 		},
-		{
-			mod = { "Super" },
-			key = "S",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/foot.lua ddgr"' ]] },
-		},
 		-- Show Notifications
 		{
 			mod = "Super",
