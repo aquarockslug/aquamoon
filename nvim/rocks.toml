@@ -25,6 +25,8 @@ tree-sitter-lua = "0.0.35"
 tree-sitter-markdown = "0.0.44"
 "tokyonight.nvim" = "4.11.0"
 "unnest.nvim" = "0.1.0"
+tree-sitter-rst = "0.0.33"
+tree-sitter-gdscript = "0.0.40"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
