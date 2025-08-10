@@ -33,11 +33,14 @@ require("snipe").setup({
 })
 
 -- NEOVIDE
-vim.g.neovide_opacity = 0.33
-vim.o.guifont = "BigBlueTermPlus Nerd Font Propo:h14"
-vim.g.neovide_text_gamma = 0.0
-vim.g.neovide_text_contrast = 0.5
--- vim.g.neovide_cursor_vfx_mode = "torpedo"
+
+if vim.g.neovide then
+	vim.g.neovide_opacity = 0.33
+	vim.o.guifont = "BigBlueTermPlus Nerd Font Propo:h14"
+	vim.g.neovide_text_gamma = 0.0
+	vim.g.neovide_text_contrast = 0.5
+	-- vim.g.neovide_cursor_vfx_mode = "torpedo"
+end
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
@@ -82,7 +85,7 @@ require("oil").setup({
 function Setup_Theme()
 	local themes = {
 		"nightfall",
-		"everforest",
+		"sweetie",
 		"desert",
 		"habamax",
 		"tokyonight",

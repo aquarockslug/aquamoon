@@ -44,3 +44,6 @@ rev = "v6.0.0"
 [plugins.nightfall]
 git = "2giosangmitom/nightfall.nvim"
 rev = "72284659b6e6d255ca43dd08bad42acdc45efd76"
+
+[plugins.sweetie]
+git = "NTBBloodbath/sweetie.nvim"
