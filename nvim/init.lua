@@ -69,6 +69,7 @@ require("oil").setup({
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
 		["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
+		["R"] = { "actions.open_external" },
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
 	},
 	columns = {
@@ -77,7 +78,7 @@ require("oil").setup({
 	},
 	-- TODO winbar is the wrong color
 	win_options = {
-		winbar = "%!v:lua.get_oil_winbar()",
+		-- winbar = "%!v:lua.get_oil_winbar()",
 	},
 })
 
@@ -92,7 +93,7 @@ function Setup_Theme()
 		"dracula"
 	}
 	-- divide the day into parts and choose a theme based on the current hour
-	local theme_index = math.ceil(tonumber(os.date("%H")) / #themes)
+	local theme_index = math.ceil(1 + tonumber(os.date("%H")) / #themes)
 	vim.cmd.colorscheme(themes[theme_index])
 
 	require("colorful-winsep").setup({
@@ -133,7 +134,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>w", function()
 		vim.cmd.bd()
 		-- vim.cmd.terminal()
-		vim.cmd "Terminal"
+		vim.cmd "terminal"
 	end)
 	-- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO delete the current window after opening snacks terminal
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
@@ -149,6 +150,8 @@ function Setup_Keymap()
 	end)
 	vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
 	vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
+
+	-- left hand bottom
 	vim.keymap.set("n", "<leader>z", function() Snacks.zen() end)
 
 	-- right hand top
@@ -163,6 +166,7 @@ function Setup_Keymap()
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
 			MiniTrailspace.trim()
+			-- TODO prevent the oil warning that occurs when writing to a file while oil is open
 			if vim.o.filetype ~= "oil" then
 				vim.lsp.buf.format()
 			end
@@ -170,7 +174,6 @@ function Setup_Keymap()
 		end,
 		[3] = function() vim.cmd.split("./") end,
 		[4] = function() vim.cmd.vsplit("./") end,
-
 		-- left hand
 		[5] = vim.cmd.bnext,
 		[6] = vim.cmd.bprev,

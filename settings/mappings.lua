@@ -17,7 +17,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/tofi.lua"' ]] },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/drun.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
@@ -28,11 +28,6 @@ mappings.map = {
 			mod = { "Super" },
 			key = "W",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/nm_tofi.lua"' ]] },
-		},
-		{
-			mod = { "Super" },
-			key = "S",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/foot.lua ddgr"' ]] },
 		},
 		-- Show Notifications
 		{

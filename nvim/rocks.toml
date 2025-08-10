@@ -24,14 +24,13 @@ tree-sitter-javascript = "0.0.37"
 tree-sitter-lua = "0.0.35"
 tree-sitter-markdown = "0.0.44"
 "tokyonight.nvim" = "4.11.0"
+"unnest.nvim" = "0.1.0"
+tree-sitter-rst = "0.0.33"
+tree-sitter-gdscript = "0.0.40"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
 rev = "3da8e9770d6619ad51b724a7c1cebb6aae37c08f"
-
-[plugins.smear_cursor]
-git = "sphamba/smear-cursor.nvim"
-rev = "v0.5.0"
 
 [plugins.grug_far]
 git = "MagicDuck/grug-far.nvim"

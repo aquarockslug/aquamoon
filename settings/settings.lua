@@ -55,6 +55,6 @@ M = {
 			["natural-scroll"] = true
 		}
 	},
-	window_rules = { ["ssd"] = { "firefox", "thunar", "gimp", "gedit", "foot" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "firefox", "thunar", "gimp", "gedit", "foot" } }, -- use server side decorations 
 }
 return M
