@@ -87,8 +87,8 @@ function Setup_Theme()
 	local themes = {
 		"nightfall",
 		"sweetie",
-		"desert",
-		"habamax",
+		-- "desert",
+		-- "habamax",
 		"tokyonight",
 		"dracula"
 	}
