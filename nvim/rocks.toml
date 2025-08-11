@@ -26,7 +26,7 @@ tree-sitter-markdown = "0.0.44"
 "tokyonight.nvim" = "4.11.0"
 "unnest.nvim" = "0.1.0"
 tree-sitter-rst = "0.0.33"
-tree-sitter-gdscript = "0.0.40"
+tree-sitter-gdscript = "0.0.41"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
@@ -46,3 +46,6 @@ rev = "72284659b6e6d255ca43dd08bad42acdc45efd76"
 
 [plugins.sweetie]
 git = "NTBBloodbath/sweetie.nvim"
+
+[plugins.vim-godot]
+git = "habamax/vim-godot"

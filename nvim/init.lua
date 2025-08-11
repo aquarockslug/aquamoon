@@ -44,8 +44,11 @@ end
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
+require("lspconfig")["vale_ls"].setup({})
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
+vim.lsp.enable('gdscript')
+vim.lsp.enable('vale_ls')
 
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
@@ -89,11 +92,12 @@ function Setup_Theme()
 		"sweetie",
 		-- "desert",
 		-- "habamax",
-		"tokyonight",
+		-- "tokyonight",
 		"dracula"
 	}
-	-- divide the day into parts and choose a theme based on the current hour
-	local theme_index = math.ceil(1 + tonumber(os.date("%H")) / #themes)
+
+	-- choose a theme based on the current hour
+	local theme_index = math.ceil(tonumber(os.date("%H")) / 24 * #themes)
 	vim.cmd.colorscheme(themes[theme_index])
 
 	require("colorful-winsep").setup({
