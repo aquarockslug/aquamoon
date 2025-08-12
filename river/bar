@@ -4,6 +4,7 @@ FIFO="$XDG_RUNTIME_DIR/sandbar"
 [ -e "$FIFO" ] && rm -f "$FIFO"
 mkfifo "$FIFO"
 
+# TODO use a lua script for this so it can change depending on the theme
 while cat "$FIFO"; do :; done | sandbar \
 -font "BigBlueTermPlus Nerd Font Propo:Pixelsize" \
 -bottom \
