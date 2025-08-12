@@ -89,29 +89,6 @@ require("oil").setup({
 -- THEME
 function Setup_Theme()
 	vim.cmd.colorscheme(settings.theme.active_theme)
-
-	require("colorful-winsep").setup({
-		hi = {
-			bg = "#282A36",
-			fg = "#50FA7B",
-		},
-	})
-
-	local highlights = {
-		"Normal",
-		"LineNr",
-		"Folded",
-		"NonText",
-		"SpecialKey",
-		"VertSplit",
-		"SignColumn",
-		"EndOfBuffer",
-		"Terminal",
-		"TablineFill"
-	}
-	for _, name in pairs(highlights) do
-		vim.cmd.highlight(name .. ' guibg=none ctermbg=none')
-	end
 end
 
 -- KEYMAP
@@ -235,6 +212,8 @@ require("mini.hipatterns").setup({
 })
 
 -- SNACKS
+-- TODO turn off autocomplete when snacks picker is open
+-- TODO make snacks picker fullscreen
 require("snacks").setup({
 	bigfile = { enabled = true },
 	notifier = { enabled = true },
