@@ -1,5 +1,6 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
+local settings = require "settings"
 local vim = vim -- avoid undefined warnings
 
 vim.g.mapleader = ","
@@ -33,7 +34,6 @@ require("snipe").setup({
 })
 
 -- NEOVIDE
-
 if vim.g.neovide then
 	vim.g.neovide_opacity = 0.33
 	vim.o.guifont = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -71,6 +71,7 @@ require("oil").setup({
 		["l"] = { "actions.select", mode = "n" },
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
 		["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
+		-- TODO select and open in new tab
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
 		["R"] = { "actions.open_external" },
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
@@ -87,18 +88,7 @@ require("oil").setup({
 
 -- THEME
 function Setup_Theme()
-	local themes = {
-		"nightfall",
-		"sweetie",
-		-- "desert",
-		-- "habamax",
-		-- "tokyonight",
-		"dracula"
-	}
-
-	-- choose a theme based on the current hour
-	local theme_index = math.ceil(tonumber(os.date("%H")) / 24 * #themes)
-	vim.cmd.colorscheme(themes[theme_index])
+	vim.cmd.colorscheme(settings.theme.active_theme)
 
 	require("colorful-winsep").setup({
 		hi = {
@@ -125,6 +115,7 @@ function Setup_Theme()
 end
 
 -- KEYMAP
+-- TODO do this in a seperate file
 function Setup_Keymap()
 	-- navigate nvim windows using arrow keys
 	vim.keymap.set("n", "<Left>", "<c-w>h")
@@ -136,7 +127,7 @@ function Setup_Keymap()
 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 	vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
 	vim.keymap.set("n", "<leader>w", function() vim.cmd "terminal" end)
-	-- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end) -- TODO delete the current window after opening snacks terminal
+	-- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end)
 	vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 	-- left hand home row
@@ -166,7 +157,7 @@ function Setup_Keymap()
 		[1] = function() Snacks.lazygit.open() end,
 		[2] = function()
 			MiniTrailspace.trim()
-			-- TODO prevent the oil warning that occurs when writing to a file while oil is open
+			-- prevent oil warning
 			if vim.o.filetype ~= "oil" then
 				vim.lsp.buf.format()
 			end
@@ -228,7 +219,8 @@ for _, plug in ipairs({
 	"surround",
 	"trailspace",
 	"visits",
-	"indentscope"
+	"indentscope",
+	"tabline"
 }) do
 	require("mini." .. plug).setup()
 end

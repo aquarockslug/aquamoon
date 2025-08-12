@@ -1,6 +1,21 @@
 M = {}
 
+-- TODO select a theme
+-- local themes = {
+-- "nightfall",
+-- "sweetie",
+-- "desert",
+-- "habamax",
+-- "tokyonight",
+-- "dracula"
+-- 	theme.active_theme
+-- }
+
+-- choose a theme based on the current hour
+-- local active_theme = math.ceil(tonumber(os.date("%H")) / 24 * #themes)
+
 M.active_theme = "dracula"
+
 M.fonts = {
 	iosevka = "'IosevkaTermSlab NFP'",
 	bigblue = "'BigBlueTermPlus Nerd Font Propo'",
@@ -41,5 +56,6 @@ M.tofi_style = {
 	"--anchor=bottom-left",
 	"--margin-bottom=20",
 }
+
 
 return M
