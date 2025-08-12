@@ -1,26 +1,31 @@
 M = {}
 
 -- TODO select a theme
--- local themes = {
--- "nightfall",
--- "sweetie",
--- "desert",
--- "habamax",
--- "tokyonight",
--- "dracula"
--- 	theme.active_theme
--- }
-
--- choose a theme based on the current hour
--- local active_theme = math.ceil(tonumber(os.date("%H")) / 24 * #themes)
-
-M.active_theme = "dracula"
+local themes = {
+	-- "nightfall",
+	"dracula",
+	"sweetie",
+	-- "desert",
+	-- "habamax",
+	-- "tokyonight",
+}
+-- choose one of the themes based on the current hour
+M.active_theme = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
 
 M.fonts = {
-	iosevka = "'IosevkaTermSlab NFP'",
-	bigblue = "'BigBlueTermPlus Nerd Font Propo'",
-	bigblue_path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+	bigblue = {
+		name = "BigBlueTermPlus Nerd Font Propo:h14",
+		path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'",
+		size = 14
+	},
+	iosevka = {
+		name = "IosevkaTermSlab Nerd Font Mono:h14",
+		path = "'/usr/share/fonts/TTF/IosevkaTermSlabNerdFontMono-Regular.ttf'",
+		size = 20
+	}
 }
+if M.active_theme == "sweetie" then M.active_font = M.fonts.iosevka end
+if M.active_theme == "dracula" then M.active_font = M.fonts.bigblue end
 
 M.my_flag = "󰈿"
 M.border_width = 2
@@ -40,8 +45,8 @@ M.bg2 = M.grey
 
 -- apps
 M.tofi_style = {
-	"--font=" .. M.fonts.bigblue_path,
-	"--font-size=14",
+	"--font=" .. M.active_font.path,
+	"--font-size=" .. M.active_font.size,
 	"--width=33%",
 	"--drun-launch=true",
 	"--outline-width=0",
