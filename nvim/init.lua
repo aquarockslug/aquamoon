@@ -44,11 +44,12 @@ end
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
-require("lspconfig")["vale_ls"].setup({})
-require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
-vim.lsp.enable('gdscript')
+require("lspconfig")["lua_ls"].setup({})
+require("lspconfig")["vale_ls"].setup({})
 vim.lsp.enable('vale_ls')
+require("lspconfig")["gdscript"].setup({})
+vim.lsp.enable('gdscript')
 
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
