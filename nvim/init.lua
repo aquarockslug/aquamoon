@@ -86,11 +86,6 @@ require("oil").setup({
 	},
 })
 
--- THEME
-function Setup_Theme()
-	vim.cmd.colorscheme(settings.theme.active_theme)
-end
-
 -- KEYMAP
 -- TODO do this in a seperate file
 function Setup_Keymap()
@@ -252,5 +247,6 @@ require("trouble").setup({
 	},
 })
 
-Setup_Theme(); Setup_Keymap(); Setup_Autocmd()
+vim.cmd.colorscheme(settings.theme.active_theme)
+Setup_Keymap(); Setup_Autocmd()
 vim.cmd.Oil()

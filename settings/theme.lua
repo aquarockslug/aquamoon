@@ -1,13 +1,12 @@
 M = {}
 
--- TODO select a theme
 local themes = {
-	-- "nightfall",
 	"dracula",
 	"sweetie",
 	-- "desert",
 	-- "habamax",
 	-- "tokyonight",
+	-- "nightfall",
 }
 -- choose one of the themes based on the current hour
 M.active_theme = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
