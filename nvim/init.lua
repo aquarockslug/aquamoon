@@ -193,7 +193,7 @@ for _, plug in ipairs({
 	"trailspace",
 	"visits",
 	"indentscope",
-	"tabline"
+	-- "tabline"
 }) do
 	require("mini." .. plug).setup()
 end
