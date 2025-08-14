@@ -9,7 +9,8 @@ local themes = {
 	-- "nightfall",
 }
 -- choose one of the themes based on the current hour
-M.active_theme = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
+-- M.active_theme = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
+M.active_theme = "sweetie"
 
 M.fonts = {
 	bigblue = {
@@ -21,10 +22,16 @@ M.fonts = {
 		name = "IosevkaTermSlab Nerd Font Mono:h14",
 		path = "'/usr/share/fonts/TTF/IosevkaTermSlabNerdFontMono-Regular.ttf'",
 		size = 20
+	},
+	fairiesevka = {
+		name = "FairiesevkaTerm Nerd Font Mono:h14",
+		path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'",
+		size = 20
 	}
 }
-if M.active_theme == "sweetie" then M.active_font = M.fonts.iosevka end
+if M.active_theme == "sweetie" then M.active_font = M.fonts.fairiesevka end
 if M.active_theme == "dracula" then M.active_font = M.fonts.bigblue end
+M.active_font = M.fonts.fairiesevka
 
 M.my_flag = "󰈿"
 M.border_width = 2
