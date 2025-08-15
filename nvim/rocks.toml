@@ -25,6 +25,7 @@ tree-sitter-lua = "0.0.36"
 tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
 tree-sitter-gdscript = "0.0.41"
+"sweetie.nvim" = "3.2.0"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
@@ -37,10 +38,6 @@ rev = "1.6.45"
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.2.0"
-
-[plugins.sweetie]
-git = "NTBBloodbath/sweetie.nvim"
-rev = "v3.2.0"
 
 [plugins.vim-godot]
 git = "habamax/vim-godot"

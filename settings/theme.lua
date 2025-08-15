@@ -60,7 +60,7 @@ if M.active_theme.name == "dracula" then
 end
 if M.active_theme.name == "sweetie" then
 	M.active_font = M.fonts.fairiesevka
-	M.active_theme.fg = M.sweetie.blue
+	M.active_theme.fg = M.sweetie.teal
 	M.active_theme.fg2 = M.sweetie.fg
 	M.active_theme.bg = M.sweetie.bg
 	M.active_theme.bg2 = M.sweetie.blue
@@ -82,7 +82,8 @@ M.tofi_style = {
 	"--text-cursor=true",
 	"--result-spacing=9",
 	"--anchor=bottom-left",
-	"--margin-bottom=20",
+	"--margin-bottom=26",
+	"--margin-left=" .. M.active_theme.border_width,
 }
 
 
