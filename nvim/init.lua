@@ -10,6 +10,7 @@ vim.opt.autochdir = true
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 1
 vim.opt.number = true
+vim.opt.numberwidth = 3
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 10000
 vim.opt.signcolumn = "no"
@@ -35,10 +36,11 @@ require("snipe").setup({
 
 -- NEOVIDE
 if vim.g.neovide then
-	vim.g.neovide_opacity = 0.33
+	vim.g.neovide_opacity = 0.66
 	vim.o.guifont = settings.theme.active_font.name
-	vim.g.neovide_text_gamma = 0.0
-	vim.g.neovide_text_contrast = 0.5
+	vim.g.neovide_text_gamma = 0.8
+	vim.g.neovide_text_contrast = 0.1
+	vim.g.neovide_padding_left = 10
 	-- vim.g.neovide_cursor_vfx_mode = "torpedo"
 end
 

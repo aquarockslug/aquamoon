@@ -30,3 +30,8 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	-- check for file changes when leaving the terminal
 	callback = function() vim.cmd.checktime() end
 })
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+	callback = function()
+		vim.o.number = true
+	end
+})

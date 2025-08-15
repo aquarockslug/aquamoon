@@ -35,7 +35,7 @@ M = {
 		},
 		{
 			-- "swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
-			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
+			"swaybg --image /home/aqua/.aquamoon/macos_tiger_blue.png"
 		},
 		{
 			"/home/aqua/.aquamoon/river/bar"
