@@ -63,7 +63,7 @@ if M.active_theme.name == "sweetie" then
 	M.active_theme.fg = M.sweetie.teal
 	M.active_theme.fg2 = M.sweetie.fg
 	M.active_theme.bg = M.sweetie.bg
-	M.active_theme.bg2 = M.sweetie.blue
+	M.active_theme.bg2 = M.sweetie.teal
 end
 
 -- apps
