@@ -9,11 +9,19 @@ while cat "$FIFO"; do :; done | sandbar \
 -font "BigBlueTermPlus Nerd Font Propo:Pixelsize" \
 -bottom \
 -no-mode \
--active-fg-color "#282A36" \
--active-bg-color "#50FA7B" \
--inactive-fg-color "#50FA7B" \
--inactive-bg-color "#282A36" \
+-active-fg-color "#2a2a3a" \
+-active-bg-color "#92d3c5" \
+-inactive-fg-color "#92d3c5" \
+-inactive-bg-color "#2a2a3a" \
 -urgent-fg-color "#50FA7B" \
 -urgent-bg-color "#282A36" \
--title-fg-color "#50FA7B" \
--title-bg-color "#282A36"
+-title-fg-color "#92d3c5" \
+-title-bg-color "#2a2a3a"
+# -active-fg-color "#282A36" \
+# -active-bg-color "#50FA7B" \
+# -inactive-fg-color "#50FA7B" \
+# -inactive-bg-color "#282A36" \
+# -urgent-fg-color "#50FA7B" \
+# -urgent-bg-color "#282A36" \
+# -title-fg-color "#50FA7B" \
+# -title-bg-color "#282A36"

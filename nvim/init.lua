@@ -160,6 +160,6 @@ require("trouble").setup({
 	},
 })
 
-vim.cmd.colorscheme(settings.theme.active_theme)
+vim.cmd.colorscheme(settings.theme.active_theme.name)
 require "nvim/autocmds"; require "nvim/keymap"
 vim.cmd.Oil()

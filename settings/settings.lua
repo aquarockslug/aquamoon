@@ -7,9 +7,9 @@ M = {
 	theme = theme,
 	river_options = {
 		-- Theme options
-		["border-width"] = theme.border_width,
-		["border-color-focused"] = "0x" .. theme.fg,
-		["border-color-unfocused"] = "0x" .. theme.bg,
+		["border-width"] = theme.active_theme.border_width,
+		["border-color-focused"] = "0x" .. theme.active_theme.fg,
+		["border-color-unfocused"] = "0x" .. theme.active_theme.bg,
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "right",
@@ -34,7 +34,8 @@ M = {
 			"swaync",
 		},
 		{
-			"swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
+			-- "swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
+			"swaybg --image /home/aqua/.aquamoon/snow_leopard_light.jpg"
 		},
 		{
 			"/home/aqua/.aquamoon/river/bar"
@@ -55,6 +56,6 @@ M = {
 			["natural-scroll"] = true
 		}
 	},
-	window_rules = { ["ssd"] = { "firefox", "thunar", "gimp", "gedit", "foot" } }, -- use server side decorations 
+	window_rules = { ["ssd"] = { "firefox", "thunar", "gimp", "gedit", "foot" } }, -- use server side decorations
 }
 return M
