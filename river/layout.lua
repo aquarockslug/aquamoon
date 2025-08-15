@@ -1,6 +1,6 @@
 -- You can define your global state here
 local main_ratio = 0.65
-local gaps = 2
+local gaps = 4
 local smart_gaps = false
 
 function handle_layout(args)

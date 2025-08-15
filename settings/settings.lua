@@ -47,10 +47,10 @@ M = {
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0
 		["org.gnome.desktop.interface"] = {
-			["gtk-theme"] = "Dracula",
-			["icon-theme"] = "Tela circle dracula dark",
-			["cursor-theme"] = "macOS-White",
-			["cursor-size"] = 24,
+			-- ["gtk-theme"] = "Dracula",
+			-- ["icon-theme"] = "Tela circle dracula dark",
+			-- ["cursor-theme"] = "macOS-White",
+			-- ["cursor-size"] = 24,
 		},
 		["org.gnome.desktop.peripherals.touchpad"] = {
 			["natural-scroll"] = true

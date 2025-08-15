@@ -32,7 +32,7 @@ M.fonts = {
 }
 
 M.my_flag = "󰈿"
-M.active_theme.border_width = 4
+M.active_theme.border_width = 2
 
 -- TODO assign all the colors at once
 M.dracula = {}
@@ -48,6 +48,7 @@ M.sweetie.grey = "798399"
 M.sweetie.dark_grey = "707b87"
 M.sweetie.green = "50FA7B"
 M.sweetie.bg = "2a2a3a"
+M.sweetie.fg = "d3d7de"
 
 -- theme
 if M.active_theme.name == "dracula" then
@@ -59,10 +60,10 @@ if M.active_theme.name == "dracula" then
 end
 if M.active_theme.name == "sweetie" then
 	M.active_font = M.fonts.fairiesevka
-	M.active_theme.fg = M.sweetie.teal
-	M.active_theme.fg2 = M.sweetie.blue
+	M.active_theme.fg = M.sweetie.blue
+	M.active_theme.fg2 = M.sweetie.fg
 	M.active_theme.bg = M.sweetie.bg
-	M.active_theme.bg2 = M.sweetie.bg
+	M.active_theme.bg2 = M.sweetie.blue
 end
 
 -- apps
@@ -76,7 +77,7 @@ M.tofi_style = {
 	"--prompt-text=" .. M.my_flag .. "_",
 	"--selection-color=#" .. M.active_theme.fg2,
 	"--text-color=#" .. M.active_theme.fg,
-	"--border-color=#" .. M.active_theme.fg,
+	"--border-color=#" .. M.active_theme.bg2,
 	"--background-color=#" .. M.active_theme.bg,
 	"--text-cursor=true",
 	"--result-spacing=9",
