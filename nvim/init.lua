@@ -35,6 +35,7 @@ require("snipe").setup({
 })
 
 -- NEOVIDE
+-- TODO command line covers the terminal, switch gui app?
 if vim.g.neovide then
 	vim.g.neovide_opacity = 0.66
 	vim.o.guifont = settings.theme.active_font.name
@@ -49,7 +50,6 @@ require("lspconfig")["biome"].setup({})
 require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["vale_ls"].setup({})
-vim.lsp.enable('vale_ls')
 require("lspconfig")["gdscript"].setup({})
 vim.lsp.enable('gdscript')
 
