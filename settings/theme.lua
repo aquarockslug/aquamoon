@@ -35,20 +35,26 @@ M.my_flag = "󰈿"
 M.active_theme.border_width = 2
 
 -- TODO assign all the colors at once
-M.dracula = {}
-M.dracula.teal = "83C092"
-M.dracula.blue = "7FBBB3"
-M.dracula.grey = "282A36"
-M.dracula.green = "50FA7B"
+M.dracula = {
+	teal = "83C092",
+	blue = "7FBBB3",
+	grey = "282A36",
+	green = "50FA7B",
+}
 
-M.sweetie = {}
-M.sweetie.teal = "92d3c5"
-M.sweetie.blue = "73a3f3"
-M.sweetie.grey = "798399"
-M.sweetie.dark_grey = "707b87"
-M.sweetie.green = "50FA7B"
-M.sweetie.bg = "2a2a3a"
-M.sweetie.fg = "d3d7de"
+M.sweetie = {
+	teal = "92d3c5",
+	blue = "73a3f3",
+	grey = "798399",
+	dark_grey = "707b87",
+	green = "50FA7B",
+	bg = "2a2a3a",
+	fg = "d3d7de",
+}
+
+M.pine = {
+	red = "eb6f92",
+}
 
 -- theme
 if M.active_theme.name == "dracula" then
@@ -60,10 +66,10 @@ if M.active_theme.name == "dracula" then
 end
 if M.active_theme.name == "sweetie" then
 	M.active_font = M.fonts.fairiesevka
-	M.active_theme.fg = M.sweetie.teal
+	M.active_theme.fg = M.pine.red -- M.sweetie.teal
 	M.active_theme.fg2 = M.sweetie.fg
 	M.active_theme.bg = M.sweetie.bg
-	M.active_theme.bg2 = M.sweetie.teal
+	M.active_theme.bg2 = M.pine.red -- M.sweetie.teal
 end
 
 -- apps

@@ -1,7 +1,7 @@
 #!/bin/env sh
 
 datetime() {
-datetime="$(date "+%I:%M%P     %a, %b %d")"
+datetime="$(date "+%I:%M%P     %a, %b %d")"
 }
 
 bat() {
@@ -10,7 +10,7 @@ bat="$bat_capacity%"
 }
 
 display() {
-echo "all status     $bat     $datetime    " >"$FIFO"
+echo "all status     $bat     $datetime    " >"$FIFO"
 }
 # 
 printf "%s" "$$" > "$XDG_RUNTIME_DIR/status_pid"
