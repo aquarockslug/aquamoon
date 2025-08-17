@@ -1,4 +1,4 @@
-local theme = require "settings/theme"
+local theme = require("settings/theme")
 
 M = {
 	path = "/home/aqua/.aquamoon",
@@ -35,14 +35,14 @@ M = {
 		},
 		{
 			-- "swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
-			"swaybg --image /home/aqua/.aquamoon/macos_tiger_blue.png"
+			"swaybg --image /home/aqua/.aquamoon/macos_tiger_blue.png",
 		},
 		{
-			"/home/aqua/.aquamoon/river/bar"
+			"/home/aqua/.aquamoon/river/bar",
 		},
 		{
-			"/home/aqua/.aquamoon/river/status"
-		}
+			"/home/aqua/.aquamoon/river/status",
+		},
 	},
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0
@@ -53,8 +53,8 @@ M = {
 			-- ["cursor-size"] = 24,
 		},
 		["org.gnome.desktop.peripherals.touchpad"] = {
-			["natural-scroll"] = true
-		}
+			["natural-scroll"] = true,
+		},
 	},
 	window_rules = { ["ssd"] = { "firefox", "thunar", "gimp", "gedit", "foot" } }, -- use server side decorations
 }
