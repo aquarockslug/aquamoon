@@ -2,8 +2,8 @@ M = {}
 
 -- TODO add "desert", "habamax", "tokyonight", "nightfall"
 local themes = {
-	"dracula",
-	"sweetie",
+	-- "dracula",
+	-- "sweetie", -- TODO make this a "light" theme
 	"rose-pine-moon",
 }
 -- choose one of the themes based on the current hour
@@ -32,7 +32,6 @@ M.fonts = {
 M.my_flag = "󰈿"
 M.active_theme.border_width = 2
 
--- TODO assign all the colors at once
 M.dracula = {
 	teal = "83C092",
 	blue = "7FBBB3",
