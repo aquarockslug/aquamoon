@@ -3,18 +3,20 @@ M = {}
 -- TODO make seperate files for each theme
 
 -- TODO add "desert", "habamax", "tokyonight", "nightfall"
-local themes = {
+M.list = {
 	"dracula",
 	"sweetie", -- TODO create a light background for this
 	"rose-pine-moon",
 }
--- TODO override automatic theme selection with an argument?
 -- choose one of the themes based on the current hour
-M.active_theme = {
-	name = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
-}
+M.active_theme = {}
+M.active_theme.name = M.list[math.ceil(tonumber(os.date("%H")) / 24 * #M.list)]
+
 -- backup
 if not M.active_theme.name then M.active_theme.name = "dracula" end
+
+-- optional override automatic theme selection with an argument?
+if arg[1] then M.active_theme.name = arg[1] end
 
 M.fonts = {
 	bigblue = {
