@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export LUA_PATH="/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;"
-lua /home/aqua/.aquamoon/river/river.lua
+lua /home/aqua/.aquamoon/river/river.lua $1
