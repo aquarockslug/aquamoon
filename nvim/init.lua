@@ -35,7 +35,6 @@ require("snipe").setup({
 })
 
 -- NEOVIDE
--- TODO command line covers the terminal, switch gui app?
 if vim.g.neovide then
 	vim.g.neovide_opacity = 0.66
 	vim.o.guifont = settings.theme.active_font.name

@@ -9,14 +9,14 @@ while cat "$FIFO"; do :; done | sandbar \
 -font "FairiesevkaTerm Nerd Font Mono ExtraBold:Pixelsize" \
 -bottom \
 -no-mode \
--active-fg-color "#2a2a3a" \
+-active-fg-color "#232136" \
 -active-bg-color "#eb6f92" \
 -inactive-fg-color "#eb6f92" \
--inactive-bg-color "#2a2a3a" \
+-inactive-bg-color "#232136" \
 -urgent-fg-color "#50FA7B" \
 -urgent-bg-color "#282A36" \
 -title-fg-color "#eb6f92" \
--title-bg-color "#2a2a3a"
+-title-bg-color "#232136"
 # -active-fg-color "#282A36" \
 # -active-bg-color "#50FA7B" \
 # -inactive-fg-color "#50FA7B" \

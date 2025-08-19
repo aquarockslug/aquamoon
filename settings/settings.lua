@@ -34,8 +34,7 @@ M = {
 			"swaync",
 		},
 		{
-			-- "swaybg --image /home/aqua/.aquamoon/snow_leopard_green.jpg"
-			"swaybg --image /home/aqua/.aquamoon/macos_tiger_blue.png",
+			"swaybg --image " .. theme.active_theme.background_image,
 		},
 		{
 			"/home/aqua/.aquamoon/river/bar",
