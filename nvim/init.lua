@@ -14,6 +14,7 @@ vim.opt.numberwidth = 3
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 10000
 vim.opt.signcolumn = "no"
+vim.opt.showtabline = 0
 vim.diagnostic.config({
 	signs = false,
 	virtual_lines = true
