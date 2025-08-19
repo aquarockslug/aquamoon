@@ -1,6 +1,6 @@
 -- You can define your global state here
 local main_ratio = 0.65
-local gaps = 4
+local gaps = 0
 local smart_gaps = false
 
 function handle_layout(args)
@@ -35,10 +35,10 @@ function handle_layout(args)
 end
 
 function handle_metadata(args)
-	return { name = "rivertile" }
+	return { name = " 󰈿 " }
 end
 
-local gaps_alt = 0
+local gaps_alt = 8
 function toggle_gaps()
 	local tmp = gaps
 	gaps = gaps_alt
