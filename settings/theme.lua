@@ -2,14 +2,15 @@ M = {}
 
 -- TODO add "desert", "habamax", "tokyonight", "nightfall"
 local themes = {
-	-- "dracula",
-	-- "sweetie", -- TODO make this a "light" theme
+	"dracula",
+	"sweetie", -- TODO make this a "light" theme
 	"rose-pine-moon",
 }
 -- choose one of the themes based on the current hour
 M.active_theme = {
-	-- name = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
-	name = "rose-pine-moon"
+	name = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
+	-- name = "rose-pine-moon"
+	-- name = "sweetie"
 }
 
 M.fonts = {
@@ -98,7 +99,8 @@ M.tofi_style = {
 	"--text-cursor=true",
 	"--result-spacing=9",
 	"--anchor=bottom-left",
-	"--margin-bottom=26",
+	-- "--margin-bottom=26",
+	"--margin-bottom=" .. M.active_theme.border_width,
 	"--margin-left=" .. M.active_theme.border_width,
 }
 

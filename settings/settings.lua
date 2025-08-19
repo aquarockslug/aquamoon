@@ -37,7 +37,7 @@ M = {
 			"swaybg --image " .. theme.active_theme.background_image,
 		},
 		{
-			"/home/aqua/.aquamoon/river/bar",
+			-- "/home/aqua/.aquamoon/river/bar",
 		},
 		{
 			"/home/aqua/.aquamoon/river/status",
