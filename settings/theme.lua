@@ -8,6 +8,7 @@ local themes = {
 	"sweetie", -- TODO create a light background for this
 	"rose-pine-moon",
 }
+-- TODO override automatic theme selection with an argument?
 -- choose one of the themes based on the current hour
 M.active_theme = {
 	name = themes[math.ceil(tonumber(os.date("%H")) / 24 * #themes)]
