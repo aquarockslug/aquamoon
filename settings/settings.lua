@@ -40,6 +40,9 @@ M = {
 			-- "/home/aqua/.aquamoon/river/bar",
 		},
 		{
+			"avizo-service"
+		},
+		{
 			"/home/aqua/.aquamoon/river/status",
 		},
 	},
