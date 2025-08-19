@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 	callback = function() Snacks.toggle.option("cursorline"):set(false) end,
 })
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function() vim.highlight.on_yank({ higroup = "DiffAdd", timeout = 250 }) end, -- TODO use a different highlight group?
+	callback = function() vim.highlight.on_yank({ higroup = "LineNr", timeout = 250 }) end,
 })
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { '*.jpg', '*.png' },
