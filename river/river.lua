@@ -1,5 +1,5 @@
 #!/usr/bin/lua5.4
-S = require "settings"
+M = {}
 
 --[[
 
@@ -44,64 +44,68 @@ local function tag_mappings()
 end
 
 -- Apply settings ──────────────────────────────────────────────────────────────
-
--- Run startup commands
-for _, cmd in ipairs(S.startup_commands) do
-	os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
-end
-
--- GNOME-related settings
-for group, tbl in pairs(S.gsettings) do
-	for key, value in pairs(tbl) do
-		os.execute(string.format("gsettings set %s %s %s", group, key, value))
+M.apply_settings = function(settings)
+	-- Run startup commands
+	for _, cmd in ipairs(settings.startup_commands) do
+		os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
 	end
-end
 
--- Set river's options
-for key, value in pairs(S.river_options) do
-	os.execute(string.format("riverctl %s %s", key, concat(value, " ")))
-end
+	-- GNOME-related settings
+	for group, tbl in pairs(settings.gsettings) do
+		for key, value in pairs(tbl) do
+			os.execute(string.format("gsettings set %s %s %s", group, key, value))
+		end
+	end
 
--- Keyboard and mouse bindings
-for map_type, tbl in pairs(S.mappings) do
-	for mode, value in pairs(tbl) do
-		for _, binding in ipairs(value) do
-			local modifiers = concat(binding.mod, "+")
-			local cmd = concat(binding.command, " ")
+	-- settingset river's options
+	for key, value in pairs(settings.river_options) do
+		os.execute(string.format("riverctl %s %s", key, concat(value, " ")))
+	end
 
-			-- Options -release and -repeat for 'map' and 'unmap' commands
-			local opt = binding.opt
-			if opt ~= "release" and opt ~= "repeat" then
-				opt = ""
-			else
-				opt = "-" .. opt
-			end
+	-- Keyboard and mouse bindings
+	for map_type, tbl in pairs(settings.mappings) do
+		for mode, value in pairs(tbl) do
+			for _, binding in ipairs(value) do
+				local modifiers = concat(binding.mod, "+")
+				local cmd = concat(binding.command, " ")
 
-			os.execute(string.format("riverctl %s %s %s %s %s %s", map_type, opt, mode, modifiers,
-				binding.key, cmd))
+				-- Options -release and -repeat for 'map' and 'unmap' commands
+				local opt = binding.opt
+				if opt ~= "release" and opt ~= "repeat" then
+					opt = ""
+				else
+					opt = "-" .. opt
+				end
 
-			-- Duplicate mappings of mode 'locked' for mode 'normal'
-			if mode == "locked" then
-				os.execute(string.format("riverctl %s %s normal %s %s %s", map_type, opt, modifiers,
+				os.execute(string.format("riverctl %s %s %s %s %s %s", map_type, opt, mode, modifiers,
 					binding.key, cmd))
+
+				-- Duplicate mappings of mode 'locked' for mode 'normal'
+				if mode == "locked" then
+					os.execute(string.format("riverctl %s %s normal %s %s %s", map_type, opt,
+						modifiers,
+						binding.key, cmd))
+				end
 			end
 		end
 	end
-end
 
--- Mappings for tag management
-tag_mappings()
+	-- Mappings for tag management
+	tag_mappings()
 
--- Window rules (float/csd filters)
-for rule, apps in pairs(S.window_rules) do
-	for _, app in ipairs(apps) do
-		os.execute(string.format("riverctl rule-add -app-id %s %s", app, rule))
+	-- Window rules (float/csd filters)
+	for rule, apps in pairs(settings.window_rules) do
+		for _, app in ipairs(apps) do
+			os.execute(string.format("riverctl rule-add -app-id %s %s", app, rule))
+		end
 	end
 end
-
--- Launch the layout generator as the final initial process.
--- River run the init file as a process group leader and send
--- SIGTERM to the group on exit. Therefore, keep the main init
--- process running (replace it with the layout generator process).
-local unistd = require("posix.unistd")
-unistd.execp("river-luatile", {})
+M.run = function()
+	-- Launch the layout generator as the final initial process.
+	-- River run the init file as a process group leader and send
+	-- SIGTERM to the group on exit. Therefore, keep the main init
+	-- process running (replace it with the layout generator process).
+	local unistd = require("posix.unistd")
+	unistd.execp("river-luatile", {})
+end
+return M

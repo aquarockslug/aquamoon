@@ -1,4 +1,4 @@
-local theme = require("settings/theme")
+local theme = require("settings/theme").get("sweetie")
 
 M = {
 	path = "/home/aqua/.aquamoon",
@@ -7,9 +7,9 @@ M = {
 	theme = theme,
 	river_options = {
 		-- Theme options
-		["border-width"] = theme.active_theme.border_width,
-		["border-color-focused"] = "0x" .. theme.active_theme.fg,
-		["border-color-unfocused"] = "0x" .. theme.active_theme.bg,
+		["border-width"] = theme.border_width,
+		["border-color-focused"] = "0x" .. theme.fg,
+		["border-color-unfocused"] = "0x" .. theme.bg,
 		["set-repeat"] = { 50, 300 },
 		["focus-follows-cursor"] = "normal",
 		["attach-mode"] = "right",
@@ -34,7 +34,7 @@ M = {
 			"swaync",
 		},
 		{
-			"swaybg --image " .. theme.active_theme.background_image,
+			"swaybg --image " .. theme.background_image,
 		},
 		{
 			"/home/aqua/.aquamoon/river/bar",

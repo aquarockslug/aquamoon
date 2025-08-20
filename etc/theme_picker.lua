@@ -1,16 +1,24 @@
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
-S = require "settings"
+return function(theme_name)
+	-- TODO add "desert", "habamax", "tokyonight", "nightfall"
+	local theme_list = {
+		"dracula",
+		"sweetie", -- TODO create a light background for this
+		"rose-pine-moon",
+	}
 
-local cmd = "tofi"
-for i, arg in ipairs(S.theme.tofi_style) do
-	cmd = cmd .. " " .. arg
+	local theme = require("settings/theme").get(theme_name)
+
+	local cmd = "tofi"
+	for i, arg in ipairs(theme.tofi_style) do
+		cmd = cmd .. " " .. arg
+	end
+
+	local options = ""
+	for i, arg in ipairs(theme_list) do
+		options = options .. "\n" .. arg
+	end
+
+	os.execute(require("settings").path .. "/river/init " ..
+		"$(echo '" .. options .. "' | " .. cmd .. ")")
 end
-
-local options = tostring(arg[1])
-for i, arg in ipairs(S.theme.list) do
-	options = options .. "\n" .. arg
-end
-
--- WARN doesnt work for tofi, use fuzzel?
-os.execute(S.path .. "/river/init " ..
-	"$(echo '" .. options .. "' | " .. cmd .. ")")

@@ -1,7 +1,8 @@
 -- You can define your global state here
 local main_ratio = 0.65
-local gaps = 0
-local smart_gaps = false
+local gaps = 8
+local smart_gaps = true
+local offset = 0
 
 function handle_layout(args)
 	local retval = {}
@@ -17,14 +18,14 @@ function handle_layout(args)
 		local main_h = args.height - gaps * 2
 		local side_h = (args.height - gaps) / (args.count - 1) - gaps
 		table.insert(retval, {
-			gaps,
+			offset + gaps,
 			gaps,
 			main_w,
 			main_h,
 		})
 		for i = 0, (args.count - 2) do
 			table.insert(retval, {
-				main_w + gaps * 2,
+				offset + main_w + gaps * 2,
 				gaps + i * (side_h + gaps),
 				side_w,
 				side_h,
@@ -38,7 +39,11 @@ function handle_metadata(args)
 	return { name = " 󰈿 " }
 end
 
-local gaps_alt = 8
+function scroll()
+	offset = offset - 10
+end
+
+local gaps_alt = 16
 function toggle_gaps()
 	local tmp = gaps
 	gaps = gaps_alt

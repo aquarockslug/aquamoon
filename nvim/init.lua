@@ -1,6 +1,7 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
 local settings = require "settings"
+local theme = settings.theme
 local vim = vim -- avoid undefined warnings
 
 vim.g.mapleader = ","
@@ -163,11 +164,11 @@ require("trouble").setup({
 	},
 })
 
-vim.cmd.colorscheme(settings.theme.active_theme.name)
-vim.cmd.highlight("LineNr guibg=#" .. settings.theme.active_theme.bg)
-vim.cmd.highlight("LineNr guifg=#" .. settings.theme.active_theme.fg)
-vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.active_theme.fg)
-vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.active_theme.fg)
-vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.active_theme.fg)
+vim.cmd.colorscheme(settings.theme.name)
+vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
+vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 require "nvim/autocmds"; require "nvim/keymap"
 vim.cmd.Oil()
