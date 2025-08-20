@@ -1,8 +1,11 @@
--- Choosing a theme
-local theme_list = { "dracula", "sweetie" }
--- THEME = "sweetie"
-THEME = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
-local theme = require("settings/theme").get(THEME)
+local choose_theme_by_hour = function()
+	local theme_list = { "dracula", "sweetie" }
+	-- THEME = "sweetie"
+	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
+	return require("settings/theme").get(theme_name)
+end
+
+local theme = choose_theme_by_hour()
 
 M = {
 	path = "/home/aqua/.aquamoon",

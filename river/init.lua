@@ -2,12 +2,15 @@ R = require 'river'
 S = require 'settings'
 local themes = require 'settings/theme'
 
+-- override the theme in settings if one was pass through an arg
 if arg[1] ~= nil then
-	S.theme = themes.get(arg[1])
+	S.theme = S.theme.get(arg[1])
 end
 
--- local drun = require 'etc/drun'
--- drun(S.theme.name)
+-- TODO theme_name -> settings
+
+-- write the active theme to a file so that nvim and tofi can use it?
+-- pass settings through run and save it in the layout?
 
 R.apply_settings(S)
 
