@@ -1,6 +1,7 @@
-local THEME = "sweetie"
-
--- TODO local set_by_clock = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * 3)]
+-- Choosing a theme
+local theme_list = { "dracula", "sweetie" }
+-- THEME = "sweetie"
+THEME = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
 local theme = require("settings/theme").get(THEME)
 
 M = {
