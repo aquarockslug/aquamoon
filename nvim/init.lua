@@ -164,6 +164,10 @@ require("trouble").setup({
 	},
 })
 
+vim.diagnostic_count = function()
+	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
+end
+
 vim.cmd.colorscheme(settings.theme.name)
 vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
 vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
