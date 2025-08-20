@@ -1,7 +1,7 @@
 local choose_theme_by_hour = function()
 	local theme_list = { "dracula", "sweetie" }
 	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
-	-- theme_name = "sweetie"
+	theme_name = "sweetie"
 	return require("settings/theme").get(theme_name)
 end
 

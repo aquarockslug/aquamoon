@@ -86,7 +86,7 @@ M.get = function(name)
 		"--result-spacing=9",
 		"--anchor=bottom-left",
 		"--margin-bottom=26",
-		"--margin-left=" .. theme.border_width,
+		"--margin-left=" .. theme.border_width + 8,
 	}
 	return theme
 end
