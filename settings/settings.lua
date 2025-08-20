@@ -1,4 +1,7 @@
-local theme = require("settings/theme").get("sweetie")
+local THEME = "sweetie"
+
+-- TODO local set_by_clock = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * 3)]
+local theme = require("settings/theme").get(THEME)
 
 M = {
 	path = "/home/aqua/.aquamoon",
