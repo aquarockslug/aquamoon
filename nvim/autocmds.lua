@@ -1,5 +1,6 @@
 -- AUTOCOMMANDS
 vim.api.nvim_create_autocmd("InsertEnter", {
+	-- TODO toggle line numbers? only in terminal?
 	callback = function() Snacks.toggle.option("cursorline"):set(true) end,
 })
 vim.api.nvim_create_autocmd("InsertLeave", {

@@ -53,7 +53,7 @@ require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp"
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["vale_ls"].setup({})
 require("lspconfig")["gdscript"].setup({})
-vim.lsp.enable('gdscript')
+-- vim.lsp.enable('gdscript')
 
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
