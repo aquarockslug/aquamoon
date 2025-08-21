@@ -57,6 +57,8 @@ require("lspconfig")["vale_ls"].setup({})
 require("lspconfig")["gdscript"].setup({})
 -- vim.lsp.enable('gdscript')
 
+require("debugprint").setup() -- g?p and g?v
+
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
@@ -165,11 +167,6 @@ end
 
 -- COLORSCHEME
 vim.cmd.colorscheme(settings.theme.name)
-vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
-vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 require "nvim/autocmds"; require "nvim/keymap"
 require("mini.hipatterns").setup({
 	highlighters = {
@@ -178,10 +175,12 @@ require("mini.hipatterns").setup({
 		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 	},
 })
-
--- TODO
--- vim.cmd.highlight("MiniHipatternsHack", "guifg=#ff00ff")
--- vim.cmd.highlight("MiniHipatternsWarn", "guifg=#ff00ff")
-
-
+vim.cmd.highlight("MiniHipatternsHack", "guifg=LineNr")
+vim.cmd.highlight("MiniHipatternsWarn", "guifg=LineNr")
+vim.cmd.highlight("MiniHipatternsTodo", "guifg=LineNr")
+vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
+vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 vim.cmd.Oil()
