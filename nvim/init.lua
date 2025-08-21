@@ -40,7 +40,7 @@ require("snipe").setup({
 
 -- NEOVIDE
 if vim.g.neovide then
-	vim.g.neovide_opacity = 0.66
+	vim.g.neovide_opacity = 0.5
 	vim.o.guifont = settings.theme.active_font.name
 	vim.g.neovide_text_gamma = 0.8
 	vim.g.neovide_text_contrast = 0.1
