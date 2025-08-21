@@ -1,6 +1,5 @@
 -- AUTOCOMMANDS
 vim.api.nvim_create_autocmd("InsertEnter", {
-	-- TODO toggle line numbers? only in terminal?
 	callback = function() Snacks.toggle.option("cursorline"):set(true) end,
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
@@ -15,6 +14,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.cmd([[ terminal timg % ]])
 	end
 })
+-- if closing
 vim.api.nvim_create_autocmd("User", {
 	pattern = "OilActionsPost",
 	callback = function(event)
@@ -23,13 +23,18 @@ vim.api.nvim_create_autocmd("User", {
 		end
 	end,
 })
+-- TODO go to mini dashboard when closing Oil
 vim.api.nvim_create_autocmd("VimResized", {
 	-- automatically resize windows
 	callback = function() vim.cmd("tabdo wincmd =") end
 })
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	-- check for file changes when leaving the terminal
-	callback = function() vim.cmd.checktime() end
+	callback = function()
+		vim.cmd.checktime()
+		-- WARN vim.cmd.Oil()
+		-- TODO toggle line numbers? only in terminal?
+	end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	callback = function()
