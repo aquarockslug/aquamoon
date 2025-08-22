@@ -26,7 +26,6 @@ tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
 tree-sitter-gdscript = "0.0.41"
 "sweetie.nvim" = "3.2.0"
-rose-pine = "3.0.2"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
