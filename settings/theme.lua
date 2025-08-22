@@ -59,19 +59,20 @@ M.get = function(name)
 		"--font=" .. theme.active_font.path,
 		"--font-size=" .. theme.active_font.size,
 		"--width=33%",
+		"--height=50%",
 		"--drun-launch=true",
 		"--outline-width=0",
 		"--border-width=" .. theme.border_width,
-		"--prompt-text=" .. M.my_flag .. "_",
+		"--prompt-text=" .. M.my_flag .. "__",
 		"--selection-color=#" .. theme.fg2,
 		"--text-color=#" .. theme.fg,
 		"--border-color=#" .. theme.bg2,
 		"--background-color=#" .. theme.bg,
 		"--text-cursor=true",
 		"--result-spacing=9",
-		"--anchor=bottom-left",
+		"--anchor=bottom",
 		"--margin-bottom=26",
-		"--margin-left=" .. theme.border_width + 8,
+		-- "--margin-left=" .. theme.border_width + 8,
 	}
 	return theme
 end
