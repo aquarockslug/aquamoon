@@ -7,7 +7,7 @@ M.get = function(name)
 	local theme = { name = name }
 	M.my_flag = "󰈿"
 
-	M.dracula = {
+	local dracula = { -- dark theme
 		teal = "83C092",
 		blue = "7FBBB3",
 		green = "50FA7B",
@@ -15,7 +15,7 @@ M.get = function(name)
 		bg = "282A36",
 	}
 
-	M.sweetie = {
+	local sweetie = { -- light theme
 		teal = "92d3c5",
 		blue = "73a3f3",
 		grey = "798399",
@@ -23,12 +23,6 @@ M.get = function(name)
 		green = "50FA7B",
 		bg = "2a2a3a",
 		fg = "d3d7de",
-	}
-
-	M.pine = {
-		red = "eb6f92",
-		moon_bg = "232136",
-		moon_fg = "e0def4"
 	}
 
 	local fonts = {
@@ -43,30 +37,21 @@ M.get = function(name)
 			size = 20
 		}
 	}
-	if theme.name == "rose-pine-moon" then
-		theme.active_font = fonts.fairiesevka
-		theme.fg = M.pine.red
-		theme.fg2 = M.pine.moon_fg
-		theme.bg = M.pine.moon_bg
-		theme.bg2 = M.pine.red
-		theme.background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png"
-		theme.border_width = 2
-	end
 	if theme.name == "dracula" then
 		theme.active_font = fonts.bigblue
-		theme.fg = M.dracula.green
-		theme.fg2 = M.dracula.fg
-		theme.bg = M.dracula.bg
-		theme.bg2 = M.dracula.green
+		theme.fg = dracula.green
+		theme.fg2 = dracula.fg
+		theme.bg = dracula.bg
+		theme.bg2 = dracula.green
 		theme.background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg"
 		theme.border_width = 2
 	end
 	if theme.name == "sweetie" then
 		theme.active_font = fonts.fairiesevka
-		theme.fg = M.sweetie.teal
-		theme.fg2 = M.sweetie.fg
-		theme.bg = M.sweetie.bg
-		theme.bg2 = M.sweetie.teal
+		theme.fg = sweetie.teal
+		theme.fg2 = sweetie.fg
+		theme.bg = sweetie.bg
+		theme.bg2 = sweetie.teal
 		theme.background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png"
 		theme.border_width = 2
 	end

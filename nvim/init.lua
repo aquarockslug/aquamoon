@@ -75,15 +75,17 @@ require("oil").setup({
 	watch_for_changes = true,
 	use_default_keymaps = false,
 	keymaps = {
-		["q"] = { "actions.close", mode = "n" },
-		["h"] = { "actions.parent", mode = "n" },
-		["l"] = { "actions.select", mode = "n" },
+		["H"] = { "actions.parent", mode = "n" },
+		["L"] = { "actions.select", mode = "n" },
 		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
 		["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
-		-- TODO select and open in new tab
-		["zh"] = { "actions.toggle_hidden", mode = "n" },
-		["R"] = { "actions.open_external" },
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
+
+		-- "z" is like the <leader> for Oil
+		["zo"] = { "actions.open_external", mode = "n" },
+		["zy"] = { "actions.yank_entry", mode = "n" },
+		["zw"] = { "actions.open_terminal", mode = "n" },
+		["zh"] = { "actions.toggle_hidden", mode = "n" },
 	},
 	columns = {
 		"icon",
@@ -183,4 +185,6 @@ vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
+
+vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
 vim.cmd.Oil()
