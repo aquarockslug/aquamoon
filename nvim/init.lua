@@ -131,7 +131,13 @@ require("snacks").setup({
 	quickfile = { enabled = true },
 	scroll = { enabled = true },
 	image = { enabled = true },
-	lazygit = { win = { position = "float" } },
+	lazygit = {
+		win = { position = "float" },
+		theme = {
+			inactiveBorderColor = { fg = "LineNr" },
+			activeBorderColor = { bg = "Cursor" }
+		}
+	},
 	styles = {
 		terminal = { height = 0.999, width = 0.999, position = "top", backdrop = false },
 		notification = { border = "top" }
