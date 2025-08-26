@@ -4,6 +4,13 @@ local gaps = 8
 local smart_gaps = false
 local offset = 0
 
+local current_tag = 1
+
+--  * Focused tags (`args.tags`)
+--  * Window count (`args.count`)
+--  * Output width (`args.width`)
+--  * Output height (`args.height`)
+--  * Output name (`args.output`)
 function handle_layout(args)
 	local retval = {}
 	if args.count == 1 then
@@ -32,6 +39,12 @@ function handle_layout(args)
 			})
 		end
 	end
+	-- use a variable to check if the first active tag has changed
+	if current_tag ~= args.tags then -- TODO use replace ids to prevent multiple notifications
+		-- TODO use flag icons to represent args.tags
+		os.execute("notify-send --expire-time=1000 --app-name=luatile --icon=󰈿 --transient " .. args.tags) -- TODO fix icon
+		current_tag = args.tags
+	end
 	return retval
 end
 
@@ -39,7 +52,7 @@ function handle_metadata(args)
 	return { name = " 󰈿 " }
 end
 
-function scroll()
+function scroll() -- TODO scrolling window manager?
 	offset = offset - 10
 end
 
