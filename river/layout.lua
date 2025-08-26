@@ -39,11 +39,26 @@ function handle_layout(args)
 			})
 		end
 	end
-	-- use a variable to check if the first active tag has changed
-	if current_tag ~= args.tags then -- TODO use replace ids to prevent multiple notifications
-		-- TODO use flag icons to represent args.tags
-		os.execute("notify-send --expire-time=1000 --app-name=luatile --icon=󰈿 --transient " .. args.tags) -- TODO fix icon
-		current_tag = args.tags
+	-- use a variable to check if the current tag has changed
+	local t = args.tags
+	if current_tag ~= t then
+		current_tag = t
+
+		local flag_string = ""
+		-- add to flag string every time we divide by two until it is 1
+		while t >= 1.0 do
+			t = t / 2
+			flag_string = flag_string .. " 󰈿"
+		end
+		-- show numbers if there are more than 4 flags
+		if string.len(flag_string) > 20 then
+			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string
+		end
+
+		-- TODO use notifify-send replace id to prevent multiple notifications
+		os.execute("notify-send --icon=󰈿 --transient " ..
+			"--expire-time=750 --app-name=luatile '" ..
+			flag_string .. "'") -- TODO fix icon
 	end
 	return retval
 end
