@@ -1,5 +1,5 @@
 -- You can define your global state here
-local main_ratio = 0.65
+local main_ratio = 0.66
 local gaps = 8
 local smart_gaps = false
 local offset = 0
@@ -47,6 +47,8 @@ function handle_layout(args)
 	end
 	return retval
 end
+
+-- TODO layout keybind to change main_ratio
 
 function handle_metadata(args)
 	return { name = " 󰈿 " }
