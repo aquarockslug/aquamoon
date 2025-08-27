@@ -22,7 +22,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Z",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/system_menu.lua"' ]] },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/system_menu.lua sweetie"' ]] },
 		},
 		{
 			mod = { "Super" },

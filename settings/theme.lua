@@ -32,7 +32,7 @@ M.get = function(name)
 			size = 14
 		},
 		fairiesevka = {
-			name = "FairiesevkaTerm Nerd Font Mono:h14",
+			name = "FairiesevkaTerm Nerd Font Mono:h16",
 			path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'",
 			size = 20
 		}

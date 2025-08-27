@@ -1,10 +1,10 @@
 R = require 'river'
-S = require 'settings'
-local themes = require 'settings/theme'
 
 -- override the theme in settings if one was pass through an arg
 if arg[1] ~= nil then
-	S.theme = S.theme.get(arg[1])
+	S = require('settings').get(arg[1])
+else
+	S = require('settings').get("sweetie")
 end
 
 -- TODO theme_name -> settings

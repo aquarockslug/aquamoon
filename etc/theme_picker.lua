@@ -4,7 +4,6 @@ return function(theme_name)
 	local theme_list = {
 		"dracula",
 		"sweetie", -- TODO create a light background for this
-		"rose-pine-moon",
 	}
 
 	local theme = require("settings/theme").get(theme_name)
@@ -19,6 +18,10 @@ return function(theme_name)
 		options = options .. "\n" .. arg
 	end
 
-	os.execute(require("settings").path .. "/river/init " ..
-		"$(echo '" .. options .. "' | " .. cmd .. ")")
+	-- local path = require("settings").get(theme_name)
+	os.execute("/home/aqua/.aquamoon/river/init $(echo '" .. options .. "' | " .. cmd .. ")")
+
+	-- TODO remap neovide and tofi keys to use the updated theme?
+	-- local remap_cmd = [[ riverctl Super+D send-layout-cmd luatile 'require("etc/drun")("sweetie")' ]]},
+	-- os.execute(remap_cmd)
 end
