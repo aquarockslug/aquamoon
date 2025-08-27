@@ -57,7 +57,7 @@ function handle_layout(args)
 
 		-- TODO use notifify-send replace id to prevent multiple notifications
 		os.execute("notify-send --icon=󰈿 --transient " ..
-			"--expire-time=750 --app-name=luatile '" ..
+			"--expire-time=1000 --app-name=luatile '" ..
 			flag_string .. "'") -- TODO fix icon
 	end
 	return retval

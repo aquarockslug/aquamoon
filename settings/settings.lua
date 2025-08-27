@@ -43,15 +43,15 @@ M = {
 		{
 			"swaybg --image " .. theme.background_image,
 		},
-		{
-			"/home/aqua/.aquamoon/river/bar",
-		},
-		{
-			"avizo-service"
-		},
-		{
-			"/home/aqua/.aquamoon/river/status",
-		},
+		-- {
+		-- 	"/home/aqua/.aquamoon/river/bar",
+		-- },
+		-- {
+		-- 	"avizo-service"
+		-- },
+		-- {
+		-- 	"/home/aqua/.aquamoon/river/status",
+		-- },
 	},
 	gsettings = {
 		-- these settings overwrite the ones in ~/.config/gtk-3.0
