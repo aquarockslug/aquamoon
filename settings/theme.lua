@@ -21,8 +21,12 @@ M.get = function(name)
 		grey = "798399",
 		dark_grey = "707b87",
 		green = "50FA7B",
-		bg = "2a2a3a",
-		fg = "d3d7de",
+		-- bg = "2a2a3a",
+		-- fg = "d3d7de",
+		bg = "DDDDe7",
+		fg = "202023",
+		cyan = "0B658E",
+		violet = "B094E2"
 	}
 
 	local fonts = {
@@ -52,6 +56,7 @@ M.get = function(name)
 		theme.fg2 = sweetie.fg
 		theme.bg = sweetie.bg
 		theme.bg2 = sweetie.teal
+		theme.accent = sweetie.violet
 		theme.background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png"
 		theme.border_width = 2
 	end

@@ -174,7 +174,19 @@ vim.diagnostic_count = function()
 end
 
 -- COLORSCHEME
-vim.cmd.colorscheme(settings.theme.name)
+
+require('xeno').config({
+	contrast = -0.25, -- Adjust contrast (-1 to 1, 0 is default)
+	variation = 1.0, -- Adjust color variation strength (-1 to 1, 0 is default)
+})
+-- Create a new theme
+require("xeno").new_theme("aquamoon", {
+	base = "#" .. settings.theme.fg,
+	accent = "#" .. settings.theme.fg2,
+})
+
+vim.cmd('colorscheme aquamoon')
+-- vim.cmd.colorscheme(settings.theme.name)
 require "nvim/autocmds"; require "nvim/keymap"
 require("mini.hipatterns").setup({
 	highlighters = {

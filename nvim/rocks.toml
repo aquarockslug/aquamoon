@@ -39,6 +39,5 @@ rev = "1.6.45"
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.2.0"
 
-[plugins.vim-godot]
-git = "habamax/vim-godot"
-rev = "1c8385789f7f4558bdbbf6e75033b34b4727944b"
+[plugins.xeno]
+git = "kyza0d/xeno.nvim"
