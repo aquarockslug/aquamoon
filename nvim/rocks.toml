@@ -2,9 +2,9 @@
 # List of non-Neovim rocks.
 # TODO put this in a seperate file
 [rocks]
-pegasus = "1.0.9"
+# pegasus = "1.0.9"
 microlight = "1.0"
-luaposix = "36.3"
+# luaposix = "36.3"
 
 # List of Neovim plugins to install alongside their versions.
 [plugins]

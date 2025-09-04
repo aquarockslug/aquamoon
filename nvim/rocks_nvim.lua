@@ -1,6 +1,6 @@
 local bootstrap = function()
 	local rocks_config = {
-		rocks_path = vim.env.HOME .. "/.local/share/nvim/rocks",
+		rocks_path = vim.env.HOME .. "/.aquamoon/rocks",
 	}
 
 	vim.g.rocks_nvim = rocks_config

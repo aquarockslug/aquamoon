@@ -185,8 +185,9 @@ require("xeno").new_theme("aquamoon", {
 	accent = "#" .. settings.theme.fg2,
 })
 
-vim.cmd('colorscheme aquamoon')
--- vim.cmd.colorscheme(settings.theme.name)
+-- vim.cmd('colorscheme aquamoon')
+vim.cmd.colorscheme(settings.theme.name)
+
 require "nvim/autocmds"; require "nvim/keymap"
 require("mini.hipatterns").setup({
 	highlighters = {
