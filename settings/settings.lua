@@ -40,22 +40,11 @@ M = {
 					-- 'timeout 3600 "swaylock --color 232A2E"', -- lock the screen after an hour
 				},
 				{
-					-- "swaync",
 					"dunst"
 				},
 				{
 					"swaybg --image " .. theme.background_image,
 				},
-				-- {
-				-- 	"/home/aqua/.aquamoon/river/bar",
-				-- },
-				-- {
-				-- 	"/home/aqua/.aquamoon/river/status",
-				-- },
-				-- {
-				-- 	"avizo-service"
-				-- 	wob?
-				-- },
 			},
 			gsettings = {
 				-- these settings overwrite the ones in ~/.config/gtk-3.0

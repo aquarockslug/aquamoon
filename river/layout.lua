@@ -55,10 +55,12 @@ function handle_layout(args)
 			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string
 		end
 
-		-- TODO use notifify-send replace id to prevent multiple notifications
-		os.execute("notify-send --icon=󰈿 --transient " ..
-			"--expire-time=1000 --app-name=luatile '" ..
-			flag_string .. "'") -- TODO fix icon
+		-- get the color info from the theme file
+		os.execute("dunstify --timeout=1000 --appname=luatile " ..
+			"-h string:bgcolor:#2a2a3a " ..
+			"-h string:fgcolor:#92d3c5 " ..
+			"-h string:frcolor:#92d3c5 " ..
+			"--replace=9 '" .. flag_string .. "'")
 	end
 	return retval
 end

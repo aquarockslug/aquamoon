@@ -18,6 +18,7 @@ mappings.map = {
 			mod = { "Super" },
 			key = "D",
 			command = { "send-layout-cmd", "luatile", [[ 'require("etc/drun")("sweetie")' ]] },
+			-- command = { "send-layout-cmd", "luatile", [[ 'require("etc/drun")("dracula")' ]] },
 		},
 		{
 			mod = { "Super" },
