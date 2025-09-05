@@ -1,5 +1,2 @@
 #!/bin/bash
-
-export LUA_PATH="/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;"
-# export GTK_THEME="dracula"
 lua /home/aqua/.aquamoon/river/init.lua $1

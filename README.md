@@ -11,7 +11,7 @@
 - So far the only parts that are not configured with Lua is Sandbar and parts of Zsh. 
 
 # SOFTWARE
-Riverwm, River-luatile, Sandbar, Tofi, Neovide, Zsh
+Riverwm, River-luatile, Tofi, Dunst, Neovide, Zsh
 
 # SCREENSHOTS
 <img width="3840" height="2160" alt="20250806_00h54m16s_grim" src="https://github.com/user-attachments/assets/ca67a7bc-511d-4dae-acf1-599d42763a6e" />

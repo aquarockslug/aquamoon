@@ -51,11 +51,9 @@ end
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
-require("lspconfig")["omnisharp"].setup({ cmd = { "dotnet", "/usr/bin/omnisharp" } })
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["vale_ls"].setup({})
 require("lspconfig")["gdscript"].setup({})
--- vim.lsp.enable('gdscript')
 
 require("debugprint").setup() -- g?p and g?v
 
@@ -172,21 +170,6 @@ require("trouble").setup({
 vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end
-
--- COLORSCHEME
-
-require('xeno').config({
-	contrast = -0.25, -- Adjust contrast (-1 to 1, 0 is default)
-	variation = 1.0, -- Adjust color variation strength (-1 to 1, 0 is default)
-})
--- Create a new theme
-require("xeno").new_theme("aquamoon", {
-	base = "#" .. settings.theme.fg,
-	accent = "#" .. settings.theme.fg2,
-})
-
--- vim.cmd('colorscheme aquamoon')
-vim.cmd.colorscheme(settings.theme.name)
 
 require "nvim/autocmds"; require "nvim/keymap"
 require("mini.hipatterns").setup({

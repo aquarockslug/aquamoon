@@ -13,36 +13,18 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst' 'wget' 'bat' 'eza' 'duf' 'ripgrep' 'biome' 'lua-language-server')
+depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst' 'wget' 'peco' 'bat' 'eza' 'duf' 'ripgrep' 'biome' 'vale' 'lua-language-server')
 makedepends=()
 optdepends=('aerc' 'glow')
 source=()
 sha256sums=()
 # package() {
-	# WARN OUTDATED CODE
-	# package zsh files
-	# mkdir -p "${pkgdir}"/usr/share/zsh
-	# cp "${srcdir}"/*.zsh "${pkgdir}"/usr/share/zsh/
-	#
-	# # create .zshrc file
-	# mkdir -p "${pkgdir}"/root
-	# echo "source /usr/share/zsh/aqua_profile.plugin.zsh" >"${pkgdir}"/root/.zshrc
-	# echo "source /usr/share/zsh/themes/dracula.zsh-theme" >>"${pkgdir}"/root/.zshrc
-	# echo "source /usr/share/zsh/async.zsh" >>"${pkgdir}"/root/.zshrc
-	# echo "clear && ls" >>"${pkgdir}"/root/.zshrc
-	# # TODO: add zsh highlighting and autocompletion
-	#
-	# # zsh theme
-	# mkdir -p "${pkgdir}"/usr/share/zsh/themes
-	# cp "${srcdir}"/dracula.zsh-theme "${pkgdir}"/usr/share/zsh/themes/dracula.zsh-theme
-	#
-	# # package neovim files
-	# mkdir -p "${pkgdir}"/usr/share/nvim_plugged/
-	# mkdir -p "${pkgdir}"/root/.config/nvim/plugin
-	# cp "${srcdir}"/*.lua "${pkgdir}"/root/.config/nvim/plugin
-	# cp "${srcdir}"/*.vim "${pkgdir}"/root/.config/nvim/plugin
 # }
+# post_install = setup_links
+# inside setup_links.install:
 # ln -s ~/.aquamoon/river ~/.config/river
 # ln -s ~/.aquamoon/river-luatile ~/.config/river
 # ln -s ~/.aquamoon/nvim ~/.config/nvim
 # ln -s ~/.aquamoon/zsh/zshrc ~/.zshrc
+
+# run rocks.nvim install script post install?

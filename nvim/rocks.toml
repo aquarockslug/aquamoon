@@ -1,10 +1,16 @@
 
+# TODO have settings.lua get the theme from here by default
+# TODO use a lua toml api for all settings
+[config]
+colorscheme = "sweetie"
+
 # List of non-Neovim rocks.
 # TODO put this in a seperate file
 [rocks]
-# pegasus = "1.0.9"
-microlight = "1.0"
 # luaposix = "36.3"
+microlight = "1.0"
+# pegasus = "1.0.9"
+tinytoml = "0.0.4"
 
 # List of Neovim plugins to install alongside their versions.
 [plugins]
@@ -14,6 +20,7 @@ microlight = "1.0"
 "oil.nvim" = "2.15.0"
 "rocks-git.nvim" = "2.5.5"
 "rocks-treesitter.nvim" = "1.3.1"
+"rocks-config.nvim" = "3.1.2"
 "rocks.nvim" = "2.46.0"
 "trouble.nvim" = "3.7.1"
 "unnest.nvim" = "0.1.1"
@@ -29,15 +36,12 @@ tree-sitter-gdscript = "0.0.41"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
-rev = "9e98df38f81cdf3822936c919c8115e9529a491a"
 
 [plugins.grug_far]
 git = "MagicDuck/grug-far.nvim"
-rev = "1.6.45"
 
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
-rev = "v6.2.0"
 
 [plugins.xeno]
 git = "kyza0d/xeno.nvim"
