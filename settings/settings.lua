@@ -40,7 +40,8 @@ M = {
 					-- 'timeout 3600 "swaylock --color 232A2E"', -- lock the screen after an hour
 				},
 				{
-					"swaync",
+					-- "swaync",
+					"dunst"
 				},
 				{
 					"swaybg --image " .. theme.background_image,
@@ -53,21 +54,22 @@ M = {
 				-- },
 				-- {
 				-- 	"avizo-service"
+				-- 	wob?
 				-- },
 			},
 			gsettings = {
 				-- these settings overwrite the ones in ~/.config/gtk-3.0
 				["org.gnome.desktop.interface"] = {
-					-- ["gtk-theme"] = "Dracula",
-					-- ["icon-theme"] = "Tela circle dracula dark",
-					-- ["cursor-theme"] = "macOS-White",
-					-- ["cursor-size"] = 24,
+					["gtk-theme"] = "Dracula",
+					["icon-theme"] = "Tela circle dracula dark",
+					["cursor-theme"] = "macOS-White",
+					["cursor-size"] = 24,
 				},
 				["org.gnome.desktop.peripherals.touchpad"] = {
 					["natural-scroll"] = true,
 				},
 			},
-			window_rules = { ["ssd"] = { "firefox", "thunar", "gimp", "gedit", "foot" } }, -- use server side decorations
+			window_rules = { ["ssd"] = { "firefox", "gimp" } }, -- use server side decorations
 		}
 	end
 }

@@ -13,7 +13,7 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'wget' 'bat' 'eza' 'duf' 'ripgrep' 'biome' 'lua-language-server')
+depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst' 'wget' 'bat' 'eza' 'duf' 'ripgrep' 'biome' 'lua-language-server')
 makedepends=()
 optdepends=('aerc' 'glow')
 source=()
@@ -42,3 +42,7 @@ sha256sums=()
 	# cp "${srcdir}"/*.lua "${pkgdir}"/root/.config/nvim/plugin
 	# cp "${srcdir}"/*.vim "${pkgdir}"/root/.config/nvim/plugin
 # }
+# ln -s ~/.aquamoon/river ~/.config/river
+# ln -s ~/.aquamoon/river-luatile ~/.config/river
+# ln -s ~/.aquamoon/nvim ~/.config/nvim
+# ln -s ~/.aquamoon/zsh/zshrc ~/.zshrc

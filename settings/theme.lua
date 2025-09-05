@@ -21,10 +21,10 @@ M.get = function(name)
 		grey = "798399",
 		dark_grey = "707b87",
 		green = "50FA7B",
-		-- bg = "2a2a3a",
-		-- fg = "d3d7de",
-		bg = "DDDDe7",
-		fg = "202023",
+		bg = "2a2a3a",
+		fg = "d3d7de",
+		-- bg = "DDDDe7",
+		-- fg = "202023",
 		cyan = "0B658E",
 		violet = "B094E2"
 	}
