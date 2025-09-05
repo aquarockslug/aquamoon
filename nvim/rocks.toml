@@ -6,10 +6,10 @@ colorscheme = "sweetie"
 
 # List of non-Neovim rocks.
 # TODO put this in a seperate file
+# TODO use lua 5.4 for non nvim rocks
 [rocks]
 # luaposix = "36.3"
 microlight = "1.0"
-# pegasus = "1.0.9"
 tinytoml = "0.0.4"
 
 # List of Neovim plugins to install alongside their versions.
@@ -45,3 +45,6 @@ git = "andrewferrier/debugprint.nvim"
 
 [plugins.xeno]
 git = "kyza0d/xeno.nvim"
+
+[plugins.web_server]
+git = "gn0/nvim-web-server"
