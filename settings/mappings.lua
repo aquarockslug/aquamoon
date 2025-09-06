@@ -32,7 +32,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "T",
-			command = { "send-layout-cmd", "luatile", [[ 'require("etc/theme_picker")' ]] },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/theme_picker.lua"' ]] },
 		},
 		-- Show Notifications
 		{

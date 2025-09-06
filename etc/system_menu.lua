@@ -1,11 +1,8 @@
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
+    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
+    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
-local theme = {}
-if arg[1] ~= nil then
-	theme = require("settings/theme").get(arg[1])
-else
-	theme = require "settings".theme
-end
+theme = require "settings".theme
 
 local battery_cmd = io.popen("cat /sys/class/power_supply/BAT1/capacity")
 local battery = battery_cmd:read("*a")

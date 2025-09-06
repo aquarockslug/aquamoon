@@ -12,7 +12,6 @@ theme = require("settings/theme").get(current_theme_name)
 
 return {
 	path = "/home/aqua/.aquamoon",
-	lua_path = package.path,
 	wsl = false,
 	mappings = require("settings/mappings"),
 	theme_name = current_theme_name,
