@@ -17,13 +17,12 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "send-layout-cmd", "luatile", [[ 'require("etc/drun")("sweetie")' ]] },
-			-- command = { "send-layout-cmd", "luatile", [[ 'require("etc/drun")("dracula")' ]] },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/drun.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
 			key = "Z",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/system_menu.lua sweetie"' ]] },
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/system_menu.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
@@ -33,7 +32,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "T",
-			command = { "send-layout-cmd", "luatile", [[ 'require("etc/theme_picker")("sweetie")' ]] },
+			command = { "send-layout-cmd", "luatile", [[ 'require("etc/theme_picker")' ]] },
 		},
 		-- Show Notifications
 		{

@@ -3,6 +3,7 @@
 # TODO use a lua toml api for all settings
 [config]
 colorscheme = "sweetie"
+# colorscheme = "dracula"
 
 # List of non-Neovim rocks.
 # TODO put this in a seperate file

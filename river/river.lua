@@ -3,6 +3,8 @@ M = {}
 
 --[[
 
+exports the functions apply_setting and run for starting River window manager
+
 - execp() needs 'lua-posix' package
 
 --]]

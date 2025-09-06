@@ -1,5 +1,7 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua'
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
+    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
+    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 local settings = require "settings"
 local theme = settings.theme
 local vim = vim -- avoid undefined warnings
@@ -45,7 +47,7 @@ if vim.g.neovide then
 	else
 		vim.g.neovide_opacity = 0.8
 	end
-	vim.o.guifont = settings.theme.active_font.name
+	vim.o.guifont = theme.active_font.name
 	vim.g.neovide_text_gamma = 0.8
 	vim.g.neovide_text_contrast = 0.1
 	vim.g.neovide_padding_left = 10

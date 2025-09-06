@@ -1,7 +1,7 @@
 #!/bin/bash
-export LUA_PATH="$HOME/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?.lua;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?/?.lua;;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?.lua;"
+LUA_PATH="$HOME/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;"
+LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?.lua;"
+LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?/?.lua;;"
+LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?.lua;"
 export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?/?.lua;;"
 lua /home/aqua/.aquamoon/river/init.lua $1
