@@ -1,9 +1,3 @@
-choose_theme_by_hour = function()
-	local theme_list = { "dracula", "sweetie" }
-	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
-	return require("settings/theme").get(theme_name)
-end
-
 -- create lua settings table using information from the toml file
 toml = require "tinytoml"
 toml_settings = toml.parse("/home/aqua/.aquamoon/nvim/rocks.toml")
@@ -38,14 +32,13 @@ return {
 		},
 		-- Startup programs
 		{
-			"swayidle",
-			-- 'timeout 3600 "swaylock --color 232A2E"', -- lock the screen after an hour
+			"swayidle timeout 1800 'swaylock'", -- lock the screen after 30 min
 		},
 		{
-			"dunst"
+			"dunst" -- notifications
 		},
 		{
-			"swaybg --image " .. theme.background_image,
+			"swaybg --image " .. theme.background_image, -- set background
 		},
 	},
 	gsettings = {

@@ -1,14 +1,9 @@
-R = require 'river'
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
+    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
+    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
--- override the theme in settings if one was pass through an arg
-if arg[1] ~= nil then
-	local s = require('settings')
-	s.theme = require('settings/theme').get(arg[1])
-	S = s
-else
-	S = require('settings')
-end
+R = require 'river'
+S = require 'settings'
 
 R.apply_settings(S)
-
 R.run()

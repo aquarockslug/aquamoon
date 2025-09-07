@@ -5,24 +5,32 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
 -- TODO add "desert", "habamax", "tokyonight", "nightfall"
 local theme_list = {
 	"dracula",
-	"sweetie", -- TODO create a light background for this
+	"sweetie",
 }
 
-local theme = require("settings/theme").get(theme_name)
-
+-- create tofi command
 local cmd = "tofi"
-for i, arg in ipairs(theme.tofi_style) do
+for i, arg in ipairs(require("settings").theme.tofi_style) do
 	cmd = cmd .. " " .. arg
 end
 
+-- create options list for tofi
 local options = ""
 for i, arg in ipairs(theme_list) do
 	options = options .. "\n" .. arg
 end
 
--- local path = require("settings").get(theme_name)
-os.execute("/home/aqua/.aquamoon/river/init $(echo '" .. options .. "' | " .. cmd .. ")")
+-- prompt user to choose a theme with tofi
+local choice = io.popen("echo '" .. options .. "' | " .. cmd):read()
+print("switching to theme " .. choice)
 
--- TODO remap neovide and tofi keys to use the updated theme?
--- local remap_cmd = [[ riverctl Super+D send-layout-cmd luatile 'require("etc/drun")("sweetie")' ]]},
--- os.execute(remap_cmd)
+-- use sed to replace the current colorscheme name in the rock.toml config file
+toml = require "tinytoml"
+toml_settings = toml.parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+os.execute([[sed -i 's/"]] .. toml_settings.config.colorscheme ..
+	[["/"]] .. choice ..
+	[["/g' ~/.aquamoon/nvim/rocks.toml]]
+)
+
+-- restart river
+os.execute("~/.aquamoon/river/init")

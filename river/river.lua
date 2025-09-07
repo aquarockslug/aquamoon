@@ -45,7 +45,8 @@ local function tag_mappings()
 	os.execute(string.format("riverctl map normal Super+Shift 0 set-view-tags %s", all_tags))
 end
 
--- Apply settings ──────────────────────────────────────────────────────────────
+--- Apply setting by executing riverctl commands
+------@param settings table
 M.apply_settings = function(settings)
 	-- Run startup commands
 	for _, cmd in ipairs(settings.startup_commands) do
@@ -102,6 +103,7 @@ M.apply_settings = function(settings)
 		end
 	end
 end
+
 M.run = function()
 	-- Launch the layout generator as the final initial process.
 	-- River run the init file as a process group leader and send
