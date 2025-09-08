@@ -6,7 +6,6 @@ export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?.lua;"
 export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?/?.lua;;"
 
 # ZSH
-export ZSH_THEME="dracula"
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=10000
@@ -53,7 +52,13 @@ take() { mkdir $1 && cd $1 }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
 serve() { simple-http-server -i --nocache --threads 6 --ip 127.0.0.1 ${1-./} }
 
-lua $HOME/.aquamoon/zsh/zshrc.lua
+lua /home/aqua/.aquamoon/zsh/zshrc.lua
 
-if [[ $ZSH_THEME == "dracula" ]]; then source /home/aqua/.aquamoon/zsh/lib/dracula.zsh-theme; fi
+# export ZSH_THEME="dracula"
+# if [[ $ZSH_THEME == "dracula" ]]; then source /home/aqua/.aquamoon/zsh/lib/dracula.zsh-theme; fi
+
+export ZSH_THEME="catppuccin"
+export CATPPUCCIN_FLAVOR="frappe"
+source /home/aqua/.aquamoon/zsh/lib/catppuccin.zsh-theme
+source $HOME/.aquamoon/zsh/lib/catppuccin-flavors/catppuccin_frappe-zsh-syntax-highlighting.zsh
 source $HOME/.aquamoon/zsh/lib/zsh-syntax-highlighting.zsh
