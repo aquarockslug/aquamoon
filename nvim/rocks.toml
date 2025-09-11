@@ -43,8 +43,3 @@ git = "MagicDuck/grug-far.nvim"
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
 
-[plugins.xeno]
-git = "kyza0d/xeno.nvim"
-
-[plugins.web_server]
-git = "gn0/nvim-web-server"

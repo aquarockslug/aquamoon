@@ -3,10 +3,7 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 local settings = require "settings"
-local theme = settings.theme
 local vim = vim -- avoid undefined warnings
-
--- vim.o.background = "light"
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -25,9 +22,7 @@ vim.diagnostic.config({
 	virtual_lines = true
 })
 vim.flag = "󰈿"
-
-require("nvim/rocks_nvim").setup()
-
+require("nvim/rocks_setup")
 require("snipe").setup({
 	ui = {
 		position = "center",
@@ -45,9 +40,9 @@ if vim.g.neovide then
 	if vim.o.background == "dark" then
 		vim.g.neovide_opacity = 0.5
 	else
-		vim.g.neovide_opacity = 0.8
+		vim.g.neovide_opacity = 0.9
 	end
-	vim.o.guifont = theme.active_font.name
+	vim.o.guifont = settings.theme.active_font.name
 	vim.g.neovide_text_gamma = 0.8
 	vim.g.neovide_text_contrast = 0.1
 	vim.g.neovide_padding_left = 10

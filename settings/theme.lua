@@ -7,6 +7,8 @@ M.get = function(name)
 	local theme = { name = name }
 	M.my_flag = "󰈿"
 
+	-- habamax, zaibatsu, minicyan, minischeme
+
 	local dracula = { -- dark theme
 		teal = "83C092",
 		blue = "7FBBB3",
@@ -48,7 +50,7 @@ M.get = function(name)
 		theme.bg = dracula.bg
 		theme.bg2 = dracula.green
 		theme.background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg"
-		theme.border_width = 2
+		theme.border_width = 4
 	end
 	if theme.name == "sweetie" then
 		theme.active_font = fonts.fairiesevka
@@ -58,7 +60,7 @@ M.get = function(name)
 		theme.bg2 = sweetie.teal
 		theme.accent = sweetie.violet
 		theme.background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png"
-		theme.border_width = 2
+		theme.border_width = 4
 	end
 	theme.tofi_style = {
 		"--font=" .. theme.active_font.path,
