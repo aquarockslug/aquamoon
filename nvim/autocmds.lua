@@ -33,7 +33,6 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	callback = function()
 		vim.cmd.checktime()
 		-- WARN vim.cmd.Oil()
-		-- TODO toggle line numbers? only in terminal?
 	end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {

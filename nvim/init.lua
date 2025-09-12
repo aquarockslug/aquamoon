@@ -5,24 +5,16 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
 local settings = require "settings"
 local vim = vim -- avoid undefined warnings
 
+require "nvim/rocks_setup"
+
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-vim.opt.autochdir = true
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 1
-vim.opt.number = true
-vim.opt.numberwidth = 3
-vim.opt.relativenumber = true
-vim.opt.scrolloff = 10000
-vim.opt.signcolumn = "no"
-vim.opt.showtabline = 0
 vim.diagnostic.config({
 	signs = false,
 	virtual_lines = true
 })
 vim.flag = "󰈿"
-require("nvim/rocks_setup")
+
 require("snipe").setup({
 	ui = {
 		position = "center",
@@ -34,21 +26,6 @@ require("snipe").setup({
 	},
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
-
--- NEOVIDE
-if vim.g.neovide then
-	if vim.o.background == "dark" then
-		vim.g.neovide_opacity = 0.5
-	else
-		vim.g.neovide_opacity = 0.9
-	end
-	vim.o.guifont = settings.theme.active_font.name
-	vim.g.neovide_text_gamma = 0.8
-	vim.g.neovide_text_contrast = 0.1
-	vim.g.neovide_padding_left = 10
-	vim.g.neovide_padding_top = 10
-	-- vim.g.neovide_cursor_vfx_mode = "torpedo"
-end
 
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
@@ -172,7 +149,9 @@ vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end
 
+-- require the other aquamoon config files
 require "nvim/autocmds"; require "nvim/keymap"
+
 require("mini.hipatterns").setup({
 	highlighters = {
 		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
@@ -180,6 +159,8 @@ require("mini.hipatterns").setup({
 		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 	},
 })
+
+-- THEME
 vim.cmd.highlight("MiniHipatternsHack", "guifg=LineNr")
 vim.cmd.highlight("MiniHipatternsWarn", "guifg=LineNr")
 vim.cmd.highlight("MiniHipatternsTodo", "guifg=LineNr")
@@ -188,6 +169,21 @@ vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
-
 vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
+
+-- NEOVIDE
+if vim.g.neovide then
+	-- if vim.o.background == "dark" then
+	-- 	vim.g.neovide_opacity = 0.5
+	-- else
+	vim.g.neovide_opacity = 0.8
+	-- end
+	vim.o.guifont = settings.theme.active_font.name
+	vim.g.neovide_text_gamma = 0.8
+	vim.g.neovide_text_contrast = 0.1
+	vim.g.neovide_padding_left = 10
+	vim.g.neovide_padding_top = 10
+	-- vim.g.neovide_cursor_vfx_mode = "torpedo"
+end
+
 vim.cmd.Oil()

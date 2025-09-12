@@ -4,6 +4,18 @@
 [config]
 colorscheme = "sweetie"
 
+[config.options]
+clipboard = "unnamedplus" # allows neovim to access the system clipboard
+autochdir = true
+cmdheight = 0
+laststatus = 1
+number = true
+numberwidth = 3
+relativenumber = true
+scrolloff = 10000
+signcolumn = "no"
+showtabline = 0
+
 # List of non-Neovim rocks.
 # TODO put this in a seperate file
 # TODO use lua 5.4 for non nvim rocks

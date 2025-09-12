@@ -1,8 +1,19 @@
 -- create lua settings table using information from the toml file
--- toml = require "tinytoml"
--- toml_settings = toml.parse("/home/aqua/.aquamoon/nvim/rocks.toml")
--- current_theme_name = toml_settings.config.colorscheme
-theme = require("settings/theme").get("sweetie")
+
+get_theme_from_toml = function()
+	toml = require "tinytoml"
+	toml_settings = toml.parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+	current_theme_name = toml_settings.config.colorscheme
+	return require("settings/theme").get("sweetie")
+end
+
+choose_theme_by_hour = function()
+	local theme_list = { "dracula", "sweetie" }
+	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
+	return require("settings/theme").get(theme_name)
+end
+
+theme = get_theme_from_toml()
 
 return {
 	path = "/home/aqua/.aquamoon",
