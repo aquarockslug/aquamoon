@@ -5,6 +5,7 @@
 colorscheme = "sweetie"
 
 [config.options]
+background = "dark"
 clipboard = "unnamedplus" # allows neovim to access the system clipboard
 autochdir = true
 cmdheight = 0
@@ -45,13 +46,17 @@ tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
 tree-sitter-gdscript = "0.0.41"
 "sweetie.nvim" = "3.2.0"
+jsmin = "0.0.1"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
+rev = "9e98df38f81cdf3822936c919c8115e9529a491a"
 
 [plugins.grug_far]
 git = "MagicDuck/grug-far.nvim"
+rev = "1.6.48"
 
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
+rev = "v6.2.0"
 

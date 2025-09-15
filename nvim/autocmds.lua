@@ -14,7 +14,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.cmd([[ terminal timg % ]])
 	end
 })
--- if closing
 vim.api.nvim_create_autocmd("User", {
 	pattern = "OilActionsPost",
 	callback = function(event)
@@ -28,16 +27,24 @@ vim.api.nvim_create_autocmd("VimResized", {
 	-- automatically resize windows
 	callback = function() vim.cmd("tabdo wincmd =") end
 })
-vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
-	-- check for file changes when leaving the terminal
-	callback = function()
-		vim.cmd.checktime()
-		-- WARN vim.cmd.Oil()
-	end
-})
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	callback = function()
-		-- vim.o.number = true
 		vim.wo[0][0].scrolloff = 0
+	end
+})
+vim.api.nvim_create_autocmd({ "TermEnter" }, {
+	callback = function()
+		-- vim.o.background = "dark"
+		-- vim.g.neovide_opacity = 0.5
+	end
+})
+vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
+	callback = function()
+		-- vim.o.background = "light"
+		-- vim.g.neovide_opacity = 0.8
+
+		-- check for file changes when leaving the terminal
+		vim.cmd.checktime()
+		-- WARN vim.cmd.Oil()
 	end
 })

@@ -173,17 +173,13 @@ vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
 
 -- NEOVIDE
 if vim.g.neovide then
-	-- if vim.o.background == "dark" then
-	-- 	vim.g.neovide_opacity = 0.5
-	-- else
 	vim.g.neovide_opacity = 0.8
-	-- end
 	vim.o.guifont = settings.theme.active_font.name
 	vim.g.neovide_text_gamma = 0.8
 	vim.g.neovide_text_contrast = 0.1
 	vim.g.neovide_padding_left = 10
 	vim.g.neovide_padding_top = 10
-	-- vim.g.neovide_cursor_vfx_mode = "torpedo"
+	vim.g.neovide_cursor_vfx_mode = "torpedo"
 end
 
 vim.cmd.Oil()
