@@ -161,9 +161,6 @@ require("mini.hipatterns").setup({
 })
 
 -- THEME
-vim.cmd.highlight("MiniHipatternsHack", "guifg=LineNr")
-vim.cmd.highlight("MiniHipatternsWarn", "guifg=LineNr")
-vim.cmd.highlight("MiniHipatternsTodo", "guifg=LineNr")
 vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
 vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
