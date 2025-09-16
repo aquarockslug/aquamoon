@@ -56,6 +56,10 @@ return {
 		{
 			"swaybg --image " .. theme.background_image, -- set background
 		},
+		{
+			-- TODO wob audio keybind
+			"tail -f /tmp/wobpipe | wob"
+		},
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {

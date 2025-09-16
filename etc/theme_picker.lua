@@ -37,3 +37,5 @@ os.execute([[sed -i 's/"]] .. toml_settings.config.colorscheme ..
 
 -- restart river
 os.execute("~/.aquamoon/river/init")
+
+-- TODO the new river instance is slow?, maybe the old one is still running

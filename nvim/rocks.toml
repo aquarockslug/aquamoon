@@ -2,7 +2,7 @@
 
 [config]
 # TODO use a lua toml api for all settings
-colorscheme = "moonfly"
+colorscheme = "minicyan"
 
 [config.options]
 background = "dark"
