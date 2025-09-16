@@ -149,7 +149,7 @@ vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end
 
--- require the other aquamoon config files
+-- require the other aquamoon nvim config files
 require "nvim/autocmds"; require "nvim/keymap"
 
 require("mini.hipatterns").setup({

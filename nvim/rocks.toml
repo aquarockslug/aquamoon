@@ -1,8 +1,8 @@
+# LUAROCKS
 
-# TODO have settings.lua get the theme from here by default
-# TODO use a lua toml api for all settings
 [config]
-colorscheme = "sweetie"
+# TODO use a lua toml api for all settings
+colorscheme = "sweetie" # sweetie, dracula, everviolet
 
 [config.options]
 background = "dark"
@@ -17,16 +17,15 @@ scrolloff = 10000
 signcolumn = "no"
 showtabline = 0
 
-# List of non-Neovim rocks.
-# TODO put this in a seperate file
-# TODO use lua 5.4 for non nvim rocks
 [rocks]
+# TODO put this in a seperate file
+# TODO use lua 5.4 for non nvim rocks?
 # luaposix = "36.3"
 microlight = "1.0"
 tinytoml = "0.0.4"
 
-# List of Neovim plugins to install alongside their versions.
 [plugins]
+# List of Neovim plugins to install alongside their versions.
 "dracula.nvim" = "scm"
 "mini.nvim" = "0.16.0"
 "snacks.nvim" = "2.22.0"
@@ -46,7 +45,6 @@ tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
 tree-sitter-gdscript = "0.0.41"
 "sweetie.nvim" = "3.2.0"
-jsmin = "0.0.1"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
