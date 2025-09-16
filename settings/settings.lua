@@ -4,7 +4,12 @@ get_theme_from_toml = function()
 	toml = require "tinytoml"
 	toml_settings = toml.parse("/home/aqua/.aquamoon/nvim/rocks.toml")
 	current_theme_name = toml_settings.config.colorscheme
-	return require("settings/theme").get("sweetie")
+
+	if current_theme_name == "sweetie" or current_theme_name == "dracula" then
+		return require("settings/theme").get(current_theme_name)
+	else
+		return require("settings/theme").get("sweetie")
+	end
 end
 
 choose_theme_by_hour = function()
@@ -17,10 +22,10 @@ theme = get_theme_from_toml()
 
 return {
 	path = "/home/aqua/.aquamoon",
-	wsl = false,
 	mappings = require("settings/mappings"),
 	theme_name = current_theme_name,
 	theme = theme,
+	wsl = false,
 	river_options = {
 		-- Theme options
 		["border-width"] = theme.border_width,

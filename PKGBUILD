@@ -1,6 +1,6 @@
 # Maintainer: Aquarock <aqua.rock.slug@gmail.com>
 
-# TODO
+# TODO automate:
 # download river-luatile, sandbar
 # setup nvim.rocks, with link?
 # clone git@github.com:aquarockslug/aquamoon.git
@@ -13,7 +13,7 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst' 'wget' 'peco' 'bat' 'eza' 'duf' 'dust' 'ripgrep' 'biome' 'vale' 'lua-language-server')
+depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst' 'wget' 'peco' 'bat' 'eza' 'duf' 'dust' 'timg' 'ripgrep' 'biome' 'vale' 'lua-language-server')
 makedepends=()
 optdepends=('aerc' 'glow')
 source=()

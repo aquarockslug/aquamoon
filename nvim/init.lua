@@ -69,7 +69,7 @@ require("oil").setup({
 	},
 	-- TODO winbar is the wrong color
 	win_options = {
-		-- winbar = "%!v:lua.get_oil_winbar()",
+		winbar = "%!v:lua.get_oil_winbar()",
 	},
 })
 

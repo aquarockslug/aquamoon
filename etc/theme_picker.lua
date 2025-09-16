@@ -2,10 +2,13 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
--- TODO add "desert", "habamax", "tokyonight", "nightfall"
 local theme_list = {
-	"dracula",
 	"sweetie",
+	"moonfly",
+	"dracula",
+	"minicyan",
+	"everviolet",
+	"desert",
 }
 
 -- create tofi command
