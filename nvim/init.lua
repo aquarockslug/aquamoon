@@ -1,5 +1,6 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
+    '/home/aqua/.aquamoon/nvim/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 local settings = require "settings"
@@ -28,6 +29,7 @@ require("snipe").setup({
 })
 
 -- LANGUAGE SERVERS
+-- require("lsp")
 require("lspconfig")["biome"].setup({})
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["vale_ls"].setup({})

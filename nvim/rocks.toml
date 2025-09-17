@@ -46,9 +46,6 @@ tree-sitter-rst = "0.0.33"
 tree-sitter-gdscript = "0.0.41"
 "sweetie.nvim" = "3.2.0"
 
-[plugins.everviolet]
-git = "everviolet/nvim"
-
 [plugins.vim-moonfly-colors]
 git = "bluz71/vim-moonfly-colors"
 
