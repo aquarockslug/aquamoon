@@ -2,8 +2,8 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
-local main_ratio = 0.66
-local gaps = 8
+local main_ratio = 2 / 3
+local gaps = 8 -- make gaps larger on larger displays
 local smart_gaps = false
 local offset = 0
 local current_tag = 1
