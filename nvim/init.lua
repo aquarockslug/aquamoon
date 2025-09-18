@@ -99,6 +99,13 @@ for _, plug in ipairs({
 end
 require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } }) -- │
 require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } })
+require("mini.hipatterns").setup({
+	highlighters = {
+		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
+		HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+	},
+})
 
 -- SNACKS
 -- TODO turn off autocomplete when snacks picker is open
@@ -121,7 +128,6 @@ require("snacks").setup({
 		notification = { border = "top" }
 	}
 })
-
 
 -- DIAGNOSTICS
 Snacks.toggle.diagnostics():set(false)
@@ -154,21 +160,25 @@ end
 -- require the other aquamoon nvim config files
 require "nvim/autocmds"; require "nvim/keymap"
 
-require("mini.hipatterns").setup({
-	highlighters = {
-		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
-		HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-	},
-})
-
--- THEME
+-- COLORS
 vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
 vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
+
+-- require("daylight").setup({
+-- 	day = {
+-- 		name = "sweetie",
+-- 		time = 8, -- 8 am
+-- 	},
+-- 	night = {
+-- 		name = "sweetie",
+-- 		time = 19, -- 7 pm, changes to dark theme on 07:01
+-- 	},
+-- 	interval = 60000, -- Time in milliseconds, 1 minute
+-- })
 
 -- NEOVIDE
 if vim.g.neovide then

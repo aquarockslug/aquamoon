@@ -50,7 +50,7 @@ M.get = function(name)
 		theme.bg = dracula.bg
 		theme.bg2 = dracula.green
 		theme.background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg"
-		theme.border_width = 4
+		theme.border_width = 6
 	end
 	if theme.name == "sweetie" then
 		theme.active_font = fonts.fairiesevka

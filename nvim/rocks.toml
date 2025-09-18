@@ -2,10 +2,10 @@
 
 [config]
 # TODO use a lua toml api for all settings
-colorscheme = "minicyan"
+colorscheme = "sweetie"
 
 [config.options]
-background = "dark"
+background = "light"
 clipboard = "unnamedplus" # allows neovim to access the system clipboard
 autochdir = true
 cmdheight = 0
@@ -45,6 +45,7 @@ tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
 tree-sitter-gdscript = "0.0.41"
 "sweetie.nvim" = "3.2.0"
+"daylight.nvim" = "1.1.0"
 
 [plugins.vim-moonfly-colors]
 git = "bluz71/vim-moonfly-colors"
