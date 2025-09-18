@@ -1,13 +1,20 @@
-# LUAROCKS
+# ROCKS.NVIM
 
+# non nvim rocks
+[rocks]
+# TODO put this in a seperate file
+# luaposix = "36.3"
+microlight = "1.0"
+tinytoml = "0.0.4"
+
+# CONFIG
 [config]
-# TODO use a lua toml api for all settings
 colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
 background = "dark"
-clipboard = "unnamedplus" # allows neovim to access the system clipboard
+clipboard = "unnamedplus"
 cmdheight = 0
 laststatus = 1
 number = true
@@ -17,16 +24,8 @@ scrolloff = 10000
 showtabline = 0
 signcolumn = "no"
 
-[rocks]
-# TODO put this in a seperate file
-# TODO use lua 5.4 for non nvim rocks?
-# luaposix = "36.3"
-microlight = "1.0"
-tinytoml = "0.0.4"
-
+# PLUGINS
 [plugins]
-# List of Neovim plugins to install alongside their versions.
-"daylight.nvim" = "1.1.0"
 "dracula.nvim" = "scm"
 "mini.nvim" = "0.16.0"
 "oil.nvim" = "2.15.0"

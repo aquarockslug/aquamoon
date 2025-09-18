@@ -29,7 +29,6 @@ require("snipe").setup({
 })
 
 -- LANGUAGE SERVERS
--- require("lsp")
 require("lspconfig")["biome"].setup({})
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["vale_ls"].setup({})
@@ -167,18 +166,6 @@ vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
-
--- require("daylight").setup({
--- 	day = {
--- 		name = "sweetie",
--- 		time = 8, -- 8 am
--- 	},
--- 	night = {
--- 		name = "sweetie",
--- 		time = 19, -- 7 pm, changes to dark theme on 07:01
--- 	},
--- 	interval = 60000, -- Time in milliseconds, 1 minute
--- })
 
 -- NEOVIDE
 if vim.g.neovide then
