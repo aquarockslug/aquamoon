@@ -1,6 +1,5 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '/home/aqua/.aquamoon/nvim/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 local settings = require "settings"
@@ -15,6 +14,8 @@ vim.diagnostic.config({
 	virtual_lines = true
 })
 vim.flag = "󰈿"
+
+require("debugprint").setup() -- g?p and g?v
 
 require("snipe").setup({
 	ui = {
@@ -33,8 +34,6 @@ require("lspconfig")["biome"].setup({})
 require("lspconfig")["lua_ls"].setup({})
 require("lspconfig")["vale_ls"].setup({})
 require("lspconfig")["gdscript"].setup({})
-
-require("debugprint").setup() -- g?p and g?v
 
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()

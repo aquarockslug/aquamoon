@@ -1,67 +1,68 @@
 M = {}
 
--- TODO make seperate files for each theme
+local fonts = {
+	bigblue = {
+		name = "BigBlueTermPlus Nerd Font Propo:h14",
+		path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'",
+		size = 14
+	},
+	fairiesevka = {
+		name = "FairiesevkaTerm Nerd Font Mono:h16",
+		path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'",
+		size = 20
+	}
+}
 
--- themes
-M.get = function(name)
-	local theme = { name = name }
-	M.my_flag = "󰈿"
-
-	-- habamax, zaibatsu, minicyan, minischeme
-
-	local dracula = { -- dark theme
+function Dracula()
+	local dracula = {
 		teal = "83C092",
 		blue = "7FBBB3",
 		green = "50FA7B",
 		fg = "F8F8F2",
 		bg = "282A36",
 	}
+	return {
+		active_font = fonts.bigblue,
+		fg = dracula.green,
+		fg2 = dracula.fg,
+		bg = dracula.bg,
+		bg2 = dracula.green,
+		background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg",
+		border_width = 6,
+	}
+end
 
-	local sweetie = { -- light theme
+function Sweetie()
+	local sweetie = {
 		teal = "92d3c5",
 		blue = "73a3f3",
 		grey = "798399",
 		dark_grey = "707b87",
 		green = "50FA7B",
+		cyan = "0B658E",
+		violet = "B094E2",
 		bg = "2a2a3a",
 		fg = "d3d7de",
 		-- bg = "DDDDe7",
 		-- fg = "202023",
-		cyan = "0B658E",
-		violet = "B094E2"
 	}
+	return {
+		active_font = fonts.fairiesevka,
+		fg = sweetie.teal,
+		fg2 = sweetie.fg,
+		bg = sweetie.bg,
+		bg2 = sweetie.teal,
+		accent = sweetie.violet,
+		background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png",
+		border_width = 6,
+	}
+end
 
-	local fonts = {
-		bigblue = {
-			name = "BigBlueTermPlus Nerd Font Propo:h14",
-			path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'",
-			size = 14
-		},
-		fairiesevka = {
-			name = "FairiesevkaTerm Nerd Font Mono:h16",
-			path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'",
-			size = 20
-		}
-	}
-	if theme.name == "dracula" then
-		theme.active_font = fonts.bigblue
-		theme.fg = dracula.green
-		theme.fg2 = dracula.fg
-		theme.bg = dracula.bg
-		theme.bg2 = dracula.green
-		theme.background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg"
-		theme.border_width = 6
-	end
-	if theme.name == "sweetie" then
-		theme.active_font = fonts.fairiesevka
-		theme.fg = sweetie.teal
-		theme.fg2 = sweetie.fg
-		theme.bg = sweetie.bg
-		theme.bg2 = sweetie.teal
-		theme.accent = sweetie.violet
-		theme.background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png"
-		theme.border_width = 4
-	end
+M.get = function(name)
+	M.my_flag = "󰈿"
+	local theme = {}
+	if name == "dracula" then theme = Dracula() end
+	if name == "sweetie" then theme = Sweetie() end
 	theme.tofi_style = {
 		"--font=" .. theme.active_font.path,
 		"--font-size=" .. theme.active_font.size,
@@ -70,7 +71,7 @@ M.get = function(name)
 		"--drun-launch=true",
 		"--outline-width=0",
 		"--border-width=" .. theme.border_width,
-		"--prompt-text=' " .. M.my_flag .. " '",
+		"--prompt-text='󰈿 '",
 		"--selection-color=#" .. theme.fg2,
 		"--text-color=#" .. theme.fg,
 		"--border-color=#" .. theme.bg2,

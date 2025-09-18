@@ -1,10 +1,10 @@
 -- create lua settings table using information from the toml file
 
 get_theme_from_toml = function()
-	toml = require "tinytoml"
-	toml_settings = toml.parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+	toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
 	current_theme_name = toml_settings.config.colorscheme
 
+	-- default to sweetie on colors that are not configured
 	if current_theme_name == "sweetie" or current_theme_name == "dracula" then
 		return require("settings/theme").get(current_theme_name)
 	else
@@ -26,6 +26,15 @@ return {
 	theme_name = current_theme_name,
 	theme = theme,
 	wsl = false,
+	theme_list = {
+		"desert",
+		"dracula",
+		"minicyan",
+		"minischeme",
+		"moonfly",
+		"nightfly",
+		"sweetie",
+	},
 	river_options = {
 		-- Theme options
 		["border-width"] = theme.border_width,

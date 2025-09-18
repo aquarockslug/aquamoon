@@ -2,14 +2,7 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
-local theme_list = {
-	"sweetie",
-	"moonfly",
-	"dracula",
-	"minicyan",
-	"everviolet",
-	"desert",
-}
+local theme_list = require("settings").theme_list
 
 -- create tofi command
 local cmd = "tofi"
@@ -38,4 +31,4 @@ os.execute([[sed -i 's/"]] .. toml_settings.config.colorscheme ..
 -- restart river
 os.execute("~/.aquamoon/river/init")
 
--- TODO the new river instance is slow?, maybe the old one is still running
+-- TODO test if the new river instance is slow

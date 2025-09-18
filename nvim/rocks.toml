@@ -9,7 +9,7 @@ tinytoml = "0.0.4"
 
 # CONFIG
 [config]
-colorscheme = "sweetie"
+colorscheme = "desert"
 
 [config.options]
 autochdir = true
