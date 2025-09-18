@@ -43,17 +43,22 @@ function handle_layout(args)
 			})
 		end
 	end
+
+	-- only use layout notifications on the laptop screen "eDP-1"
+	if args.output ~= "eDP-1" then return retval end
+
 	-- use a variable to check if the current tag has changed
 	local t = args.tags
 	if current_tag ~= t then
 		current_tag = t
 
-		local flag_string = ""
 		-- add to flag string every time we divide by two until it is 1
+		local flag_string = ""
 		while t >= 1.0 do
 			t = t / 2
 			flag_string = flag_string .. " 󰈿"
 		end
+
 		-- show numbers if there are more than 4 flags
 		if string.len(flag_string) > 20 then
 			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string

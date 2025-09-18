@@ -62,7 +62,7 @@ require("oil").setup({
 		-- "z" is like the <leader> for Oil
 		["zo"] = { "actions.open_external", mode = "n" },
 		["zy"] = { "actions.yank_entry", mode = "n" },
-		["zw"] = { "actions.open_terminal", mode = "n" },
+		["zz"] = { "actions.open_terminal", mode = "n" },
 		["zh"] = { "actions.toggle_hidden", mode = "n" },
 	},
 	columns = {

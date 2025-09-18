@@ -5,7 +5,7 @@
 colorscheme = "sweetie"
 
 [config.options]
-background = "light"
+background = "dark"
 clipboard = "unnamedplus" # allows neovim to access the system clipboard
 autochdir = true
 cmdheight = 0
