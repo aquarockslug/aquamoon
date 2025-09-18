@@ -10,6 +10,9 @@ local function adjust(audio_sink, amount)
 
 	-- os.execute("pactl set-sink-volume " .. str(audio_sink) .. " " .. str(new_volume))
 
+	-- TODO dont use wobpipe, instead convert decimal to bytes and pass to wob?
+	-- TODO "tail -f /tmp/wobpipe | wob"
+
 	os.execute("echo " .. new_volume .. " > /tmp/wobpipe")
 end
 

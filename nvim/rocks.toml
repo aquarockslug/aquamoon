@@ -5,17 +5,17 @@
 colorscheme = "sweetie"
 
 [config.options]
+autochdir = true
 background = "dark"
 clipboard = "unnamedplus" # allows neovim to access the system clipboard
-autochdir = true
 cmdheight = 0
 laststatus = 1
 number = true
 numberwidth = 3
 relativenumber = true
 scrolloff = 10000
-signcolumn = "no"
 showtabline = 0
+signcolumn = "no"
 
 [rocks]
 # TODO put this in a seperate file
@@ -26,29 +26,32 @@ tinytoml = "0.0.4"
 
 [plugins]
 # List of Neovim plugins to install alongside their versions.
+"daylight.nvim" = "1.1.0"
 "dracula.nvim" = "scm"
 "mini.nvim" = "0.16.0"
-"snacks.nvim" = "2.22.0"
 "oil.nvim" = "2.15.0"
+"rocks-config.nvim" = "3.1.2"
 "rocks-git.nvim" = "2.5.5"
 "rocks-treesitter.nvim" = "1.3.1"
-"rocks-config.nvim" = "3.1.2"
 "rocks.nvim" = "2.46.0"
+"snacks.nvim" = "2.22.0"
+"sweetie.nvim" = "3.2.0"
 "trouble.nvim" = "3.7.1"
 "unnest.nvim" = "0.1.1"
 friendly-snippets = "scm"
 nvim-lspconfig = "2.4.0"
 tree-sitter-bash = "0.0.43"
+tree-sitter-gdscript = "0.0.41"
 tree-sitter-javascript = "0.0.37"
 tree-sitter-lua = "0.0.36"
 tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
-tree-sitter-gdscript = "0.0.41"
-"sweetie.nvim" = "3.2.0"
-"daylight.nvim" = "1.1.0"
 
 [plugins.vim-moonfly-colors]
 git = "bluz71/vim-moonfly-colors"
+
+[plugins.vim-nightfly-colors]
+git = "bluz71/vim-nightfly-colors"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
