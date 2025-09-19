@@ -4,12 +4,16 @@ get_theme_from_toml = function()
 	toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
 	current_theme_name = toml_settings.config.colorscheme
 
-	-- default to sweetie on colors that are not configured
 	if current_theme_name == "sweetie" or current_theme_name == "dracula" then
 		return require("settings/theme").get(current_theme_name)
-	else
-		return require("settings/theme").get("sweetie")
 	end
+
+	if current_theme_name == "moonfly" or current_theme_name == "nightfly" then
+		return require("settings/theme").get("dracula")
+	end
+
+	-- default to sweetie
+	return require("settings/theme").get("sweetie")
 end
 
 choose_theme_by_hour = function()

@@ -4,19 +4,19 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 local settings = require "settings"
 local vim = vim -- avoid undefined warnings
-
 require "nvim/rocks_setup"
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-vim.diagnostic.config({
-	signs = false,
-	virtual_lines = true
-})
 vim.flag = "󰈿"
 
-require("debugprint").setup() -- g?p and g?v
+-- LANGUAGE SERVERS
+require("lspconfig")["biome"].setup({})
+require("lspconfig")["lua_ls"].setup({})
+require("lspconfig")["vale_ls"].setup({})
+require("lspconfig")["gdscript"].setup({})
 
+-- SNIPE
 require("snipe").setup({
 	ui = {
 		position = "center",
@@ -29,12 +29,8 @@ require("snipe").setup({
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
 
--- LANGUAGE SERVERS
-require("lspconfig")["biome"].setup({})
-require("lspconfig")["lua_ls"].setup({})
-require("lspconfig")["vale_ls"].setup({})
-require("lspconfig")["gdscript"].setup({})
 
+-- OIL
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
@@ -46,7 +42,6 @@ function _G.get_oil_winbar()
 	end
 end
 
--- OIL
 require("oil").setup({
 	watch_for_changes = true,
 	use_default_keymaps = false,
@@ -91,7 +86,6 @@ for _, plug in ipairs({
 	"trailspace",
 	"visits",
 	"indentscope",
-	-- "tabline"
 }) do
 	require("mini." .. plug).setup()
 end
@@ -128,29 +122,11 @@ require("snacks").setup({
 })
 
 -- DIAGNOSTICS
-Snacks.toggle.diagnostics():set(false)
-require("trouble").setup({
-	auto_close = true,
-	auto_refresh = true,
-	focus = true,
-	win = { position = "right" },
-	icons = {
-		indent = {
-			middle = " ",
-			last = " ",
-			top = " ",
-			ws = "│  ",
-		},
-	},
-	modes = {
-		diagnostics = {
-			groups = {
-				{ "filename", format = "{file_icon} {basename:Title} {count}" },
-			},
-		},
-	},
+vim.diagnostic.config({
+	signs = false,
+	virtual_lines = true
 })
-
+Snacks.toggle.diagnostics():set(false)
 vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end
@@ -168,7 +144,7 @@ vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
 
 -- NEOVIDE
 if vim.g.neovide then
-	vim.g.neovide_opacity = 0.8
+	vim.g.neovide_opacity = settings.theme.opacity
 	vim.o.guifont = settings.theme.active_font.name
 	vim.g.neovide_text_gamma = 0.8
 	vim.g.neovide_text_contrast = 0.1

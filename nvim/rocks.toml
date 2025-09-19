@@ -9,7 +9,7 @@ tinytoml = "0.0.4"
 
 # CONFIG
 [config]
-colorscheme = "desert"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
@@ -35,7 +35,6 @@ signcolumn = "no"
 "rocks.nvim" = "2.46.0"
 "snacks.nvim" = "2.22.0"
 "sweetie.nvim" = "3.2.0"
-"trouble.nvim" = "3.7.1"
 "unnest.nvim" = "0.1.1"
 friendly-snippets = "scm"
 nvim-lspconfig = "2.4.0"
@@ -63,4 +62,4 @@ rev = "1.6.48"
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.2.0"
-
+config = true # use the default config

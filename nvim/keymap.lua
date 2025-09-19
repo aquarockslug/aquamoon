@@ -1,4 +1,5 @@
 -- KEYMAP
+local vim = vim
 
 -- navigate nvim windows using arrow keys
 vim.keymap.set("n", "<Left>", "<c-w>h")
@@ -10,18 +11,13 @@ vim.keymap.set("n", "<Up>", "<c-w>k")
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
 vim.keymap.set("n", "<leader>w", function() vim.cmd "terminal" end)
--- vim.keymap.set("n", "<leader>w", function() Snacks.terminal() end)
 vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 -- left hand home row
 vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
--- vim.keymap.set("n", "<leader>g", function() Snacks.picker.grep() end)
--- vim.keymap.set("n", "<leader>G", function() Snacks.terminal("glow --pager " .. vim.fn.expand('%:p')) end)
+vim.keymap.set("n", "<leader>G", function() Snacks.terminal("glow --pager " .. vim.fn.expand('%:p')) end)
 vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
-vim.keymap.set("n", "<leader>d", function()
-	Snacks.toggle.diagnostics():toggle()
-	require("trouble").toggle({ mode = "diagnostics" })
-end)
+vim.keymap.set("n", "<leader>d", function() Snacks.toggle.diagnostics():toggle() end)
 vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
 vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
 
