@@ -45,6 +45,7 @@ tree-sitter-javascript = "0.0.39"
 tree-sitter-lua = "0.0.36"
 tree-sitter-markdown = "0.0.44"
 tree-sitter-rst = "0.0.33"
+"render-markdown.nvim" = "8.8.0"
 
 [plugins.vim-moonfly-colors]
 git = "bluz71/vim-moonfly-colors"
