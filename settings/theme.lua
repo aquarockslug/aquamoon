@@ -28,7 +28,7 @@ function Dracula()
 		bg = dracula.bg,
 		bg2 = dracula.green,
 		background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg",
-		border_width = 6,
+		border_width = 4,
 		opacity = 0.33
 	}
 end
@@ -55,7 +55,7 @@ function Sweetie()
 		bg2 = sweetie.teal,
 		accent = sweetie.violet,
 		background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png",
-		border_width = 6,
+		border_width = 4,
 		opacity = 0.8
 	}
 end

@@ -34,6 +34,17 @@ mappings.map = {
 			key = "T",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/theme_picker.lua"' ]] },
 		},
+		-- Volume
+		{
+			mod = { "Super" },
+			key = "v",
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/raise_volume.lua"' ]] },
+		},
+		{
+			mod = { "Super", "Shift" },
+			key = "v",
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_volume.lua"' ]] },
+		},
 		-- Show Notifications
 		{
 			mod = "Super",

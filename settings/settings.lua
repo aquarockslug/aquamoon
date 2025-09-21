@@ -8,7 +8,7 @@ get_theme_from_toml = function()
 		return require("settings/theme").get(current_theme_name)
 	end
 
-	if current_theme_name == "moonfly" or current_theme_name == "nightfly" then
+	if current_theme_name == "dracula-soft" then
 		return require("settings/theme").get("dracula")
 	end
 
@@ -31,13 +31,18 @@ return {
 	theme = theme,
 	wsl = false,
 	theme_list = {
+		"catppuccin-frappe",
 		"desert",
 		"dracula",
+		"dracula-soft",
 		"minicyan",
 		"minischeme",
 		"moonfly",
 		"nightfly",
+		"OceanicNext",
+		"oxocarbon",
 		"sweetie",
+		"unokai"
 	},
 	river_options = {
 		-- Theme options
@@ -68,6 +73,9 @@ return {
 		},
 		{
 			"swaybg --image " .. theme.background_image, -- set background
+		},
+		{
+			"tail -f /tmp/wobpipe | wob",
 		},
 	},
 	gsettings = {
