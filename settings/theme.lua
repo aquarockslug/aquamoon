@@ -4,12 +4,12 @@ local fonts = {
 	bigblue = {
 		name = "BigBlueTermPlus Nerd Font Propo:h14",
 		path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'",
-		size = 14
+		size = 16
 	},
 	fairiesevka = {
 		name = "FairiesevkaTerm Nerd Font Mono:h16",
 		path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'",
-		size = 20
+		size = 18
 	}
 }
 
