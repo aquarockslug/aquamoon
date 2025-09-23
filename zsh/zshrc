@@ -5,6 +5,8 @@ export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?/?.lua;;"
 export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?.lua;"
 export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?/?.lua;;"
 
+export PS1="%F{#92D3C5}%K{#2a2a3a}%1~%k:%f"
+
 # ZSH
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
