@@ -14,7 +14,7 @@ colorscheme = "OceanicNext"
 
 [config.options]
 autochdir = true
-background = "dark"
+background = "dark" # TODO create keybind and lua script to control this
 clipboard = "unnamedplus"
 cmdheight = 0
 laststatus = 1

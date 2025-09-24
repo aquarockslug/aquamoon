@@ -142,6 +142,9 @@ vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
 
+vim.g.oceanic_next_terminal_bold = 1
+vim.g.oceanic_next_terminal_italic = 1
+
 -- NEOVIDE
 if vim.g.neovide then
 	vim.g.neovide_opacity = settings.theme.opacity

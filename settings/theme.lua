@@ -2,12 +2,12 @@ M = {}
 
 local fonts = {
 	bigblue = {
-		name = "BigBlueTermPlus Nerd Font Propo:h14",
+		name = "BigBlueTermPlus Nerd Font Propo:h16",
 		path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'",
 		size = 16
 	},
 	fairiesevka = {
-		name = "FairiesevkaTerm Nerd Font Mono:h16",
+		name = "FairiesevkaTerm Nerd Font Mono:h18",
 		path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'",
 		size = 18
 	}
@@ -60,11 +60,34 @@ function Sweetie()
 	}
 end
 
+function OceanicNext()
+	local ocean = {
+		teal = "5FB3B3",
+		blue = "6699CC",
+		green = "99C794",
+		orange = "F99157",
+		purple = "C594C5",
+		fg = "D8DEE9",
+		bg = "1B2B34",
+	}
+	return {
+		active_font = fonts.bigblue,
+		fg = ocean.teal,
+		fg2 = ocean.fg,
+		bg = ocean.bg,
+		bg2 = ocean.teal,
+		background_image = "/home/aqua/.aquamoon/mavericks_teal.jpg",
+		border_width = 4,
+		opacity = 0.8
+	}
+end
+
 M.get = function(name)
 	M.my_flag = "󰈿"
 	local theme = {}
 	if name == "dracula" then theme = Dracula() end
 	if name == "sweetie" then theme = Sweetie() end
+	if name == "OceanicNext" then theme = OceanicNext() end
 	theme.tofi_style = {
 		"--font=" .. theme.active_font.path,
 		"--font-size=" .. theme.active_font.size,

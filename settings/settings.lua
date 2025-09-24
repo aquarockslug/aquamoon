@@ -12,6 +12,10 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("dracula")
 	end
 
+	if current_theme_name == "OceanicNext" then
+		return require("settings/theme").get("OceanicNext")
+	end
+
 	-- default to sweetie
 	return require("settings/theme").get("sweetie")
 end
@@ -73,9 +77,6 @@ return {
 		},
 		{
 			"swaybg --image " .. theme.background_image, -- set background
-		},
-		{
-			"tail -f /tmp/wobpipe | wob",
 		},
 	},
 	gsettings = {
