@@ -1,7 +1,7 @@
 -- AUTOCOMMANDS
 -- TODO toggle cursorline on InsertEnter and InsertLeave
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function() vim.highlight.on_yank({ higroup = "LineNr", timeout = 250 }) end,
+	callback = function() vim.hl.on_yank({ higroup = "LineNr", timeout = 250 }) end,
 })
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { '*.jpg', '*.png' },

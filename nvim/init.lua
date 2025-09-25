@@ -13,7 +13,7 @@ vim.flag = "󰈿"
 -- LANGUAGE SERVERS
 require("lspconfig")["biome"].setup({})
 require("lspconfig")["lua_ls"].setup({})
-require("lspconfig")["vale_ls"].setup({})
+require("lspconfig")["vale"].setup({})
 require("lspconfig")["gdscript"].setup({})
 
 -- SNIPE
