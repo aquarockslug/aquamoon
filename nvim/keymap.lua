@@ -17,6 +17,13 @@ vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
 vim.keymap.set("n", "<leader>f", function() vim.cmd "FzfLua files" end)
 vim.keymap.set("n", "<leader>o", function() vim.cmd "FzfLua oldfiles" end)
+vim.keymap.set("n", "<leader>d", function()
+	if vim.diagnostic.is_enabled() then
+		vim.diagnostic.disable()
+	else
+		vim.diagnostic.enable()
+	end
+end)
 
 -- right hand top
 vim.keymap.set("n", "U", "<c-r>")
