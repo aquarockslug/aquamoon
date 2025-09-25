@@ -15,13 +15,15 @@ vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 -- left hand home row
 vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
-vim.keymap.set("n", "<leader>f", function() vim.cmd "FzfLua files" end)
-vim.keymap.set("n", "<leader>o", function() vim.cmd "FzfLua oldfiles" end)
-vim.keymap.set("n", "<leader>d", function()
+vim.keymap.set("n", "<leader>f", FzfLua.global)
+vim.keymap.set("n", "<leader>F", function()
+	FzfLua.combine({ pickers = "oldfiles;git_files" })
+end)
+vim.keymap.set("n", "<leader>d", function() -- toggle diagnostics
 	if vim.diagnostic.is_enabled() then
-		vim.diagnostic.disable()
+		vim.diagnostic.enable(false)
 	else
-		vim.diagnostic.enable()
+		vim.diagnostic.enable(true)
 	end
 end)
 
