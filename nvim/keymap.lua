@@ -15,20 +15,14 @@ vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 -- left hand home row
 vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
-vim.keymap.set("n", "<leader>G", function() Snacks.terminal("glow --pager " .. vim.fn.expand('%:p')) end)
-vim.keymap.set("n", "<leader>f", function() Snacks.picker.smart() end)
-vim.keymap.set("n", "<leader>d", function() Snacks.toggle.diagnostics():toggle() end)
-vim.keymap.set("n", "<leader>S", function() Snacks.picker.spelling() end)
-vim.keymap.set("n", "<leader>s", function() Snacks.picker.lsp_symbols() end)
-
--- left hand bottom
-vim.keymap.set("n", "<leader>z", function() Snacks.zen() end)
+vim.keymap.set("n", "<leader>f", function() vim.cmd "FzfLua files" end)
+vim.keymap.set("n", "<leader>o", function() vim.cmd "FzfLua oldfiles" end)
 
 -- right hand top
 vim.keymap.set("n", "U", "<c-r>")
 
 -- right hand bottom
-vim.keymap.set("n", "<leader>m", function() Snacks.picker() end)
+vim.keymap.set("n", "<leader>m", function() vim.cmd "FzfLua" end)
 vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 
 -- exit terminal with Esc
@@ -36,7 +30,7 @@ vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
 
 for cmd, func in pairs({
 	-- right hand
-	[1] = function() Snacks.lazygit.open() end,
+	[1] = function() vim.cmd "LazyGit" end,
 	[2] = function()
 		MiniTrailspace.trim()
 		-- prevent oil warning

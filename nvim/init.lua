@@ -99,34 +99,12 @@ require("mini.hipatterns").setup({
 	},
 })
 
--- SNACKS
--- TODO turn off autocomplete when snacks picker is open
--- TODO make snacks picker fullscreen
-require("snacks").setup({
-	bigfile = { enabled = true },
-	notifier = { enabled = true },
-	quickfile = { enabled = true },
-	scroll = { enabled = true },
-	image = { enabled = true },
-	lazygit = {
-		win = { position = "float" },
-		theme = {
-			inactiveBorderColor = { fg = "LineNr" },
-			activeBorderColor = { bg = "Cursor" }
-		}
-	},
-	styles = {
-		terminal = { height = 0.999, width = 0.999, position = "top", backdrop = false },
-		notification = { border = "top" }
-	}
-})
-
 -- DIAGNOSTICS
 vim.diagnostic.config({
 	signs = false,
 	virtual_lines = true
 })
-Snacks.toggle.diagnostics():set(false)
+-- TODO keybind to toggle diagnostic
 vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end

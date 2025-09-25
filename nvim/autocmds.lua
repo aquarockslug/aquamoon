@@ -1,10 +1,5 @@
 -- AUTOCOMMANDS
-vim.api.nvim_create_autocmd("InsertEnter", {
-	callback = function() Snacks.toggle.option("cursorline"):set(true) end,
-})
-vim.api.nvim_create_autocmd("InsertLeave", {
-	callback = function() Snacks.toggle.option("cursorline"):set(false) end,
-})
+-- TODO toggle cursorline on InsertEnter and InsertLeave
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.highlight.on_yank({ higroup = "LineNr", timeout = 250 }) end,
 })
@@ -14,15 +9,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.cmd([[ terminal timg % ]])
 	end
 })
-vim.api.nvim_create_autocmd("User", {
-	pattern = "OilActionsPost",
-	callback = function(event)
-		if event.data.actions.type == "move" then
-			Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
-		end
-	end,
-})
--- TODO go to mini dashboard when closing Oil
+-- TODO go to mini dashboard when closing Oil?
 vim.api.nvim_create_autocmd("VimResized", {
 	-- automatically resize windows
 	callback = function() vim.cmd("tabdo wincmd =") end
@@ -32,19 +19,8 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 		vim.wo[0][0].scrolloff = 0
 	end
 })
-vim.api.nvim_create_autocmd({ "TermEnter" }, {
-	callback = function()
-		-- vim.o.background = "dark"
-		-- vim.g.neovide_opacity = 0.5
-	end
-})
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	callback = function()
-		-- vim.o.background = "light"
-		-- vim.g.neovide_opacity = 0.8
-
-		-- check for file changes when leaving the terminal
-		vim.cmd.checktime()
-		-- WARN vim.cmd.Oil()
+		vim.cmd.checktime() -- check for file changes when leaving the terminal
 	end
 })
