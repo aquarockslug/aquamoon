@@ -41,7 +41,6 @@ function _G.get_oil_winbar()
 		return " " .. vim.flag .. " " .. vim.api.nvim_buf_get_name(0)
 	end
 end
-
 require("oil").setup({
 	watch_for_changes = true,
 	use_default_keymaps = false,

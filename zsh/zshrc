@@ -6,6 +6,7 @@ export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?.lua;"
 export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?/?.lua;;"
 
 export PS1="%F{#92D3C5}%K{#2a2a3a}%1~%k 󰈿 %f"
+export BAT_THEME=base16
 
 # ZSH
 export HISTFILE=$HOME/.zsh_history
@@ -13,7 +14,6 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
-
 # SYSTEM
 alias q="exit"
 alias s="sudo"
@@ -53,5 +53,3 @@ chmodx() { sudo chmod u+x $1 }
 take() { mkdir $1 && cd $1 }
 softclone() { git clone ssh://soft/$(ssh soft repo list | peco) }
 serve() { simple-http-server -i --nocache --threads 6 --ip 127.0.0.1 ${1-./} }
-
-lua /home/aqua/.aquamoon/zsh/zshrc.lua
