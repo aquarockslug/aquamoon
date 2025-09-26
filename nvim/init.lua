@@ -8,13 +8,15 @@ require "nvim/rocks_setup"
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
+vim.g.lazygit_floating_window_scaling_factor = 1.0
 vim.flag = "󰈿"
 
 -- LANGUAGE SERVERS
-require("lspconfig")["biome"].setup({})
-require("lspconfig")["lua_ls"].setup({})
-require("lspconfig")["vale_ls"].setup({})
-require("lspconfig")["gdscript"].setup({})
+local lspconfig = require('lspconfig')
+lspconfig.biome.setup({})
+lspconfig.lua_ls.setup({})
+lspconfig.vale_ls.setup({})
+lspconfig.gdscript.setup({})
 
 -- SNIPE
 require("snipe").setup({
@@ -41,6 +43,7 @@ function _G.get_oil_winbar()
 		return " " .. vim.flag .. " " .. vim.api.nvim_buf_get_name(0)
 	end
 end
+
 require("oil").setup({
 	watch_for_changes = true,
 	use_default_keymaps = false,
@@ -68,16 +71,7 @@ require("oil").setup({
 -- },
 
 -- FZF
-require("fzf-lua").setup {
-	fzf_opts = {
-		["--ansi"]           = true,
-		["--info"]           = "inline-right",
-		["--height"]         = "100%",
-		["--layout"]         = "reverse",
-		["--border"]         = "none",
-		["--highlight-line"] = true,
-	}
-}
+require("fzf-lua").setup({ 'ivy' })
 
 -- MINI
 for _, plug in ipairs({

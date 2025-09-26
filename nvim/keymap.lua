@@ -9,26 +9,24 @@ vim.keymap.set("n", "<Up>", "<c-w>k")
 
 -- left hand top row
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
-vim.keymap.set("n", "<leader>e", function() require("oil").open() end)
-vim.keymap.set("n", "<leader>w", function() vim.cmd "terminal" end)
+vim.keymap.set("n", "<leader>e", vim.cmd.Oil)
+vim.keymap.set("n", "<leader>w", vim.cmd.terminal)
 vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 -- left hand home row
 vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
-vim.keymap.set("n", "<leader>f", FzfLua.global)
-vim.keymap.set("n", "<leader>F", function()
-	FzfLua.combine({ pickers = "oldfiles;git_files" })
-end)
+vim.keymap.set("n", "<leader>f", FzfLua.files)
 vim.keymap.set("n", "<leader>d", function() -- toggle diagnostics
-	if vim.diagnostic.is_enabled() then
-		vim.diagnostic.enable(false)
-	else
-		vim.diagnostic.enable(true)
-	end
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
+
+-- left hand lower
+vim.keymap.set("n", "<leader>v", FzfLua.lsp_finder)
+vim.keymap.set("n", "<leader>c", FzfLua.diagnostics_document)
 
 -- right hand top
 vim.keymap.set("n", "U", "<c-r>")
+vim.keymap.set("n", "<leader>o", FzfLua.oldfiles)
 
 -- right hand bottom
 vim.keymap.set("n", "<leader>m", function() vim.cmd "FzfLua" end)
