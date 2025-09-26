@@ -70,7 +70,7 @@ return {
 		},
 		-- Startup programs
 		{
-			"swayidle timeout 1800 'swaylock'", -- lock the screen after 30 min
+gtk			"swayidle timeout 1800 'gtklock'", -- lock the screen after 30 min
 		},
 		{
 			"dunst" -- notifications
