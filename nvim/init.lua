@@ -62,11 +62,23 @@ require("oil").setup({
 		"icon",
 		"size"
 	},
-	-- TODO winbar is the wrong color on some themes
-	-- win_options = {
-	-- 	winbar = "%!v:lua.get_oil_winbar()",
-	-- },
 })
+-- TODO only add win_options if using a colorscheme that supports winbar
+-- win_options = {
+-- 	winbar = "%!v:lua.get_oil_winbar()",
+-- },
+
+-- FZF
+require("fzf-lua").setup {
+	fzf_opts = {
+		["--ansi"]           = true,
+		["--info"]           = "inline-right",
+		["--height"]         = "100%",
+		["--layout"]         = "reverse",
+		["--border"]         = "none",
+		["--highlight-line"] = true,
+	}
+}
 
 -- MINI
 for _, plug in ipairs({
@@ -109,21 +121,6 @@ vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end
 
-require("fzf-lua").setup {
-	fzf_opts = {
-		-- options are sent as `<left>=<right>`
-		-- set to `false` to remove a flag
-		-- set to `true` for a no-value flag
-		-- for raw args use `fzf_args` instead
-		["--ansi"]           = true,
-		["--info"]           = "inline-right", -- fzf < v0.42 = "inline"
-		["--height"]         = "100%",
-		["--layout"]         = "reverse",
-		["--border"]         = "none",
-		["--highlight-line"] = true, -- fzf >= v0.53
-	}
-}
-
 -- require the other aquamoon nvim config files
 require "nvim/autocmds"; require "nvim/keymap"
 
@@ -149,4 +146,4 @@ if vim.g.neovide then
 	vim.g.neovide_cursor_vfx_mode = "torpedo"
 end
 
-vim.cmd.Oil()
+-- vim.cmd.Oil()
