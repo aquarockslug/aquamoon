@@ -71,7 +71,7 @@ require("oil").setup({
 -- },
 
 -- FZF
-require("fzf-lua").setup({ 'ivy' })
+require("fzf-lua").setup({ winopts = { height = 1.0, width = 1.0 } })
 
 -- MINI
 for _, plug in ipairs({
@@ -124,6 +124,9 @@ vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
 vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("LazyGitFloat guifg=#" .. settings.theme.fg2)
+vim.cmd.highlight("LazyGitBorder guifg=#" .. settings.theme.fg)
+vim.cmd.highlight("FzfLuaBorder guifg=#" .. settings.theme.fg)
 
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1

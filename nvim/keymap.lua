@@ -21,8 +21,9 @@ vim.keymap.set("n", "<leader>d", function() -- toggle diagnostics
 end)
 
 -- left hand lower
-vim.keymap.set("n", "<leader>v", FzfLua.lsp_finder)
+vim.keymap.set("n", "<leader>v", FzfLua.live_grep)
 vim.keymap.set("n", "<leader>c", FzfLua.diagnostics_document)
+vim.keymap.set("n", "<leader>x", FzfLua.lsp_finder)
 
 -- right hand top
 vim.keymap.set("n", "U", "<c-r>")
