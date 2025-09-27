@@ -76,7 +76,7 @@ function OceanicNext()
 		fg2 = ocean.fg,
 		bg = ocean.bg,
 		bg2 = ocean.teal,
-		background_image = "/home/aqua/.aquamoon/mavericks_teal.jpg",
+		background_image = "/home/aqua/.aquamoon/mavericks_grey.jpg",
 		border_width = 4,
 		opacity = 0.8
 	}
