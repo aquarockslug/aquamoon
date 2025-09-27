@@ -44,7 +44,7 @@ function _G.get_oil_winbar()
 	end
 end
 
-require("oil").setup({
+local oil_config = {
 	watch_for_changes = true,
 	use_default_keymaps = false,
 	keymaps = {
@@ -64,11 +64,14 @@ require("oil").setup({
 		"icon",
 		"size"
 	},
-})
--- TODO only add win_options if using a colorscheme that supports winbar
--- win_options = {
--- 	winbar = "%!v:lua.get_oil_winbar()",
--- },
+}
+-- only add win_options if using a colorscheme that supports winbar
+if settings.theme.name == "sweetie" then
+	oil_config.win_options = {
+		winbar = "%!v:lua.get_oil_winbar()",
+	}
+end
+require("oil").setup(oil_config)
 
 -- FZF
 require("fzf-lua").setup({ winopts = { height = 1.0, width = 1.0 } })

@@ -78,13 +78,14 @@ function OceanicNext()
 		bg2 = ocean.teal,
 		background_image = "/home/aqua/.aquamoon/mavericks_grey.jpg",
 		border_width = 4,
-		opacity = 0.8
+		opacity = 0.8,
 	}
 end
 
 M.get = function(name)
 	M.my_flag = "󰈿"
 	local theme = {}
+	theme.name = name
 	if name == "dracula" then theme = Dracula() end
 	if name == "sweetie" then theme = Sweetie() end
 	if name == "OceanicNext" then theme = OceanicNext() end
