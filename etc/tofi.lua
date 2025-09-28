@@ -1,27 +1,37 @@
 -- Lua api for Tofi
 
 -- Usage example:
--- local opener = require("tofi").options({})
--- opener.choices({}).open()
+-- local my_opener = require("tofi").options({})
+-- my_opener.choices({}).open()
 
-opener = function(choices, options)
+local execute_tofi = function(choices, options)
+	local cmd = "tofi"
+	os.execute(cmd)
+end
+
+opener = function(choi, opts)
 	return {
+		-- build and execute a command using this opener's parameters
 		open = function()
-			print(choices)
-			print(options)
+			execute_tofi()
 		end,
-		set_choices = function(new_choices)
-			return opener(new_choices, options)
+
+
+		-- these functions return new openers
+
+		-- get info about the opener
+		info = function()
+			return { choices = choi, options = opts }
 		end,
-		set_options = function(new_options)
-			return opener(choices, new_options)
+		-- return a new opener with the new choices
+		choices = function(new_choi)
+			return opener(new_choi, opts)
+		end,
+		-- return a new opener with the new options
+		options = function(new_opts)
+			return opener(choi, new_opts)
 		end,
 	}
 end
 
-local new_opener = function()
-	local o = opener({}, {})
-
-	return o
-end
-return new_opener()
+return opener({}, {})
