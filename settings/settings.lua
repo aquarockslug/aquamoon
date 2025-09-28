@@ -35,18 +35,17 @@ return {
 	theme = theme,
 	wsl = false,
 	theme_list = {
-		"catppuccin-frappe",
-		"desert",
-		"dracula",
-		"dracula-soft",
-		"minicyan",
-		"minischeme",
-		"moonfly",
-		"nightfly",
 		"OceanicNext",
-		"oxocarbon",
+		"catppuccin-frappe",
+		"dracula-soft",
 		"sweetie",
-		"unokai"
+		-- "desert",
+		-- "dracula",
+		-- "minicyan", TODO
+		-- "minischeme",
+		-- "moonfly", TODO
+		-- "nightfly",
+		-- "unokai"
 	},
 	river_options = {
 		-- Theme options
