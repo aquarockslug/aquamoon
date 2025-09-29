@@ -4,16 +4,37 @@
 -- local my_opener = require("tofi").options({})
 -- my_opener.choices({}).open()
 
-local execute_tofi = function(choices, options)
-	local cmd = "tofi"
-	os.execute(cmd)
-end
-
 opener = function(choi, opts)
 	return {
 		-- build and execute a command using this opener's parameters
 		open = function()
-			execute_tofi()
+			cmd = "tofi"
+
+			-- create this with opts table
+			local tofi_style = {
+				"--font=" .. theme.active_font.path,
+				"--font-size=" .. theme.active_font.size,
+				"--width=33%",
+				"--height=66%",
+				"--drun-launch=true",
+				"--outline-width=0",
+				"--border-width=" .. theme.border_width,
+				"--prompt-text='󰈿 '",
+				"--selection-color=#" .. theme.fg2,
+				"--text-color=#" .. theme.fg,
+				"--border-color=#" .. theme.bg2,
+				"--background-color=#" .. theme.bg,
+				"--text-cursor=true",
+				"--result-spacing=9",
+				"--anchor=bottom",
+				"--margin-bottom=10",
+				-- "--margin-bottom=26",
+				-- "--margin-left=" .. theme.border_width + 8,
+			}
+
+			for i, arg in ipairs(theme.tofi_style) do
+				cmd = cmd .. " " .. arg
+			end
 		end,
 
 
