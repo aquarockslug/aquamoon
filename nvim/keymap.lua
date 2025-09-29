@@ -14,14 +14,14 @@ vim.keymap.set("n", "<leader>w", vim.cmd.terminal)
 vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
 
 -- left hand home row
-vim.keymap.set("n", "<leader>g", vim.cmd.GrugFar)
+vim.keymap.set("n", "<leader>g", FzfLua.live_grep)
 vim.keymap.set("n", "<leader>f", FzfLua.files)
 vim.keymap.set("n", "<leader>d", function() -- toggle diagnostics
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
 
 -- left hand lower
-vim.keymap.set("n", "<leader>v", FzfLua.live_grep)
+vim.keymap.set("n", "<leader>v", vim.cmd.GrugFar)
 vim.keymap.set("n", "<leader>c", FzfLua.diagnostics_document)
 vim.keymap.set("n", "<leader>x", FzfLua.lsp_finder)
 

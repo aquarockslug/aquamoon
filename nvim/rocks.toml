@@ -11,7 +11,7 @@ inifile = "1.1"
 
 # CONFIG
 [config]
-colorscheme = "sweetie"
+colorscheme = "OceanicNext"
 
 [config.options]
 autochdir = true
@@ -80,4 +80,3 @@ rev = "2a3cade7d47a3f0b13bfe50926e645b8c2a2432f"
 [plugins.vim-nightfly-colors]
 git = "bluz71/vim-nightfly-colors"
 rev = "dabb4143b9a68a855a803207c0b6ecca27554444"
-

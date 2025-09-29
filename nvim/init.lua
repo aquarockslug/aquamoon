@@ -9,6 +9,8 @@ require "nvim/rocks_setup"
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.g.lazygit_floating_window_scaling_factor = 1.0
+vim.g.oceanic_next_terminal_bold = 1
+vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
 
 -- LANGUAGE SERVERS
@@ -17,6 +19,17 @@ lspconfig.biome.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.vale_ls.setup({})
 lspconfig.gdscript.setup({})
+
+
+-- DIAGNOSTICS
+vim.diagnostic.config({
+	signs = false,
+	virtual_lines = true
+})
+vim.diagnostic.enable(false)
+vim.diagnostic_count = function()
+	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
+end
 
 -- SNIPE
 require("snipe").setup({
@@ -31,6 +44,20 @@ require("snipe").setup({
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
 
+
+-- FZF
+require("fzf-lua").setup({ winopts = { height = 1.0, width = 1.0 } })
+
+-- NEOVIDE
+if vim.g.neovide then
+	vim.g.neovide_opacity = settings.theme.opacity
+	vim.o.guifont = settings.theme.active_font.name
+	vim.g.neovide_text_gamma = 0.8
+	vim.g.neovide_text_contrast = 0.1
+	vim.g.neovide_padding_left = 10
+	vim.g.neovide_padding_top = 10
+	vim.g.neovide_cursor_vfx_mode = "torpedo"
+end
 
 -- OIL
 -- Declare a global function to retrieve the current directory
@@ -73,76 +100,6 @@ if settings.theme.name == "sweetie" then
 end
 require("oil").setup(oil_config)
 
--- FZF
-require("fzf-lua").setup({ winopts = { height = 1.0, width = 1.0 } })
-
--- MINI
-for _, plug in ipairs({
-	"ai",
-	"basics",
-	"bracketed",
-	"comment",
-	"completion",
-	"diff",
-	"icons",
-	"jump",
-	"jump2d",
-	"pairs",
-	"snippets",
-	"starter",
-	"surround",
-	"trailspace",
-	"visits",
-	"indentscope",
-}) do
-	require("mini." .. plug).setup()
-end
-require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } }) -- │
-require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } })
-require("mini.hipatterns").setup({
-	highlighters = {
-		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
-		HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-	},
-})
-
--- DIAGNOSTICS
-vim.diagnostic.config({
-	signs = false,
-	virtual_lines = true
-})
-vim.diagnostic.enable(false)
-vim.diagnostic_count = function()
-	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
-end
-
 -- require the other aquamoon nvim config files
-require "nvim/autocmds"; require "nvim/keymap"
-
--- COLORS
-vim.cmd.highlight("LineNr guibg=#" .. settings.theme.bg)
-vim.cmd.highlight("LineNr guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("LineNrAbove guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("LineNrBelow guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("CursorLineNr guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("OilDir guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("LazyGitFloat guifg=#" .. settings.theme.fg2)
-vim.cmd.highlight("LazyGitBorder guifg=#" .. settings.theme.fg)
-vim.cmd.highlight("FzfLuaBorder guifg=#" .. settings.theme.fg)
-
-vim.g.oceanic_next_terminal_bold = 1
-vim.g.oceanic_next_terminal_italic = 1
-
--- NEOVIDE
-if vim.g.neovide then
-	vim.g.neovide_opacity = settings.theme.opacity
-	vim.o.guifont = settings.theme.active_font.name
-	vim.g.neovide_text_gamma = 0.8
-	vim.g.neovide_text_contrast = 0.1
-	vim.g.neovide_padding_left = 10
-	vim.g.neovide_padding_top = 10
-	vim.g.neovide_cursor_vfx_mode = "torpedo"
-end
-
--- vim.cmd.Oil()
+require "nvim/autocmds"; require "nvim/keymap";
+require "nvim/highlights"; require "nvim/mini"

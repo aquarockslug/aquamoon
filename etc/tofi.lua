@@ -29,6 +29,7 @@ opener = function(choi, opts)
 		end,
 		-- return a new opener with the new options
 		options = function(new_opts)
+			-- TODO convert new_opts from { option = "value" } into "--option=value"
 			return opener(choi, new_opts)
 		end,
 	}

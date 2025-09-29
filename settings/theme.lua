@@ -27,6 +27,7 @@ function Dracula()
 		fg2 = dracula.fg,
 		bg = dracula.bg,
 		bg2 = dracula.green,
+		accent = dracula.green,
 		background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg",
 		border_width = 4,
 		opacity = 0.33
@@ -76,6 +77,7 @@ function OceanicNext()
 		fg2 = ocean.fg,
 		bg = ocean.bg,
 		bg2 = ocean.teal,
+		accent = ocean.orange,
 		background_image = "/home/aqua/.aquamoon/mavericks_grey.jpg",
 		border_width = 4,
 		opacity = 0.8,
