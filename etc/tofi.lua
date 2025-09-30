@@ -35,6 +35,7 @@ local execute_tofi = function(choices, options)
 		-- add the argument to the command
 		cmd = cmd .. " " .. arg
 	end
+	cmd = cmd .. " --"
 	for i, choice in ipairs(choices) do
 		cmd = cmd .. " " .. choice
 	end
