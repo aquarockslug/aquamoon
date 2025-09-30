@@ -18,7 +18,7 @@ local execute_tofi = function(choices, options)
 		[ "outline-width" ] = 4,
 		[ "prompt-text" ] = "󰈿 ",
 		[ "selection-color" ] = theme.fg2,
-		["border-width"] = theme.border_width,
+		[ "border-width" ] = theme.border_width,
 		[ "text-color" ] = theme.fg,
 		[ "border-color" ] .. theme.bg2,
 		[ "background-color" ] .. theme.bg,
