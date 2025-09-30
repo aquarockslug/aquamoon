@@ -4,41 +4,41 @@
 -- local my_opener = require("tofi").options({})
 -- my_opener.choices({}).open()
 
+local execute_tofi = function(choices, options)
+	local cmd = "tofi"
+
+	-- test data
+	local theme = require("settings").theme
+	local options = {
+		font = theme.active_font.path,
+		"font-size" = theme.active_font.path,
+		width = "33%",
+		height = "66%",
+		"drun-launch" = true,
+		"outline-width",
+		"prompt-text" = "󰈿 ",
+		"selection-color" = theme.fg2,
+		"border-width" = theme.border_width,
+		"text-color" = theme.fg,
+		"border-color" .. theme.bg2,
+		"background-color" .. theme.bg,
+		"text-cursor" = true,
+		"result-spacing" = 9,
+		anchor = bottom,
+		"margin-bottom" = 10,
+	}
+
+	for option, value in ipairs(options) do
+		-- convert options from { option = "value" } into "--option=value"
+		local arg = "--" .. option .. "=" .. value
+		cmd = cmd .. " " .. arg
+	end
+end
+
 opener = function(choi, opts)
 	return {
 		-- build and execute a command using this opener's parameters
-		open = function()
-			cmd = "tofi"
-
-			-- create this with opts table
-			local tofi_style = {
-				"--font=" .. theme.active_font.path,
-				"--font-size=" .. theme.active_font.size,
-				"--width=33%",
-				"--height=66%",
-				"--drun-launch=true",
-				"--outline-width=0",
-				"--border-width=" .. theme.border_width,
-				"--prompt-text='󰈿 '",
-				"--selection-color=#" .. theme.fg2,
-				"--text-color=#" .. theme.fg,
-				"--border-color=#" .. theme.bg2,
-				"--background-color=#" .. theme.bg,
-				"--text-cursor=true",
-				"--result-spacing=9",
-				"--anchor=bottom",
-				"--margin-bottom=10",
-				-- "--margin-bottom=26",
-				-- "--margin-left=" .. theme.border_width + 8,
-			}
-
-			for i, arg in ipairs(theme.tofi_style) do
-				cmd = cmd .. " " .. arg
-			end
-		end,
-
-
-		-- these functions return new openers
+		open = execute_tofi(choi, opts),
 
 		-- get info about the opener
 		info = function()
@@ -50,7 +50,6 @@ opener = function(choi, opts)
 		end,
 		-- return a new opener with the new options
 		options = function(new_opts)
-			-- TODO convert new_opts from { option = "value" } into "--option=value"
 			return opener(choi, new_opts)
 		end,
 	}

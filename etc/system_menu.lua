@@ -17,5 +17,5 @@ end
 
 os.execute("$(echo '" .. date ..
 	"\nbattery: " .. battery ..
-	"\nswaylock --color 232A2E " ..
+	"\ngtklock " ..
 	"\nriverctl exit' | " .. cmd .. ")")
