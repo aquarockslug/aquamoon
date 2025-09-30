@@ -9,9 +9,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.cmd([[ terminal timg % ]])
 	end
 })
--- TODO go to mini dashboard when closing Oil?
 vim.api.nvim_create_autocmd("VimResized", {
-	-- automatically resize windows
+	-- automatically resize windows to be equal
 	callback = function() vim.cmd("tabdo wincmd =") end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
@@ -21,6 +20,10 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	callback = function()
-		vim.cmd.checktime() -- check for file changes when leaving the terminal
+		-- check for file changes when leaving the terminal
+		vim.cmd.checktime()
 	end
 })
+-- TODO
+-- on open fzf:
+-- vim.b.minicompletion_disable = true
