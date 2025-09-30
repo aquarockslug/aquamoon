@@ -37,8 +37,8 @@ end
 
 opener = function(choi, opts)
 	return {
-		-- build and execute a command using this opener's parameters
-		open = execute_tofi(choi, opts),
+		-- build and execute a tofi command using this opener's parameters
+		open = function() execute_tofi(choi, opts) end,
 
 		-- get info about the opener
 		info = function()
