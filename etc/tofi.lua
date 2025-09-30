@@ -11,27 +11,32 @@ local execute_tofi = function(choices, options)
 	local theme = require("settings").theme
 	local options = {
 		font = theme.active_font.path,
-		"font-size" = theme.active_font.path,
+		["font-size"] = theme.active_font.path,
 		width = "33%",
 		height = "66%",
-		"drun-launch" = true,
-		"outline-width",
-		"prompt-text" = "󰈿 ",
-		"selection-color" = theme.fg2,
-		"border-width" = theme.border_width,
-		"text-color" = theme.fg,
-		"border-color" .. theme.bg2,
-		"background-color" .. theme.bg,
-		"text-cursor" = true,
-		"result-spacing" = 9,
+		[ "drun-launch" ] = true,
+		[ "outline-width" ] = 4,
+		[ "prompt-text" ] = "󰈿 ",
+		[ "selection-color" ] = theme.fg2,
+		["border-width"] = theme.border_width,
+		[ "text-color" ] = theme.fg,
+		[ "border-color" ] .. theme.bg2,
+		[ "background-color" ] .. theme.bg,
+		[ "text-cursor" ] = true,
+		[ "result-spacing" ] = 9,
 		anchor = bottom,
-		"margin-bottom" = 10,
+		[ "margin-bottom" ] = 10
 	}
+	local choices = { "a", "b", "c"}
 
 	for option, value in ipairs(options) do
 		-- convert options from { option = "value" } into "--option=value"
 		local arg = "--" .. option .. "=" .. value
+		-- add the argument to the command
 		cmd = cmd .. " " .. arg
+	end
+	for i, choice in ipairs(choices) do
+		cmd = cmd .. " " .. choice
 	end
 end
 
