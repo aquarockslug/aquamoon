@@ -101,5 +101,6 @@ end
 require("oil").setup(oil_config)
 
 -- require the other aquamoon nvim config files
-require "nvim/autocmds"; require "nvim/keymap";
-require "nvim/highlights"; require "nvim/mini"
+require "nvim/autocmds";
+require "nvim/highlights";
+require "nvim/keymap";
