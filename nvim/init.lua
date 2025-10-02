@@ -13,6 +13,7 @@ vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
 
+
 -- LANGUAGE SERVERS
 local lspconfig = require('lspconfig')
 lspconfig.biome.setup({})
@@ -30,6 +31,7 @@ vim.diagnostic.enable(false)
 vim.diagnostic_count = function()
 	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
 end
+
 
 -- SNIPE
 require("snipe").setup({
@@ -101,6 +103,4 @@ end
 require("oil").setup(oil_config)
 
 -- require the other aquamoon nvim config files
-require "nvim/autocmds";
-require "nvim/highlights";
-require "nvim/keymap";
+require "nvim/autocmds"; require "nvim/highlights"; require "nvim/keymap";
