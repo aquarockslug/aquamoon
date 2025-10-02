@@ -42,7 +42,7 @@ mappings.map = {
 		},
 		{
 			mod = { "Super", "Shift" },
-			key = "v",
+			key = "V",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_volume.lua"' ]] },
 		},
 		-- Show Notifications

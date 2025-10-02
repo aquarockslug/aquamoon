@@ -5,46 +5,31 @@
 -- my_opener.choices({}).open()
 
 local execute_tofi = function(choices, options)
-	local cmd = "tofi"
-
-	-- test data
-	local theme = require("settings").theme
-	local options = {
-		font = theme.active_font.path,
-		["font-size"] = theme.active_font.path,
-		width = "33%",
-		height = "66%",
-		[ "drun-launch" ] = true,
-		[ "outline-width" ] = 4,
-		[ "prompt-text" ] = "󰈿 ",
-		[ "selection-color" ] = theme.fg2,
-		[ "border-width" ] = theme.border_width,
-		[ "text-color" ] = theme.fg,
-		[ "border-color" ] .. theme.bg2,
-		[ "background-color" ] .. theme.bg,
-		[ "text-cursor" ] = true,
-		[ "result-spacing" ] = 9,
-		anchor = bottom,
-		[ "margin-bottom" ] = 10
-	}
-	local choices = { "a", "b", "c"}
-
-	for option, value in ipairs(options) do
+	-- build the command
+	local cmd = "echo '"
+	for i, choice in ipairs(choices) do
+		cmd = cmd .. " " .. choice .. "\n"
+	end
+	cmd = cmd .. "' | tofi "
+	for option, value in pairs(options) do
 		-- convert options from { option = "value" } into "--option=value"
 		local arg = "--" .. option .. "=" .. value
 		-- add the argument to the command
 		cmd = cmd .. " " .. arg
 	end
-	cmd = cmd .. " --"
-	for i, choice in ipairs(choices) do
-		cmd = cmd .. " " .. choice
-	end
+
+	-- execute the command
+	local handle = io.popen(cmd)
+	local retval = ""
+	if handle then retval = handle:read("*a") end
+	handle:close()
+	return retval
 end
 
 opener = function(choi, opts)
 	return {
 		-- build and execute a tofi command using this opener's parameters
-		open = function() execute_tofi(choi, opts) end,
+		open = function() return execute_tofi(choi, opts) end,
 
 		-- get info about the opener
 		info = function()

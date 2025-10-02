@@ -111,6 +111,24 @@ M.get = function(name)
 		-- "--margin-bottom=26",
 		-- "--margin-left=" .. theme.border_width + 8,
 	}
+	theme.tofi = {
+		font = theme.active_font.path,
+		["font-size"] = theme.active_font.size,
+		width = "33%",
+		height = "33%",
+		["drun-launch"] = "true",
+		["outline-width"] = 4,
+		["prompt-text"] = "󰈿_",
+		["selection-color"] = theme.fg2,
+		["border-width"] = theme.border_width,
+		["text-color"] = theme.fg,
+		["border-color"] = theme.bg2,
+		["background-color"] = theme.bg,
+		["text-cursor"] = "true",
+		["result-spacing"] = 9,
+		anchor = "bottom",
+		["margin-bottom"] = 10
+	}
 	return theme
 end
 
