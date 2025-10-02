@@ -26,6 +26,9 @@ scrolloff = 10000
 showtabline = 0
 signcolumn = "no"
 termguicolors = true
+smoothscroll = true
+winborder = "rounded"
+visualbell = true
 
 # PLUGINS
 [plugins]
