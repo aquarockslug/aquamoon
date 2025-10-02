@@ -14,8 +14,6 @@
 Riverwm, River-luatile, Tofi, Dunst, Neovide, Zsh
 
 # SCREENSHOTS
-<img width="3840" height="2160" alt="20250806_00h54m16s_grim" src="https://github.com/user-attachments/assets/ca67a7bc-511d-4dae-acf1-599d42763a6e" />
 
-<img width="3840" height="2160" alt="20250806_01h01m38s_grim" src="https://github.com/user-attachments/assets/8c644ec8-b1c2-492a-a604-b3102f54d1b9" />
 
-<img width="3840" height="2160" alt="20250806_01h03m13s_grim" src="https://github.com/user-attachments/assets/d44b5b14-ff40-4592-b31f-b4ebd80b9474" />
+<img width="1920" height="1080" src="https://github.com/user-attachments/assets/ca67a7bc-511d-4dae-acf1-599d42763a6e](https://github.com/aquarockslug/aquamoon/blob/main/screenshots/20251001_17h51m05s_grim.png?raw=true" />
