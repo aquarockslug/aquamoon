@@ -5,12 +5,17 @@
 -- my_opener.choices({}).open()
 
 local execute_tofi = function(choices, options)
-	-- build the command
-	local cmd = "echo '"
-	for i, choice in ipairs(choices) do
-		cmd = cmd .. " " .. choice .. "\n"
+	local cmd = ""
+	if choices or choices == "drun" then
+		-- build the choices string
+		cmd = "echo '"
+		for i, choice in ipairs(choices) do
+			cmd = cmd .. " " .. choice .. "\n"
+		end
+		cmd = cmd .. "' | tofi "
+	else
+		cmd = "tofi-drun "
 	end
-	cmd = cmd .. "' | tofi "
 	for option, value in pairs(options) do
 		-- convert options from { option = "value" } into "--option=value"
 		local arg = "--" .. option .. "=" .. value
@@ -29,7 +34,9 @@ end
 opener = function(choi, opts)
 	return {
 		-- build and execute a tofi command using this opener's parameters
-		open = function() return execute_tofi(choi, opts) end,
+		open = function()
+			return execute_tofi(choi, opts)
+		end,
 
 		-- get info about the opener
 		info = function()
@@ -46,4 +53,4 @@ opener = function(choi, opts)
 	}
 end
 
-return opener({}, {})
+return opener(nil, nil)
