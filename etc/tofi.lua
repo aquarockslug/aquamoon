@@ -6,11 +6,11 @@
 
 local execute_tofi = function(choices, options)
 	local cmd = ""
-	if choices or choices == "drun" then
+	if choices then
 		-- build the choices string
 		cmd = "echo '"
 		for i, choice in ipairs(choices) do
-			cmd = cmd .. " " .. choice .. "\n"
+			cmd = cmd .. choice .. "\n"
 		end
 		cmd = cmd .. "' | tofi "
 	else
