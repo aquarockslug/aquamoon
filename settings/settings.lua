@@ -40,7 +40,7 @@ return {
 		"dracula-soft",
 		"sweetie",
 		-- "seoul256",
-		-- "srcery",
+		-- "srcery", -- TODO violet-sunset, spokes, verde, glow
 		-- "apprentice",
 		-- "desert",
 		"minicyan", -- TODO add a background
