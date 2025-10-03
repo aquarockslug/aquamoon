@@ -95,7 +95,7 @@ local oil_config = {
 	},
 }
 -- only add win_options if using a colorscheme that supports winbar
-if settings.theme.name == "sweetie" then
+if settings.theme_name == "minicyan" or settings.theme_name == "moonfly" then
 	oil_config.win_options = {
 		winbar = "%!v:lua.get_oil_winbar()",
 	}

@@ -11,7 +11,7 @@ inifile = "1.1"
 
 # CONFIG
 [config]
-colorscheme = "OceanicNext"
+colorscheme = "minicyan"
 
 [config.options]
 autochdir = true
@@ -45,7 +45,7 @@ visualbell = true
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
 friendly-snippets = "scm"
-fzf-lua = "0.0.2246"
+fzf-lua = "0.0.2262"
 nvim-lspconfig = "2.5.0"
 tree-sitter-gdscript = "0.0.41"
 tree-sitter-javascript = "0.0.39"
@@ -60,7 +60,7 @@ rev = "d2d196c335919767803f905d573ce66340e33ee6"
 
 [plugins.grug_far]
 git = "MagicDuck/grug-far.nvim"
-rev = "1.6.48"
+rev = "1.6.49"
 
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
@@ -79,6 +79,18 @@ rev = "1.2.1"
 git = "mhartington/oceanic-next"
 rev = "09833f72d5ba23de2e8bcae18f479f326f5f677a"
 
-[plugins.vim-nightfly-colors]
-git = "bluz71/vim-nightfly-colors"
-rev = "dabb4143b9a68a855a803207c0b6ecca27554444"
+[plugins.vim-moonfly-colors]
+git = "bluz71/vim-moonfly-colors"
+rev = "c1add33aec2bd36621f865ab11552129ca01d353"
+
+[plugins.srcery-vim]
+git = "srcery-colors/srcery-vim"
+rev = "v2.1.0"
+
+[plugins.Apprentice]
+git = "romainl/Apprentice"
+rev = "v2.0"
+
+[plugins.seoul256]
+git = "junegunn/seoul256.vim"
+rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"

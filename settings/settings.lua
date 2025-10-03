@@ -4,15 +4,16 @@ get_theme_from_toml = function()
 	toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
 	current_theme_name = toml_settings.config.colorscheme
 
-	if current_theme_name == "sweetie" or current_theme_name == "dracula" then
-		return require("settings/theme").get(current_theme_name)
+	-- map nvim colorscheme name to aquamoon config names
+	if current_theme_name == "sweetie" then
+		return require("settings/theme").get("sweetie")
 	end
 
-	if current_theme_name == "dracula-soft" then
+	if current_theme_name == "dracula" or current_theme_name == "dracula-soft" then
 		return require("settings/theme").get("dracula")
 	end
 
-	if current_theme_name == "OceanicNext" then
+	if current_theme_name == "OceanicNext" or current_theme_name == "minicyan" then
 		return require("settings/theme").get("OceanicNext")
 	end
 
@@ -36,15 +37,15 @@ return {
 	wsl = false,
 	theme_list = {
 		"OceanicNext",
-		"catppuccin-frappe",
 		"dracula-soft",
 		"sweetie",
+		-- "seoul256",
+		-- "srcery",
+		-- "apprentice",
 		-- "desert",
-		-- "dracula",
-		-- "minicyan", TODO
+		"minicyan", -- TODO add a background
 		-- "minischeme",
-		-- "moonfly", TODO
-		-- "nightfly",
+		-- "moonfly", TODO add a background
 		-- "unokai"
 	},
 	river_options = {
