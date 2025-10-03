@@ -20,6 +20,7 @@ end
 
 for key, func in pairs({
 	-- left hand top row
+	r = function() vim.cmd "terminal scooter" end,
 	e = vim.cmd.Oil,
 	w = vim.cmd.terminal,
 	q = vim.cmd.bd,
@@ -30,7 +31,6 @@ for key, func in pairs({
 	d = vim.cmd.toggle_diagnostics,
 
 	-- left hand lower
-	r = function() vim.cmd "terminal scooter" end,
 	c = FzfLua.diagnostics_document,
 	x = FzfLua.lsp_finder,
 
