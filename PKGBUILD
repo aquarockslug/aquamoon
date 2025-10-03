@@ -13,7 +13,9 @@ arch=('i686' 'x86_64')
 url="https://github.com/aquarockslug/aqua_arch"
 license=('GPL')
 groups=('base-devel')
-depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst' 'wget' 'ast-grep' 'pamixer' 'peco' 'bat' 'eza' 'duf' 'dust' 'timg' 'ripgrep' 'biome' 'vale' 'lua-language-server')
+depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst'
+	'wget' 'ast-grep' 'pamixer' 'peco' 'bat' 'eza' 'duf' 'dust' 'timg'
+	'ripgrep' 'biome' 'vale' 'lua-language-server')
 makedepends=()
 optdepends=('aerc' 'glow')
 source=()

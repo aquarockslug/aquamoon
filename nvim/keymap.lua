@@ -7,34 +7,43 @@ vim.keymap.set("n", "<Right>", "<c-w>l")
 vim.keymap.set("n", "<Down>", "<c-w>j")
 vim.keymap.set("n", "<Up>", "<c-w>k")
 
--- left hand top row
-vim.keymap.set("n", "<leader>r", vim.lsp.buf.hover)
-vim.keymap.set("n", "<leader>e", vim.cmd.Oil)
-vim.keymap.set("n", "<leader>w", vim.cmd.terminal)
-vim.keymap.set("n", "<leader>q", vim.cmd.bd) -- buffer delete
-
--- left hand home row
-vim.keymap.set("n", "<leader>g", FzfLua.live_grep)
-vim.keymap.set("n", "<leader>f", FzfLua.files)
-vim.keymap.set("n", "<leader>d", function() -- toggle diagnostics
-	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end)
-
--- left hand lower
-vim.keymap.set("n", "<leader>v", vim.cmd.GrugFar)
-vim.keymap.set("n", "<leader>c", FzfLua.diagnostics_document)
-vim.keymap.set("n", "<leader>x", FzfLua.lsp_finder)
-
--- right hand top
+-- redo
 vim.keymap.set("n", "U", "<c-r>")
-vim.keymap.set("n", "<leader>o", FzfLua.oldfiles)
-
--- right hand bottom
-vim.keymap.set("n", "<leader>m", function() vim.cmd "FzfLua" end)
-vim.keymap.set("n", "<leader>/", vim.cmd.noh) -- clear highlighting
 
 -- exit terminal with Esc
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
+
+
+vim.cmd.toggle_diagnostics = function() -- toggle diagnostics
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end
+
+for key, func in pairs({
+	-- left hand top row
+	e = vim.cmd.Oil,
+	w = vim.cmd.terminal,
+	q = vim.cmd.bd,
+
+	-- left hand home row
+	g = FzfLua.live_grep,
+	f = FzfLua.files,
+	d = vim.cmd.toggle_diagnostics,
+
+	-- left hand lower
+	r = function() vim.cmd "terminal scooter" end,
+	c = FzfLua.diagnostics_document,
+	x = FzfLua.lsp_finder,
+
+	-- right hand top
+	i = vim.lsp.buf.hover,
+	o = FzfLua.oldfiles,
+
+	-- right hand bottom
+	m = function() vim.cmd "FzfLua" end,
+	["/"] = vim.cmd.noh
+}) do
+	vim.keymap.set("n", "<leader>" .. key, func)
+end
 
 for cmd, func in pairs({
 	-- right hand

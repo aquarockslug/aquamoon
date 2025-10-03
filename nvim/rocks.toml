@@ -11,7 +11,7 @@ inifile = "1.1"
 
 # CONFIG
 [config]
-colorscheme = "minicyan"
+colorscheme = "OceanicNext"
 
 [config.options]
 autochdir = true
@@ -57,10 +57,6 @@ tree-sitter-toml = "0.0.31"
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
 rev = "d2d196c335919767803f905d573ce66340e33ee6"
-
-[plugins.grug_far]
-git = "MagicDuck/grug-far.nvim"
-rev = "1.6.49"
 
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
