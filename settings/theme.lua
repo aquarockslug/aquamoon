@@ -28,7 +28,7 @@ function Dracula()
 		bg = dracula.bg,
 		bg2 = dracula.green,
 		accent = dracula.green,
-		background_image = "/home/aqua/.aquamoon/snow_leopard_green.jpg",
+		background_image = "/home/aqua/.aquamoon/wallpapers/snow_leopard_green.jpg",
 		border_width = 4,
 		opacity = 0.33
 	}
@@ -55,7 +55,7 @@ function Sweetie()
 		bg = sweetie.bg,
 		bg2 = sweetie.teal,
 		accent = sweetie.violet,
-		background_image = "/home/aqua/.aquamoon/macos_tiger_grey.png",
+		background_image = "/home/aqua/.aquamoon/wallpapers/macos_tiger_grey.png",
 		border_width = 4,
 		opacity = 0.8
 	}
@@ -78,7 +78,27 @@ function OceanicNext()
 		bg = ocean.bg,
 		bg2 = ocean.teal,
 		accent = ocean.orange,
-		background_image = "/home/aqua/.aquamoon/mavericks_grey.jpg",
+		background_image = "/home/aqua/.aquamoon/wallpapers/mavericks_grey.jpg",
+		border_width = 4,
+		opacity = 0.8,
+	}
+end
+
+function Srcery()
+	local srcery = {
+		red = "EF2F27",
+		magenta = "E02C6D",
+		black = "1C1B19",
+		white = "BAA67F",
+	}
+	return {
+		active_font = fonts.fairiesevka,
+		fg = srcery.red,
+		fg2 = srcery.white,
+		bg = srcery.black,
+		bg2 = srcery.red,
+		accent = srcery.magenta,
+		background_image = "/home/aqua/.aquamoon/wallpapers/spokes.jpg",
 		border_width = 4,
 		opacity = 0.8,
 	}
@@ -90,6 +110,7 @@ M.get = function(name)
 	theme.name = name
 	if name == "dracula" then theme = Dracula() end
 	if name == "sweetie" then theme = Sweetie() end
+	if name == "srcery" then theme = Srcery() end
 	if name == "OceanicNext" then theme = OceanicNext() end
 	theme.tofi_style = {
 		"--font=" .. theme.active_font.path,

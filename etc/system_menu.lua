@@ -15,9 +15,11 @@ local tofi_style = require("settings").theme.tofi
 local menu = require("etc/tofi").options(tofi_style)
 
 -- open
-menu.choices({
+local cmd = menu.choices({
 	date ..
 	"\nbattery: " .. battery ..
 	"\ngtklock " ..
 	"\nriverctl exit"
 }).open()
+
+os.execute(cmd)

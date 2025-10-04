@@ -17,6 +17,10 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("OceanicNext")
 	end
 
+	if current_theme_name == "srcery" then
+		return require("settings/theme").get("srcery")
+	end
+
 	-- default to sweetie
 	return require("settings/theme").get("sweetie")
 end
@@ -40,7 +44,7 @@ return {
 		"dracula-soft",
 		"sweetie",
 		-- "seoul256",
-		-- "srcery", -- TODO violet-sunset, spokes, verde, glow
+		"srcery", -- TODO violet-sunset, spokes, verde, glow
 		-- "apprentice",
 		-- "desert",
 		"minicyan", -- TODO add a background
