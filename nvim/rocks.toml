@@ -53,6 +53,7 @@ tree-sitter-lua = "0.0.36"
 tree-sitter-markdown = "0.0.44"
 tree-sitter-toml = "0.0.31"
 "lsp-status.nvim" = "scm"
+warna = "0.3.5"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"

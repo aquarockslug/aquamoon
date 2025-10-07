@@ -2,9 +2,9 @@
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+require "nvim/rocks_setup"
 local settings = require "settings"
 local vim = vim -- avoid undefined warnings
-require "nvim/rocks_setup"
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -41,7 +41,7 @@ vim.cmd.save = function()
 	vim.cmd("silent write")
 
 	if #vim.lsp.buf_get_clients() > 0 then
-		require("fidget").notify("SAVED " .. require('lsp-status').status())
+		require("fidget").notify(require('lsp-status').status() .. " SAVED")
 		-- TODO vim.o.statusline = require('lsp-status').status()
 	end
 end
