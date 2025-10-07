@@ -1,5 +1,5 @@
-require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } }) -- │
-require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } })
+require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } })
+require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } }) -- TODO not jumping?
 
 require("mini.hipatterns").setup({
 	highlighters = {

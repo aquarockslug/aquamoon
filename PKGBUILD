@@ -15,7 +15,7 @@ license=('GPL')
 groups=('base-devel')
 depends=('river' 'yay' 'lua' 'git' 'lazygit' 'zsh' 'neovide' 'tofi' 'dunst'
 	'wget' 'ast-grep' 'pamixer' 'peco' 'bat' 'eza' 'duf' 'dust' 'timg'
-	'ripgrep' 'biome' 'vale' 'lua-language-server')
+	'ripgrep' 'biome' 'vale' 'lua-language-server' 'vivid')
 makedepends=()
 optdepends=('aerc' 'glow')
 source=()

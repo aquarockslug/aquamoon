@@ -1,19 +1,12 @@
-export PATH="$PATH:$HOME/.local/bin"
-export LUA_PATH="$HOME/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?.lua;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.1/?/?.lua;;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?.lua;"
-export LUA_PATH="$LUA_PATH$HOME/.aquamoon/rocks/share/lua/5.4/?/?.lua;;"
+# TODO set up everything in the terminal using nvim/terminal.lua
 
-export PS1="%F{#92D3C5}%K{#2a2a3a}%1~%k 󰈿 %f"
-export BAT_THEME=base16
+export LS_COLORS="$(vivid generate catppuccin-frappe)"
 
 # ZSH
 export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=10000
-export SAVEHIST=10000
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
+
 # SYSTEM
 alias q="exit"
 alias s="sudo"
@@ -22,9 +15,6 @@ alias s="sudo"
 alias buku="buku --suggest"
 alias ddgr="ddgr --rev" # TODO open ddgr with a keybind
 alias lg="lazygit"
-#TODO when opening links with w3m, use wsl-open instead of xdg-open
-alias mail="aerc"
-alias py="python"
 alias rsync="rsync -Phav"
 alias v="nvim"
 alias open="xdg-open"
