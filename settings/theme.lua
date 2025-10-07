@@ -13,6 +13,7 @@ local fonts = {
 	}
 }
 
+-- https://github.com/binhtran432k/dracula.nvim
 function Dracula()
 	local dracula = {
 		teal = "83C092",
@@ -34,6 +35,7 @@ function Dracula()
 	}
 end
 
+-- https://github.com/NTBBloodbath/sweetie.nvim
 function Sweetie()
 	local sweetie = {
 		teal = "92d3c5",
@@ -61,6 +63,7 @@ function Sweetie()
 	}
 end
 
+-- https://github.com/mhartington/oceanic-next
 function OceanicNext()
 	local ocean = {
 		teal = "5FB3B3",
@@ -84,6 +87,28 @@ function OceanicNext()
 	}
 end
 
+-- https://github.com/bluz71/vim-moonfly-colors
+function Moonfly()
+	local fly = {
+		purple = "AE81FF",
+		purple_bright = "CF87E8",
+		fg = "BDBDBD",
+		bg = "080808",
+	}
+	return {
+		active_font = fonts.fairiesevka,
+		fg = fly.purple,
+		fg2 = fly.fg,
+		bg = fly.bg,
+		bg2 = fly.purple,
+		accent = fly.purple_bright,
+		background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_light.jpg",
+		border_width = 4,
+		opacity = 0.8,
+	}
+end
+
+-- https://github.com/srcery-colors/srcery-vim
 function Srcery()
 	local srcery = {
 		red = "EF2F27",
@@ -111,6 +136,7 @@ M.get = function(name)
 	if name == "dracula" then theme = Dracula() end
 	if name == "sweetie" then theme = Sweetie() end
 	if name == "srcery" then theme = Srcery() end
+	if name == "moonfly" then theme = Moonfly() end
 	if name == "OceanicNext" then theme = OceanicNext() end
 	theme.tofi_style = {
 		"--font=" .. theme.active_font.path,

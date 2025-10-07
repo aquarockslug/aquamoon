@@ -4,7 +4,6 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 local settings = require "settings"
 local vim = vim -- avoid undefined warnings
-vim.notify = require("fidget").notify
 require "nvim/rocks_setup"
 
 vim.g.mapleader = ","
@@ -13,6 +12,7 @@ vim.g.lazygit_floating_window_scaling_factor = 1.0
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
+
 
 -- LANGUAGE SERVERS
 local lspconfig = require('lspconfig')
@@ -29,9 +29,6 @@ vim.diagnostic.config({
 })
 vim.diagnostic.enable(false)
 
-vim.fn.diagnostic_count = function()
-	print(vim.diagnostic.count(nil, { severity = { min = vim.diagnostic.severity.WARN } })[2])
-end
 
 -- SAVE
 vim.cmd.save = function()
@@ -40,8 +37,13 @@ vim.cmd.save = function()
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
 	end
+
 	vim.cmd("silent write")
-	vim.notify("SAVED")
+
+	if #vim.lsp.buf_get_clients() > 0 then
+		require("fidget").notify("SAVED " .. require('lsp-status').status())
+		-- TODO vim.o.statusline = require('lsp-status').status()
+	end
 end
 
 
@@ -62,6 +64,7 @@ require("snipe").setup({
 -- FZF
 require("fzf-lua").setup({ winopts = { height = 1.0, width = 1.0 } })
 
+
 -- NEOVIDE
 if vim.g.neovide then
 	vim.g.neovide_opacity = settings.theme.opacity
@@ -72,6 +75,7 @@ if vim.g.neovide then
 	vim.g.neovide_padding_top = 10
 	vim.g.neovide_cursor_vfx_mode = "torpedo"
 end
+
 
 -- OIL
 -- Declare a global function to retrieve the current directory

@@ -11,7 +11,7 @@ inifile = "1.1"
 
 # CONFIG
 [config]
-colorscheme = "OceanicNext"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
@@ -52,7 +52,7 @@ tree-sitter-javascript = "0.0.39"
 tree-sitter-lua = "0.0.36"
 tree-sitter-markdown = "0.0.44"
 tree-sitter-toml = "0.0.31"
-"lush.nvim" = "scm"
+"lsp-status.nvim" = "scm"
 
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"

@@ -21,6 +21,10 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("srcery")
 	end
 
+	if current_theme_name == "moonfly" then
+		return require("settings/theme").get("moonfly")
+	end
+
 	-- default to sweetie
 	return require("settings/theme").get("sweetie")
 end
@@ -43,13 +47,14 @@ return {
 		"OceanicNext",
 		"dracula-soft",
 		"sweetie",
+		-- "iceberg",
 		-- "seoul256",
 		"srcery", -- TODO violet-sunset, spokes, verde, glow
 		-- "apprentice",
 		-- "desert",
 		"minicyan", -- TODO add a background
 		-- "minischeme",
-		-- "moonfly", TODO add a background
+		"moonfly", -- TODO add a background
 		-- "unokai"
 	},
 	river_options = {
