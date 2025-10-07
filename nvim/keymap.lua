@@ -33,8 +33,10 @@ for key, func in pairs({
 	x = FzfLua.lsp_finder,
 
 	-- right hand top
+	y = function() vim.cmd "terminal youtui" end,
 	i = vim.lsp.buf.hover,
 	o = FzfLua.oldfiles,
+	p = function() vim.cmd "terminal opencode" end,
 
 	-- right hand bottom
 	m = function() vim.cmd "FzfLua" end,
