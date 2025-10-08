@@ -45,6 +45,12 @@ mappings.map = {
 			key = "V",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_volume.lua"' ]] },
 		},
+		-- Screenshot
+		{
+			mod = { "Super" },
+			key = "S",
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/screenshot.lua"' ]] },
+		},
 		-- Show Notifications
 		{
 			mod = "Super",
