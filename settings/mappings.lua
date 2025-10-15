@@ -11,7 +11,7 @@ mappings.map = {
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
-			command = { "spawn", "firefox" },
+			command = { "spawn", "glide-bin" },
 		},
 		-- Launcher
 		{
