@@ -1,5 +1,8 @@
 local theme = require "settings".theme
 
+-- TODO use a loop here
+-- for key, func in pairs({
+
 vim.cmd.highlight("LineNr guibg=#" .. theme.bg)
 vim.cmd.highlight("LineNr guifg=#" .. theme.fg)
 vim.cmd.highlight("LineNrAbove guifg=#" .. theme.fg)
