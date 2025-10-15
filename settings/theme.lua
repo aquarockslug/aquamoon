@@ -123,7 +123,7 @@ function Srcery()
 		bg = srcery.black,
 		bg2 = srcery.red,
 		accent = srcery.magenta,
-		background_image = "/home/aqua/.aquamoon/wallpapers/flaming-pedals.jpg",
+		background_image = "/home/aqua/.aquamoon/wallpapers/branches.jpg",
 		border_width = 4,
 		opacity = 0.8,
 	}

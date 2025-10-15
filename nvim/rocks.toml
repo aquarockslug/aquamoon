@@ -13,7 +13,7 @@ luasocket = "3.1.0"
 
 # CONFIG
 [config]
-colorscheme = "OceanicNext"
+colorscheme = "srcery"
 
 [config.options]
 autochdir = true
