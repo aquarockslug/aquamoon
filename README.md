@@ -9,6 +9,7 @@
 | Notifications | Dunst |
 | Editor+Terminal | Neovide |
 | Shell | Zsh |
+| Browser | Glide |
 
 # SCREENSHOTS
 ## Sweetie
