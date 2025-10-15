@@ -46,16 +46,21 @@ return {
 	theme_list = {
 		"OceanicNext",
 		"dracula-soft",
-		"sweetie",
-		-- "iceberg",
-		-- "seoul256",
-		"srcery", -- TODO violet-sunset, spokes, verde, glow
-		-- "apprentice",
-		-- "desert",
 		"minicyan", -- TODO add a background
+		"moonfly",
+		"srcery", -- TODO violet-sunset, spokes, verde, glow
+		"sweetie",
+		-- "apprentice",
+		-- "bamboo",
+		-- "desert",
+		-- "mellifluous",
 		-- "minischeme",
-		"moonfly", -- TODO add a background
+		-- "neofusion",
+		-- "nvim-tundra",
+		-- "seoul256",
 		-- "unokai"
+		-- "vim-colors-paramount"
+		-- "vim-pink-moon"
 	},
 	river_options = {
 		-- Theme options
@@ -96,5 +101,5 @@ return {
 			-- ["cursor-size"] = 24,
 		},
 	},
-	window_rules = { ["ssd"] = { "firefox", "gimp" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "firefox", "glide-bin", "gimp" } }, -- use server side decorations
 }
