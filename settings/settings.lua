@@ -35,12 +35,12 @@ choose_theme_by_hour = function()
 	return require("settings/theme").get(theme_name)
 end
 
-theme = get_theme_from_toml()
+theme = require("settings/theme").get("srcery")
 
 return {
 	path = "/home/aqua/.aquamoon",
 	mappings = require("settings/mappings"),
-	theme_name = current_theme_name,
+	theme_name = "srcery",
 	theme = theme,
 	wsl = false,
 	theme_list = {
@@ -92,6 +92,9 @@ return {
 		{
 			"swaybg --image " .. theme.background_image, -- set background
 		},
+		{
+			"river-luatile"
+		}
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {
