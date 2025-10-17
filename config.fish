@@ -1,16 +1,13 @@
 if status is-interactive
 	set fish_greeting
 	set -x BROWSER glide-bin
+	set -x EDITOR neovide
 	clear && ls
 end
 
-# add cargo to path for shpool
-# using cargo because aur shpool broken
-
-function l
-	clear && ls $argv
-end
-
-function q
-	exit
-end
+alias q="exit"
+alias ls="eza"
+alias lg="lazygit"
+alias df="duf"
+alias du="dust"
+alias l="clear && ls"
