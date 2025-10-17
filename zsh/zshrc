@@ -4,6 +4,7 @@ export LS_COLORS="$(vivid generate catppuccin-frappe)"
 
 # ZSH
 export HISTFILE=$HOME/.zsh_history
+export BROWSER="glide-bin"
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 

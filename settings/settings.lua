@@ -50,6 +50,7 @@ return {
 		"moonfly",
 		"srcery", -- TODO violet-sunset, spokes, verde, glow
 		"sweetie",
+		-- "vague",
 		-- "apprentice",
 		-- "bamboo",
 		-- "desert",
