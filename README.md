@@ -1,5 +1,5 @@
 # AQUAMOON CONFIGURATION
-## An Arch Linux desktop environment configured with Lua 
+## An Arch Linux desktop environment configured with Lua
 
 # SOFTWARE
 |||

@@ -102,7 +102,8 @@ function Moonfly()
 		bg = fly.bg,
 		bg2 = fly.purple,
 		accent = fly.purple_bright,
-		background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_light.jpg",
+		-- background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_light.jpg",
+		background_image = "/home/aqua/.aquamoon/wallpapers/aurora.jpg",
 		border_width = 4,
 		opacity = 0.8,
 	}
