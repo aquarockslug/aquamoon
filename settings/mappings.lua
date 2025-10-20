@@ -37,13 +37,24 @@ mappings.map = {
 		-- Volume
 		{
 			mod = { "Super" },
-			key = "c",
+			key = "C",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_volume.lua"' ]] },
 		},
 		{
 			mod = { "Super" },
-			key = "v",
+			key = "V",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/raise_volume.lua"' ]] },
+		},
+		-- Brightness
+		{
+			mod = { "Super" },
+			key = "N",
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_brightness.lua"' ]] },
+		},
+		{
+			mod = { "Super" },
+			key = "M",
+			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/raise_brightness.lua"' ]] },
 		},
 		-- Screenshot
 		{
