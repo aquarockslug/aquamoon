@@ -1,6 +1,6 @@
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
+
+os.execute("riverctl input pointer-1739-32183-SYNA7DB5:01_06CB:7DB7_Touchpad tap enabled")
 
 R = require 'river'
 S = require 'settings'

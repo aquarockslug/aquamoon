@@ -100,11 +100,11 @@ return {
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {
-			-- ["gtk-theme"] = "Dracula",
-			-- ["icon-theme"] = "Tela circle dracula dark",
-			-- ["cursor-theme"] = "macOS-White",
-			-- ["cursor-size"] = 24,
+			["gtk-theme"] = "catppuccin-frappe-mauve-standard+default",
+			["icon-theme"] = "WhiteSur",
+			["cursor-theme"] = "WhiteSur",
+			["cursor-size"] = 24,
 		},
 	},
-	window_rules = { ["ssd"] = { "firefox", "glide-bin", "gimp" } }, -- use server side decorations
+	window_rules = { ["ssd"] = { "glide-bin", "gimp" } }, -- use server side decorations
 }
