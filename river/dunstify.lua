@@ -1,4 +1,5 @@
 -- use a variable to check if the current tag has changed
+local S = require("settings")
 return function(t)
 	if current_tag ~= t then
 		current_tag = t
@@ -15,11 +16,11 @@ return function(t)
 			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string
 		end
 
-		-- TODO get the color info from the theme file
 		os.execute("dunstify --timeout=1000 --appname=luatile " ..
-			"-h string:bgcolor:#2a2a3a " ..
-			"-h string:fgcolor:#92d3c5 " ..
-			"-h string:frcolor:#92d3c5 " ..
-			"--replace=9 '" .. flag_string .. "'")
+			" --icon=''" .. -- no icon
+			" -h string:bgcolor:#" .. S.theme.bg ..
+			" -h string:fgcolor:#" .. S.theme.fg ..
+			" -h string:frcolor:#" .. S.theme.fg ..
+			" --replace=9 '" .. flag_string .. "'")
 	end
 end

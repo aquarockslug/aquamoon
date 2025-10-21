@@ -52,19 +52,10 @@ function handle_layout(args)
 	return retval
 end
 
--- TODO layout keybind to change main_ratio
-
 function handle_metadata(args)
-	return { name = " 󰈿 " }
+	return { name = "rivertile" }
 end
 
-function scroll() -- TODO scrolling window manager?
-	offset = offset - 10
-end
-
-local gaps_alt = 16
-function toggle_gaps()
-	local tmp = gaps
-	gaps = gaps_alt
-	gaps_alt = tmp
+function modify_main_ratio(amount)
+	main_ratio = main_ratio + amount * 0.01
 end

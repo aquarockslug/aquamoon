@@ -62,12 +62,13 @@ mappings.map = {
 			key = "S",
 			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/screenshot.lua"' ]] },
 		},
-		-- Show Notifications
-		{
-			mod = "Super",
-			key = "N",
-			command = { "spawn", [['swaync-client -t']] },
-		},
+		-- TODO
+		-- -- Show Notifications
+		-- {
+		-- 	mod = "Super",
+		-- 	key = "N",
+		-- 	command = { "spawn", [['swaync-client -t']] },
+		-- },
 		-- Super+Q to close the focused view
 		{
 			mod = "Super",
@@ -110,14 +111,14 @@ mappings.map = {
 		},
 		-- Super+{H,L} to decrease/increase the main_factor value of luatile by 0.02
 		{
-			mod = "Super",
+			mod = { "Super" },
 			key = "H",
-			command = { "send-layout-cmd", "luatile", [['main-ratio -0.02']] },
+			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(-1)" ]] },
 		},
 		{
-			mod = "Super",
+			mod = { "Super" },
 			key = "L",
-			command = { "send-layout-cmd", "luatile", [['main-ratio +0.02']] },
+			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
 		},
 		-- Super+Shift+{H,L} to increment/decrement the main_count value of luatile
 		{
