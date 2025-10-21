@@ -120,59 +120,6 @@ mappings.map = {
 			key = "L",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
 		},
-		-- Super+Shift+{H,L} to increment/decrement the main_count value of luatile
-		{
-			mod = { "Super", "Shift" },
-			key = "H",
-			command = { "send-layout-cmd", "luatile", [['main-count +1']] },
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "L",
-			command = { "send-layout-cmd", "luatile", [['main-count -1']] },
-		},
-		-- Control+Alt+{H,J,K,L} to change layout orientation
-		{
-			mod = { "Control", "Alt" },
-			key = "H",
-			command = { "send-layout-cmd", "luatile", [['main-location left']] },
-		},
-		{
-			mod = { "Control", "Alt" },
-			key = "J",
-			command = { "send-layout-cmd", "luatile", [['main-location bottom']] },
-		},
-		{
-			mod = { "Control", "Alt" },
-			key = "K",
-			command = { "send-layout-cmd", "luatile", [['main-location top']] },
-		},
-		{
-			mod = { "Control", "Alt" },
-			key = "L",
-			command = { "send-layout-cmd", "luatile", [['main-location right']] },
-		},
-		-- Super+Control+{H,J,K,L} to resize views
-		{
-			mod = { "Super", "Control" },
-			key = "H",
-			command = { "resize", "horizontal", -100 },
-		},
-		{
-			mod = { "Super", "Control" },
-			key = "J",
-			command = { "resize", "vertical", 100 },
-		},
-		{
-			mod = { "Super", "Control" },
-			key = "K",
-			command = { "resize", "vertical", -100 },
-		},
-		{
-			mod = { "Super", "Control" },
-			key = "L",
-			command = { "resize", "horizontal", 100 },
-		},
 	},
 }
 

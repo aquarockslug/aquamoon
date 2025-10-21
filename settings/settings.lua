@@ -106,5 +106,9 @@ return {
 			["cursor-size"] = 24,
 		},
 	},
-	window_rules = { ["ssd"] = { "glide-bin", "gimp" } }, -- use server side decorations
+	window_rules = {
+		-- use server side decorations
+		["ssd"] = { "glide-glide", "gimp", "neovide", "steam",
+			"org.gnome.Loupe", "org.gnome.Nautilus", "org.gnome.Showtime", "org.gnome.Boxes" }
+	},
 }
