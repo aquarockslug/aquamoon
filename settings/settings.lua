@@ -85,8 +85,8 @@ return {
 		},
 		-- Startup programs
 		{
-			-- "swayidle timeout 1800 'gtklock'", -- lock the screen after 30 min
-			"stasis"
+			"swayidle timeout 1800 'gtklock'", -- lock the screen after 30 min
+			-- "stasis"
 		},
 		{
 			"dunst" -- notifications

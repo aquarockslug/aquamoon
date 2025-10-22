@@ -75,7 +75,7 @@ function OceanicNext()
 		bg = "1B2B34",
 	}
 	return {
-		active_font = fonts.bigblue,
+		active_font = fonts.fairiesevka,
 		fg = ocean.teal,
 		fg2 = ocean.fg,
 		bg = ocean.bg,
@@ -97,13 +97,12 @@ function Moonfly()
 		bg2 = "080808",
 	}
 	return {
-		active_font = fonts.fairiesevka,
+		active_font = fonts.bigblue,
 		fg = fly.purple,
 		fg2 = fly.fg,
 		bg = fly.bg,
 		bg2 = fly.purple,
 		accent = fly.purple_bright,
-		-- background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_light.jpg",
 		background_image = "/home/aqua/.aquamoon/wallpapers/aurora.jpg",
 		border_width = 4,
 		opacity = 0.8,
@@ -140,26 +139,6 @@ M.get = function(name)
 	if name == "srcery" then theme = Srcery() end
 	if name == "moonfly" then theme = Moonfly() end
 	if name == "OceanicNext" then theme = OceanicNext() end
-	theme.tofi_style = {
-		"--font=" .. theme.active_font.path,
-		"--font-size=" .. theme.active_font.size,
-		"--width=33%",
-		"--height=33%",
-		"--drun-launch=true",
-		"--outline-width=0",
-		"--border-width=" .. theme.border_width,
-		"--prompt-text='󰈿 '",
-		"--selection-color=#" .. theme.fg2,
-		"--text-color=#" .. theme.fg,
-		"--border-color=#" .. theme.bg2,
-		"--background-color=#" .. theme.bg,
-		"--text-cursor=true",
-		"--result-spacing=9",
-		"--anchor=bottom",
-		"--margin-bottom=10",
-		-- "--margin-bottom=26",
-		-- "--margin-left=" .. theme.border_width + 8,
-	}
 	theme.tofi = {
 		font = theme.active_font.path,
 		["font-size"] = theme.active_font.size,

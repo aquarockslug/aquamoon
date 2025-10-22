@@ -2,23 +2,12 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
+-- set up tofi menu
+local tofi_style = require("settings").theme.tofi
+local menu = require("etc/tofi").options(tofi_style)
+
 local theme_list = require("settings").theme_list
-
--- create tofi command
-local cmd = "tofi"
-for i, arg in ipairs(require("settings").theme.tofi_style) do
-	cmd = cmd .. " " .. arg
-end
-
--- create options list for tofi
-local options = ""
-for i, arg in ipairs(theme_list) do
-	options = options .. "\n" .. arg
-end
-
--- prompt user to choose a theme with tofi
-local choice = io.popen("echo '" .. options .. "' | " .. cmd):read()
-print("switching to theme " .. choice)
+local cmd = menu.choices(theme_list).open()
 
 -- use sed to replace the current colorscheme name in the rock.toml config file
 toml = require "tinytoml"
@@ -30,5 +19,3 @@ os.execute([[sed -i 's/"]] .. toml_settings.config.colorscheme ..
 
 -- restart river
 os.execute("~/.aquamoon/river/init")
-
--- TODO test if the new river instance is slow
