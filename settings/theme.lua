@@ -93,7 +93,8 @@ function Moonfly()
 		purple = "AE81FF",
 		purple_bright = "CF87E8",
 		fg = "BDBDBD",
-		bg = "080808",
+		bg = "242424",
+		bg2 = "080808",
 	}
 	return {
 		active_font = fonts.fairiesevka,
