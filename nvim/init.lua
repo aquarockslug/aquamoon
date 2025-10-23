@@ -63,15 +63,16 @@ vim.cmd.save = function()
 			require("fidget").notify(require('lsp-status').status() .. " SAVED")
 			-- TODO vim.o.statusline = require('lsp-status').status()
 		end
-		vim.cmd("silent write")
 	end
 
+	-- format gdscript
 	if vim.bo.filetype == 'gdscript' then
 		require("fidget").notify("Formatted gdscript")
 		os.execute("gdscript-formatter " .. vim.fn.expand('%:p'))
 		vim.cmd.edit()
-		vim.cmd("silent write")
 	end
+
+	vim.cmd "silent write"
 end
 
 
