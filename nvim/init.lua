@@ -56,16 +56,21 @@ vim.diagnostic.enable(false)
 -- SAVE
 vim.cmd.save = function()
 	-- prevent oil warning
-	if vim.o.filetype ~= "oil" then
+	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
+		if #vim.lsp.buf_get_clients() > 0 then
+			require("fidget").notify(require('lsp-status').status() .. " SAVED")
+			-- TODO vim.o.statusline = require('lsp-status').status()
+		end
+		vim.cmd("silent write")
 	end
 
-	vim.cmd("silent write")
-
-	if #vim.lsp.buf_get_clients() > 0 then
-		require("fidget").notify(require('lsp-status').status() .. " SAVED")
-		-- TODO vim.o.statusline = require('lsp-status').status()
+	if vim.bo.filetype == 'gdscript' then
+		require("fidget").notify("Formatted gdscript")
+		os.execute("gdscript-formatter " .. vim.fn.expand('%:p'))
+		vim.cmd.edit()
+		vim.cmd("silent write")
 	end
 end
 
@@ -85,7 +90,10 @@ require("snipe").setup({
 
 
 -- FZF
-require("fzf-lua").setup({ winopts = { height = 1.0, width = 1.0 } })
+require("fzf-lua").setup({
+	winopts = { height = 1.0, width = 1.0 },
+	-- hls = { border = "LineNr" }
+})
 
 
 -- NEOVIDE

@@ -100,9 +100,9 @@ return {
 	},
 	gsettings = {
 		["org.gnome.desktop.interface"] = {
-			["gtk-theme"] = "catppuccin-frappe-mauve-standard+default",
+			["gtk-theme"] = "catppuccin-frappe-mauve-standard+default-hdpi",
 			["icon-theme"] = "WhiteSur",
-			["cursor-theme"] = "WhiteSur",
+			["cursor-theme"] = "catppuccin-frappe-mauve-cursors",
 			["cursor-size"] = 24,
 		},
 	},

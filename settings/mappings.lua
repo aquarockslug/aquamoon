@@ -1,3 +1,11 @@
+local lua_script = function(script_name)
+	local script_path = "/home/aqua/.aquamoon/etc/"
+	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
+end
+local terminal_app = function(app)
+	return { "spawn", [['neovide -- +"terminal ]] .. app .. [["']] }
+end
+
 local mappings = {}
 mappings.map = {
 	normal = {
@@ -5,7 +13,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", [[ 'neovide --no-tabs' ]] },
+			command = { "spawn", [[ "neovide --no-tabs" ]] },
 		},
 		-- Browser
 		{
@@ -17,50 +25,55 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/drun.lua"' ]] },
+			command = lua_script("drun"),
 		},
 		{
 			mod = { "Super" },
 			key = "Z",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/system_menu.lua"' ]] },
+			command = lua_script("system_menu"),
 		},
 		{
 			mod = { "Super" },
 			key = "W",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/networkmanager.lua"' ]] },
+			command = lua_script("networkmanager"),
 		},
 		{
 			mod = { "Super" },
 			key = "T",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/theme_picker.lua"' ]] },
-		},
-		-- Volume
-		{
-			mod = { "Super" },
-			key = "C",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_volume.lua"' ]] },
-		},
-		{
-			mod = { "Super" },
-			key = "V",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/raise_volume.lua"' ]] },
+			command = lua_script("theme_picker"),
 		},
 		-- Brightness
 		{
 			mod = { "Super" },
+			key = "C",
+			command = lua_script("lower_brightness"),
+		},
+		{
+			mod = { "Super" },
+			key = "V",
+			command = lua_script("raise_brightness"),
+		},
+		-- Volume
+		{
+			mod = { "Super" },
+			key = "B",
+			command = lua_script("lower_volume"),
+		},
+		{
+			mod = { "Super" },
 			key = "N",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/lower_brightness.lua"' ]] },
+			command = lua_script("raise_volume"),
 		},
 		{
 			mod = { "Super" },
 			key = "M",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/raise_brightness.lua"' ]] },
+			command = terminal_app("jvol"),
 		},
 		-- Screenshot
 		{
 			mod = { "Super" },
 			key = "S",
-			command = { "spawn", [[ 'sh -c "lua /home/aqua/.aquamoon/etc/screenshot.lua"' ]] },
+			command = lua_script("screenshot"),
 		},
 		-- TODO
 		-- -- Show Notifications

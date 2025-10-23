@@ -5,12 +5,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { '*.jpg', '*.png' },
-	callback = function(ev)
+	callback = function()
 		vim.cmd([[ terminal timg % ]])
 	end
 })
+vim.api.nvim_create_autocmd("BufEnter", {
+	desc = "Sync nvim with oil's current directory",
+	pattern = { '*/' },
+	callback = function()
+		vim.b.minicompletion_disable = true
+		require("oil.actions").cd.callback()
+	end
+})
 vim.api.nvim_create_autocmd("VimResized", {
-	-- automatically resize windows to be equal
+	desc = "resize windows to be equal",
 	callback = function() vim.cmd("tabdo wincmd =") end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
