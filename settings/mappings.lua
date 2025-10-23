@@ -5,7 +5,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", [[ 'neovide --no-multigrid --no-tabs' ]] },
+			command = { "spawn", [[ 'neovide --no-tabs' ]] },
 		},
 		-- Browser
 		{

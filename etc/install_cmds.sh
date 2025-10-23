@@ -1,6 +1,9 @@
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 nvim -u NORC -c "source https://raw.githubusercontent.com/lumen-oss/rocks.nvim/master/installer.lua"
 
+# ssh-keygen
+# gh ssh-key add ~/.ssh/id
+
 # ln -s config.fish
 
 # yay tofi
