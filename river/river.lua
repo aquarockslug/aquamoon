@@ -45,7 +45,7 @@ local function tag_mappings()
 	os.execute(string.format("riverctl map normal Super+Shift 0 set-view-tags %s", all_tags))
 end
 
---- Apply setting by executing riverctl commands
+--- Apply settings by executing riverctl commands
 ------@param settings table
 M.apply_settings = function(settings)
 	-- Run startup commands
@@ -53,14 +53,7 @@ M.apply_settings = function(settings)
 		os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
 	end
 
-	-- GNOME-related settings
-	for group, tbl in pairs(settings.gsettings) do
-		for key, value in pairs(tbl) do
-			os.execute(string.format("gsettings set %s %s %s", group, key, value))
-		end
-	end
-
-	-- settingset river's options
+	-- Set river's options
 	for key, value in pairs(settings.river_options) do
 		os.execute(string.format("riverctl %s %s", key, concat(value, " ")))
 	end
@@ -104,12 +97,4 @@ M.apply_settings = function(settings)
 	end
 end
 
-M.run = function()
-	-- Launch the layout generator as the final initial process.
-	-- River run the init file as a process group leader and send
-	-- SIGTERM to the group on exit. Therefore, keep the main init
-	-- process running (replace it with the layout generator process).
-	local unistd = require("posix.unistd")
-	unistd.execp("river-luatile", {})
-end
 return M

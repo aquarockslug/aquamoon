@@ -31,7 +31,8 @@ local vim = vim -- avoid undefined warnings
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-vim.g.lazygit_floating_window_scaling_factor = 1.0
+vim.g.lazygit_floating_window_scaling_factor = 1
+vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
@@ -96,7 +97,6 @@ require("fzf-lua").setup({
 	-- hls = { border = "LineNr" }
 })
 
-
 -- NEOVIDE
 if vim.g.neovide then
 	vim.g.neovide_opacity = settings.theme.opacity
@@ -105,7 +105,9 @@ if vim.g.neovide then
 	vim.g.neovide_text_contrast = 0.1
 	vim.g.neovide_padding_left = 10
 	vim.g.neovide_padding_top = 10
-	vim.g.neovide_cursor_vfx_mode = "torpedo"
+	if settings.theme_name == "OceanicNext" then
+		vim.g.neovide_cursor_vfx_mode = "torpedo"
+	end
 end
 
 

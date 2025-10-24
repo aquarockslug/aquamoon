@@ -4,7 +4,7 @@ local fonts = {
 	bigblue = {
 		name = "BigBlueTermPlus Nerd Font Propo:h16",
 		path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'",
-		size = 16
+		size = 18
 	},
 	fairiesevka = {
 		name = "FairiesevkaTerm Nerd Font Mono:h18",
@@ -93,8 +93,8 @@ function Moonfly()
 		purple = "AE81FF",
 		purple_bright = "CF87E8",
 		fg = "BDBDBD",
-		bg = "242424",
-		bg2 = "080808",
+		bg = "080808",
+		-- bg = "242424",
 	}
 	return {
 		active_font = fonts.bigblue,

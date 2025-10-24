@@ -86,7 +86,6 @@ return {
 		-- Startup programs
 		{
 			"swayidle timeout 1800 'gtklock'", -- lock the screen after 30 min
-			-- "stasis"
 		},
 		{
 			"dunst" -- notifications
@@ -98,17 +97,11 @@ return {
 			"river-luatile"
 		}
 	},
-	gsettings = {
-		["org.gnome.desktop.interface"] = {
-			["gtk-theme"] = "catppuccin-frappe-mauve-standard+default-hdpi",
-			["icon-theme"] = "WhiteSur",
-			["cursor-theme"] = "catppuccin-frappe-mauve-cursors",
-			["cursor-size"] = 24,
-		},
-	},
 	window_rules = {
 		-- use server side decorations
-		["ssd"] = { "glide-glide", "gimp", "neovide", "steam",
-			"org.gnome.Loupe", "org.gnome.Nautilus", "org.gnome.Showtime", "org.gnome.Boxes" }
+		["ssd"] = {
+			"glide-glide", "gimp", "neovide", "steam", "libreoffice-writer", "libreoffice-startcenter",
+			"com.system76.CosmicFiles", "com.system76.CosmicPlayer", "org.gnome.Loupe"
+		}
 	},
 }

@@ -49,7 +49,7 @@ visualbell = true
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
 friendly-snippets = "scm"
-fzf-lua = "0.0.2273"
+fzf-lua = "0.0.2283"
 nvim-lspconfig = "2.5.0"
 tree-sitter-gdscript = "0.0.41"
 tree-sitter-javascript = "0.0.39"
@@ -67,7 +67,6 @@ rev = "d2d196c335919767803f905d573ce66340e33ee6"
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.3.0"
 
-# COLORSCHEMES
 [plugins.e-ink]
 git = "e-ink-colorscheme/e-ink.nvim"
 rev = "c90bf520ed01daa333e372e9bf2917f7f1562425"
@@ -78,7 +77,7 @@ rev = "09833f72d5ba23de2e8bcae18f479f326f5f677a"
 
 [plugins.vim-moonfly-colors]
 git = "bluz71/vim-moonfly-colors"
-rev = "c1add33aec2bd36621f865ab11552129ca01d353"
+rev = "ef85b89739bee184e204c89bc06280d62bd84039"
 
 [plugins.srcery-vim]
 git = "srcery-colors/srcery-vim"
