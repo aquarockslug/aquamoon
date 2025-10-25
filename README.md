@@ -8,7 +8,7 @@
 | Menus | Tofi |
 | Notifications | Dunst |
 | Editor+Terminal | Neovide |
-| Shell | Zsh |
+| Shell | Fish |
 | Browser | Glide |
 
 # SCREENSHOTS
