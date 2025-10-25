@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { '*/' },
 	callback = function()
 		vim.b.minicompletion_disable = true
-		require("oil.actions").cd.callback()
+		require("oil.actions").cd.callback() -- TODO use "silent" param
 	end
 })
 vim.api.nvim_create_autocmd("VimResized", {

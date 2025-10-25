@@ -70,6 +70,7 @@ mappings.map = {
 			key = "S",
 			command = lua_script("screenshot"),
 		},
+		-- Close
 		{
 			mod = "Super",
 			key = "Q",
