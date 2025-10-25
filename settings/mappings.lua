@@ -1,5 +1,5 @@
 local lua_script = function(script_name)
-	local script_path = "/home/aqua/.aquamoon/etc/"
+	local script_path = "/home/aqua/.aquamoon/scripts/"
 	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
 end
 local terminal_app = function(app)

@@ -4,7 +4,7 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
 
 -- set up tofi menu
 local tofi_style = require("settings").theme.tofi
-local menu = require("etc/tofi").options(tofi_style)
+local menu = require("scripts/tofi").options(tofi_style)
 
 local theme_list = require("settings").theme_list
 local cmd = menu.choices(theme_list).open()

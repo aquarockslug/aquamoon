@@ -1,6 +1,7 @@
 -- use a variable to check if the current tag has changed
 local S = require("settings")
-return function(t)
+local M = {}
+M.tally = function(t)
 	if current_tag ~= t then
 		current_tag = t
 
@@ -24,3 +25,12 @@ return function(t)
 			" --replace=9 '" .. flag_string .. "'")
 	end
 end
+M.send = function(message)
+	os.execute("dunstify --timeout=1000 --appname=luatile " ..
+		" --icon=''" .. -- no icon
+		" -h string:bgcolor:#" .. S.theme.bg ..
+		" -h string:fgcolor:#" .. S.theme.fg ..
+		" -h string:frcolor:#" .. S.theme.fg ..
+		" --replace=9 '" .. message .. "'")
+end
+return M

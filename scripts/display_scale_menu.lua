@@ -6,7 +6,7 @@ local app = "wlr-randr"
 
 -- set up tofi menu
 local tofi_style = require("settings").theme.tofi
-local menu = require("etc/tofi").options(tofi_style)
+local menu = require("scripts/tofi").options(tofi_style)
 local choices = menu.choices({
 	app .. " --output HDMI-A-1 --scale 1.25",
 	app .. " --output HDMI-A-1 --scale 1.15",

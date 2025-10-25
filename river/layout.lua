@@ -47,7 +47,7 @@ function handle_layout(args)
 	-- only use layout notifications on the laptop screen "eDP-1"
 	if args.output ~= "eDP-1" then return retval end
 
-	require("river/dunstify")(args.tags)
+	require("scripts/notify").tally(args.tags)
 
 	return retval
 end

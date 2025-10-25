@@ -3,6 +3,6 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
-require("etc/tofi")
+require("scripts/tofi")
     .options(require("settings").theme.tofi)
     .open()

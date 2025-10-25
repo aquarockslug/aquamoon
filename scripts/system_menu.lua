@@ -12,7 +12,7 @@ local battery = battery_cmd:read("*a")
 
 -- set up tofi menu
 local tofi_style = require("settings").theme.tofi
-local menu = require("etc/tofi").options(tofi_style)
+local menu = require("scripts/tofi").options(tofi_style)
 
 -- open
 local cmd = menu.choices({
