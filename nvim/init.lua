@@ -55,25 +55,28 @@ vim.diagnostic.enable(false)
 
 
 -- SAVE
-vim.cmd.save = function()
+save = function()
 	-- prevent oil warning
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
 		if #vim.lsp.buf_get_clients() > 0 then
-			require("fidget").notify(require('lsp-status').status() .. " SAVED")
+			-- TODO dont show "Notifications" part
+			require("fidget").notify(require('lsp-status').status())
 			-- TODO vim.o.statusline = require('lsp-status').status()
 		end
 	end
 
-	-- format gdscript
-	if vim.bo.filetype == 'gdscript' then
-		require("fidget").notify("Formatted gdscript")
-		os.execute("gdscript-formatter " .. vim.fn.expand('%:p'))
-		vim.cmd.edit()
-	end
-
 	vim.cmd "silent write"
+end
+
+
+-- RUN
+run = function()
+	if vim.bo.filetype == 'gdscript' then
+		require("fidget").notify("RUN")
+		os.execute("godot3 --upwards " .. vim.fn.expand('%:p:f'))
+	end
 end
 
 
@@ -96,6 +99,7 @@ require("fzf-lua").setup({
 	winopts = { height = 1.0, width = 1.0 },
 	-- hls = { border = "LineNr" }
 })
+
 
 -- NEOVIDE
 if vim.g.neovide then

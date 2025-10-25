@@ -45,12 +45,12 @@ mappings.map = {
 		-- Brightness
 		{
 			mod = { "Super" },
-			key = "C",
+			key = "V",
 			command = lua_script("lower_brightness"),
 		},
 		{
 			mod = { "Super" },
-			key = "V",
+			key = "M",
 			command = lua_script("raise_brightness"),
 		},
 		-- Volume
@@ -64,25 +64,12 @@ mappings.map = {
 			key = "N",
 			command = lua_script("raise_volume"),
 		},
-		{
-			mod = { "Super" },
-			key = "M",
-			command = terminal_app("jvol"),
-		},
 		-- Screenshot
 		{
 			mod = { "Super" },
 			key = "S",
 			command = lua_script("screenshot"),
 		},
-		-- TODO
-		-- -- Show Notifications
-		-- {
-		-- 	mod = "Super",
-		-- 	key = "N",
-		-- 	command = { "spawn", [['swaync-client -t']] },
-		-- },
-		-- Super+Q to close the focused view
 		{
 			mod = "Super",
 			key = "Q",
