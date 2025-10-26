@@ -7,9 +7,18 @@ if status is-interactive
 end
 
 alias q="exit"
+alias s="sudo"
 alias ls="eza"
 alias lg="lazygit"
 alias df="duf"
 alias du="dust"
 alias cat="bat --theme fly16"
 alias l="clear && ls"
+
+alias issues="gh issue view (
+	string split '\t' (
+		string escape (
+			gh issue list | peco
+		)
+	)
+)[1]"
