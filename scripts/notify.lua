@@ -22,6 +22,7 @@ M.tally = function(t)
 			" -h string:bgcolor:#" .. S.theme.bg ..
 			" -h string:fgcolor:#" .. S.theme.fg ..
 			" -h string:frcolor:#" .. S.theme.fg ..
+			" -h int:width:300" ..
 			" --replace=9 '" .. flag_string .. "'")
 	end
 end

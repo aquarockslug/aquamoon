@@ -25,7 +25,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "D",
-			command = lua_script("drun"),
+			command = lua_script("run"),
 		},
 		{
 			mod = { "Super" },

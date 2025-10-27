@@ -14,11 +14,12 @@ alias df="duf"
 alias du="dust"
 alias cat="bat --theme fly16"
 alias l="clear && ls"
+alias chmodx="sudo chmod u+x "
 
 alias issues="gh issue view (
 	string split '\t' (
 		string escape (
-			gh issue list | peco
+			gh issue list | peco --prompt ISSUES
 		)
 	)
 )[1]"
