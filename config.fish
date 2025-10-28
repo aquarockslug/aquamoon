@@ -16,7 +16,7 @@ alias cat="bat --theme fly16"
 alias l="clear && ls"
 alias chmodx="sudo chmod u+x "
 
-alias issues="gh issue view (
+alias issues="gh issue view --comments (
 	string split '\t' (
 		string escape (
 			gh issue list | peco --prompt ISSUES
