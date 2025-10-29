@@ -2,7 +2,7 @@
 -- frequently checks the battery and warns if its too low
 
 local threshold = 10      -- the battery level required to trigger the warning
-local frequency = 4       -- the amount of times to check in a minute
+local frequency = 2       -- the amount of times to check in a minute
 local low_battery = false -- the state of the battery
 local battery_path = "/sys/class/power_supply/BAT1/capacity"
 
@@ -19,6 +19,5 @@ while true do
 		low_battery = false
 	end
 
-	print(tonumber(power_left))
 	os.execute("sleep " .. 60 / frequency)
 end

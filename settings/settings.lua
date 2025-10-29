@@ -95,6 +95,9 @@ return {
 		},
 		{
 			"river-luatile"
+		},
+		{
+			"lua ~/.aquamoon/scripts/low_battery_warning.lua"
 		}
 	},
 	window_rules = {
