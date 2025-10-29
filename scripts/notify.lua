@@ -27,7 +27,7 @@ M.tally = function(t)
 	end
 end
 M.send = function(message)
-	os.execute("dunstify --timeout=1000 --appname=luatile " ..
+	os.execute("dunstify --timeout=2000 --appname=luatile " ..
 		" --icon=''" .. -- no icon
 		" -h string:bgcolor:#" .. S.theme.bg ..
 		" -h string:fgcolor:#" .. S.theme.fg ..
