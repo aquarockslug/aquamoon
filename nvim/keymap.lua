@@ -31,16 +31,16 @@ for key, func in pairs({
 	-- left hand lower
 	c = FzfLua.diagnostics_document,
 	x = FzfLua.lsp_finder,
-	v = function() vim.cmd "terminal wiremix" end,
 
 	-- right hand top
-	y = function() vim.cmd "terminal youtui" end,
+	y = function() vim.cmd "terminal clipse" end,
 	i = vim.lsp.buf.hover,
 	o = function() vim.cmd "terminal opencode" end,
-	p = function() vim.cmd "terminal dunstctl history | bat" end,
+	-- p = function() vim.cmd "terminal dunstctl history | bat" end,
 
 	-- right hand bottom
 	m = function() vim.cmd "FzfLua" end,
+	n = function() vim.cmd "terminal wiremix" end,
 	["/"] = vim.cmd.noh
 }) do
 	vim.keymap.set("n", "<leader>" .. key, func)

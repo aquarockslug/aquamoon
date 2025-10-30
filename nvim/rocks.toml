@@ -79,6 +79,12 @@ rev = "09833f72d5ba23de2e8bcae18f479f326f5f677a"
 git = "bluz71/vim-moonfly-colors"
 rev = "ef85b89739bee184e204c89bc06280d62bd84039"
 
+[plugins.vim-nightfly-colors]
+git = "bluz71/vim-nightfly-colors"
+
+[plugins.neomodern]
+git = "casedami/neomodern.nvim"
+
 [plugins.srcery-vim]
 git = "srcery-colors/srcery-vim"
 rev = "v2.1.0"

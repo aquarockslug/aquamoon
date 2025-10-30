@@ -154,7 +154,9 @@ if settings.theme_name == "minicyan" or settings.theme_name == "moonfly" then
 		winbar = "%!v:lua.get_oil_winbar()",
 	}
 end
-require("oil").setup(oil_config)
+require "oil".setup(oil_config)
+
+require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 
 -- require the other aquamoon nvim config files
 require "nvim/autocmds"; require "nvim/highlights";

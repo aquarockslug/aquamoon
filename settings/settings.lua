@@ -98,6 +98,9 @@ return {
 		},
 		{
 			"lua ~/.aquamoon/scripts/low_battery_warning.lua"
+		},
+		{
+			"clipse -listen-shell"
 		}
 	},
 	window_rules = {
