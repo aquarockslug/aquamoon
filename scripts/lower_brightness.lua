@@ -1,5 +1,9 @@
 local percent_change = 5
 os.execute("brightnessctl set " .. percent_change .. "%-")
--- TODO divide 'brightnessctl max' by 'brightnessctl get' before sending it to wobpipe
--- os.execute("echo $(brightnessctl get) > /tmp/wobpipe")
--- os.execute("tail -f /tmp/wobpipe | wob") '
+
+local curr = io.popen("brightnessctl get"):read("*a")
+local max = io.popen("brightnessctl max"):read("*a")
+
+package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
+require "scripts/notify".bar(curr / max * 100, "Brightness")
+curr_volume:close()

@@ -1,4 +1,4 @@
-jocal amount = 5
+local amount = 5
 os.execute("pamixer --decrease " .. amount)
 
 local curr_volume = io.popen("pamixer --get-volume")
