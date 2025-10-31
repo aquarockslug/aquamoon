@@ -35,12 +35,12 @@ choose_theme_by_hour = function()
 	return require("settings/theme").get(theme_name)
 end
 
-theme = require("settings/theme").get("moonfly")
+theme = require("settings/theme").get("srcery")
 
 return {
 	path = "/home/aqua/.aquamoon",
 	mappings = require("settings/mappings"),
-	theme_name = "moonfly",
+	theme_name = theme.name,
 	theme = theme,
 	wsl = false,
 	theme_list = {

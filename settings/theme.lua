@@ -23,6 +23,7 @@ function Dracula()
 		bg = "282A36",
 	}
 	return {
+		name = "dracula",
 		active_font = fonts.bigblue,
 		fg = dracula.green,
 		fg2 = dracula.fg,
@@ -51,6 +52,7 @@ function Sweetie()
 		-- fg = "202023",
 	}
 	return {
+		name = "sweetie",
 		active_font = fonts.fairiesevka,
 		fg = sweetie.teal,
 		fg2 = sweetie.fg,
@@ -75,6 +77,7 @@ function OceanicNext()
 		bg = "1B2B34",
 	}
 	return {
+		name = "OceanicNext",
 		active_font = fonts.fairiesevka,
 		fg = ocean.teal,
 		fg2 = ocean.fg,
@@ -97,6 +100,7 @@ function Moonfly()
 		-- bg = "242424",
 	}
 	return {
+		name = "moonfly",
 		active_font = fonts.bigblue,
 		fg = fly.purple,
 		fg2 = fly.fg,
@@ -118,15 +122,16 @@ function Srcery()
 		white = "BAA67F",
 	}
 	return {
+		name = "srcery",
 		active_font = fonts.fairiesevka,
 		fg = srcery.red,
 		fg2 = srcery.white,
 		bg = srcery.black,
 		bg2 = srcery.red,
 		accent = srcery.magenta,
-		background_image = "/home/aqua/.aquamoon/wallpapers/branches.jpg",
-		border_width = 4,
-		opacity = 0.8,
+		background_image = "/home/aqua/.aquamoon/wallpapers/wizard_cover.jpg",
+		border_width = 6,
+		opacity = 0.85,
 	}
 end
 

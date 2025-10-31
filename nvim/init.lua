@@ -109,8 +109,16 @@ if vim.g.neovide then
 	vim.g.neovide_text_contrast = 0.1
 	vim.g.neovide_padding_left = 10
 	vim.g.neovide_padding_top = 10
+
+	-- set vfx mode depending on the current theme
 	if settings.theme_name == "OceanicNext" then
 		vim.g.neovide_cursor_vfx_mode = "torpedo"
+	end
+	if settings.theme_name == "srcery" then
+		vim.g.neovide_cursor_vfx_mode = "pixiedust"
+	end
+	if settings.theme_name == "moonfly" then
+		vim.g.neovide_cursor_vfx_mode = "sonicboom"
 	end
 end
 
