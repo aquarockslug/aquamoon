@@ -3,7 +3,7 @@ local lua_script = function(script_name)
 	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
 end
 local terminal_app = function(app)
-	return { "spawn", [['neovide -- +"terminal ]] .. app .. [["']] }
+	return { "spawn", [['neovide term://"]] .. app .. [["']] }
 end
 
 local mappings = {}
@@ -13,7 +13,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", [[ "neovide --no-tabs" ]] },
+			command = { "spawn", [[ "neovide --no-tabs --mouse-cursor-icon i-beam" ]] },
 		},
 		-- Browser
 		{
