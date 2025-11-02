@@ -117,9 +117,9 @@ if vim.g.neovide then
 	if settings.theme_name == "srcery" then
 		vim.g.neovide_cursor_vfx_mode = "pixiedust"
 	end
-	if settings.theme_name == "moonfly" then
-		vim.g.neovide_cursor_vfx_mode = "sonicboom"
-	end
+	-- if settings.theme_name == "moonfly" then
+	-- 	vim.g.neovide_cursor_vfx_mode = "wireframe"
+	-- end
 end
 
 
