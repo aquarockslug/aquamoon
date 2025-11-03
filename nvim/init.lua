@@ -167,5 +167,6 @@ require "oil".setup(oil_config)
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 
 -- require the other aquamoon nvim config files
+require "nvim/mini"
 require "nvim/autocmds"; require "nvim/highlights";
 require "nvim/keymap"; require "nvim/terminal";
