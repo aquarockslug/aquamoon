@@ -29,7 +29,14 @@ for key, func in pairs({
 	s = FzfLua.spellcheck,
 
 	-- left hand lower
-	c = FzfLua.diagnostics_document,
+	c = function() -- get the location of the cursor
+		local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+		require("fidget").notify(
+			"Row: " .. tostring(cursor_row) .. ", " ..
+			"Col: " .. tostring(cursor_col)
+		)
+	end,
+	-- c = FzfLua.diagnostics_document,
 	x = FzfLua.lsp_finder,
 
 	-- right hand top
