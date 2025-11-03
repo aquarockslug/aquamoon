@@ -70,6 +70,12 @@ mappings.map = {
 			key = "S",
 			command = lua_script("screenshot"),
 		},
+		-- Git
+		{
+			mod = { "Super" },
+			key = "G",
+			command = terminal_app("lazygit"),
+		},
 		-- Close
 		{
 			mod = "Super",
