@@ -6,6 +6,11 @@ if status is-interactive
 	clear && ls
 end
 
+# highlight help messages
+abbr -a --position anywhere -- --help '--help | bat -plhelp'
+abbr -a --position anywhere -- -h '-h | bat -plhelp'
+
+# alias
 alias q="exit"
 alias s="sudo"
 alias ls="eza"

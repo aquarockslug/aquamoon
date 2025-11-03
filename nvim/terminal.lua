@@ -11,6 +11,8 @@ local theme = require "settings".theme
 Let("PS1", "%F{#" .. theme.fg .. "}%1~%k 󰈿 %f")
 Let("BAT_THEME", "fly16")
 
+Let("PAGER", "bat")
+
 Let('PATH', os.getenv('PATH') .. ':/home/aqua/.local/bin')
 Let('LUA_PATH', '/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;')
 
@@ -20,7 +22,7 @@ Let('LUA_PATH', '/home/aqua/.aquamoon/?/?.lua;/home/aqua/.aquamoon/?.lua;;')
 
 -- moonfly
 Let('FZF_DEFAULT_OPTS',
-'--color=fg:#b2b2b2,bg:#080808,hl:#f09479 --color=fg+:#e4e4e4,bg+:#262626,hl+:#f09479 --color=info:#cfcfb0,prompt:#80a0ff,pointer:#ff5189 --color=marker:#f09479,spinner:#36c692,header:#80a0ff')
+	'--color=fg:#b2b2b2,bg:#080808,hl:#f09479 --color=fg+:#e4e4e4,bg+:#262626,hl+:#f09479 --color=info:#cfcfb0,prompt:#80a0ff,pointer:#ff5189 --color=marker:#f09479,spinner:#36c692,header:#80a0ff')
 
 Let('DDGR_COLORS', 'fHgffH')
 

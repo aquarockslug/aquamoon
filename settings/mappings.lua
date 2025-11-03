@@ -13,7 +13,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "Return",
-			command = { "spawn", [[ "neovide --no-tabs --mouse-cursor-icon i-beam" ]] },
+			command = { "spawn", [[ "neovide --no-tabs" ]] },
 		},
 		-- Browser
 		{
