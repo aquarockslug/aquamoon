@@ -29,9 +29,9 @@ vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luar
 local settings = require "settings"
 local vim = vim -- avoid undefined warnings
 
-vim.g.godot_executable = "/bin/godot3"
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
+vim.g.godot_executable = "/bin/godot3"
 vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
 vim.g.oceanic_next_terminal_bold = 1
