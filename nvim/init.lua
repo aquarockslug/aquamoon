@@ -63,8 +63,10 @@ save = function()
 		vim.lsp.buf.format()
 		if #vim.lsp.buf_get_clients() > 0 then
 			-- TODO dont show "Notifications" part
-			require("fidget").notify(require('lsp-status').status())
 			-- TODO vim.o.statusline = require('lsp-status').status()
+			require("fidget").notify(require('lsp-status').status())
+		else
+			require("fidget").notify("SAVED")
 		end
 	end
 
