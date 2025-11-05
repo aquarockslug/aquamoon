@@ -30,7 +30,7 @@ for _, plug in ipairs({
 	"basics",
 	"bracketed",
 	"comment",
-	--"completion" TODO toggle completions,
+	-- "completion", -- TODO toggle completions
 	"diff",
 	"icons",
 	"jump",

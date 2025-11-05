@@ -29,6 +29,7 @@ vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luar
 local settings = require "settings"
 local vim = vim -- avoid undefined warnings
 
+vim.g.godot_executable = "/bin/godot3"
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.g.lazygit_floating_window_scaling_factor = 1
@@ -75,7 +76,7 @@ end
 run = function()
 	if vim.bo.filetype == 'gdscript' then
 		require("fidget").notify("RUN")
-		os.execute("godot3 --upwards " .. vim.fn.expand('%:p:f'))
+		os.execute(vim.g.godot_executable .. " --upwards " .. vim.fn.expand('%:p:f'))
 	end
 end
 
