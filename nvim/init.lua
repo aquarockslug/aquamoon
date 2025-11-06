@@ -169,6 +169,9 @@ require "oil".setup(oil_config)
 
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 
+require "leap".setup({})
+vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+
 -- require the other aquamoon nvim config files
 require "nvim/mini"
 require "nvim/autocmds"; require "nvim/highlights";

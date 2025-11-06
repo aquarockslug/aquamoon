@@ -34,7 +34,7 @@ for _, plug in ipairs({
 	"diff",
 	"icons",
 	"jump",
-	"jump2d",
+	-- "jump2d", -- trying leap.nvim
 	"pairs",
 	"snippets",
 	"surround",
