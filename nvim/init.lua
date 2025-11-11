@@ -100,7 +100,15 @@ require("snipe").setup({
 -- FZF
 require("fzf-lua").setup({
 	winopts = { height = 1.0, width = 1.0 },
-	-- hls = { border = "LineNr" }
+	hls = { border = "LineNr" }
+})
+
+-- TELEVISION
+require("tv").setup({
+	window = {
+		width = 0.9,
+		height = 0.9,
+	}
 })
 
 

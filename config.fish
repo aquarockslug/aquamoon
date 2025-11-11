@@ -30,3 +30,5 @@ alias issues="gh issue view --comments (
 		)
 	)
 )[1]"
+
+# source (tv init fish)

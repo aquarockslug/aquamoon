@@ -58,6 +58,9 @@ tree-sitter-markdown = "0.0.44"
 tree-sitter-toml = "0.0.31"
 "leap.nvim" = "scm"
 
+[plugins.tv]
+git = "alexpasmantier/tv.nvim"
+
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
 rev = "d2d196c335919767803f905d573ce66340e33ee6"
