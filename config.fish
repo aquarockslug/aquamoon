@@ -10,18 +10,22 @@ end
 abbr -a --position anywhere -- --help '--help | bat -plhelp'
 abbr -a --position anywhere -- -h '-h | bat -plhelp'
 
+# completions
+tv init fish | source
+
 # alias
-alias q="exit"
-alias s="sudo"
-alias ls="eza"
-alias lg="lazygit"
+alias cat="bat --theme fly16"
+alias chmodx="sudo chmod u+x "
 alias df="duf"
 alias du="dust"
-alias cat="bat --theme fly16"
 alias l="clear && ls"
-alias yank="wl-copy"
+alias lg="lazygit"
+alias ls="eza"
 alias put="wl-paste"
-alias chmodx="sudo chmod u+x "
+alias q="exit"
+alias s="sudo"
+alias v="nvim"
+alias yank="wl-copy"
 
 alias issues="gh issue view --comments (
 	string split '\t' (
@@ -30,5 +34,3 @@ alias issues="gh issue view --comments (
 		)
 	)
 )[1]"
-
-# source (tv init fish)
