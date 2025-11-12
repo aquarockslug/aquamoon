@@ -23,10 +23,7 @@ for key, func in pairs({
 	q = vim.cmd.bd,
 
 	-- left hand home row
-	g = FzfLua.grep_project,
-	f = FzfLua.files,
 	d = vim.cmd.toggle_diagnostics,
-	s = FzfLua.spellcheck,
 
 	-- left hand lower
 	c = function() -- get the location of the cursor
@@ -36,8 +33,6 @@ for key, func in pairs({
 			"Col: " .. tostring(cursor_col)
 		)
 	end,
-	-- c = FzfLua.diagnostics_document,
-	x = FzfLua.lsp_finder,
 
 	-- right hand top
 	y = function() vim.cmd "terminal clipse" end,
@@ -46,7 +41,6 @@ for key, func in pairs({
 	-- p = function() vim.cmd "terminal dunstctl history | bat" end,
 
 	-- right hand bottom
-	m = function() vim.cmd "FzfLua" end,
 	n = function() vim.cmd "terminal wiremix" end,
 	["/"] = vim.cmd.noh
 }) do

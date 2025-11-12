@@ -105,10 +105,17 @@ require("fzf-lua").setup({
 
 -- TELEVISION
 require("tv").setup({
+	keybindings = {
+		files = "<leader>f",
+		text = "<leader>g",
+		channels = "<leader>m",
+		-- files_qf = "<leader>q",
+		-- text_qf = "<leader>a",
+  	},
 	window = {
-		width = 0.9,
-		height = 0.9,
-	}
+		width = 1.0,
+	  	height = 1.0,
+  	}
 })
 
 
@@ -178,7 +185,7 @@ require "oil".setup(oil_config)
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 
 require "leap".setup({})
-vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+vim.keymap.set({'n', 'x', 'o'}, '<CR>', '<Plug>(leap)')
 
 -- require the other aquamoon nvim config files
 require "nvim/mini"
