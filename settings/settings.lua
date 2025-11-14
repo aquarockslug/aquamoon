@@ -42,7 +42,6 @@ choose_theme_by_hour = function()
 	return require("settings/theme").get(theme_name)
 end
 
--- theme = require("settings/theme").get("moonfly")
 theme = get_theme_from_toml()
 
 return {
@@ -50,11 +49,10 @@ return {
 	mappings = require("settings/mappings"),
 	theme_name = theme.name,
 	theme = theme,
-	wsl = false,
 	theme_list = {
 		"OceanicNext",
 		"dracula-soft",
-		"eldritch"
+		"eldritch",
 		"minicyan", -- TODO add a new background
 		"moonfly",
 		"srcery",
