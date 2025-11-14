@@ -54,11 +54,11 @@ return {
 	theme_list = {
 		"OceanicNext",
 		"dracula-soft",
-		"minicyan", -- TODO add a background
+		"eldritch"
+		"minicyan", -- TODO add a new background
 		"moonfly",
 		"srcery",
 		"sweetie",
-		-- "vague",
 		-- "apprentice",
 		-- "bamboo",
 		-- "desert",
@@ -68,6 +68,7 @@ return {
 		-- "nvim-tundra",
 		-- "seoul256",
 		-- "unokai"
+		-- "vague",
 		-- "vim-colors-paramount"
 		-- "vim-pink-moon"
 	},
