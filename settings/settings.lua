@@ -1,5 +1,12 @@
--- create lua settings table using information from the toml file
+local rocks_path = "/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
+rocks_path = rocks_path .. "/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
+local rocks_cpath = "/home/aqua/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
+rocks_cpath = rocks_cpath .. "/home/aqua/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
+local aquamoon_path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
+package.path = package.path .. rocks_path .. aquamoon_path .. ";"
+package.cpath = package.cpath .. rocks_cpath .. ";"
 
+-- create lua settings table using information from the toml file
 get_theme_from_toml = function()
 	toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
 	current_theme_name = toml_settings.config.colorscheme
@@ -21,7 +28,7 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("srcery")
 	end
 
-	if current_theme_name == "moonfly" then
+	if current_theme_name == "moonfly" or current_theme_name == "eldritch" then
 		return require("settings/theme").get("moonfly")
 	end
 
@@ -35,7 +42,8 @@ choose_theme_by_hour = function()
 	return require("settings/theme").get(theme_name)
 end
 
-theme = require("settings/theme").get("moonfly")
+-- theme = require("settings/theme").get("moonfly")
+theme = get_theme_from_toml()
 
 return {
 	path = "/home/aqua/.aquamoon",
