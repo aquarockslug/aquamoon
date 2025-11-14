@@ -149,16 +149,14 @@ end
 
 M.get = function(name)
 	M.my_flag = "󰈿"
-
-	-- local toml = read_toml "/home/aqua/.aquamoon/themes.toml"
-	-- if name == "sweetie" then theme = toml.sweetie end
-
+	local toml = read_toml "/home/aqua/.aquamoon/themes.toml"
 	local theme = {}
 	theme.name = name
+
 	if name == "dracula" then theme = Dracula() end
 	if name == "sweetie" then theme = Sweetie() end
 	if name == "srcery" then theme = Srcery() end
-	if name == "moonfly" then theme = Moonfly() end
+	if name == "moonfly" then theme = toml.moonfly end
 	if name == "OceanicNext" then theme = OceanicNext() end
 
 	theme.tofi = {

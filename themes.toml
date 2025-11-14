@@ -1,0 +1,17 @@
+[moonfly]
+fg = "AE81FF"
+fg2 = "BDBDBD"
+bg = "080808"
+bg2 = "AE81FF"
+accent = "CF87E8"
+background_image = "/home/aqua/.aquamoon/wallpapers/aurora.jpg"
+border_width = 4
+opacity = 0.8
+
+[moonfly.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
+size = 16
+
+# for testing syntax
+# require"ml".tstring(require"tinytoml".parse"themes.toml")

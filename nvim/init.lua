@@ -1,6 +1,8 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
+local settings = require "settings"
 
+-- ROCKS
 local rocks_config = {
 	rocks_path = vim.env.HOME .. "/.local/share/nvim/rocks",
 }
@@ -21,9 +23,9 @@ package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
 
 vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*"))
 
-local settings = require "settings"
 local vim = vim -- avoid undefined warnings
 
+-- GLOBAL VARIABLES
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 vim.g.godot_executable = "/bin/godot3"
@@ -32,7 +34,6 @@ vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } 
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
-
 
 -- LANGUAGE SERVERS
 local lspconfig = require('lspconfig')
@@ -100,11 +101,11 @@ require("tv").setup({
 		channels = "<leader>m",
 		-- files_qf = "<leader>q",
 		-- text_qf = "<leader>a",
-  	},
+	},
 	window = {
 		width = 1.0,
-	  	height = 1.0,
-  	}
+		height = 1.0,
+	}
 })
 
 
@@ -174,7 +175,7 @@ require "oil".setup(oil_config)
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 
 require "leap".setup({})
-vim.keymap.set({'n', 'x', 'o'}, '<CR>', '<Plug>(leap)')
+vim.keymap.set({ 'n', 'x', 'o' }, '<CR>', '<Plug>(leap)')
 
 -- require the other aquamoon nvim config files
 require "nvim/mini"
