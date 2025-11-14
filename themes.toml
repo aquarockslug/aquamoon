@@ -1,9 +1,10 @@
+# MOONFLY https://github.com/bluz71/vim-moonfly-colors
 [moonfly]
-fg = "AE81FF"
-fg2 = "BDBDBD"
+fg = "ae81ff"
+fg2 = "bdbdbd"
 bg = "080808"
-bg2 = "AE81FF"
-accent = "CF87E8"
+bg2 = "ae81ff"
+accent = "cf87e8"
 background_image = "/home/aqua/.aquamoon/wallpapers/aurora.jpg"
 border_width = 4
 opacity = 0.8
@@ -13,5 +14,66 @@ name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
 size = 16
 
-# for testing syntax
-# require"ml".tstring(require"tinytoml".parse"themes.toml")
+# SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
+[sweetie]
+fg = "92d3c5"
+fg2 = "d3d7de"
+bg = "2a2a3a"
+bg2 = "92d3c5"
+accent = "b094e2"
+background_image = "/home/aqua/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 4
+opacity = 0.8
+
+[sweetie.active_font]
+name = "FairiesevkaTerm Nerd Font Mono:h16"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
+size = 16
+
+# SRCERY https://github.com/srcery-colors/srcery-vim
+[srcery]
+fg = "ef2f27"
+fg2 = "baa67f"
+bg = "1c1b19"
+bg2 = "ef2f27"
+accent = "e02c6d"
+background_image = "/home/aqua/.aquamoon/wallpapers/wizard_cover.jpg"
+border_width = 6
+opacity = 0.85
+
+[srcery.active_font]
+name = "FairiesevkaTerm Nerd Font Mono:h16"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
+size = 16
+
+# OCEANIC https://github.com/mhartington/oceanic-next
+[OceanicNext]
+fg = "5fb3b3"
+fg2 = "d8dee9"
+bg = "1b2b34"
+bg2 = "5fb3b3"
+accent = "f99157"
+background_image = "/home/aqua/.aquamoon/wallpapers/mavericks_grey.jpg"
+border_width = 4
+opacity = 0.8
+
+[OceanicNext.active_font]
+name = "FairiesevkaTerm Nerd Font Mono:h16"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
+size = 16
+
+# DRACULA https://github.com/binhtran432k/dracula.nvim
+[dracula]
+fg = "50fa7b"
+fg2 = "f8f8f2"
+bg = "282a36"
+bg2 = "50fa7b"
+accent = "50fa7b"
+background_image = "/home/aqua/.aquamoon/wallpapers/snow_leopard_green.jpg"
+border_width = 4
+opacity = 0.33
+
+[dracula.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
+size = 16
