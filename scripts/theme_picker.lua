@@ -17,5 +17,8 @@ local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/g' ~/.aquamoon/nvim/rocks.toml]]
 os.execute(string.gsub(cmd, "\n", "")) -- remove newlines and execute
 
+-- TODO dunst doesnt change color
+-- os.execute "killall dunst; dunst &"
+
 -- restart river
 os.execute "~/.aquamoon/river/init"

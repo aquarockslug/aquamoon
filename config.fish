@@ -16,6 +16,7 @@ tv init fish | source
 # alias
 alias cat="bat --theme fly16"
 alias chmodx="sudo chmod u+x "
+alias ddgr="ddgr --reverse"
 alias df="duf"
 alias du="dust"
 alias l="clear && ls"
@@ -26,6 +27,8 @@ alias q="exit"
 alias s="sudo"
 alias v="nvim"
 alias yank="wl-copy"
+alias f="tv files"
+alias g="tv text"
 
 alias issues="gh issue view --comments (
 	string split '\t' (

@@ -37,7 +37,8 @@ for key, func in pairs({
 	-- right hand top
 	y = function() vim.cmd "terminal clipse" end,
 	i = vim.lsp.buf.hover,
-	o = function() vim.cmd "terminal opencode" end,
+	-- o = function() vim.cmd "terminal opencode" end,
+	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
 	-- p = function() vim.cmd "terminal dunstctl history | bat" end,
 
 	-- right hand bottom
