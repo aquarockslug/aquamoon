@@ -1,9 +1,8 @@
 # ROCKS.NVIM
 
 # non nvim rocks
-[rocks]
 # TODO put this in a seperate file
-# luaposix = "36.3"
+[rocks]
 microlight = "1.0"
 tinytoml = "0.0.4"
 catppuccin = "0.1.0"
@@ -12,7 +11,7 @@ warna = "0.3.5"
 
 # CONFIG
 [config]
-colorscheme = "moonfly"
+colorscheme = "OceanicNext"
 
 [config.options]
 autochdir = true
