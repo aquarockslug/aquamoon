@@ -1,8 +1,10 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
-S = require "settings"
 local vim = vim -- avoid undefined warnings
+S = require "settings"
 require "nvim/rocks"
+require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
+require "leap".setup({})
 
 
 -- GLOBAL VARIABLES
@@ -105,10 +107,6 @@ if vim.g.neovide then
 		vim.g.neovide_cursor_vfx_mode = "pixiedust"
 	end
 end
-
-
-require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
-require "leap".setup({})
 
 -- require the other aquamoon nvim config files
 require "nvim/mini"; require "nvim/oil";
