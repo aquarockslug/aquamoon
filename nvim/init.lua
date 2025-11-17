@@ -108,6 +108,7 @@ if vim.g.neovide then
 	end
 end
 
+
 -- require the other aquamoon nvim config files
 require "nvim/mini"; require "nvim/oil";
 require "nvim/autocmds"; require "nvim/highlights";
