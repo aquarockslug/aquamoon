@@ -7,6 +7,8 @@ vim.keymap.set("n", "<Right>", "<c-w>l")
 vim.keymap.set("n", "<Down>", "<c-w>j")
 vim.keymap.set("n", "<Up>", "<c-w>k")
 
+vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)") -- <CR>
+
 vim.keymap.set("n", "U", "<c-r>")        -- redo
 
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
@@ -24,9 +26,11 @@ for key, func in pairs({
 
 	-- left hand home row
 	d = vim.cmd.toggle_diagnostics,
+	-- f = tv files
+	-- g = tv text
 
 	-- left hand lower
-	c = function() -- get the location of the cursor
+	c = function()
 		local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
 		require("fidget").notify(
 			"Row: " .. tostring(cursor_row) .. ", " ..
@@ -37,15 +41,14 @@ for key, func in pairs({
 	-- right hand top
 	y = function() vim.cmd "terminal clipse" end,
 	i = vim.lsp.buf.hover,
-	-- o = function() vim.cmd "terminal opencode" end,
 	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
-	-- p = function() vim.cmd "terminal dunstctl history | bat" end,
+	p = function() vim.cmd "terminal dunstctl history | bat" end, -- TODO parse json before displaying
 
 	-- right hand bottom
 	n = function() vim.cmd "terminal wiremix" end,
 	["/"] = vim.cmd.noh
 }) do
-	vim.keymap.set("n", "<leader>" .. key, func)
+	vim.keymap.set({ "n", "x", "o"}, "<leader>" .. key, func)
 end
 
 for cmd, func in pairs({
@@ -55,11 +58,10 @@ for cmd, func in pairs({
 	[3] = function() vim.cmd.split "./" end,
 	[4] = function() vim.cmd.vsplit "./" end,
 	-- left hand
-	[5] = vim.cmd.bnext,
-	[6] = vim.cmd.bprev,
+	[5] = vim.cmd.cprev,
+	[6] = vim.cmd.cnext,
 	[7] = function() require("snipe").open_buffer_menu() end,
 	[8] = run, -- from init.lua
 }) do
-	vim.keymap.set("i", "<F" .. cmd .. ">", func)
-	vim.keymap.set("n", "<F" .. cmd .. ">", func)
+	vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func)
 end
