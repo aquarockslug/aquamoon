@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.hl.on_yank({ higroup = "LineNr", timeout = 250 }) end,
 })
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = { "*.jpg", "*.png" },
+	pattern = { "*.jpg", "*.png", "*.ico" },
 	callback = function()
 		vim.cmd([[ terminal timg % ]])
 	end
@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.js", "*.lua" },
 	callback = function()
+		vim.b.minicompletion_disable = false
 		require("mini.completion").setup()
 	end,
 })
@@ -39,11 +40,6 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	end
 })
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
-	callback = function()
-		-- check for file changes when leaving the terminal
-		vim.cmd.checktime()
-	end
+	desc = "check for file changes when leaving the terminal",
+	callback = function() vim.cmd.checktime() end
 })
--- TODO
--- on open fzf:
--- vim.b.minicompletion_disable = true

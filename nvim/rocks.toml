@@ -11,7 +11,7 @@ warna = "0.3.5"
 
 # CONFIG
 [config]
-colorscheme = "sweetie"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
