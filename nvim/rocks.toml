@@ -11,7 +11,7 @@ warna = "0.3.5"
 
 # CONFIG
 [config]
-colorscheme = "OceanicNext"
+colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
@@ -33,7 +33,7 @@ visualbell = true
 # PLUGINS
 [plugins]
 "dracula.nvim" = "scm"
-"feed.nvim" = "2.19.0"
+#"feed.nvim" = "2.19.0"
 "lazygit.nvim" = "scm"
 "lsp-status.nvim" = "scm"
 "mini.nvim" = "0.16.0"
@@ -47,7 +47,6 @@ visualbell = true
 "smart-splits.nvim" = "2.0.3"
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
-friendly-snippets = "scm"
 nvim-lspconfig = "2.5.0"
 tree-sitter-gdscript = "0.0.41"
 tree-sitter-javascript = "0.0.39"
@@ -64,17 +63,14 @@ rev = "e1a0cd3b2935996e0555c8fe4a52fe3441d562e5"
 git = "leath-dub/snipe.nvim"
 rev = "d2d196c335919767803f905d573ce66340e33ee6"
 
-[plugins.eldritch]
-git = "eldritch-theme/eldritch.nvim"
-rev = "dc72e630587971d654a0fb112cb974286d2fc7ae"
-
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.3.0"
 
-[plugins.e-ink]
-git = "e-ink-colorscheme/e-ink.nvim"
-rev = "c90bf520ed01daa333e372e9bf2917f7f1562425"
+# THEMES
+[plugins.eldritch]
+git = "eldritch-theme/eldritch.nvim"
+rev = "dc72e630587971d654a0fb112cb974286d2fc7ae"
 
 [plugins.oceanic-next]
 git = "mhartington/oceanic-next"
