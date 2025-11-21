@@ -46,6 +46,8 @@ for key, func in pairs({
 
 	-- right hand center
 	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
+	j = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end,
+	k = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end,
 
 	-- right hand bottom
 	n = function() vim.cmd "terminal wiremix" end,

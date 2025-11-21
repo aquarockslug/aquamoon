@@ -98,6 +98,7 @@ if vim.g.neovide then
 	vim.g.neovide_text_contrast = 0.1
 	vim.g.neovide_padding_left = 10
 	vim.g.neovide_padding_top = 10
+	vim.opt.linespace = 3
 
 	-- set vfx mode depending on the current theme
 	if S.theme_name == "OceanicNext" or S.theme_name == "minicyan" then
