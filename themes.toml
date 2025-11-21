@@ -12,7 +12,7 @@ opacity = 0.8
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
-size = 16
+size = 14
 
 # SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
 [sweetie]
@@ -26,9 +26,9 @@ border_width = 4
 opacity = 0.8
 
 [sweetie.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h16"
+name = "FairiesevkaTerm Nerd Font Mono:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
-size = 16
+size = 14
 
 # SRCERY https://github.com/srcery-colors/srcery-vim
 [srcery]
@@ -42,9 +42,9 @@ border_width = 6
 opacity = 0.85
 
 [srcery.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h16"
+name = "FairiesevkaTerm Nerd Font Mono:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
-size = 16
+size = 14
 
 # OCEANIC https://github.com/mhartington/oceanic-next
 [OceanicNext]
@@ -58,9 +58,9 @@ border_width = 4
 opacity = 0.8
 
 [OceanicNext.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h16"
+name = "FairiesevkaTerm Nerd Font Mono:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
-size = 16
+size = 14
 
 # DRACULA https://github.com/binhtran432k/dracula.nvim
 [dracula]
@@ -76,4 +76,4 @@ opacity = 0.33
 [dracula.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
-size = 16
+size = 14

@@ -29,7 +29,7 @@ alias put="wl-paste"
 alias q="exit"
 alias s="sudo"
 alias top="htop"
-alias serve="abduco -c littlejs /bin/simple-http-server --nocache --open"
+alias serve="abduco -c littlejs /bin/simple-http-server --nocache"
 alias v="nvim"
 alias yank="wl-copy"
 

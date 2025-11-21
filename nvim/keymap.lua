@@ -9,9 +9,9 @@ vim.keymap.set("n", "<Up>", "<c-w>k")
 
 vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)") -- <CR>
 
-vim.keymap.set("n", "U", "<c-r>")        -- redo
+vim.keymap.set("n", "U", "<c-r>")                      -- redo
 
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")               -- exit terminal with Esc
 
 vim.cmd.toggle_diagnostics = function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -26,7 +26,7 @@ for key, func in pairs({
 
 	-- left hand home row
 	d = vim.cmd.toggle_diagnostics,
-	-- f = tv files
+	-- f = tv files, defined in tv setup
 	-- g = tv text
 
 	-- left hand lower
@@ -41,14 +41,17 @@ for key, func in pairs({
 	-- right hand top
 	y = function() vim.cmd "terminal clipse" end,
 	i = vim.lsp.buf.hover,
-	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
+	o = function() vim.cmd "terminal opencode" end,
 	p = function() vim.cmd "terminal dunstctl history | bat" end, -- TODO parse json before displaying
+
+	-- right hand center
+	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
 
 	-- right hand bottom
 	n = function() vim.cmd "terminal wiremix" end,
 	["/"] = vim.cmd.noh
 }) do
-	vim.keymap.set({ "n", "x", "o"}, "<leader>" .. key, func)
+	vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func)
 end
 
 for cmd, func in pairs({

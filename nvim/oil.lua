@@ -12,21 +12,21 @@ end
 
 -- send all the files in the current directory to the quickfix list
 local function oil_files_to_quickfix()
-  if vim.bo.filetype ~= 'oil' then return end
-  local oil = require 'oil'
-  local dir = oil.get_current_dir()
+	if vim.bo.filetype ~= 'oil' then return end
+	local oil = require 'oil'
+	local dir = oil.get_current_dir()
 
-  local entries = {}
-  for i = 1, vim.fn.line '$' do
-    local entry = oil.get_entry_on_line(0, i)
-    if entry and entry.type == 'file' then
-      table.insert(entries, { filename = dir .. entry.name })
-    end
-  end
-  if #entries == 0 then return end
+	local entries = {}
+	for i = 1, vim.fn.line '$' do
+		local entry = oil.get_entry_on_line(0, i)
+		if entry and entry.type == 'file' then
+			table.insert(entries, { filename = dir .. entry.name })
+		end
+	end
+	if #entries == 0 then return end
 
-  vim.fn.setqflist(entries)
-  return vim.cmd.copen()
+	vim.fn.setqflist(entries)
+	return vim.cmd.copen()
 end
 
 local oil_config = {
