@@ -1,7 +1,7 @@
 -- LOW BATTERY WARNING
 -- frequently checks the battery and warns if its too low
 
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
+require("lib.paths").setup_paths()
 
 local threshold = 10      -- the battery level required to trigger the warning
 local frequency = 2       -- the amount of times to check in a minute

@@ -1,2 +1,3 @@
 #!/bin/bash
+#cd /home/aqua/.aquamoon
 lua /home/aqua/.aquamoon/river/init.lua

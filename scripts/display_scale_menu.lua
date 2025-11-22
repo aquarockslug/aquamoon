@@ -1,6 +1,5 @@
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+require("lib.paths").setup_paths()
+require("lib.paths").setup_rocks_paths()
 
 local app = "wlr-randr"
 

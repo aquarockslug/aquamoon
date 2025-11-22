@@ -1,5 +1,5 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
-package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
+require("lib.paths").setup_paths()
 local vim = vim -- avoid undefined warnings
 S = require "settings"
 require "nvim/rocks"

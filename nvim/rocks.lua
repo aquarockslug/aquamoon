@@ -14,7 +14,7 @@ do
         vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
         vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
     }
-    package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
+    require("lib.paths").setup_nvim_rocks_paths()
 
     -- Configure the C path (so that e.g. tree-sitter parsers can be found)
     local luarocks_cpath = {

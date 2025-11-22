@@ -1,6 +1,5 @@
-package.path = '~/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '~/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    '~/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+require("lib.paths").setup_paths()
+require("lib.paths").setup_rocks_paths()
 
 -- set up tofi menu
 local tofi_style = require("settings").theme.tofi
