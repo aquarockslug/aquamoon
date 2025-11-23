@@ -5,6 +5,9 @@ S = require "settings"
 require "nvim/rocks"
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 require "leap".setup({})
+require "debugprint".setup({
+	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
+})
 
 
 -- GLOBAL VARIABLES
