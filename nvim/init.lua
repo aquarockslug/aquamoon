@@ -9,6 +9,7 @@ require "debugprint".setup({
 	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
 })
 
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")  -- exit terminal with Esc
 
 -- GLOBAL VARIABLES
 vim.g.mapleader = ","
