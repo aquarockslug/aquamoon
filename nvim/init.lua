@@ -1,13 +1,13 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 require("lib.paths").setup_paths()
-local vim = vim -- avoid undefined warnings
+-- local vim = vim -- avoid undefined warnings
 S = require "settings"
 local mappings = S.mappings
 
-for _, map in ipairs(mappings.window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
-for _, map in ipairs(mappings.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
-for key, func in pairs(mappings.leader_mappings) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
-for cmd, func in pairs(mappings.function_key_mappings) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
+for _, map in ipairs(mappings.nvim.window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
+for _, map in ipairs(mappings.nvim.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
+for key, func in pairs(mappings.nvim.leader_mappings(vim)) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
+for cmd, func in pairs(mappings.nvim.function_key_mappings(vim)) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
 
 require "nvim/rocks"
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })

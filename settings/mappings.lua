@@ -156,8 +156,10 @@ mappings["map-pointer"] = {
 	},
 }
 
+mappings.nvim = {}
+
 -- Window navigation mappings
-mappings.window_nav = {
+mappings.nvim.window_nav = {
 	{ "n", "<Left>",  "<c-w>h" },
 	{ "n", "<Right>", "<c-w>l" },
 	{ "n", "<Down>",  "<c-w>j" },
@@ -165,27 +167,20 @@ mappings.window_nav = {
 }
 
 -- Basic mappings
-mappings.basic_mappings = {
+mappings.nvim.basic_mappings = {
 	{ { "n", "x", "o" }, "s", "<Plug>(leap)" }, -- TODO change to <CR>?
 	{ "n",               "U", "<c-r>" }, -- redo
 }
 
-mappings.tv = {
+mappings.nvim.tv = {
 	files = "<leader>f",
 	text = "<leader>g",
 	channels = "<leader>m",
 }
 
--- Terminal mapping
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
-
--- Custom commands
-vim.cmd.toggle_diagnostics = function()
-	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end
-
 -- Leader key mappings
-mappings.leader_mappings = {
+mappings.nvim.leader_mappings = function(vim)
+	return {
 	-- left hand top row
 	r = function() vim.cmd "terminal scooter" end,
 	e = vim.cmd.Oil,
@@ -193,9 +188,9 @@ mappings.leader_mappings = {
 	q = vim.cmd.bd,
 
 	-- left hand home row
-	d = vim.cmd.toggle_diagnostics,
-	-- f = tv files, defined in tv setup
-	-- g = tv text
+	d = function()
+		vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+	end,
 
 	-- left hand lower
 	c = function()
@@ -221,9 +216,11 @@ mappings.leader_mappings = {
 	n = function() vim.cmd "terminal wiremix" end,
 	["/"] = vim.cmd.noh
 }
+end
 
 -- Function key mappings
-mappings.function_key_mappings = {
+mappings.nvim.function_key_mappings = function(vim)
+	return {
 	-- right hand
 	[1] = function() vim.cmd "LazyGit" end,
 	[2] = save, -- from init.lua
@@ -234,6 +231,6 @@ mappings.function_key_mappings = {
 	[6] = vim.cmd.cnext,
 	[7] = function() require("snipe").open_buffer_menu() end,
 	[8] = run, -- from init.lua
-}
-
+	}
+end
 return mappings
