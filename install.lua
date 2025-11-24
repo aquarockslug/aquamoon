@@ -31,7 +31,7 @@ local function exec(cmd)
     end
     local result = os.execute(cmd)
     if result ~= 0 then
-        print_error("Command failed with exit code: " .. result)
+        -- print_error("Command failed with exit code: " .. result)
         return false
     end
     return true
