@@ -111,6 +111,8 @@ for i = 1, #packages, batch_size do
 end
 
 -- install rocks.nvim
+-- TODO BUG rocks.nvim cant install tinytoml because tinytoml is required for settings in nvim's init.lua
+-- rocks.lua should stop loading the config early
 print_section("Installing rocks.nvim")
 exec("yay -S --noconfirm --needed unzip")
 if exec("nvim -u NORC -c \"source https://raw.githubusercontent.com/lumen-oss/rocks.nvim/master/installer.lua\"") then
