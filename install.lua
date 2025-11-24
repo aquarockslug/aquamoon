@@ -74,10 +74,9 @@ end
 -- package list to install
 local packages = {
     "abduco", "arch-update", "archlinux-contrib", "bat", "biome", "bluez", "bluez-utils",
-    "brightnessctl", "butler", "catppuccin-cursors-frappe", "catppuccin-cursors-latte",
-    "catppuccin-gtk-theme-frappe", "catppuccin-gtk-theme-latte", "clipse", "cosmic-files",
+    "brightnessctl", "butler", "clipse", "cosmic-files",
     "ddgr", "duf", "dunst", "dust", "eza", "fastfetch", "fd", "firefox",
-    "fisher", "gh-dash", "gimp", "git", "github-cli", "glide-browser-bin", "godot3",
+    "fisher", "gimp", "git", "github-cli", "glide-browser-bin", "godot3",
     "grim", "gtklock", "htop", "lazygit", "loupe", "lua", "lua-language-server",
     "luakit", "luarocks", "man-db", "neovide", "networkmanager",
     "networkmanager-dmenu", "nwg-look", "opencode-bin", "openoffice-bin",
