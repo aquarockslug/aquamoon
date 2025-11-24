@@ -71,6 +71,8 @@ if exec("cd .. && rm -rf yay") then
     print_success("Cleaned up yay build directory")
 end
 
+exec("yay -S --noconfirm neovide")
+
 -- package list to install
 local packages = {
     "abduco", "bat", "biome", "bluez", "bluez-utils",
