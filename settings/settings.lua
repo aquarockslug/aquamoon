@@ -53,7 +53,7 @@ return {
 		"OceanicNext",
 		"dracula-soft",
 		"eldritch",
-		"minicyan", -- TODO add a new background
+		"minicyan", 
 		"moonfly",
 		"srcery",
 		"sweetie",
