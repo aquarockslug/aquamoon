@@ -2,6 +2,13 @@
 require("lib.paths").setup_paths()
 local vim = vim -- avoid undefined warnings
 S = require "settings"
+local mappings = S.mappings
+
+for _, map in ipairs(mappings.window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
+for _, map in ipairs(mappings.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
+for key, func in pairs(mappings.leader_mappings) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
+for cmd, func in pairs(mappings.function_key_mappings) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
+
 require "nvim/rocks"
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 require "leap".setup({})
@@ -81,11 +88,7 @@ require("snipe").setup({
 
 -- TELEVISION
 require("tv").setup({
-	keybindings = {
-		files = "<leader>f",
-		text = "<leader>g",
-		channels = "<leader>m",
-	},
+	keybindings = mappings.tv,
 	window = {
 		width = 1.0,
 		height = 1.0,
@@ -116,4 +119,4 @@ end
 -- require the other aquamoon nvim config files
 require "nvim/mini"; require "nvim/oil";
 require "nvim/autocmds"; require "nvim/highlights";
-require "nvim/keymap"; require "nvim/terminal";
+require "nvim/terminal";

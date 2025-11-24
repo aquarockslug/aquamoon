@@ -156,4 +156,84 @@ mappings["map-pointer"] = {
 	},
 }
 
+-- Window navigation mappings
+mappings.window_nav = {
+	{ "n", "<Left>",  "<c-w>h" },
+	{ "n", "<Right>", "<c-w>l" },
+	{ "n", "<Down>",  "<c-w>j" },
+	{ "n", "<Up>",    "<c-w>k" },
+}
+
+-- Basic mappings
+mappings.basic_mappings = {
+	{ { "n", "x", "o" }, "s", "<Plug>(leap)" }, -- TODO change to <CR>?
+	{ "n",               "U", "<c-r>" }, -- redo
+}
+
+mappings.tv = {
+	files = "<leader>f",
+	text = "<leader>g",
+	channels = "<leader>m",
+}
+
+-- Terminal mapping
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
+
+-- Custom commands
+vim.cmd.toggle_diagnostics = function()
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end
+
+-- Leader key mappings
+mappings.leader_mappings = {
+	-- left hand top row
+	r = function() vim.cmd "terminal scooter" end,
+	e = vim.cmd.Oil,
+	w = vim.cmd.terminal,
+	q = vim.cmd.bd,
+
+	-- left hand home row
+	d = vim.cmd.toggle_diagnostics,
+	-- f = tv files, defined in tv setup
+	-- g = tv text
+
+	-- left hand lower
+	c = function()
+		local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+		require("fidget").notify(
+			"Row: " .. tostring(cursor_row) .. ", " ..
+			"Col: " .. tostring(cursor_col)
+		)
+	end,
+
+	-- right hand top
+	y = function() vim.cmd "terminal clipse" end,
+	i = vim.lsp.buf.hover,
+	o = function() vim.cmd "terminal opencode" end,
+	p = function() vim.cmd "terminal dunstctl history | bat" end, -- TODO parse json before displaying
+
+	-- right hand center
+	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
+	j = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end,
+	k = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end,
+
+	-- right hand bottom
+	n = function() vim.cmd "terminal wiremix" end,
+	["/"] = vim.cmd.noh
+}
+
+-- Function key mappings
+mappings.function_key_mappings = {
+	-- right hand
+	[1] = function() vim.cmd "LazyGit" end,
+	[2] = save, -- from init.lua
+	[3] = function() vim.cmd.split "./" end,
+	[4] = function() vim.cmd.vsplit "./" end,
+	-- left hand
+	[5] = vim.cmd.cprev,
+	[6] = vim.cmd.cnext,
+	[7] = function() require("snipe").open_buffer_menu() end,
+	[8] = run, -- from init.lua
+}
+
 return mappings
