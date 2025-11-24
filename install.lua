@@ -118,10 +118,10 @@ if exec("nvim -u NORC -c \"source https://raw.githubusercontent.com/lumen-oss/ro
 end
 
 -- create directories and copy paths.lua
--- print_section("Setting up Lua paths")
--- if exec("sudo mkdir -p /usr/share/lua/5.4 /usr/share/luajit-2.1") then
---     print_success("Created Lua directories")
--- end
+print_section("Setting up Lua paths")
+if exec("sudo mkdir -p /usr/share/lua/5.4/lib /usr/share/luajit-2.1/lib") then
+    print_success("Created Lua directories")
+end
 if exec("sudo cp paths.lua /usr/share/lua/5.4/lib/") then
     print_success("Copied paths.lua to Lua 5.4")
 end
