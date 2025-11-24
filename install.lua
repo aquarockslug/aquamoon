@@ -73,7 +73,7 @@ end
 
 -- package list to install
 local packages = {
-    "abduco", "arch-update", "archlinux-contrib", "bat", "biome", "bluez", "bluez-utils",
+    "abduco", "bat", "biome", "bluez", "bluez-utils",
     "brightnessctl", "butler", "clipse", "cosmic-files",
     "ddgr", "duf", "dunst", "dust", "eza", "fastfetch", "fd", "firefox",
     "fisher", "gimp", "git", "github-cli", "glide-browser-bin", "godot3",
@@ -85,8 +85,7 @@ local packages = {
     "simple-http-server-git", "smassh", "steam", "swaybg", "swayidle", "television",
     "texturepacker", "timg", "tofi-git", "ttf-bigblueterminal-nerd", "ttf-fairiesevka-term",
     "ttf-liberation-mono-nerd", "unzip", "vale-ls", "veracrypt", "vesktop",
-    "vivid", "wget", "whitesur-cursor-theme-git", "whitesur-gtk-theme", "whitesur-icon-theme",
-    "wiremix", "wl-clipboard", "wlr-randr", "yay", "youtui"
+    "vivid", "wget", "wiremix", "wl-clipboard", "wlr-randr", "yay", "youtui"
 }
 
 -- install packages in batches
