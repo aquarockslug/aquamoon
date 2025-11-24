@@ -2,6 +2,7 @@
 require("lib.paths").setup_paths()
 S = require "settings"
 
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")  -- exit terminal with Esc
 
 -- GLOBAL VARIABLES
 vim.g.mapleader = ","
