@@ -181,56 +181,56 @@ mappings.nvim.tv = {
 -- Leader key mappings
 mappings.nvim.leader_mappings = function(vim)
 	return {
-	-- left hand top row
-	r = function() vim.cmd "terminal scooter" end,
-	e = vim.cmd.Oil,
-	w = vim.cmd.terminal,
-	q = vim.cmd.bd,
+		-- left hand top row
+		r = function() vim.cmd "terminal scooter" end,
+		e = function() vim.cmd.Oil() end,
+		w = function() vim.cmd.terminal() end,
+		q = function() vim.cmd.bd() end,
 
-	-- left hand home row
-	d = function()
-		vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-	end,
+		-- left hand home row
+		d = function()
+			vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+		end,
 
-	-- left hand lower
-	c = function()
-		local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
-		require("fidget").notify(
-			"Row: " .. tostring(cursor_row) .. ", " ..
-			"Col: " .. tostring(cursor_col)
-		)
-	end,
+		-- left hand lower
+		c = function()
+			local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+			require("fidget").notify(
+				"Row: " .. tostring(cursor_row) .. ", " ..
+				"Col: " .. tostring(cursor_col)
+			)
+		end,
 
-	-- right hand top
-	y = function() vim.cmd "terminal clipse" end,
-	i = vim.lsp.buf.hover,
-	o = function() vim.cmd "terminal opencode" end,
-	p = function() vim.cmd "terminal dunstctl history | bat" end, -- TODO parse json before displaying
+		-- right hand top
+		y = function() vim.cmd "terminal clipse" end,
+		i = function() vim.lsp.buf.hover() end,
+		o = function() vim.cmd "terminal opencode" end,
+		p = function() vim.cmd "terminal dunstctl history | bat" end, -- TODO parse json before displaying
 
-	-- right hand center
-	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
-	j = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end,
-	k = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end,
+		-- right hand center
+		h = function() vim.cmd "LazyGitFilterCurrentFile" end,
+		j = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end,
+		k = function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end,
 
-	-- right hand bottom
-	n = function() vim.cmd "terminal wiremix" end,
-	["/"] = vim.cmd.noh
-}
+		-- right hand bottom
+		n = function() vim.cmd "terminal wiremix" end,
+		["/"] = function() vim.cmd.noh() end
+	}
 end
 
 -- Function key mappings
 mappings.nvim.function_key_mappings = function(vim)
 	return {
-	-- right hand
-	[1] = function() vim.cmd "LazyGit" end,
-	[2] = save, -- from init.lua
-	[3] = function() vim.cmd.split "./" end,
-	[4] = function() vim.cmd.vsplit "./" end,
-	-- left hand
-	[5] = vim.cmd.cprev,
-	[6] = vim.cmd.cnext,
-	[7] = function() require("snipe").open_buffer_menu() end,
-	[8] = run, -- from init.lua
+		-- right hand
+		[1] = function() vim.cmd "LazyGit" end,
+		[2] = save, -- from init.lua
+		[3] = function() vim.cmd.split "./" end,
+		[4] = function() vim.cmd.vsplit "./" end,
+		-- left hand
+		[5] = vim.cmd.cprev,
+		[6] = vim.cmd.cnext,
+		[7] = function() require("snipe").open_buffer_menu() end,
+		[8] = run, -- from init.lua
 	}
 end
 return mappings
