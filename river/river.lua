@@ -60,6 +60,7 @@ M.apply_settings = function(settings)
 
 	-- Keyboard and mouse bindings
 	for map_type, tbl in pairs(settings.mappings) do
+		if (map_type == "nvim") then break end
 		for mode, value in pairs(tbl) do
 			for _, binding in ipairs(value) do
 				local modifiers = concat(binding.mod, "+")
