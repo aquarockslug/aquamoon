@@ -4,6 +4,19 @@
 -- This script sets up the complete development environment
 -- Usage: ./install.lua [--dry-run]
 
+-- ANSI color codes
+local colors = {
+    reset = "\027[0m",
+    bold = "\027[1m",
+    red = "\027[31m",
+    green = "\027[32m",
+    yellow = "\027[33m",
+    blue = "\027[34m",
+    magenta = "\027[35m",
+    cyan = "\027[36m",
+    white = "\027[37m"
+}
+
 local dry_run = false
 if arg and arg[1] == "--dry-run" then
     dry_run = true
@@ -23,19 +36,6 @@ local function exec(cmd)
     end
     return true
 end
-
--- ANSI color codes
-local colors = {
-    reset = "\027[0m",
-    bold = "\027[1m",
-    red = "\027[31m",
-    green = "\027[32m",
-    yellow = "\027[33m",
-    blue = "\027[34m",
-    magenta = "\027[35m",
-    cyan = "\027[36m",
-    white = "\027[37m"
-}
 
 local function print_section(title)
     print("\n" .. colors.cyan .. colors.bold .. string.rep("═", 50) .. colors.reset)
@@ -140,53 +140,66 @@ io.read()
 -- Create configuration symlinks
 print_section("Setting up configuration symlinks")
 
--- Fish shell
-if exec("mkdir -p ~/.config/fish") then
-    print_success("Created fish config directory")
-end
-if exec("ln -sf $(pwd)/config.fish ~/.config/fish/config.fish") then
-    print_success("Linked fish configuration")
+-- Function to safely create symlink
+local function safe_symlink(source, target, description)
+    -- Check if source exists
+    if not exec("test -e " .. source) then
+        print_error("Source file does not exist: " .. source)
+        return false
+    end
+    
+    -- Create target directory if needed
+    local target_dir = target:match("(.*/)")
+    if target_dir then
+        if not exec("mkdir -p " .. target_dir) then
+            print_error("Failed to create directory: " .. target_dir)
+            return false
+        end
+    end
+    
+    -- Remove existing symlink or file
+    if exec("test -L " .. target) or exec("test -e " .. target) then
+        if not exec("rm -f " .. target) then
+            print_error("Failed to remove existing target: " .. target)
+            return false
+        end
+    end
+    
+    -- Create symlink
+    if exec("ln -sf " .. source .. " " .. target) then
+        print_success("Linked " .. description)
+        return true
+    else
+        print_error("Failed to link " .. description)
+        return false
+    end
 end
 
+-- Fish shell
+safe_symlink("$(pwd)/config.fish", "~/.config/fish/config.fish", "fish configuration")
+
 -- Neovim
-if exec("mkdir -p ~/.config/nvim") then
-    print_success("Created nvim config directory")
-end
-if exec("ln -sf $(pwd)/nvim/* ~/.config/nvim/") then
-    print_success("Linked neovim configuration")
+if exec("test -d $(pwd)/nvim") then
+    safe_symlink("$(pwd)/nvim", "~/.config/nvim", "neovim configuration directory")
+else
+    print_error("nvim directory not found")
 end
 
 -- River window manager
-if exec("mkdir -p ~/.config/river") then
-    print_success("Created river config directory")
-end
-if exec("ln -sf $(pwd)/river/* ~/.config/river/") then
-    print_success("Linked river configuration")
+if exec("test -d $(pwd)/river") then
+    safe_symlink("$(pwd)/river", "~/.config/river", "river configuration directory")
+else
+    print_error("river directory not found")
 end
 
 -- Dunst notification daemon
-if exec("mkdir -p ~/.config/dunst") then
-    print_success("Created dunst config directory")
-end
-if exec("ln -sf $(pwd)/etc/dunstrc ~/.config/dunst/dunstrc") then
-    print_success("Linked dunst configuration")
-end
+safe_symlink("$(pwd)/etc/dunstrc", "~/.config/dunst/dunstrc", "dunst configuration")
 
 -- Tofi application launcher
-if exec("mkdir -p ~/.config/tofi") then
-    print_success("Created tofi config directory")
-end
-if exec("ln -sf $(pwd)/scripts/tofi.lua ~/.config/tofi/config.lua") then
-    print_success("Linked tofi configuration")
-end
+safe_symlink("$(pwd)/scripts/tofi.lua", "~/.config/tofi/config.lua", "tofi configuration")
 
 -- Themes
-if exec("mkdir -p ~/.config/themes") then
-    print_success("Created themes config directory")
-end
-if exec("ln -sf $(pwd)/themes.toml ~/.config/themes/themes.toml") then
-    print_success("Linked themes configuration")
-end
+safe_symlink("$(pwd)/themes.toml", "~/.config/themes/themes.toml", "themes configuration")
 
 -- Set up Rust
 print_section("Setting up Rust")
