@@ -1,7 +1,7 @@
 # ROCKS.NVIM
 
 # non nvim rocks
-# TODO put this in a seperate file
+# TODO put this part of the toml in a seperate file in the root directory
 [rocks]
 microlight = "1.0"
 tinytoml = "0.0.4"
