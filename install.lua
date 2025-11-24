@@ -145,10 +145,10 @@ print_section("Setting up configuration symlinks")
 -- Function to safely create symlink
 local function safe_symlink(source, target, description)
     -- Check if source exists
-    if not exec("test -e " .. source) then
-        print_error("Source file does not exist: " .. source)
-        return false
-    end
+    -- if not exec("test -e " .. source) then
+    --     print_error("Source file does not exist: " .. source)
+    --     return false
+    -- end
     
     -- Create target directory if needed
     local target_dir = target:match("(.*/)")
