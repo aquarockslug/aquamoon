@@ -1,20 +1,14 @@
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 require("lib.paths").setup_paths()
-local vim = vim -- avoid undefined warnings
 S = require "settings"
-local mappings = S.mappings
 
-for _, map in ipairs(mappings.window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
-for _, map in ipairs(mappings.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
-for key, func in pairs(mappings.leader_mappings) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
-for cmd, func in pairs(mappings.function_key_mappings) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
-
-require "nvim/rocks"
-require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
-require "leap".setup({})
-require "debugprint".setup({
-	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
-})
+-- KEYMAP
+-- get keymap configuration from mappings.lua
+nvim_mappings = S.mappings.nvim
+for _, map in ipairs(nvim_mappings .window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
+for _, map in ipairs(nvim_mappings .basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
+for key, func in pairs(nvim_mappings .leader_mappings(vim)) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
+for cmd, func in pairs(nvim_mappings .function_key_mappings(vim)) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
 
 
 -- GLOBAL VARIABLES
@@ -26,6 +20,51 @@ vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } 
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
+
+
+-- PLUGINS
+require "nvim/rocks"
+require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
+require "leap".setup({})
+require "debugprint".setup({
+	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
+})
+require("tv").setup({
+	keybindings = nvim_mappings.tv,
+	window = {
+		width = 1.0,
+		height = 1.0,
+	}
+})
+require("snipe").setup({
+	ui = {
+		position = "center",
+		text_align = "file-first",
+		open_win_override = {
+			title = vim.flag,
+			border = "rounded"
+		}
+	},
+	navigate = { open_vsplit = "e", open_split = "E" }
+})
+
+-- NEOVIDE
+if vim.g.neovide then
+	vim.g.neovide_opacity = S.theme.opacity
+	vim.o.guifont = S.theme.active_font.name
+	vim.g.neovide_text_gamma = 0.8
+	vim.g.neovide_text_contrast = 0.1
+	vim.g.neovide_padding_left = 10
+	vim.g.neovide_padding_top = 10
+	vim.opt.linespace = 3
+
+	if S.theme_name == "OceanicNext" or S.theme_name == "minicyan" then
+		vim.g.neovide_cursor_vfx_mode = "torpedo"
+	end
+	if S.theme_name == "srcery" or S.theme_name == "eldritch" then
+		vim.g.neovide_cursor_vfx_mode = "pixiedust"
+	end
+end
 
 
 -- LANGUAGE SERVERS
@@ -46,7 +85,7 @@ vim.diagnostic.enable(false)
 
 -- SAVE
 save = function()
-	-- prevent oil warning
+	-- avoid warnings from oil and ministart filetype
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
@@ -72,51 +111,6 @@ run = function()
 end
 
 
--- SNIPE
-require("snipe").setup({
-	ui = {
-		position = "center",
-		text_align = "file-first",
-		open_win_override = {
-			title = vim.flag,
-			border = "rounded"
-		}
-	},
-	navigate = { open_vsplit = "e", open_split = "E" }
-})
-
-
--- TELEVISION
-require("tv").setup({
-	keybindings = mappings.tv,
-	window = {
-		width = 1.0,
-		height = 1.0,
-	}
-})
-
-
--- NEOVIDE
-if vim.g.neovide then
-	vim.g.neovide_opacity = S.theme.opacity
-	vim.o.guifont = S.theme.active_font.name
-	vim.g.neovide_text_gamma = 0.8
-	vim.g.neovide_text_contrast = 0.1
-	vim.g.neovide_padding_left = 10
-	vim.g.neovide_padding_top = 10
-	vim.opt.linespace = 3
-
-	-- set vfx mode depending on the current theme
-	if S.theme_name == "OceanicNext" or S.theme_name == "minicyan" then
-		vim.g.neovide_cursor_vfx_mode = "torpedo"
-	end
-	if S.theme_name == "srcery" or S.theme_name == "eldritch" then
-		vim.g.neovide_cursor_vfx_mode = "pixiedust"
-	end
-end
-
-
 -- require the other aquamoon nvim config files
 require "nvim/mini"; require "nvim/oil";
-require "nvim/autocmds"; require "nvim/highlights";
-require "nvim/terminal";
+require "nvim/autocmds"; require "nvim/highlights"; require "nvim/terminal";
