@@ -58,13 +58,13 @@ end
 -- install yay for AUR packages
 print_section("Installing yay AUR helper")
 
-if exec("pacman -S sudo") and exec("sudo -u aqua pacman -S --needed git base-devel") then
+if exec("sudo pacman -S --needed sudo git base-devel") then
     print_success("Installed base development packages")
 end
 if exec("git clone https://aur.archlinux.org/yay.git") then
     print_success("Cloned yay repository")
 end
-if exec("cd yay && makepkg -si") then
+if exec("cd yay && sudo -u aqua makepkg -si") then
     print_success("Built and installed yay")
 end
 if exec("cd .. && rm -rf yay") then
