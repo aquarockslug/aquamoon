@@ -112,6 +112,7 @@ end
 
 -- install rocks.nvim
 print_section("Installing rocks.nvim")
+exec("yay -S --noconfirm --needed unzip")
 if exec("nvim -u NORC -c \"source https://raw.githubusercontent.com/lumen-oss/rocks.nvim/master/installer.lua\"") then
     print_success("rocks.nvim installed successfully")
 end
