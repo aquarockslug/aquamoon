@@ -147,27 +147,27 @@ print_section("Setting up configuration symlinks")
 -- Function to safely create symlink
 local function safe_symlink(source, target, description)
     -- Check if source exists
-    -- if not exec("test -e " .. source) then
-    --     print_error("Source file does not exist: " .. source)
-    --     return false
-    -- end
+    if not exec("test -e " .. source) then
+        print_error("Source file does not exist: " .. source)
+        return false
+    end
     
     -- Create target directory if needed
-    -- local target_dir = target:match("(.*/)")
-    -- if target_dir then
-    --     if not exec("mkdir -p " .. target_dir) then
-    --         print_error("Failed to create directory: " .. target_dir)
-    --         return false
-    --     end
-    -- end
-    --
-    -- -- Remove existing symlink or file
-    -- if exec("test -L " .. target) or exec("test -e " .. target) then
-    --     if not exec("rm -f " .. target) then
-    --         print_error("Failed to remove existing target: " .. target)
-    --         return false
-    --     end
-    -- end
+    local target_dir = target:match("(.*/)")
+    if target_dir then
+        if not exec("mkdir -p " .. target_dir) then
+            print_error("Failed to create directory: " .. target_dir)
+            return false
+        end
+    end
+
+    -- Remove existing symlink or file
+    if exec("test -L " .. target) or exec("test -e " .. target) then
+        if not exec("rm -f " .. target) then
+            print_error("Failed to remove existing target: " .. target)
+            return false
+        end
+    end
     
     -- Create symlink
     if exec("ln -sf " .. source .. " " .. target) then
