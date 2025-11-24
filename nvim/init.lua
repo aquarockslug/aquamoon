@@ -21,6 +21,15 @@ vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
 
 
+-- KEYMAP
+-- get keymap configuration from mappings.lua
+nvim_mappings = S.mappings.nvim
+for _, map in ipairs(nvim_mappings.window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
+for _, map in ipairs(nvim_mappings.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
+for key, func in pairs(nvim_mappings.leader_mappings(vim)) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
+for cmd, func in pairs(nvim_mappings.function_key_mappings(vim)) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
+
+
 -- PLUGINS
 require "nvim/rocks"
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
@@ -46,6 +55,7 @@ require("snipe").setup({
 	},
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
+
 
 -- NEOVIDE
 if vim.g.neovide then
