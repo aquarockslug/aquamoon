@@ -58,7 +58,7 @@ end
 -- install yay for AUR packages
 print_section("Installing yay AUR helper")
 
-if exec("sudo pacman -S --needed sudo git base-devel") then
+if exec("pacman -S --needed sudo git base-devel") then
     print_success("Installed base development packages")
 end
 if exec("git clone https://aur.archlinux.org/yay.git") then
@@ -118,13 +118,13 @@ end
 
 -- create directories and copy paths.lua
 print_section("Setting up Lua paths")
-if exec("sudo mkdir -p /usr/share/lua/5.4 /usr/share/luajit") then
+if exec("mkdir -p /usr/share/lua/5.4 /usr/share/luajit") then
     print_success("Created Lua directories")
 end
-if exec("sudo cp paths.lua /usr/share/lua/5.4/") then
+if exec("cp paths.lua /usr/share/lua/5.4/") then
     print_success("Copied paths.lua to Lua 5.4")
 end
-if exec("sudo cp paths.lua /usr/share/luajit/") then
+if exec("cp paths.lua /usr/share/luajit/") then
     print_success("Copied paths.lua to LuaJIT")
 end
 
