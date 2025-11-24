@@ -125,7 +125,7 @@ end
 if exec("sudo cp paths.lua /usr/share/lua/5.4/") then
     print_success("Copied paths.lua to Lua 5.4")
 end
-if exec("sudo cp paths.lua /usr/share/luajit/") then
+if exec("sudo cp paths.lua /usr/share/luajit-2.1/") then
     print_success("Copied paths.lua to LuaJIT")
 end
 
