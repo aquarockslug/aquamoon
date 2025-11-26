@@ -22,6 +22,32 @@ vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
 
 
+-- SAVE
+vim.cmd.aqua_save = function()
+	-- avoid warnings from oil and ministart filetype
+	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
+		MiniTrailspace.trim()
+		vim.lsp.buf.format()
+		if #vim.lsp.buf_get_clients() > 0 then
+			-- TODO dont show "Notifications" part
+			-- TODO vim.o.statusline = require('lsp-status').status()
+			require("fidget").notify(require('lsp-status').status())
+		else
+			require("fidget").notify("SAVED")
+		end
+	end
+
+	vim.cmd "silent write"
+end
+
+
+-- RUN
+vim.cmd.aqua_run = function()
+	if vim.bo.filetype == 'gdscript' then
+		require("fidget").notify("RUN")
+		os.execute(vim.g.godot_executable .. " --upwards " .. vim.fn.expand('%:p:f'))
+	end
+end
 -- KEYMAP
 -- get keymap configuration from mappings.lua
 nvim_mappings = S.mappings.nvim
