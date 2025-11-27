@@ -26,7 +26,7 @@ mappings.map = {
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
-			command = { "spawn", "glide-bin" },
+			command = { "spawn", "qutebrowser -C ~/.aquamoon/qutebrowser.py" },
 		},
 		-- Launcher
 		{
@@ -183,9 +183,9 @@ mappings.nvim.tv = {
 mappings.nvim.leader_mappings = function(vim)
 	return {
 		-- left hand top row
-		r = function() vim.cmd "terminal scooter" end,
+		r = function() vim.cmd.terminal "scooter" end,
 		e = function() vim.cmd.Oil() end,
-		w = function() vim.cmd.terminal() end,
+		w = function() vim.cmd.terminal "fish" end,
 		q = function() vim.cmd.bd() end,
 
 		-- left hand home row
