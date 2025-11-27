@@ -53,7 +53,7 @@ return {
 		"OceanicNext",
 		"dracula-soft",
 		"eldritch",
-		"minicyan", 
+		"minicyan",
 		"moonfly",
 		"srcery",
 		"sweetie",
@@ -113,7 +113,8 @@ return {
 	window_rules = {
 		-- use server side decorations
 		["ssd"] = {
-			"glide-glide", "gimp", "neovide", "steam", "libreoffice-writer", "libreoffice-startcenter",
+			"glide-glide", "gimp", "neovide", "steam", "qutebrowser",
+			"libreoffice-writer", "libreoffice-startcenter",
 			"com.system76.CosmicFiles", "com.system76.CosmicPlayer", "org.gnome.Loupe"
 		}
 	},

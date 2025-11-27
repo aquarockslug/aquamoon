@@ -26,7 +26,7 @@ mappings.map = {
 		{
 			mod = { "Super", "Shift" },
 			key = "Return",
-			command = { "spawn", "glide-bin" },
+			command = { "spawn", "qutebrowser -C ~/.aquamoon/qutebrowser.py" },
 		},
 		-- Launcher
 		{
