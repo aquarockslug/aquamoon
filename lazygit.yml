@@ -1,4 +1,5 @@
 
+border: 'bold'
 notARepository: 'skip'
 
 gui:
