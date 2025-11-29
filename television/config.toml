@@ -46,7 +46,8 @@ orientation = "landscape"
 # A list of builtin themes can be found in the `themes` directory of the television
 # repository. You may also create your own theme by creating a new file in a `themes`
 # directory in your configuration directory (see the `config.toml` location above).
-theme = "catppuccin-frappe-mauve"
+# theme = "catppuccin-frappe-mauve"
+theme = "ansi"
 
 # Feature-specific configurations
 # Each feature can have its own configuration section
@@ -61,8 +62,8 @@ border_type = "thick" # https://docs.rs/ratatui/latest/ratatui/widgets/block/enu
 
 [ui.status_bar]
 # Status bar separators (bubble):
-#separator_open = ""
-#separator_close = ""
+# separator_open = ""
+# separator_close = ""
 # Status bar separators (box):
 separator_open = ""
 separator_close = ""
