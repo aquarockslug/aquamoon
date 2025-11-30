@@ -1,9 +1,10 @@
 -- This file sets up the package.path so lua can find aquamoon and luarocks
 -- Adds paths only if they are not already present
--- this file should be copied to /usr/share/lua/lib
+-- this file should be linked or moved to /usr/share/lua/lib
 
 local function get_aquamoon_path()
-    return os.getenv("HOME") .. "/.aquamoon"
+    -- return os.getenv("HOME") .. "/.aquamoon"
+    return "/home/aqua/.aquamoon"
 end
 
 local function setup_paths()

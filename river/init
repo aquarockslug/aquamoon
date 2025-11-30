@@ -1,3 +1,7 @@
 #!/bin/bash
-#cd /home/aqua/.aquamoon
+
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+systemctl --user restart xdg-desktop-portal
+
 lua /home/aqua/.aquamoon/river/init.lua
