@@ -33,7 +33,7 @@ M.get = function(name)
 		["text-cursor"] = "true",
 		["result-spacing"] = 9,
 		anchor = "bottom",
-		["margin-bottom"] = 10
+		["margin-bottom"] = theme.border_width
 	}
 	return theme
 end

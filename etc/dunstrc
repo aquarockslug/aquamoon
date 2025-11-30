@@ -25,7 +25,7 @@
     # Offset from the origin
     # NOTE: Dunst from version 1.11 and older use this alternative notation
     # offset = 10x50
-    offset = (10, 50)
+    offset = (10, 6)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -57,7 +57,7 @@
 
     # Define which corners to round when drawing the progress bar. If progress_bar_corner_radius
     # is set to 0 this option will be ignored.
-    progress_bar_corners = all
+    progress_bar_corners = 0
 
     # Corner radius for the icon image.
     icon_corner_radius = 0
