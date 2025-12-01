@@ -3,12 +3,11 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
 local main_ratio = 2 / 3
-local gaps = 6 -- make gaps larger on larger displays?
+local gaps = 0 -- 6 TODO make this an aquamoon theme settings
 local smart_gaps = false
 local offset = 0
-local current_tag = 1
 
-local S = require("settings")
+local last_view_count = 0
 
 --  * Focused tags (`args.tags`)
 --  * Window count (`args.count`)
@@ -16,6 +15,7 @@ local S = require("settings")
 --  * Output height (`args.height`)
 --  * Output name (`args.output`)
 function handle_layout(args)
+	last_view_count = args.count
 	local retval = {}
 	if args.count == 1 then
 		if smart_gaps then
@@ -52,8 +52,24 @@ function handle_layout(args)
 	return retval
 end
 
-function handle_metadata(args)
-	return { name = "rivertile" }
+function handle_metadata()
+	return { name = "river_rotate" }
+end
+
+-- keep focus on the top of the stack while shifting views
+function rotate(clockwise)
+	if (clockwise) then
+		-- rotate clockwise: last to first
+		os.execute "riverctl focus-view previous && riverctl zoom"
+	else
+		-- rotate counter-clockwise: move first to last
+		for i = 1, last_view_count - 1 do
+			os.execute "riverctl swap next"
+		end
+		for i = 1, last_view_count - 1 do
+			os.execute "riverctl focus-view previous"
+		end
+	end
 end
 
 function modify_main_ratio(amount)
