@@ -48,6 +48,8 @@ vim.cmd.aqua_run = function()
 		os.execute(vim.g.godot_executable .. " --upwards " .. vim.fn.expand('%:p:f'))
 	end
 end
+
+
 -- KEYMAP
 -- get keymap configuration from mappings.lua
 nvim_mappings = S.mappings.nvim
@@ -67,8 +69,8 @@ require "debugprint".setup({
 require("tv").setup({
 	keybindings = nvim_mappings.tv,
 	window = {
-		width = 1.0,
-		height = 1.0,
+		width = 0.9,
+		height = 0.9,
 	}
 })
 require("snipe").setup({
