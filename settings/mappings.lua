@@ -169,7 +169,7 @@ mappings.nvim.window_nav = {
 
 -- Basic mappings
 mappings.nvim.basic_mappings = {
-	{ { "n", "x", "o" }, "<CR>", "<Plug>(leap)" },
+	{ { "n", "x", "o" }, "s", "<Plug>(leap)" }, -- alt: <CR>
 	{ "n",               "U",    "<c-r>" }, -- redo
 }
 

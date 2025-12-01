@@ -1,5 +1,5 @@
 require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } })
-require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } }) -- TODO not jumping?
+-- require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } }) -- TODO not jumping?
 
 require("mini.hipatterns").setup({
 	highlighters = {
@@ -15,7 +15,7 @@ require("mini.starter").setup({
 	footer = "",
 	evaluate_single = true,
 	items = {
-		starter.sections.recent_files(10, false),
+		starter.sections.recent_files(20, false),
 	},
 	content_hooks = {
 		starter.gen_hook.aligning('center', 'top'),
@@ -30,11 +30,10 @@ for _, plug in ipairs({
 	"basics",
 	"bracketed",
 	"comment",
-	-- "completion", -- TODO toggle completions
+	"completion", -- TODO toggle completions
 	"diff",
 	"icons",
 	"jump",
-	-- "jump2d", -- trying leap.nvim
 	"pairs",
 	"snippets",
 	"surround",
