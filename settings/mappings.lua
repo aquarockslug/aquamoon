@@ -91,25 +91,25 @@ mappings.map = {
 		},
 		-- Super+{J,K} to focus next/previous view in the layout stack
 		{
-			mod = "Super",
+			mod = { "Super", "Shift" },
 			key = "J",
 			command = { "focus-view", "previous" },
 		},
 		{
-			mod = "Super",
+			mod = { "Super", "Shift" },
 			key = "K",
 			command = { "focus-view", "next" },
 		},
-		-- Super+Shift+{J,K} to swap focused view with the next/previous view in the layout stack
+		-- Super+Shift+{J,K} to rotate the layout stack
 		{
-			mod = { "Super", "Shift" },
+			mod = "Super",
 			key = "J",
-			command = { "swap", "previous" },
+			command = { "send-layout-cmd", "luatile", [[ "rotate(false)" ]] },
 		},
 		{
-			mod = { "Super", "Shift" },
+			mod = "Super",
 			key = "K",
-			command = { "swap", "next" },
+			command = { "send-layout-cmd", "luatile", [[ "rotate(true)" ]] },
 		},
 		-- Super+E to bump the focused view to the top of the layout stack
 		{
@@ -169,8 +169,8 @@ mappings.nvim.window_nav = {
 
 -- Basic mappings
 mappings.nvim.basic_mappings = {
-	{ { "n", "x", "o" }, "s", "<Plug>(leap)" }, -- TODO change to <CR>?
-	{ "n",               "U", "<c-r>" }, -- redo
+	{ { "n", "x", "o" }, "<CR>", "<Plug>(leap)" },
+	{ "n",               "U",    "<c-r>" }, -- redo
 }
 
 mappings.nvim.tv = {
