@@ -115,7 +115,7 @@ return {
 		["ssd"] = {
 			"glide-glide", "gimp", "neovide", "steam", "qutebrowser",
 			"libreoffice-writer", "libreoffice-startcenter",
-			"com.system76.CosmicFiles", "com.system76.CosmicPlayer", "org.gnome.Loupe"
+			"com.system76.CosmicFiles", "mpv", "imv"
 		}
 	},
 }
