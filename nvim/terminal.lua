@@ -13,6 +13,8 @@ Let("ps1", "%F{#" .. theme.fg .. "}%1~%k 󰈿 %f")
 Let("bat_theme", "fly16")
 Let("pager", "bat --theme fly16 --style=-numbers") -- alternatives: more, nvim
 Let("ddgr_colors", "fHgffH")
+Let("browser", "glide-bin")
+Let("editor", "neovide")
 
 local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
 rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
