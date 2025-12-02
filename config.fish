@@ -31,9 +31,11 @@ alias put="wl-paste"
 alias q="exit"
 alias s="sudo"
 alias top="htop"
-alias serve="abduco -c littlejs /bin/simple-http-server --nocache"
+alias serve="abduco -c http_server /bin/simple-http-server --nocache"
 alias v="nvim"
 alias yank="wl-copy"
+alias r="pushd ( tv git-repos )"
+alias b="pushd ( tv git-branches )"
 
 alias issues="gh issue view --comments (
 	string split '\t' (
