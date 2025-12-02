@@ -6,4 +6,5 @@ R = require 'river'
 S = require 'settings'
 
 R.apply_settings(S)
-R.run()
+
+os.execute("neovide --no-tabs")
