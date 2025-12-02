@@ -2,7 +2,6 @@
 require("lib.paths").setup_paths()
 S = require "settings"
 
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")  -- exit terminal with Esc
 
 -- GLOBAL VARIABLES
 vim.g.mapleader = ","
@@ -50,6 +49,7 @@ for _, map in ipairs(nvim_mappings.window_nav) do vim.keymap.set(map[1], map[2],
 for _, map in ipairs(nvim_mappings.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
 for key, func in pairs(nvim_mappings.leader_mappings(vim)) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
 for cmd, func in pairs(nvim_mappings.function_key_mappings(vim)) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
 
 
 -- PLUGINS
@@ -61,10 +61,7 @@ require "debugprint".setup({
 })
 require("tv").setup({
 	keybindings = nvim_mappings.tv,
-	window = {
-		width = 0.9,
-		height = 0.9,
-	}
+	window = { width = 1, height = 1 }
 })
 require("snipe").setup({
 	ui = {
@@ -72,7 +69,7 @@ require("snipe").setup({
 		text_align = "file-first",
 		open_win_override = {
 			title = vim.flag,
-			border = "rounded"
+			-- border = "rounded"
 		}
 	},
 	navigate = { open_vsplit = "e", open_split = "E" }

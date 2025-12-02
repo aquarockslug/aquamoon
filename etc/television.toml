@@ -1,0 +1,51 @@
+[ui]
+ui_scale = 95
+orientation = "landscape"
+theme = "ansi"
+
+[ui.input_bar]
+border_type = "thick"
+prompt = " 󰈿_"
+
+[ui.results_panel]
+border_type = "thick"
+
+[ui.preview_panel]
+border_type = "thick"
+
+[ui.theme_overrides]
+background = '#080808'
+border_fg = '#AE81ff'
+text_fg = '#AE81ff'
+dimmed_text_fg = '#737994'
+input_text_fg = '#AE81ff'
+result_count_fg = '#AE81ff'
+result_name_fg = '#AE81ff'
+result_line_number_fg = '#e5c890'
+result_value_fg = '#AE81ff'
+selection_fg = '#AE81FF'
+selection_bg = '#080808'
+match_fg = '#BDBDBD'
+preview_title_fg = '#AE81ff'
+channel_mode_fg = '#303446'
+channel_mode_bg = '#AE81ff'
+remote_control_mode_fg = '#303446'
+remote_control_mode_bg = '#a6d189'
+
+[shell_integration]
+fallback_channel = "files"
+
+[shell_integration.channel_triggers]
+"alias" = ["alias", "unalias"]
+"env" = ["export", "unset"]
+"dirs" = ["cd", "ls", "rmdir"]
+"files" = ["head", "tail", "nvim", "bat", "cp", "mv", "rsync", "rm", "chmod", "chown", "ln", "tar", "zip", "unzip"]
+"git-diff" = ["git add", "git restore"]
+"git-branch" = ["git checkout", "git branch", "git merge", "git rebase", "git pull", "git push"]
+"git-log" = ["git log", "git show"]
+"docker-images" = ["docker run"]
+"git-repos" = ["git clone"]
+
+[shell_integration.keybindings]
+"smart_autocomplete" = "ctrl-s"
+"command_history" = "ctrl-h"
