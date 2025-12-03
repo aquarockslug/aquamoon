@@ -42,7 +42,6 @@ for key, func in pairs({
 	y = function() vim.cmd "terminal clipse" end,
 	i = vim.lsp.buf.hover,
 	o = function() vim.cmd "terminal opencode" end,
-	p = function() vim.cmd "terminal dunstctl history | bat" end, -- TODO parse json before displaying
 
 	-- right hand center
 	h = function() vim.cmd "LazyGitFilterCurrentFile" end,

@@ -48,16 +48,7 @@ vim.cmd.aqua_run = function()
 	end
 end
 
-
--- KEYMAP
--- get keymap configuration from mappings.lua
-nvim_mappings = S.mappings.nvim
-for _, map in ipairs(nvim_mappings.window_nav) do vim.keymap.set(map[1], map[2], map[3]) end
-for _, map in ipairs(nvim_mappings.basic_mappings) do vim.keymap.set(map[1], map[2], map[3]) end
-for key, func in pairs(nvim_mappings.leader_mappings(vim)) do vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func) end
-for cmd, func in pairs(nvim_mappings.function_key_mappings(vim)) do vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func) end
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
-
 
 -- PLUGINS
 require "nvim/rocks"
@@ -67,7 +58,7 @@ require "debugprint".setup({
 	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
 })
 require("tv").setup({
-	keybindings = nvim_mappings.tv,
+	keybindings = { files = "<leader>f" },
 	window = { width = 1, height = 1 }
 })
 require("snipe").setup({
