@@ -91,23 +91,23 @@ mappings.map = {
 		},
 		-- Super+{J,K} to focus next/previous view in the layout stack
 		{
-			mod = { "Super", "Shift" },
+			mod = "Super",
 			key = "J",
 			command = { "focus-view", "previous" },
 		},
 		{
-			mod = { "Super", "Shift" },
+			mod = "Super",
 			key = "K",
 			command = { "focus-view", "next" },
 		},
 		-- Super+Shift+{J,K} to rotate the layout stack
 		{
-			mod = "Super",
+			mod = { "Super", "Shift" },
 			key = "J",
 			command = { "send-layout-cmd", "luatile", [[ "rotate(false)" ]] },
 		},
 		{
-			mod = "Super",
+			mod = { "Super", "Shift" },
 			key = "K",
 			command = { "send-layout-cmd", "luatile", [[ "rotate(true)" ]] },
 		},
