@@ -7,11 +7,11 @@ vim.keymap.set("n", "<Right>", "<c-w>l")
 vim.keymap.set("n", "<Down>", "<c-w>j")
 vim.keymap.set("n", "<Up>", "<c-w>k")
 
-vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)") -- <CR>
+vim.keymap.set({ "n", "x", "o" }, "<CR>", "<Plug>(leap)")
 
-vim.keymap.set("n", "U", "<c-r>")                      -- redo
+vim.keymap.set("n", "U", "<c-r>")        -- redo
 
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")               -- exit terminal with Esc
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
 
 vim.cmd.toggle_diagnostics = function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
