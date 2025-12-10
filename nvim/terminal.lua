@@ -12,7 +12,7 @@ local theme = require "settings".theme
 Let("ps1", "%F{#" .. theme.fg .. "}%1~%k 󰈿 %f")
 Let("bat_theme", "fly16")
 Let("pager", "bat --theme fly16 --style=-numbers") -- alternatives: more, nvim
-Let("ddgr_colors", "fHgffH")
+-- Let("ddgr_colors", "fHgffH") -- TODO make this a setting
 Let("browser", "glide-bin")
 Let("editor", "neovide")
 

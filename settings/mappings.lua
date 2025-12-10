@@ -28,6 +28,11 @@ mappings.map = {
 			key = "Return",
 			command = { "spawn", "qutebrowser -C ~/.aquamoon/qutebrowser.py" },
 		},
+		{
+			mod = { "Super" },
+			key = "S",
+			command = lua_script("browse"),
+		},
 		-- Launcher
 		{
 			mod = { "Super" },
@@ -73,7 +78,7 @@ mappings.map = {
 		},
 		-- Screenshot
 		{
-			mod = { "Super" },
+			mod = { "Super", "Shift" },
 			key = "S",
 			command = lua_script("screenshot"),
 		},
