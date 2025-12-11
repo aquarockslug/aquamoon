@@ -6,3 +6,12 @@ R = require 'river'
 S = require 'settings'
 
 R.apply_settings(S)
+
+-- Load the television theme updater
+local tv_theme = require('scripts/update_television_theme')
+
+-- Update television theme to match the current aquamoon theme
+local success, message = tv_theme.update(S.theme_name)
+if not success then
+	print("Warning: " .. message)
+end
