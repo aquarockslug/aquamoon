@@ -11,7 +11,7 @@ warna = "0.3.5"
 
 # CONFIG
 [config]
-colorscheme = "dracula-soft"
+colorscheme = "eldritch"
 
 [config.options]
 autochdir = true

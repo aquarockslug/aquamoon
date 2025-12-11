@@ -67,6 +67,7 @@ end
 require('leap').opts.equivalence_classes = {
 	' \t\r\n', '([{', ')]}', '\'"`'
 }
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
 
 
 -- GLOBAL VARIABLES
@@ -107,7 +108,6 @@ vim.cmd.aqua_run = function()
 	end
 end
 
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
 
 -- PLUGINS
 require "nvim/rocks"
@@ -116,9 +116,15 @@ require "leap".setup({})
 require "debugprint".setup({
 	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
 })
-require("tv").setup({
-	keybindings = { files = "<leader>f" },
-	window = { width = 1, height = 1 }
+require('tv').setup({
+	channels = {
+		files = {
+			keybinding = '<leader>f', -- Launch the files channel
+		},
+		text = {
+			keybinding = '<leader>g',
+		},
+	},
 })
 require("snipe").setup({
 	ui = {

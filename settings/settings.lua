@@ -16,7 +16,8 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("sweetie")
 	end
 
-	if current_theme_name == "dracula" or current_theme_name == "dracula-soft" then
+	if current_theme_name == "dracula" or current_theme_name == "dracula-soft"
+	    or current_theme_name == "eldritch" then
 		return require("settings/theme").get("dracula")
 	end
 
@@ -28,7 +29,7 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("srcery")
 	end
 
-	if current_theme_name == "moonfly" or current_theme_name == "eldritch" then
+	if current_theme_name == "moonfly" then
 		return require("settings/theme").get("moonfly")
 	end
 

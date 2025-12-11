@@ -12,7 +12,7 @@ abbr -a --position anywhere -- -h '-h | bat -plhelp'
 tv init fish | source
 
 # alias
-alias cat="bat --theme fly16"
+alias cat="bat"
 alias chmodx="sudo chmod u+x "
 alias ddgr="ddgr --reverse"
 alias df="duf"
