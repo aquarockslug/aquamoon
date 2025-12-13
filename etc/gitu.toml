@@ -1,0 +1,27 @@
+[general]
+always_show_help.enabled = true
+mouse_support = true
+
+# When to prompt for discard confirmation. Options:
+# "line"  - always prompt even for individual lines (default),
+# "hunk"  - prompt for files and hunks,
+# "file"  - only prompt when discarding whole files,
+# "never" - never prompt when discarding.
+confirm_discard = "line"
+
+[style]
+# fg / bg can be either of:
+# - a hex value: "#707070"
+# - an ansi color name: "light blue"
+# - an ansi color index: "255"
+# - "reset" will set the terminal's default foreground / background color.
+# "BOLD|DIM|ITALIC|UNDERLINED|SLOW_BLINK|RAPID_BLINK|REVERSED|HIDDEN|CROSSED_OUT"
+section_header = { fg = "white", mods = "ITALIC|BOLD" }
+file_header = { fg = "yellow" }
+syntax_highlight.keyword = { fg = "magenta" }
+hash = { fg = "magenta" }
+tag = { fg = "magenta" }
+cursor = { symbol = "▌", fg = "white" }
+selection_bar = { symbol = "▌", fg = "white", mods = "DIM" }
+selection_line = { mods = "BOLD" }
+selection_area = {}
