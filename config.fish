@@ -8,6 +8,8 @@ end
 abbr -a --position anywhere -- --help '--help | bat -plhelp'
 abbr -a --position anywhere -- -h '-h | bat -plhelp'
 
+set VISUAL /bin/neovide
+
 # completions
 tv init fish | source
 
