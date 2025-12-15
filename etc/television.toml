@@ -3,28 +3,28 @@ ui_scale = 99
 orientation = "landscape"
 theme = "ansi"
 
-[ui.theme_overrides]
-border_fg = "#50fa7b"
-input_text_fg = "#50fa7b"
-background = "#282a36"
-selection_bg = "#282a36"
-match_fg = "#f8f8f2"
-preview_title_fg = "#50fa7b"
-result_count_fg = "#50fa7b"
-selection_fg = "#50fa7b"
-channel_mode_fg = "#282a36"
-channel_mode_bg = "#50fa7b"
-dimmed_text_fg = "#f8f8f2"
-remote_control_mode_fg = "#282a36"
-remote_control_mode_bg = "#50fa7b"
-result_name_fg = "#50fa7b"
-text_fg = "#50fa7b"
-result_value_fg = "#50fa7b"
-result_line_number_fg = "#50fa7b"
-
 [ui.input_bar]
 border_type = "thick"
 prompt = " 󰈿_"
+
+[ui.theme_overrides]
+dimmed_text_fg = "#d3d7de"
+remote_control_mode_fg = "#2a2a3a"
+channel_mode_fg = "#2a2a3a"
+match_fg = "#d3d7de"
+result_value_fg = "#92d3c5"
+selection_bg = "#2a2a3a"
+input_text_fg = "#92d3c5"
+text_fg = "#92d3c5"
+result_count_fg = "#92d3c5"
+result_name_fg = "#92d3c5"
+channel_mode_bg = "#92d3c5"
+border_fg = "#92d3c5"
+selection_fg = "#92d3c5"
+result_line_number_fg = "#b094e2"
+remote_control_mode_bg = "#b094e2"
+background = "#2a2a3a"
+preview_title_fg = "#92d3c5"
 
 [ui.preview_panel]
 border_type = "thick"
@@ -36,6 +36,6 @@ border_type = "thick"
 fallback_channel = "files"
 
 [shell_integration.keybindings]
-smart_autocomplete = "ctrl-s"
 command_history = "ctrl-h"
+smart_autocomplete = "ctrl-s"
 
