@@ -1,5 +1,17 @@
 -- AUTOCOMMANDS
--- TODO toggle cursorline on InsertEnter and InsertLeave
+
+-- Toggle cursorline on InsertEnter and InsertLeave
+vim.api.nvim_create_autocmd("InsertEnter", {
+	callback = function()
+		vim.opt.cursorline = false
+	end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+	callback = function()
+		vim.opt.cursorline = true
+	end,
+})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.hl.on_yank({ higroup = "LineNr", timeout = 250 }) end,
 })

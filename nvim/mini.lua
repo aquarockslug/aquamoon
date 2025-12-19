@@ -1,5 +1,5 @@
 require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } })
--- require("mini.snippets").setup({ mappings = { jump_next = "<Tab>", jump_prev = "<S-Tab>" } }) -- TODO not jumping?
+require("mini.snippets").setup() -- TODO not jumping?
 
 require("mini.hipatterns").setup({
 	highlighters = {
@@ -32,8 +32,8 @@ for _, plug in ipairs({
 	"bracketed",
 	-- "clue",
 	"comment",
-	-- "completion", -- TODO toggle completions
-	"cmdline",
+	"completion", -- TODO toggle completions
+	-- "cmdline",
 	"diff",
 	"icons",
 	"jump",
@@ -41,7 +41,6 @@ for _, plug in ipairs({
 	"move",
 	"pairs",
 	"sessions",
-	"snippets",
 	"surround",
 	-- "splitjoin",
 	"trailspace",

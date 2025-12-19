@@ -58,14 +58,14 @@ end
 for cmd, func in pairs({
 	-- right hand
 	[1] = function() vim.cmd "LazyGit" end,
-	[2] = save, -- from init.lua
+	[2] = vim.cmd.aqua_save, -- from init.lua
 	[3] = function() vim.cmd.split "./" end,
 	[4] = function() vim.cmd.vsplit "./" end,
 	-- left hand
 	[5] = vim.cmd.cprev,
 	[6] = vim.cmd.cnext,
 	[7] = function() require("snipe").open_buffer_menu() end,
-	[8] = run, -- from init.lua
+	[8] = vim.cmd.aqua_run, -- from init.lua
 }) do
 	vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func)
 end
