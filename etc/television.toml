@@ -3,33 +3,33 @@ ui_scale = 99
 orientation = "landscape"
 theme = "ansi"
 
-[ui.input_bar]
+[ui.results_panel]
 border_type = "thick"
-prompt = " 󰈿_"
 
 [ui.theme_overrides]
-dimmed_text_fg = "#d3d7de"
-remote_control_mode_fg = "#2a2a3a"
-channel_mode_fg = "#2a2a3a"
-match_fg = "#d3d7de"
-result_value_fg = "#92d3c5"
-selection_bg = "#2a2a3a"
-input_text_fg = "#92d3c5"
-text_fg = "#92d3c5"
-result_count_fg = "#92d3c5"
-result_name_fg = "#92d3c5"
-channel_mode_bg = "#92d3c5"
-border_fg = "#92d3c5"
-selection_fg = "#92d3c5"
-result_line_number_fg = "#b094e2"
-remote_control_mode_bg = "#b094e2"
-background = "#2a2a3a"
-preview_title_fg = "#92d3c5"
+background = "#1b2b34"
+result_count_fg = "#5fb3b3"
+channel_mode_fg = "#1b2b34"
+preview_title_fg = "#5fb3b3"
+channel_mode_bg = "#5fb3b3"
+remote_control_mode_bg = "#f99157"
+text_fg = "#5fb3b3"
+selection_bg = "#1b2b34"
+input_text_fg = "#5fb3b3"
+match_fg = "#d8dee9"
+remote_control_mode_fg = "#1b2b34"
+result_value_fg = "#5fb3b3"
+dimmed_text_fg = "#d8dee9"
+selection_fg = "#5fb3b3"
+result_name_fg = "#5fb3b3"
+result_line_number_fg = "#f99157"
+border_fg = "#5fb3b3"
 
-[ui.preview_panel]
+[ui.input_bar]
+prompt = " 󰈿_"
 border_type = "thick"
 
-[ui.results_panel]
+[ui.preview_panel]
 border_type = "thick"
 
 [shell_integration]

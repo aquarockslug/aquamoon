@@ -24,19 +24,28 @@ require("mini.starter").setup({
 	},
 })
 
+require("mini.")
+
 -- mini plugins that use default settings
 for _, plug in ipairs({
 	"ai",
+	"align",
 	"basics",
 	"bracketed",
+	-- "clue",
 	"comment",
-	"completion", -- TODO toggle completions
+	-- "completion", -- TODO toggle completions
+	"cmdline",
 	"diff",
 	"icons",
 	"jump",
+	"keymap",
+	"move",
 	"pairs",
+	"sessions",
 	"snippets",
 	"surround",
+	-- "splitjoin",
 	"trailspace",
 	"visits",
 }) do
