@@ -24,8 +24,6 @@ require("mini.starter").setup({
 	},
 })
 
-require("mini.")
-
 -- mini plugins that use default settings
 for _, plug in ipairs({
 	"ai",
