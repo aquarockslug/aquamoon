@@ -61,6 +61,9 @@ neorg = "9.3.0"
 git = "alexpasmantier/tv.nvim"
 rev = "176c97ce7e18b1a5acd473b320d03773901a8f75"
 
+[plugins.sunglasses]
+git = "miversen33/sunglasses.nvim"
+
 [plugins.snipe]
 git = "leath-dub/snipe.nvim"
 rev = "d2d196c335919767803f905d573ce66340e33ee6"

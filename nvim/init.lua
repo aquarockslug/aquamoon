@@ -116,7 +116,7 @@ require "leap".setup({})
 require "debugprint".setup({
 	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
 })
-require('tv').setup({
+require "tv".setup({
 	channels = {
 		files = {
 			keybinding = '<leader>f', -- Launch the files channel
@@ -126,7 +126,7 @@ require('tv').setup({
 		},
 	},
 })
-require("snipe").setup({
+require "snipe".setup({
 	ui = {
 		position = "center",
 		text_align = "file-first",
@@ -137,7 +137,12 @@ require("snipe").setup({
 	},
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
-
+-- require "sunglasses".setup({
+-- 	filter_type = "SHADE",
+-- 	filter_percent = .15,
+-- 	excluded_filetypes = { "oil" }
+-- })
+-- vim.cmd.SunglassesDisable()
 
 -- NEOVIDE
 if vim.g.neovide then

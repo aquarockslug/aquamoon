@@ -1,19 +1,21 @@
 local theme = require "settings".theme
 
--- TODO use a loop here
--- for key, func in pairs({
+local highlights = {
+  LineNr = { bg = theme.bg, fg = theme.fg },
+  LineNrAbove = { fg = theme.fg },
+  LineNrBelow = { fg = theme.fg },
+  CursorLineNr = { fg = theme.fg },
+  OilDir = { fg = theme.fg },
+  LazyGitFloat = { fg = theme.fg2 },
+  LazyGitBorder = { fg = theme.fg },
+  MiniStarterSection = { fg = theme.fg },
+  MiniStarterItemPrefix = { fg = theme.accent },
+  MiniStarterQuery = { fg = theme.accent },
+}
 
-vim.cmd.highlight("LineNr guibg=#" .. theme.bg)
-vim.cmd.highlight("LineNr guifg=#" .. theme.fg)
-vim.cmd.highlight("LineNrAbove guifg=#" .. theme.fg)
-vim.cmd.highlight("LineNrBelow guifg=#" .. theme.fg)
-vim.cmd.highlight("CursorLineNr guifg=#" .. theme.fg)
-
-vim.cmd.highlight("OilDir guifg=#" .. theme.fg)
-
-vim.cmd.highlight("LazyGitFloat guifg=#" .. theme.fg2)
-vim.cmd.highlight("LazyGitBorder guifg=#" .. theme.fg)
-
-vim.cmd.highlight("MiniStarterSection guifg=#" .. theme.fg)
-vim.cmd.highlight("MiniStarterItemPrefix guifg=#" .. theme.accent)
-vim.cmd.highlight("MiniStarterQuery guifg=#" .. theme.accent)
+for group, colors in pairs(highlights) do
+  local attrs = {}
+  if colors.bg then table.insert(attrs, "guibg=#" .. colors.bg) end
+  if colors.fg then table.insert(attrs, "guifg=#" .. colors.fg) end
+  vim.cmd.highlight(group .. " " .. table.concat(attrs, " "))
+end
