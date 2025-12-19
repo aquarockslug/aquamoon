@@ -147,14 +147,12 @@ lspconfig.lua_ls.setup({})
 lspconfig.vale_ls.setup({})
 lspconfig.gdscript.setup({})
 
-
 -- DIAGNOSTICS
 vim.diagnostic.config({
 	signs = false,
 	virtual_lines = true
 })
 vim.diagnostic.enable(false)
-
 
 -- require the other aquamoon nvim config files
 require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"

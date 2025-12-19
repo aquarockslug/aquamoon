@@ -1,12 +1,6 @@
 -- KEYMAP
 local vim = vim
 
--- navigate nvim windows using arrow keys
-vim.keymap.set("n", "<Left>", "<c-w>h")
-vim.keymap.set("n", "<Right>", "<c-w>l")
-vim.keymap.set("n", "<Down>", "<c-w>j")
-vim.keymap.set("n", "<Up>", "<c-w>k")
-
 vim.keymap.set({ "n", "x", "o" }, "<CR>", "<Plug>(leap)")
 
 vim.keymap.set("n", "U", "<c-r>")        -- redo
@@ -17,6 +11,21 @@ vim.cmd.toggle_diagnostics = function()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end
 
+require('smart-splits').setup()
+vim.keymap.set('n', '<A-Left>', require('smart-splits').resize_left)
+vim.keymap.set('n', '<A-Down>', require('smart-splits').resize_down)
+vim.keymap.set('n', '<A-Up>', require('smart-splits').resize_up)
+vim.keymap.set('n', '<A-Right>', require('smart-splits').resize_right)
+vim.keymap.set('n', '<Left>', require('smart-splits').move_cursor_left)
+vim.keymap.set('n', '<Down>', require('smart-splits').move_cursor_down)
+vim.keymap.set('n', '<Up>', require('smart-splits').move_cursor_up)
+vim.keymap.set('n', '<Right>', require('smart-splits').move_cursor_right)
+vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+vim.keymap.set('n', '<leader><Left>', require('smart-splits').swap_buf_left)
+vim.keymap.set('n', '<leader><Down>', require('smart-splits').swap_buf_down)
+vim.keymap.set('n', '<leader><Up>', require('smart-splits').swap_buf_up)
+vim.keymap.set('n', '<leader><Right>', require('smart-splits').swap_buf_right)
+
 for key, func in pairs({
 	-- left hand top row
 	r = function() vim.cmd "terminal scooter" end,
@@ -26,8 +35,6 @@ for key, func in pairs({
 
 	-- left hand home row
 	d = vim.cmd.toggle_diagnostics,
-	-- f = tv files, defined in tv setup
-	-- g = tv text
 
 	-- left hand lower
 	c = function()
