@@ -24,5 +24,6 @@ Let("lua_path", rocks_path .. aquamoon_path .. ";")
 Let("lua_cpath", rocks_cpath .. ";")
 
 Let("path", os.getenv("PATH") .. ":/home/aqua/.local/bin")
+Let("path", os.getenv("PATH") .. ":/home/aqua/.cargo/bin")
 
 -- TODO put aliases here?
