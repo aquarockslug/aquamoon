@@ -1,5 +1,6 @@
 package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
 
+-- BOOTSTRAP ROCKS.NVIM
 do
 	-- Specifies where to install/use rocks.nvim
 	local install_location = vim.fs.joinpath(vim.fn.stdpath("data") --[[@as string]], "rocks")
@@ -29,7 +30,6 @@ do
 	vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim",
 		"*"))
 end
-
 -- If rocks.nvim is not installed then install it!
 if not pcall(require, "rocks") then
 	local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache") --[[@as string]], "rocks.nvim")
@@ -71,6 +71,9 @@ require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "ita
 require "debugprint".setup({
 	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
 })
+
+
+-- LEAP
 require "leap".setup({})
 -- define a preview filter to reduce visual noise
 require('leap').opts.preview = function(ch0, ch1, ch2)
@@ -82,6 +85,8 @@ end
 require('leap').opts.equivalence_classes = {
 	' \t\r\n', '([{', ')]}', '\'"`'
 }
+
+-- TV
 require "tv".setup({
 	channels = {
 		files = {
@@ -91,7 +96,14 @@ require "tv".setup({
 			keybinding = '<leader>g',
 		},
 	},
+	window = {
+		width = 1,
+		height = 1,
+	}
 })
+
+
+-- SNIPE
 require "snipe".setup({
 	ui = {
 		position = "center",
@@ -112,13 +124,7 @@ vim.cmd.aqua_save = function()
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
-		if #vim.lsp.buf.get_clients() > 0 then
-			-- TODO dont show "Notifications" part
-			-- TODO vim.o.statusline = require('lsp-status').status()
-			require("fidget").notify(require('lsp-status').status())
-		else
-			require("fidget").notify("SAVED")
-		end
+		require("fidget").notify(require('lsp-status').status())
 	end
 
 	vim.cmd "silent write"
