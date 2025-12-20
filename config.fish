@@ -12,6 +12,7 @@ set VISUAL /bin/neovide
 
 # completions
 tv init fish | source
+cat ~/.aquamoon/etc/aura.fish | source
 
 # alias
 alias cat="bat"
