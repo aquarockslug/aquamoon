@@ -1,0 +1,15 @@
+[general]
+always_show_help.enabled = true
+mouse_support = true
+confirm_discard = "line"
+
+[style]
+section_header = { fg = "#5fb3b3", mods = "ITALIC|BOLD" }
+file_header = { fg = "#f99157" }
+syntax_highlight.keyword = { fg = "#f99157" }
+hash = { fg = "#f99157" }
+tag = { fg = "#f99157" }
+cursor = { symbol = "▌", fg = "#5fb3b3" }
+selection_bar = { symbol = "▌", fg = "#d8dee9", mods = "DIM" }
+selection_line = { mods = "BOLD" }
+selection_area = {}
