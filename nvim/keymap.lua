@@ -92,7 +92,8 @@ end
 -- Function key keymaps
 local function_keymaps = {
 	-- Right hand (F1-F4)
-	[1] = function() vim.cmd "LazyGit" end,
+	-- [1] = function() vim.cmd "LazyGit" end,
+	[1] = vim.cmd.aqua_git,
 	[2] = vim.cmd.aqua_save,
 	[3] = function() vim.cmd.split "./" end,
 	[4] = function() vim.cmd.vsplit "./" end,

@@ -130,6 +130,11 @@ vim.cmd.aqua_save = function()
 	vim.cmd "silent write"
 end
 
+vim.cmd.aqua_git = function()
+	vim.cmd "DiffviewOpen"
+	vim.cmd "split term://gitu"
+end
+
 
 -- RUN
 vim.cmd.aqua_run = function()

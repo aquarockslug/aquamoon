@@ -1,3 +1,4 @@
+-- HIGHLIGHTS
 local theme = require "settings".theme
 
 local highlights = {
