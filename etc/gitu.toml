@@ -1,5 +1,5 @@
 [general]
-always_show_help.enabled = true
+always_show_help.enabled = false
 mouse_support = true
 confirm_discard = "line"
 
