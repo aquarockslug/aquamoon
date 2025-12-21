@@ -8,7 +8,8 @@ end
 abbr -a --position anywhere -- --help '--help | bat -plhelp'
 abbr -a --position anywhere -- -h '-h | bat -plhelp'
 
-set VISUAL /bin/neovide
+# set VISUAL /bin/neovide
+set GIT_EDITOR "zenity --entry > "
 
 # completions
 tv init fish | source
