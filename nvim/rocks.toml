@@ -12,7 +12,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "OceanicNext"
+colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
