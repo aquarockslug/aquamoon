@@ -2,6 +2,7 @@
 always_show_help.enabled = false
 mouse_support = true
 confirm_discard = "line"
+collapsed_sections = ["branch_status", "untracked", "unstaged_changes", "recent_commits", "stashes"]
 
 [style]
 section_header = { fg = "#92d3c5", mods = "ITALIC|BOLD" }
