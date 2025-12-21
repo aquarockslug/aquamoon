@@ -72,7 +72,8 @@ function main
     end
 
     # Define mappings: source relative to aquamoon, destination relative to config
-    set mappings river river etc/cliq.toml cliq/cliq.toml etc/television.toml television/config.toml etc/gitu.toml gitu/config.toml etc/dunstrc dunst/dunstrc nvim nvim
+    set mappings river river etc/cliq.toml cliq/cliq.toml etc/television.toml television/config.toml \
+    	etc/gitu.toml gitu/config.toml etc/dunstrc dunst/dunstrc nvim nvim 
 
     printf '%s󰈿 Processing config mappings:%s\n' (color_header) (color_reset)
     printf '\n'

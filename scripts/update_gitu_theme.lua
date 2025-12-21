@@ -22,6 +22,7 @@ local function generate_toml(data)
 	toml = toml .. string.format('always_show_help.enabled = %s\n', tostring(data.general.always_show_help.enabled))
 	toml = toml .. string.format('mouse_support = %s\n', tostring(data.general.mouse_support))
 	toml = toml .. string.format('confirm_discard = "%s"\n', data.general.confirm_discard)
+	toml = toml .. 'collapsed_sections = ["branch_status", "untracked", "unstaged_changes", "recent_commits", "stashes"]\n'
 	toml = toml .. "\n"
 
 	-- Style section
