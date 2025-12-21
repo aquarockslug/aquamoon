@@ -52,5 +52,8 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	desc = "check for file changes when leaving the terminal",
-	callback = function() vim.cmd.checktime() end
+	callback = function() 
+		vim.cmd.checktime()
+		vim.cmd "DiffviewRefresh"
+	end
 })
