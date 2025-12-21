@@ -1,2 +1,5 @@
-os.execute ( "sleep " .. arg[1] )
-os.execute ( "dunstify " .. arg[2] )
+local wait_time = arg[1]
+local message = arg[2]
+
+os.execute("sleep " .. wait_time)
+os.execute("dunstify " .. message)

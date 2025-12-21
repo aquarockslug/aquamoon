@@ -8,6 +8,7 @@ accent = "cf87e8"
 background_image = "/home/aqua/.aquamoon/wallpapers/aurora.jpg"
 border_width = 4
 opacity = 0.8
+ddgr_colors = "hcegch"
 
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -24,6 +25,7 @@ accent = "b094e2"
 background_image = "/home/aqua/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 4
 opacity = 0.8
+ddgr_colors = "gcedge"
 
 [sweetie.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
@@ -40,6 +42,7 @@ accent = "e02c6d"
 background_image = "/home/aqua/.aquamoon/wallpapers/wizard_cover.jpg"
 border_width = 6
 opacity = 0.85
+ddgr_colors = "bdhbdb"
 
 [srcery.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
@@ -56,6 +59,7 @@ accent = "f99157"
 background_image = "/home/aqua/.aquamoon/wallpapers/mavericks_grey.jpg"
 border_width = 4
 opacity = 0.8
+ddgr_colors = "gedegd"
 
 [OceanicNext.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
@@ -72,6 +76,7 @@ accent = "50fa7b"
 background_image = "/home/aqua/.aquamoon/wallpapers/snow_leopard_green.jpg"
 border_width = 4
 opacity = 0.33
+ddgr_colors = "cehceh"
 
 [dracula.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"

@@ -11,8 +11,8 @@ Let("savehist", "10000")
 local theme = require "settings".theme
 Let("ps1", "%F{#" .. theme.fg .. "}%1~%k 󰈿 %f")
 Let("bat_theme", "fly16")
-Let("pager", "bat --theme fly16 --style=-numbers") -- alternatives: more, nvim
-Let("ddgr_colors", require("settings").theme.fg == "#ffffff" and "fHgffH" or "gwb")
+Let("pager", "bat --theme fly16 --style=-numbers")
+Let("ddgr_colors", theme.ddgr_colors)
 Let("browser", "glide-bin")
 
 local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
@@ -25,5 +25,3 @@ Let("lua_cpath", rocks_cpath .. ";")
 
 Let("path", os.getenv("PATH") .. ":/home/aqua/.local/bin")
 Let("path", os.getenv("PATH") .. ":/home/aqua/.cargo/bin")
-
--- TODO put aliases here?
