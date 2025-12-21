@@ -5,12 +5,12 @@ confirm_discard = "line"
 collapsed_sections = ["branch_status", "untracked", "unstaged_changes", "recent_commits", "stashes"]
 
 [style]
-section_header = { fg = "#92d3c5", mods = "ITALIC|BOLD" }
-file_header = { fg = "#b094e2" }
-syntax_highlight.keyword = { fg = "#b094e2" }
-hash = { fg = "#b094e2" }
-tag = { fg = "#b094e2" }
-cursor = { symbol = "▌", fg = "#92d3c5" }
-selection_bar = { symbol = "▌", fg = "#d3d7de", mods = "DIM" }
+section_header = { fg = "#ae81ff", mods = "ITALIC|BOLD" }
+file_header = { fg = "#cf87e8" }
+syntax_highlight.keyword = { fg = "#cf87e8" }
+hash = { fg = "#cf87e8" }
+tag = { fg = "#cf87e8" }
+cursor = { symbol = "▌", fg = "#ae81ff" }
+selection_bar = { symbol = "▌", fg = "#bdbdbd", mods = "DIM" }
 selection_line = { mods = "BOLD" }
 selection_area = {}

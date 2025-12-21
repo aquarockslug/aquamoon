@@ -8,8 +8,12 @@ local lua_script = function(script_name)
 	local script_path = "/home/aqua/.aquamoon/scripts/"
 	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
 end
-local terminal_app = function(app)
+local terminal_app = function(app, terminal_app)
+	-- if not terminal_app then
 	return { "spawn", [['neovide term://"]] .. app .. [["']] }
+	-- else
+	-- 	return { "spawn",  [[']] .. terminal_app .. [[ -e "]] .. app .. [["']] }
+	-- end
 end
 
 -- RIVER
@@ -86,7 +90,7 @@ mappings.map = {
 		{
 			mod = { "Super" },
 			key = "G",
-			command = terminal_app("lazygit"),
+			command = { "spawn", [["cool-retro-term -e lazygit"]] },
 		},
 		-- Close
 		{
