@@ -83,3 +83,20 @@ name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
 size = 14
 
+# ICECLIMBER - Ice Climbers theme
+[iceclimber]
+fg = "bbbac1"
+fg2 = "abbceb"
+bg = "171719"
+bg2 = "86a3f0"
+accent = "cc93b8"
+background_image = "/home/aqua/.aquamoon/wallpapers/iceclimbers.jpg"
+border_width = 4
+opacity = 0.8
+ddgr_colors = "gedegd"
+
+[iceclimber.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
+size = 14
+

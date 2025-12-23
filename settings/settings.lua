@@ -33,6 +33,10 @@ get_theme_from_toml = function()
 		return require("settings/theme").get("moonfly")
 	end
 
+	if current_theme_name == "iceclimber" then
+		return require("settings/theme").get("iceclimber")
+	end
+
 	-- default to sweetie
 	return require("settings/theme").get("sweetie")
 end
@@ -58,6 +62,7 @@ return {
 		"moonfly",
 		"srcery",
 		"sweetie",
+		"iceclimber"
 		-- "apprentice",
 		-- "bamboo",
 		-- "desert",
