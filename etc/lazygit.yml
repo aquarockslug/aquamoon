@@ -1,0 +1,27 @@
+
+notARepository: 'skip'
+
+gui:
+  theme:
+    activeBorderColor:
+      - '#bbbac1'
+      - bold
+    inactiveBorderColor:
+      - '#abbceb'
+    optionsTextColor:
+      - '#86a3f0'
+    selectedLineBgColor:
+      - '#171719'
+    cherryPickedCommitBgColor:
+      - '#86a3f0'
+    cherryPickedCommitFgColor:
+      - '#cc93b8'
+    unstagedChangesColor:
+      - '#cc93b8'
+    defaultFgColor:
+      - '#bbbac1'
+    searchingActiveBorderColor:
+      - '#abbceb'
+
+  authorColors:
+    '*': '#bbbac1'

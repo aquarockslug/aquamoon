@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "iceclimber"
+colorscheme = "OceanicNext"
 
 [config.options]
 autochdir = true
