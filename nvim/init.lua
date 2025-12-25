@@ -66,11 +66,11 @@ vim.flag = "󰈿"
 
 
 -- PLUGINS
-require "nvim/rocks"
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
-require "debugprint".setup({
-	-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
-})
+-- TODO only load debugprint for js files
+-- require "debugprint".setup({
+-- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
+-- })
 
 
 -- LEAP
@@ -85,6 +85,7 @@ end
 require('leap').opts.equivalence_classes = {
 	' \t\r\n', '([{', ')]}', '\'"`'
 }
+
 
 -- TV
 require "tv".setup({
@@ -130,10 +131,10 @@ vim.cmd.aqua_save = function()
 	vim.cmd "silent write"
 end
 
-vim.cmd.aqua_git = function()
-	vim.cmd "DiffviewOpen"
-	vim.cmd "split term://gitu"
-end
+-- vim.cmd.aqua_git = function()
+-- 	vim.cmd "DiffviewOpen"
+-- 	vim.cmd "split term://gitu"
+-- end
 
 
 -- RUN
@@ -152,12 +153,14 @@ lspconfig.lua_ls.setup({})
 lspconfig.vale_ls.setup({})
 lspconfig.gdscript.setup({})
 
+
 -- DIAGNOSTICS
 vim.diagnostic.config({
 	signs = false,
 	virtual_lines = true
 })
 vim.diagnostic.enable(false)
+
 
 -- require the other aquamoon nvim config files
 require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"

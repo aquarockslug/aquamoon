@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "OceanicNext"
+colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
@@ -54,7 +54,7 @@ tree-sitter-markdown = "0.0.45"
 tree-sitter-toml = "0.0.31"
 "leap.nvim" = "scm"
 neorg = "9.3.0"
-"diffview.nvim" = "scm"
+# "diffview.nvim" = "scm" -- use with gitu?
 
 [plugins.tv]
 git = "alexpasmantier/tv.nvim"
