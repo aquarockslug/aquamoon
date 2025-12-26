@@ -9,8 +9,10 @@ f status is-interactive
 	# completions
 	tv init fish | source
 	cat ~/.aquamoon/etc/aura.fish | source
+
 	clear && ls
 end
+
 
 # alias
 alias cat="bat"
@@ -18,7 +20,6 @@ alias chmodx="sudo chmod u+x "
 alias ddgr="ddgr --reverse"
 alias df="duf"
 alias du="dust"
-alias g="tv text"
 alias hist="history"
 alias l="clear && ls"
 alias lg="lazygit"
@@ -32,13 +33,14 @@ alias top="htop"
 alias serve="abduco -c http_server /bin/simple-http-server --nocache"
 alias v="nvim"
 alias yank="wl-copy"
+alias g="tv text"
 alias r="pushd ( tv git-repos )"
 alias b="pushd ( tv git-branches )"
-
-alias issues="gh issue view --comments (
-	string split '\t' (
-		string escape (
-			gh issue list | peco --prompt ISSUES
-		)
-	)
-)[1]"
+alias issues="tv gh-issues"
+# alias issues="gh issue view --comments (
+# 	string split '\t' (
+# 		string escape (
+# 			gh issue list | peco --prompt ISSUES
+# 		)
+# 	)
+# )[1]"

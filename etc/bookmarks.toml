@@ -1,25 +1,12 @@
-# Bookmarks configuration
-# Add your frequently used URLs here
+# Bookmarks
 
 [github]
 name = "GitHub"
-url = "https://github.com"
-
-[google]
-name = "Google"
-url = "https://google.com"
+url = "https://github.com/aquarockslug"
 
 [youtube]
 name = "YouTube"
 url = "https://youtube.com"
-
-[reddit]
-name = "Reddit"
-url = "https://reddit.com"
-
-[stackoverflow]
-name = "Stack Overflow"
-url = "https://stackoverflow.com"
 
 [wikipedia]
 name = "Wikipedia"
@@ -28,6 +15,10 @@ url = "https://wikipedia.org"
 [neovim]
 name = "Neovim"
 url = "https://neovim.io"
+
+[aur]
+name = "Arch User Repository"
+url = "https://aur.archlinux.org/"
 
 [arch_wiki]
 name = "Arch Wiki"

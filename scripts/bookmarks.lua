@@ -1,12 +1,20 @@
 #!/usr/bin/env lua
 
--- Reads bookmarks from bookmarks.toml and opens selected URL
+-- AQUA BOOKMARKS
+-- Reads bookmarks from bookmarks.toml and opens the selected URL
 
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
 local tofi = require("scripts/tofi")
+
+-- Get the bookmarks file path
+local function get_bookmarks_path()
+	local home = os.getenv("HOME") or os.getenv("USERPROFILE")
+	return home .. "/.aquamoon/etc/bookmarks.toml"
+end
+
 
 -- Read and parse TOML file
 local function read_toml(file_path)
@@ -44,12 +52,6 @@ local function read_toml(file_path)
 
 	file:close()
 	return data
-end
-
--- Get the bookmarks file path
-local function get_bookmarks_path()
-	local home = os.getenv("HOME") or os.getenv("USERPROFILE")
-	return home .. "/.aquamoon/etc/bookmarks.toml"
 end
 
 -- Main function
@@ -99,4 +101,3 @@ local function main()
 end
 
 main()
-

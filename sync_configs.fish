@@ -2,9 +2,7 @@
 
 set -g mappings \
     river river \
-    etc/cliq.toml cliq/cliq.toml \
     etc/television.toml television/config.toml \
-    etc/gitu.toml gitu/config.toml \
     etc/dunstrc dunst/dunstrc \
     nvim nvim \
     etc/lazygit.yml lazygit/config.yml
