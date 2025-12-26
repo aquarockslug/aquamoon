@@ -83,7 +83,7 @@ local packages = {
 	"river-luatile-git", "rust", "scooter-bin", "mpv",
 	"simple-http-server-git", "steam", "swaybg", "swayidle", "television",
 	"timg", "tofi-git", "ttf-bigblueterminal-nerd", "ttf-fairiesevka-term",
-	"unzip", "vale-ls", "veracrypt", "vesktop",
+	"unzip", "vale-ls", "veracrypt", "vesktop", "wdisplays"
 	"vivid", "wget", "wiremix", "wl-clipboard", "wlr-randr", "yay"
 }
 local optional = {

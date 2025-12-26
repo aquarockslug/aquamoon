@@ -38,7 +38,7 @@ visualbell = true
 "mini.nvim" = "0.17.0"
 "oil.nvim" = "2.15.0"
 "plenary.nvim" = "scm"
-"render-markdown.nvim" = "8.10.0"
+"render-markdown.nvim" = { version = "8.10.0", ft = "md" }
 "rocks-config.nvim" = "3.1.2"
 "rocks-git.nvim" = "2.5.7"
 "rocks-treesitter.nvim" = "1.3.1"
@@ -53,7 +53,8 @@ tree-sitter-lua = "0.0.36"
 tree-sitter-markdown = "0.0.45"
 tree-sitter-toml = "0.0.31"
 "leap.nvim" = "scm"
-neorg = "9.3.0"
+neorg = { version = "9.3.0", ft = "norg" }
+"rocks-lazy.nvim" = "1.2.2"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 [plugins.tv]
@@ -67,7 +68,9 @@ rev = "d2d196c335919767803f905d573ce66340e33ee6"
 [plugins.debugprint]
 git = "andrewferrier/debugprint.nvim"
 rev = "v6.3.0"
+ft = "js"
 
+# COLORS
 [plugins.eldritch]
 git = "eldritch-theme/eldritch.nvim"
 rev = "cddd745d4bd317a5c142708def49fd466fd87fc6"

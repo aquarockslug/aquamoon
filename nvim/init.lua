@@ -163,6 +163,7 @@ vim.diagnostic.enable(false)
 
 
 -- require the other aquamoon nvim config files
+require "nvim/neorg"
 require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"
 require "nvim/autocmds"; require "nvim/highlights";
 require "nvim/keymap"; require "nvim/terminal";

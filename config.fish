@@ -1,16 +1,16 @@
-if status is-interactive
+f status is-interactive
 	set fish_greeting
 	set -x LS_COLORS "$(vivid generate catppuccin-frappe)"
+
+	# highlight help messages
+	abbr -a --position anywhere -- --help '--help | bat -plhelp'
+	abbr -a --position anywhere -- -h '-h | bat -plhelp'
+
+	# completions
+	tv init fish | source
+	cat ~/.aquamoon/etc/aura.fish | source
 	clear && ls
 end
-
-# highlight help messages
-abbr -a --position anywhere -- --help '--help | bat -plhelp'
-abbr -a --position anywhere -- -h '-h | bat -plhelp'
-
-# completions
-tv init fish | source
-cat ~/.aquamoon/etc/aura.fish | source
 
 # alias
 alias cat="bat"
