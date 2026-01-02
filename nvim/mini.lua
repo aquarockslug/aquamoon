@@ -1,5 +1,5 @@
-require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } })
-require("mini.snippets").setup() -- TODO not jumping?
+-- require("mini.indentscope").setup({ symbol = vim.flag, draw = { delay = 300 } })
+-- require("mini.snippets").setup() -- TODO not jumping?
 
 require("mini.hipatterns").setup({
 	highlighters = {

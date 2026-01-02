@@ -79,6 +79,8 @@ local leader_keymaps = {
 	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
 	j = function() M.adjust_neovide_scale(-0.1) end,
 	k = function() M.adjust_neovide_scale(0.1) end,
+	l = function() require "chainsaw".variableLog() end,
+	L = function() require "chainsaw".removeLogs() end,
 
 	-- Right hand bottom
 	n = function() M.open_terminal("wiremix") end,

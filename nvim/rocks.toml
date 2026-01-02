@@ -55,6 +55,7 @@ tree-sitter-toml = "0.0.31"
 "leap.nvim" = "scm"
 neorg = { version = "9.3.0", ft = "norg" }
 "rocks-lazy.nvim" = "1.2.2"
+"lush.nvim" = "scm"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 [plugins.tv]
@@ -65,10 +66,8 @@ rev = "176c97ce7e18b1a5acd473b320d03773901a8f75"
 git = "leath-dub/snipe.nvim"
 rev = "d2d196c335919767803f905d573ce66340e33ee6"
 
-[plugins.debugprint]
-git = "andrewferrier/debugprint.nvim"
-rev = "v6.3.0"
-ft = "js"
+[plugins.nvim-chainsaw]
+git = "chrisgrieser/nvim-chainsaw"
 
 # COLORS
 [plugins.eldritch]

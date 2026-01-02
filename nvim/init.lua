@@ -68,11 +68,7 @@ vim.flag = "󰈿"
 
 -- PLUGINS
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
--- TODO only load debugprint for js files
--- require "debugprint".setup({
--- keymaps = { normal = { plain_below = "<leader>v", plain_above = "<leader>V" } }
--- })
-
+require "chainsaw".setup()
 
 -- LEAP
 require "leap".setup({})
