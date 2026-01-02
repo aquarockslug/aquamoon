@@ -75,6 +75,9 @@ ft = "js"
 git = "eldritch-theme/eldritch.nvim"
 rev = "cddd745d4bd317a5c142708def49fd466fd87fc6"
 
+[plugins.bluloco]
+git = "uloco/bluloco.nvim"
+
 [plugins.oceanic-next]
 git = "mhartington/oceanic-next"
 rev = "09833f72d5ba23de2e8bcae18f479f326f5f677a"

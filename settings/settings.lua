@@ -65,6 +65,7 @@ return {
 		"iceclimber"
 		-- "apprentice",
 		-- "bamboo",
+		-- "bluloco",
 		-- "desert",
 		-- "mellifluous",
 		-- "minischeme",
@@ -75,6 +76,7 @@ return {
 		-- "vague",
 		-- "vim-colors-paramount"
 		-- "vim-pink-moon"
+		-- "neomodern"
 	},
 	river_options = {
 		-- Theme options

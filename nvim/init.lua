@@ -57,6 +57,7 @@ S = require "settings"
 -- GLOBAL VARIABLES
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
+-- vim.g.loaded_matchparen = 1
 vim.g.godot_executable = "/bin/godot3"
 vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
@@ -163,7 +164,7 @@ vim.diagnostic.enable(false)
 
 
 -- require the other aquamoon nvim config files
-require "nvim/neorg"
+-- require "nvim/neorg"
 require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"
 require "nvim/autocmds"; require "nvim/highlights";
 require "nvim/keymap"; require "nvim/terminal";
