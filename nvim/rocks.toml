@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "iceclimber"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
@@ -68,6 +68,9 @@ rev = "d2d196c335919767803f905d573ce66340e33ee6"
 
 [plugins.nvim-chainsaw]
 git = "chrisgrieser/nvim-chainsaw"
+
+[plugins.cling]
+git = "juniorsundar/cling.nvim"
 
 # COLORS
 [plugins.eldritch]

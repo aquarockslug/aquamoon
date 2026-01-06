@@ -1,4 +1,5 @@
 package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
+local vim = vim
 
 -- BOOTSTRAP ROCKS.NVIM
 do
@@ -48,7 +49,6 @@ if not pcall(require, "rocks") then
 	vim.fn.delete(rocks_location, "rf")
 end
 
-
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 local vim = vim -- avoid undefined warnings
 S = require "settings"
@@ -61,13 +61,13 @@ vim.g.maplocalleader = ","
 vim.g.godot_executable = "/bin/godot3"
 vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
-vim.g.oceanic_next_terminal_bold = 1
-vim.g.oceanic_next_terminal_italic = 1
 vim.flag = "󰈿"
 
-
--- PLUGINS
+-- COLORSCHEMES
+vim.g.oceanic_next_terminal_bold = 1
+vim.g.oceanic_next_terminal_italic = 1
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
+require "bluloco" .setup({ transparent = true, italics = true })
 require "chainsaw".setup()
 
 -- LEAP
@@ -127,12 +127,6 @@ vim.cmd.aqua_save = function()
 
 	vim.cmd "silent write"
 end
-
--- vim.cmd.aqua_git = function()
--- 	vim.cmd "DiffviewOpen"
--- 	vim.cmd "split term://gitu"
--- end
-
 
 -- RUN
 vim.cmd.aqua_run = function()
