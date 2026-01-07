@@ -8,37 +8,25 @@ package.cpath = package.cpath .. rocks_cpath .. ";"
 
 -- create lua settings table using information from the toml file
 get_theme_from_toml = function()
-	toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
-	current_theme_name = toml_settings.config.colorscheme
+	local toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+	local current_theme_name = toml_settings.config.colorscheme
 
-	-- map nvim colorscheme name to aquamoon config names
-	if current_theme_name == "sweetie" then
-		return require("settings/theme").get("sweetie")
-	end
+	-- map nvim colorscheme names to aquamoon config names
+	local theme_mappings = {
+		["sweetie"] = "sweetie",
+		["dracula"] = "dracula",
+		["dracula-soft"] = "dracula",
+		["eldritch"] = "dracula",
+		["OceanicNext"] = "OceanicNext",
+		["minicyan"] = "OceanicNext",
+		["srcery"] = "srcery",
+		["moonfly"] = "moonfly",
+		["iceclimber"] = "iceclimber",
+		["bluloco"] = "bluloco"
+	}
 
-	if current_theme_name == "dracula" or current_theme_name == "dracula-soft"
-	    or current_theme_name == "eldritch" then
-		return require("settings/theme").get("dracula")
-	end
-
-	if current_theme_name == "OceanicNext" or current_theme_name == "minicyan" then
-		return require("settings/theme").get("OceanicNext")
-	end
-
-	if current_theme_name == "srcery" then
-		return require("settings/theme").get("srcery")
-	end
-
-	if current_theme_name == "moonfly" then
-		return require("settings/theme").get("moonfly")
-	end
-
-	if current_theme_name == "iceclimber" then
-		return require("settings/theme").get("iceclimber")
-	end
-
-	-- default to sweetie
-	return require("settings/theme").get("sweetie")
+	local aquamoon_theme_name = theme_mappings[current_theme_name] or "sweetie"
+	return require("settings/theme").get(aquamoon_theme_name)
 end
 
 choose_theme_by_hour = function()
@@ -62,10 +50,10 @@ return {
 		"moonfly",
 		"srcery",
 		"sweetie",
-		"iceclimber"
+		"iceclimber",
+		"bluloco",
 		-- "apprentice",
 		-- "bamboo",
-		-- "bluloco",
 		-- "desert",
 		-- "mellifluous",
 		-- "minischeme",

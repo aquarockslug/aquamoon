@@ -100,3 +100,20 @@ name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
 size = 14
 
+# BLULOCO https://github.com/uloco/bluloco.nvim
+[bluloco]
+fg = "abb2bf"
+fg2 = "cdd3e0"
+bg = "282c34"
+bg2 = "10b0fe"
+accent = "3691ff"
+background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_dark.jpg"
+border_width = 4
+opacity = 0.8
+ddgr_colors = "gedegd"
+
+[bluloco.active_font]
+name = "FairiesevkaTerm Nerd Font Mono:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
+size = 14
+

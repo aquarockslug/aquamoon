@@ -12,6 +12,9 @@ local highlights = {
 	MiniStarterSection = { fg = theme.fg },
 	MiniStarterItemPrefix = { fg = theme.accent },
 	MiniStarterQuery = { fg = theme.accent },
+	Cursor = { bg = theme.fg, fg = theme.bg },
+	lCursor = { bg = theme.fg, fg = theme.bg },
+	CursorIM = { bg = theme.accent, fg = theme.bg },
 }
 
 for group, colors in pairs(highlights) do
