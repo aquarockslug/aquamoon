@@ -33,7 +33,7 @@ local function write_dunstrc(content)
 	if not file then
 		return false, "Could not open dunstrc for writing"
 	end
-	
+
 	file:write(content)
 	file:close()
 	return true
@@ -219,17 +219,17 @@ M.update_all = function(theme_name)
 
 	-- Update dunst
 	local success, message = update_dunst(theme_name)
-	table.insert(results, {app = "dunst", success = success, message = message})
+	table.insert(results, { app = "dunst", success = success, message = message })
 	if not success then overall_success = false end
 
 	-- Update television
 	success, message = update_television(theme_name)
-	table.insert(results, {app = "television", success = success, message = message})
+	table.insert(results, { app = "television", success = success, message = message })
 	if not success then overall_success = false end
 
 	-- Update lazygit
 	success, message = update_lazygit(theme_name)
-	table.insert(results, {app = "lazygit", success = success, message = message})
+	table.insert(results, { app = "lazygit", success = success, message = message })
 	if not success then overall_success = false end
 
 	return overall_success, results
@@ -292,7 +292,7 @@ if arg and arg[0] and arg[0]:match("update_configs%.lua$") then
 			print("Error: Invalid app_name. Use: dunst, television, lazygit")
 			os.exit(1)
 		end
-		
+
 		if success then
 			print(result)
 		else
@@ -302,7 +302,7 @@ if arg and arg[0] and arg[0]:match("update_configs%.lua$") then
 	else
 		-- Update all apps
 		success, results = M.update_all(theme_name)
-		
+
 		if success then
 			print("Successfully updated all configurations for theme '" .. theme_name .. "':")
 			for _, result in ipairs(results) do
@@ -323,3 +323,4 @@ if arg and arg[0] and arg[0]:match("update_configs%.lua$") then
 end
 
 return M
+
