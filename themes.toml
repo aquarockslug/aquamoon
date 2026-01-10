@@ -102,12 +102,13 @@ size = 14
 
 # BLULOCO https://github.com/uloco/bluloco.nvim
 [bluloco]
-fg = "abb2bf"
+fg = "10b0fe"
+# fg = "abb2bf"
 fg2 = "cdd3e0"
 bg = "282c34"
 bg2 = "10b0fe"
 accent = "3691ff"
-background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_dark.jpg"
+background_image = "/home/aqua/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 4
 opacity = 0.8
 ddgr_colors = "gedegd"
