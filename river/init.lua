@@ -7,21 +7,4 @@ S = require 'settings'
 
 R.apply_settings(S)
 
--- Use the theme updater scripts
-local tv_theme = require('scripts/update_television_theme')
-local gitu_theme = require('scripts/update_gitu_theme')
-local dunst_theme = require('scripts/update_dunst_theme')
-
-local success, message = tv_theme.update(S.theme_name)
-if not success then
-	print("Warning: " .. message)
-end
-local success, message = gitu_theme.update(S.theme_name)
-if not success then
-	print("Warning: " .. message)
-end
-
-local success, message = dunst_theme.update(S.theme_name)
-if not success then
-	print("Warning: " .. message)
-end
+require("scripts/sync_configs").update_all(S.theme_name)

@@ -10,9 +10,9 @@ local tinytoml = require("tinytoml")
 
 -- Paths to configuration files
 local themes_path = "/home/aqua/.aquamoon/themes.toml"
-local dunstrc_path = "/home/aqua/.aquamoon/etc/dunstrc"
-local television_path = "/home/aqua/.aquamoon/etc/television.toml"
-local lazygit_path = "/home/aqua/.aquamoon/etc/lazygit.yml"
+local dunstrc_path = "/home/aqua/.config/dunst/dunstrc"
+local television_path = "/home/aqua/.config/television/config.toml"
+local lazygit_path = "/home/aqua/.config/lazygit/config.yml"
 
 local M = {}
 

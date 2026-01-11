@@ -23,7 +23,6 @@ alias du="dust"
 alias hist="history"
 alias l="clear && ls"
 alias lg="lazygit"
-alias lo="libreoffice"
 alias ls="eza"
 alias rs="rsync -Pr"
 alias put="wl-paste"
@@ -37,10 +36,3 @@ alias g="tv text"
 alias r="pushd ( tv git-repos )"
 alias b="pushd ( tv git-branches )"
 alias issues="tv gh-issues"
-# alias issues="gh issue view --comments (
-# 	string split '\t' (
-# 		string escape (
-# 			gh issue list | peco --prompt ISSUES
-# 		)
-# 	)
-# )[1]"

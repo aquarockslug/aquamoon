@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "bluloco"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
