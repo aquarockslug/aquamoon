@@ -10,7 +10,7 @@ local tinytoml = require("tinytoml")
 
 -- Paths to configuration files
 local themes_path = "/home/aqua/.aquamoon/themes.toml"
-local dunstrc_path = "/home/aqua/.config/dunst/dunstrc"
+local dunstrc_path = "/home/aqua/.config/dunst/dustrc"
 local television_path = "/home/aqua/.config/television/config.toml"
 local lazygit_path = "/home/aqua/.config/lazygit/config.yml"
 
@@ -183,6 +183,7 @@ local function update_lazygit(theme_name)
 
 	yaml = yaml .. "\nnotARepository: 'skip'\n\n"
 	yaml = yaml .. "gui:\n"
+	yaml = yaml .. "  nerdFontsVersion: 3\n\n"
 	yaml = yaml .. "  theme:\n"
 	yaml = yaml .. string.format("    activeBorderColor:\n      - '#%s'\n", theme.fg)
 	yaml = yaml .. "      - bold\n"
