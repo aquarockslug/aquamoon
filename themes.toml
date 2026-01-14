@@ -41,12 +41,12 @@ bg2 = "ef2f27"
 accent = "e02c6d"
 background_image = "/home/aqua/.aquamoon/wallpapers/wizard_cover.jpg"
 border_width = 6
-opacity = 0.85
+opacity = 1.00
 ddgr_colors = "bdhbdb"
 
 [srcery.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
+name = "Lilex Nerd Font Mono:h14"
+path = "'/usr/share/fonts/TTF/LilexNerdFontMono-Regular.ttf'"
 size = 14
 
 # OCEANIC https://github.com/mhartington/oceanic-next
