@@ -51,7 +51,7 @@ end
 
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 local vim = vim -- avoid undefined warnings
-S = require "settings"
+S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
 
 -- GLOBAL VARIABLES

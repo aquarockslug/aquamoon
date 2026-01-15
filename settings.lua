@@ -63,7 +63,7 @@ theme = get_theme()
 
 return {
 	path = "/home/aqua/.aquamoon",
-	mappings = require("settings/mappings"),
+	mappings = require("mappings"),
 	theme_name = theme.name,
 	theme = theme,
 	theme_list = {

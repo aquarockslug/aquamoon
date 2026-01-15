@@ -10,7 +10,8 @@ Let("savehist", "10000")
 
 local theme = require "settings".theme
 Let("ps1", "%F{#" .. theme.fg .. "}%1~%k 󰈿 %f")
-Let("bat_theme", "fly16")
+-- Let("bat_theme", "fly16")
+Let("bat_theme", "bluloco-dark")
 Let("pager", "bat --theme fly16 --style=-numbers")
 Let("ddgr_colors", theme.ddgr_colors)
 Let("browser", "glide-bin")
@@ -27,3 +28,5 @@ Let("lua_cpath", rocks_cpath .. ";")
 
 Let("path", os.getenv("PATH") .. ":/home/aqua/.local/bin")
 Let("path", os.getenv("PATH") .. ":/home/aqua/.cargo/bin")
+
+-- require("cling")

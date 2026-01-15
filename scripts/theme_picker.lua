@@ -2,11 +2,13 @@ package.path = '~/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '~/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '~/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
+S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+
 -- set up tofi menu
-local tofi_style = require("settings").theme.tofi
+local tofi_style = S.theme.tofi
 local menu = require("scripts/tofi").options(tofi_style)
 
-local theme_list = require("settings").theme_list
+local theme_list = S.theme_list
 local choice = menu.choices(theme_list).open()
 
 -- use sed to replace the current colorscheme name in the rock.toml config file
