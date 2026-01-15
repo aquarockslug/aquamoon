@@ -1,4 +1,4 @@
-f status is-interactive
+if status is-interactive
 	set fish_greeting
 	set -x LS_COLORS "$(vivid generate catppuccin-frappe)"
 
@@ -36,3 +36,4 @@ alias g="tv text"
 alias r="pushd ( tv git-repos )"
 alias b="pushd ( tv git-branches )"
 alias issues="tv gh-issues"
+alias jsinfo='ddgr --gb --np !jsinfo'
