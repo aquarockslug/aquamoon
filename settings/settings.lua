@@ -6,36 +6,60 @@ local aquamoon_path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
 package.path = package.path .. rocks_path .. aquamoon_path .. ";"
 package.cpath = package.cpath .. rocks_cpath .. ";"
 
--- create lua settings table using information from the toml file
-get_theme_from_toml = function()
-	local toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
-	local current_theme_name = toml_settings.config.colorscheme
+get_theme = function(name)
+	name = name or (function()
+		local toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+		local current_theme_name = toml_settings.config.colorscheme
 
-	-- map nvim colorscheme names to aquamoon config names
-	local theme_mappings = {
-		["sweetie"] = "sweetie",
-		["dracula"] = "dracula",
-		["dracula-soft"] = "dracula",
-		["eldritch"] = "dracula",
-		["OceanicNext"] = "OceanicNext",
-		["minicyan"] = "OceanicNext",
-		["srcery"] = "srcery",
-		["moonfly"] = "moonfly",
-		["iceclimber"] = "iceclimber",
-		["bluloco"] = "bluloco"
+		-- map nvim colorscheme names to aquamoon config names
+		local theme_mappings = {
+			["sweetie"] = "sweetie",
+			["dracula"] = "dracula",
+			["dracula-soft"] = "dracula",
+			["eldritch"] = "dracula",
+			["OceanicNext"] = "OceanicNext",
+			["minicyan"] = "OceanicNext",
+			["srcery"] = "srcery",
+			["moonfly"] = "moonfly",
+			["iceclimber"] = "iceclimber",
+			["bluloco"] = "bluloco"
+		}
+
+		return theme_mappings[current_theme_name] or "sweetie"
+	end)()
+
+	local my_flag = "󰈿"
+	local toml = require("tinytoml").parse("/home/aqua/.aquamoon/themes.toml") 
+	local theme = toml[name]
+	theme.name = name
+	theme.tofi = {
+		font = theme.active_font.path,
+		["font-size"] = theme.active_font.size,
+		width = "33%",
+		height = "33%",
+		["drun-launch"] = "true",
+		["outline-width"] = 0,
+		["prompt-text"] = "󰈿_",
+		["selection-color"] = theme.fg2,
+		["border-width"] = theme.border_width,
+		["text-color"] = theme.fg,
+		["border-color"] = theme.bg2,
+		["background-color"] = theme.bg,
+		["text-cursor"] = "true",
+		["result-spacing"] = 9,
+		anchor = "bottom",
+		["margin-bottom"] = theme.border_width
 	}
-
-	local aquamoon_theme_name = theme_mappings[current_theme_name] or "sweetie"
-	return require("settings/theme").get(aquamoon_theme_name)
+	return theme
 end
 
 choose_theme_by_hour = function()
 	local theme_list = { "dracula", "sweetie" }
 	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
-	return require("settings/theme").get(theme_name)
+	return get_theme(theme_name)
 end
 
-theme = get_theme_from_toml()
+theme = get_theme()
 
 return {
 	path = "/home/aqua/.aquamoon",
