@@ -1,15 +1,6 @@
 #!/usr/bin/lua5.4
 M = {}
 
---[[
-
-exports the functions apply_setting and run for starting River window manager
-
-- execp() needs 'lua-posix' package
-
---]]
-
-
 -- Wrapper around table.concat() to also handle other types
 local function concat(...)
 	local list, sep, i, j = ...
