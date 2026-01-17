@@ -24,11 +24,11 @@ function M.open_terminal(command)
 	vim.cmd("terminal " .. command)
 end
 
--- Core keymaps
+-- keymaps
 vim.keymap.set({ "n", "x", "o" }, "<CR>", "<Plug>(leap)")
 vim.keymap.set("n", "U", "<c-r>")
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
-
+   
 -- Smart splits configuration
 local smart_splits = require('smart-splits')
 local split_keymaps = {

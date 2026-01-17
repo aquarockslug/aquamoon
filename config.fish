@@ -10,6 +10,8 @@ if status is-interactive
 	tv init fish | source
 	cat ~/.aquamoon/etc/aura.fish | source
 
+	fish_vi_key_bindings
+
 	clear && ls
 end
 
@@ -20,7 +22,6 @@ alias chmodx="sudo chmod u+x "
 alias ddgr="ddgr --reverse"
 alias df="duf"
 alias du="dust"
-alias hist="history"
 alias l="clear && ls"
 alias lg="lazygit"
 alias ls="eza"
