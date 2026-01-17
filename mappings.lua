@@ -1,9 +1,3 @@
-local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
-rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
-local rocks_cpath = os.getenv("HOME") .. "/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
-rocks_cpath = rocks_cpath .. os.getenv("HOME") .. "/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
-local aquamoon_path = os.getenv("HOME") .. '/.aquamoon/?.lua;' .. os.getenv("HOME") .. '/.aquamoon/?/?.lua;'
-
 local lua_script = function(script_name)
 	local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
 	-- TODO run with "nvim -l ..."?

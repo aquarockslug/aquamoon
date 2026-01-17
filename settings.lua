@@ -6,9 +6,11 @@ local aquamoon_path = os.getenv("HOME") .. '/.aquamoon/?.lua;' .. os.getenv("HOM
 package.path = package.path .. rocks_path .. aquamoon_path .. ";"
 package.cpath = package.cpath .. rocks_cpath .. ";"
 
+TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
+
 get_theme = function(name)
 	name = name or (function()
-		local toml_settings = require("tinytoml").parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
+		local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
 		local current_theme_name = toml_settings.config.colorscheme
 
 		-- map nvim colorscheme names to aquamoon config names
@@ -29,7 +31,7 @@ get_theme = function(name)
 	end)()
 
 	local my_flag = "󰈿"
-	local toml = require("tinytoml").parse(os.getenv("HOME") .. "/.aquamoon/themes.toml") 
+	local toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/themes.toml")
 	local theme = toml[name]
 	theme.name = name
 	theme.tofi = {

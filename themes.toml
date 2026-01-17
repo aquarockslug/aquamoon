@@ -109,7 +109,7 @@ bg = "282c34"
 bg2 = "10b0fe"
 accent = "3691ff"
 background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
-border_width = 4
+border_width = 2
 opacity = 0.8
 ddgr_colors = "gedegd"
 
