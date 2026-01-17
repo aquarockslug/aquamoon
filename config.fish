@@ -11,6 +11,9 @@ if status is-interactive
 	cat ~/.aquamoon/etc/aura.fish | source
 
 	fish_vi_key_bindings
+	
+	# fish_config theme choose catppuccin-frappe
+	# fish_config theme choose dracula
 
 	clear && ls
 end
