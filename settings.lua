@@ -1,14 +1,14 @@
-local rocks_path = "/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
-rocks_path = rocks_path .. "/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
-local rocks_cpath = "/home/aqua/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
-rocks_cpath = rocks_cpath .. "/home/aqua/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
-local aquamoon_path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
+local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
+rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
+local rocks_cpath = os.getenv("HOME") .. "/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
+rocks_cpath = rocks_cpath .. os.getenv("HOME") .. "/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
+local aquamoon_path = os.getenv("HOME") .. '/.aquamoon/?.lua;' .. os.getenv("HOME") .. '/.aquamoon/?/?.lua;'
 package.path = package.path .. rocks_path .. aquamoon_path .. ";"
 package.cpath = package.cpath .. rocks_cpath .. ";"
 
 get_theme = function(name)
 	name = name or (function()
-		local toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+		local toml_settings = require("tinytoml").parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
 		local current_theme_name = toml_settings.config.colorscheme
 
 		-- map nvim colorscheme names to aquamoon config names
@@ -29,7 +29,7 @@ get_theme = function(name)
 	end)()
 
 	local my_flag = "󰈿"
-	local toml = require("tinytoml").parse("/home/aqua/.aquamoon/themes.toml") 
+	local toml = require("tinytoml").parse(os.getenv("HOME") .. "/.aquamoon/themes.toml") 
 	local theme = toml[name]
 	theme.name = name
 	theme.tofi = {
@@ -62,7 +62,7 @@ end
 theme = get_theme()
 
 return {
-	path = "/home/aqua/.aquamoon",
+	path = os.getenv("HOME") .. "/.aquamoon",
 	mappings = require("mappings"),
 	theme_name = theme.name,
 	theme = theme,
@@ -124,7 +124,7 @@ return {
 			"river-luatile"
 		},
 		{
-			"lua ~/.aquamoon/scripts/low_battery_warning.lua"
+			"lua " .. os.getenv("HOME") .. "/.aquamoon/scripts/low_battery_warning.lua"
 		},
 		{
 			"clipse -listen-shell"

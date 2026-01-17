@@ -1,6 +1,6 @@
-package.path = '~/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '~/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    '~/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+package.path = os.getenv("HOME") .. '/.aquamoon/?.lua;' .. os.getenv("HOME") .. '/.aquamoon/?/?.lua;' ..
+    os.getenv("HOME") .. '/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
+    os.getenv("HOME") .. '/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
 S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
@@ -12,7 +12,7 @@ local theme_list = S.theme_list
 local choice = menu.choices(theme_list).open()
 
 -- use sed to replace the current colorscheme name in the rock.toml config file
-local toml_settings = require("tinytoml").parse("/home/aqua/.aquamoon/nvim/rocks.toml")
+local toml_settings = require("tinytoml").parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
 local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/"]] .. choice ..
     [["/g' ~/.aquamoon/nvim/rocks.toml]]
