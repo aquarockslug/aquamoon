@@ -3,9 +3,10 @@
 -- AQUA BOOKMARKS
 -- Reads bookmarks from bookmarks.toml and opens the selected URL
 
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+local home = os.getenv("HOME") or "/home/aqua"
+package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;' ..
+    home .. '/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
+    home .. '/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
 local tofi = require("scripts/tofi")
 

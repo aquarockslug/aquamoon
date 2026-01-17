@@ -1,4 +1,5 @@
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
+local home = os.getenv("HOME") or "/home/aqua"
+package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;'
 
 local browser = "qutebrowser"
 
