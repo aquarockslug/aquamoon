@@ -63,23 +63,25 @@ vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
 vim.flag = "󰈿"
 
+require "chainsaw".setup()
+require "cybu".setup()
+
 -- COLORSCHEMES
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
-require "bluloco" .setup({ transparent = true, italics = true })
-require "chainsaw".setup()
+require "bluloco".setup({ transparent = true, italics = true })
 
 -- LEAP
 require "leap".setup({})
 -- define a preview filter to reduce visual noise
-require('leap').opts.preview = function(ch0, ch1, ch2)
+require "leap".opts.preview = function(ch0, ch1, ch2)
 	return not (
 		ch1:match('%s')
 		or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
 	)
 end
-require('leap').opts.equivalence_classes = {
+require "leap".opts.equivalence_classes = {
 	' \t\r\n', '([{', ')]}', '\'"`'
 }
 

@@ -56,6 +56,7 @@ tree-sitter-toml = "0.0.31"
 neorg = { version = "9.3.0", ft = "norg" }
 "rocks-lazy.nvim" = "1.2.2"
 "lush.nvim" = "scm"
+"cybu.nvim" = "1.0"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 [plugins.tv]

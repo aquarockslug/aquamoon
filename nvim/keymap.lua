@@ -101,8 +101,8 @@ local function_keymaps = {
 	[4] = function() vim.cmd.vsplit "./" end,
 
 	-- Left hand (F5-F8)
-	[5] = vim.cmd.bprev,
-	[6] = vim.cmd.bnext,
+	[5] = "<Plug>(CybuPrev)",
+	[6] = "<Plug>(CybuNext)",
 	[7] = function() require("snipe").open_buffer_menu() end,
 	[8] = vim.cmd.aqua_run,
 }
