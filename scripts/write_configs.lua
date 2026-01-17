@@ -1,18 +1,12 @@
--- Combined script to write all theme configurations (dunst, television, lazygit)
 -- Writes configuration files to match the theme from themes.toml
 
--- Set up package path for tinytoml and other modules
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?.lua;' ..
-    '/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;;'
-
-local tinytoml = require("tinytoml")
+local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
 -- Paths to configuration files
-local themes_path = "/home/aqua/.aquamoon/themes.toml"
-local dunstrc_path = "/home/aqua/.config/dunst/dustrc"
-local television_path = "/home/aqua/.config/television/config.toml"
-local lazygit_path = "/home/aqua/.config/lazygit/config.yml"
+local themes_path = os.getenv("HOME") .. "/.aquamoon/themes.toml"
+local dunstrc_path = os.getenv("HOME") .. "/.config/dunst/dustrc"
+local television_path = os.getenv("HOME") .. "/.config/television/config.toml"
+local lazygit_path = os.getenv("HOME") .. "/.config/lazygit/config.yml"
 
 local M = {}
 

@@ -1,11 +1,11 @@
-local rocks_path = "/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
-rocks_path = rocks_path .. "/home/aqua/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
-local rocks_cpath = "/home/aqua/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
-rocks_cpath = rocks_cpath .. "/home/aqua/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
-local aquamoon_path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;'
+local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
+rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
+local rocks_cpath = os.getenv("HOME") .. "/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
+rocks_cpath = rocks_cpath .. os.getenv("HOME") .. "/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
+local aquamoon_path = os.getenv("HOME") .. '/.aquamoon/?.lua;' .. os.getenv("HOME") .. '/.aquamoon/?/?.lua;'
 
 local lua_script = function(script_name)
-	local script_path = "/home/aqua/.aquamoon/scripts/"
+	local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
 	-- TODO run with "nvim -l ..."?
 	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
 end
