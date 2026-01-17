@@ -22,4 +22,4 @@ os.execute(string.gsub(cmd, "\n", "")) -- remove newlines and execute
 os.execute "killall river-luatile"
 
 -- restart river
-os.execute "~/.aquamoon/river/init"
+require('river/init')

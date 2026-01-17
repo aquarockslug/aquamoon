@@ -1,5 +1,5 @@
--- Combined script to update all theme configurations (dunst, television, lazygit)
--- Rewrites configuration files to match the theme from themes.toml
+-- Combined script to write all theme configurations (dunst, television, lazygit)
+-- Writes configuration files to match the theme from themes.toml
 
 -- Set up package path for tinytoml and other modules
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
@@ -209,7 +209,7 @@ local function update_lazygit(theme_name)
 	return true, "Successfully updated lazygit.yml"
 end
 
--- Main update function that updates all configurations
+-- Main update function that writes all configurations
 M.update_all = function(theme_name)
 	if not theme_name then
 		return false, "No theme name provided"
@@ -264,12 +264,12 @@ M.get_available_themes = function()
 end
 
 -- Command line interface
-if arg and arg[0] and arg[0]:match("update_configs%.lua$") then
+if arg and arg[0] and arg[0]:match("write_files%.lua$") then
 	local theme_name = arg and arg[1]
 	local app_name = arg and arg[2] -- optional: update specific app only
 
 	if not theme_name then
-		print("Usage: lua update_configs.lua <theme_name> [app_name]")
+		print("Usage: lua write_files.lua <theme_name> [app_name]")
 		print("Available themes:")
 
 		local themes = M.get_available_themes()
@@ -305,12 +305,12 @@ if arg and arg[0] and arg[0]:match("update_configs%.lua$") then
 		success, results = M.update_all(theme_name)
 
 		if success then
-			print("Successfully updated all configurations for theme '" .. theme_name .. "':")
+			print("Successfully wrote all configurations for theme '" .. theme_name .. "':")
 			for _, result in ipairs(results) do
 				print("  - " .. result.app .. ": " .. result.message)
 			end
 		else
-			print("Some updates failed for theme '" .. theme_name .. "':")
+			print("Some writes failed for theme '" .. theme_name .. "':")
 			for _, result in ipairs(results) do
 				if result.success then
 					print("  - " .. result.app .. ": " .. result.message)
