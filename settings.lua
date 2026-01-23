@@ -71,26 +71,16 @@ return {
 	theme_list = {
 		"OceanicNext",
 		"dracula-soft",
-		"eldritch",
+		-- "eldritch",
 		"minicyan",
 		"moonfly",
 		"srcery",
 		"sweetie",
 		"iceclimber",
 		"bluloco",
-		-- "apprentice",
-		-- "bamboo",
-		-- "desert",
-		-- "mellifluous",
-		-- "minischeme",
-		-- "neofusion",
-		-- "nvim-tundra",
-		-- "seoul256",
-		-- "unokai"
-		-- "vague",
-		-- "vim-colors-paramount"
-		-- "vim-pink-moon"
-		-- "neomodern"
+		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
+		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon", 
+		-- "neomodern", "vim-256noir", "yourumi", "challenger-deep-theme"
 	},
 	river_options = {
 		-- Theme options

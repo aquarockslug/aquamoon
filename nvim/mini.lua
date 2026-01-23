@@ -32,7 +32,7 @@ for _, plug in ipairs({
 	"bracketed",
 	-- "clue",
 	"comment",
-	"completion", -- TODO toggle completions
+	-- "completion", -- TODO toggle completions
 	-- "cmdline",
 	"diff",
 	"icons",

@@ -51,6 +51,7 @@ local oil_config = {
 		"size"
 	},
 }
+
 -- only add win_options if using a colorscheme that supports winbar
 local settings = require "settings"
 if settings.theme_name == "minicyan" or settings.theme_name == "moonfly" then
@@ -58,4 +59,5 @@ if settings.theme_name == "minicyan" or settings.theme_name == "moonfly" then
 		winbar = "%!v:lua.get_oil_winbar()",
 	}
 end
+
 require "oil".setup(oil_config)

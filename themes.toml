@@ -92,7 +92,7 @@ bg2 = "86a3f0"
 accent = "cc93b8"
 background_image = "~/.aquamoon/wallpapers/iceclimbers.jpg"
 border_width = 4
-opacity = 0.95
+opacity = 1
 ddgr_colors = "gedegd"
 
 [iceclimber.active_font]

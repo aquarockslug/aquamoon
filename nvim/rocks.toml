@@ -2,7 +2,7 @@
 
 [rocks]
 microlight = "1.0"
-tinytoml = "0.0.4"
+tinytoml = "1.0.0"
 catppuccin = "0.1.0"
 inifile = "1.1"
 warna = "0.3.5"
@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "dracula-soft"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
@@ -38,11 +38,11 @@ visualbell = true
 "mini.nvim" = "0.17.0"
 "oil.nvim" = "2.15.0"
 "plenary.nvim" = "scm"
-"render-markdown.nvim" = { version = "8.10.0", ft = "md" }
+"render-markdown.nvim" = { version = "8.11.0", ft = "md" }
 "rocks-config.nvim" = "3.1.2"
-"rocks-git.nvim" = "2.5.7"
+"rocks-git.nvim" = "2.5.8"
 "rocks-treesitter.nvim" = "1.3.1"
-"rocks.nvim" = "2.46.1"
+"rocks.nvim" = "2.47.2"
 "smart-splits.nvim" = "2.0.5"
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
@@ -59,6 +59,7 @@ neorg = { version = "9.3.0", ft = "norg" }
 "cybu.nvim" = "1.0"
 # "diffview.nvim" = "scm" -- use with gitu?
 
+# GIT PLUGINS ##############################################################
 [plugins.tv]
 git = "alexpasmantier/tv.nvim"
 rev = "176c97ce7e18b1a5acd473b320d03773901a8f75"
@@ -69,17 +70,24 @@ rev = "d2d196c335919767803f905d573ce66340e33ee6"
 
 [plugins.nvim-chainsaw]
 git = "chrisgrieser/nvim-chainsaw"
+rev = "8962d33ad432568a47bfd79faf098130a28498c4"
 
 [plugins.cling]
 git = "juniorsundar/cling.nvim"
+rev = "v0.2.0"
 
-# COLORS
+[plugins.opencode]
+git = "NickvanDyke/opencode.nvim"
+rev = "7ae1f9a969b9e6d090673227a0ad1db2e808216d"
+
+# GIT COLORS ###############################################################
 [plugins.eldritch]
 git = "eldritch-theme/eldritch.nvim"
 rev = "cddd745d4bd317a5c142708def49fd466fd87fc6"
 
 [plugins.bluloco]
 git = "uloco/bluloco.nvim"
+rev = "v1.4.0"
 
 [plugins.oceanic-next]
 git = "mhartington/oceanic-next"
@@ -97,6 +105,22 @@ rev = "v1.0.4"
 git = "srcery-colors/srcery-vim"
 rev = "v2.1.0"
 
-[plugins.seoul256]
-git = "junegunn/seoul256.vim"
-rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"
+[plugins.challenger-deep]
+git = "challenger-deep-theme/vim"
+rev = "e3d5b7d9711c7ebbf12c63c2345116985656da0d"
+
+# [plugins.seoul256]
+# git = "junegunn/seoul256.vim"
+# rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"
+#
+# [plugins.space-vim-dark]
+# git = "liuchengxu/space-vim-dark"
+#
+# [plugins.vim-dogrun]
+# git = "wadackel/vim-dogrun"
+#
+# [plugins.vim-256noir]
+# git = "andreasvc/vim-256noir"
+#
+# [plugins.yorumi]
+# git = "yorumicolors/yorumi.nvim"

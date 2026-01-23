@@ -10,7 +10,7 @@ if status is-interactive
 	tv init fish | source
 	cat ~/.aquamoon/etc/aura.fish | source
 
-	fish_vi_key_bindings
+	# fish_vi_key_bindings
 	
 	# fish_config theme choose catppuccin-frappe
 	# fish_config theme choose dracula
