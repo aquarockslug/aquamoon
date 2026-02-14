@@ -54,6 +54,7 @@ neorg = { version = "9.3.0", ft = "norg" }
 "rocks-lazy.nvim" = "1.2.2"
 "lush.nvim" = "scm"
 "cybu.nvim" = "1.0"
+"snipe.nvim" = "scm"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 # GIT PLUGINS ##############################################################
