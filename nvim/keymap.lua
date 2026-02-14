@@ -25,10 +25,10 @@ function M.open_terminal(command)
 end
 
 -- keymaps
-vim.keymap.set({ "n", "x", "o" }, "<CR>", "<Plug>(leap)")
+vim.keymap.set({ "n", "x", "o" }, "<CR>", function() require("leap").leap({ backward = true }) end)
 vim.keymap.set("n", "U", "<c-r>")
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
-   
+
 -- Smart splits configuration
 local smart_splits = require('smart-splits')
 local split_keymaps = {
