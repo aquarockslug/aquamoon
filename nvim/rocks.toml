@@ -47,12 +47,9 @@ visualbell = true
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
 nvim-lspconfig = "2.5.0"
-tree-sitter-gdscript = "0.0.45"
+tree-sitter-lua = "0.0.42"
 tree-sitter-javascript = "0.0.41"
-tree-sitter-lua = "0.0.36"
-tree-sitter-markdown = "0.0.45"
 tree-sitter-toml = "0.0.31"
-"leap.nvim" = "scm"
 neorg = { version = "9.3.0", ft = "norg" }
 "rocks-lazy.nvim" = "1.2.2"
 "lush.nvim" = "scm"
@@ -64,17 +61,9 @@ neorg = { version = "9.3.0", ft = "norg" }
 git = "alexpasmantier/tv.nvim"
 rev = "176c97ce7e18b1a5acd473b320d03773901a8f75"
 
-[plugins.snipe]
-git = "leath-dub/snipe.nvim"
-rev = "d2d196c335919767803f905d573ce66340e33ee6"
-
 [plugins.nvim-chainsaw]
 git = "chrisgrieser/nvim-chainsaw"
 rev = "8962d33ad432568a47bfd79faf098130a28498c4"
-
-[plugins.cling]
-git = "juniorsundar/cling.nvim"
-rev = "v0.2.0"
 
 [plugins.opencode]
 git = "NickvanDyke/opencode.nvim"
@@ -109,18 +98,25 @@ rev = "v2.1.0"
 git = "challenger-deep-theme/vim"
 rev = "e3d5b7d9711c7ebbf12c63c2345116985656da0d"
 
-# [plugins.seoul256]
-# git = "junegunn/seoul256.vim"
-# rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"
-#
-# [plugins.space-vim-dark]
-# git = "liuchengxu/space-vim-dark"
-#
-# [plugins.vim-dogrun]
-# git = "wadackel/vim-dogrun"
-#
-# [plugins.vim-256noir]
-# git = "andreasvc/vim-256noir"
-#
-# [plugins.yorumi]
-# git = "yorumicolors/yorumi.nvim"
+[plugins.boo-colorscheme-nvim]
+git = "rockerboo/boo-colorscheme-nvim"
+rev = "0.5.2"
+
+[plugins.mfd]
+git = "kungfusheep/mfd.nvim"
+
+[plugins.vim-256noir]
+git = "andreasvc/vim-256noir"
+
+[plugins.seoul256]
+git = "junegunn/seoul256.vim"
+rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"
+
+[plugins.space-vim-dark]
+git = "liuchengxu/space-vim-dark"
+
+[plugins.vim-dogrun]
+git = "wadackel/vim-dogrun"
+
+[plugins.yorumi]
+git = "yorumicolors/yorumi.nvim"

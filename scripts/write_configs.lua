@@ -218,9 +218,9 @@ M.update_all = function(theme_name)
 	if not success then overall_success = false end
 
 	-- Update television
-	success, message = update_television(theme_name)
-	table.insert(results, { app = "television", success = success, message = message })
-	if not success then overall_success = false end
+	-- success, message = update_television(theme_name)
+	-- table.insert(results, { app = "television", success = success, message = message })
+	-- if not success then overall_success = false end
 
 	-- Update lazygit
 	success, message = update_lazygit(theme_name)
