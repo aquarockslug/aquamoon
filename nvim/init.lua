@@ -49,6 +49,7 @@ if not pcall(require, "rocks") then
 	vim.fn.delete(rocks_location, "rf")
 end
 
+
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 local vim = vim -- avoid undefined warnings
 S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
@@ -66,11 +67,13 @@ vim.flag = "󰈿"
 require "chainsaw".setup()
 require "cybu".setup()
 
+
 -- COLORSCHEMES
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 require "bluloco".setup({ transparent = true, italics = true })
+
 
 -- LEAP
 require "leap".setup({})
@@ -143,7 +146,6 @@ end
 local lspconfig = require('lspconfig')
 lspconfig.biome.setup({})
 lspconfig.lua_ls.setup({})
-lspconfig.vale_ls.setup({})
 lspconfig.gdscript.setup({})
 
 

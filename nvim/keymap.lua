@@ -59,23 +59,12 @@ end
 -- Leader keymaps
 local leader_keymaps = {
 	-- Left hand top row
-	r = function() M.open_terminal("scooter") end,
 	e = vim.cmd.Oil,
 	w = vim.cmd.terminal,
 	q = vim.cmd.bd,
-
-	-- Left hand home row
 	d = M.toggle_diagnostics,
-
-	-- Left hand lower
 	c = M.show_cursor_position,
-
-	-- Right hand top
-	y = function() M.open_terminal("clipse") end,
 	i = vim.lsp.buf.hover,
-	o = function() M.open_terminal("opencode") end,
-
-	-- Right hand center
 	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
 	j = function() M.adjust_neovide_scale(-0.1) end,
 	k = function() M.adjust_neovide_scale(0.1) end,
@@ -83,7 +72,6 @@ local leader_keymaps = {
 	L = function() require "chainsaw".removeLogs() end,
 
 	-- Right hand bottom
-	n = function() M.open_terminal("wiremix") end,
 	["/"] = vim.cmd.noh,
 }
 

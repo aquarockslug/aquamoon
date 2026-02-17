@@ -37,10 +37,20 @@ require("cling").setup({
 			command = "Lg",
 		},
 		{
-			binary = "tv",
-			command = "Tv",
-			completion_cmd = "tv init fish",
+			binary = "tofi-drun",
+			command = "Tofi",
 		},
-		-- {}, ...
+		{
+			binary = "lua /home/aqua/.aquamoon/scripts/theme_picker.lua",
+			command = "Theme",
+		},
+		{
+			binary = "scooter",
+			command = "Far",
+		},
+		{
+			binary = "opencode",
+			command = "Opencode",
+		},
 	}
 })

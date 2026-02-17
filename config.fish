@@ -8,11 +8,10 @@ if status is-interactive
 
 	# completions
 	tv init fish | source
-	cat ~/.aquamoon/etc/aura.fish | source
+	source paru_completions.fish
 
 	# fish_vi_key_bindings
-	
-	# fish_config theme choose catppuccin-frappe
+	fish_config theme choose catppuccin-frappe
 	# fish_config theme choose dracula
 
 	clear && ls
@@ -20,6 +19,7 @@ end
 
 
 # alias
+
 alias cat="bat"
 alias chmodx="sudo chmod u+x "
 alias ddgr="ddgr --reverse"
@@ -29,6 +29,7 @@ alias l="clear && ls"
 alias lg="lazygit"
 alias ls="eza"
 alias rs="rsync -Pr"
+alias paru="paru --bottomup"
 alias put="wl-paste"
 alias q="exit"
 alias s="sudo"
