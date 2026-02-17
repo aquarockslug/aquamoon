@@ -136,6 +136,7 @@ local function update_television(theme_name)
 		return false, "Could not parse television.toml"
 	end
 
+	television_data.ui.theme_overrides = {}
 	television_data.ui.theme_overrides.background = '#' .. theme.bg
 	television_data.ui.theme_overrides.border_fg = '#' .. theme.fg
 	television_data.ui.theme_overrides.text_fg = '#' .. theme.fg
@@ -218,9 +219,9 @@ M.update_all = function(theme_name)
 	if not success then overall_success = false end
 
 	-- Update television
-	-- success, message = update_television(theme_name)
-	-- table.insert(results, { app = "television", success = success, message = message })
-	-- if not success then overall_success = false end
+	success, message = update_television(theme_name)
+	table.insert(results, { app = "television", success = success, message = message })
+	if not success then overall_success = false end
 
 	-- Update lazygit
 	success, message = update_lazygit(theme_name)
@@ -318,4 +319,3 @@ if arg and arg[0] and arg[0]:match("write_files%.lua$") then
 end
 
 return M
-

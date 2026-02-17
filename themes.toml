@@ -12,7 +12,7 @@ ddgr_colors = "hcegch"
 
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
@@ -28,9 +28,9 @@ opacity = 0.8
 ddgr_colors = "gcedge"
 
 [sweetie.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
-size = 14
+name = "Lilex Nerd Font:18"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 18
 
 # SRCERY https://github.com/srcery-colors/srcery-vim
 [srcery]
@@ -45,8 +45,8 @@ opacity = 1.00
 ddgr_colors = "bdhbdb"
 
 [srcery.active_font]
-name = "Lilex Nerd Font Mono:h14"
-path = "'/usr/share/fonts/TTF/LilexNerdFontMono-Regular.ttf'"
+name = "Fairiesevka Nerd Font:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
 
 # OCEANIC https://github.com/mhartington/oceanic-next
@@ -62,8 +62,8 @@ opacity = 0.8
 ddgr_colors = "gedegd"
 
 [OceanicNext.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaTermNerdFontMono-Regular.ttf'"
+name = "SpaceMono Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/SpaceMonoNerdFont-Regular.ttf'"
 size = 14
 
 # DRACULA https://github.com/binhtran432k/dracula.nvim
@@ -79,8 +79,8 @@ opacity = 0.33
 ddgr_colors = "cehceh"
 
 [dracula.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
+name = "Hurmit Nerd Font:h14"
+path = "'/usr/share/fonts/OTF/HurmitNerdFont-Regular.otf'"
 size = 14
 
 # ICECLIMBER - Ice Climbers theme
@@ -90,15 +90,15 @@ fg2 = "abbceb"
 bg = "171719"
 bg2 = "86a3f0"
 accent = "cc93b8"
-background_image = "~/.aquamoon/wallpapers/iceclimbers.jpg"
+background_image = "~/.aquamoon/wallpapers/panther.png"
 border_width = 4
 opacity = 1
 ddgr_colors = "gedegd"
 
 [iceclimber.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontMono-Regular.ttf'"
-size = 14
+name = "ProggyClean Nerd Font Propo:h16"
+path = "'/usr/share/fonts/TTF/ProggyCleanNerdFontPropo-Regular.ttf'"
+size = 16
 
 # BLULOCO https://github.com/uloco/bluloco.nvim
 [bluloco]
@@ -114,7 +114,6 @@ opacity = 0.8
 ddgr_colors = "gedegd"
 
 [bluloco.active_font]
-name = "Agave Nerd Font Mono:h16"
-path = "'/usr/share/fonts/TTF/AgaveNerdFontPropo-Regular.ttf'"
-size = 16
-
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14

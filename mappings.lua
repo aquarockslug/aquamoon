@@ -83,12 +83,6 @@ mappings.map = {
 			key = "S",
 			command = lua_script("screenshot"),
 		},
-		-- Git
-		{
-			mod = { "Super" },
-			key = "G",
-			command = { "spawn", [["cool-retro-term -e lazygit"]] },
-		},
 		-- Close
 		{
 			mod = "Super",
