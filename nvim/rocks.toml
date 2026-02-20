@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "moonfly"
+colorscheme = "OceanicNext"
 
 [config.options]
 autochdir = true
@@ -111,7 +111,6 @@ git = "andreasvc/vim-256noir"
 
 [plugins.seoul256]
 git = "junegunn/seoul256.vim"
-rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"
 
 [plugins.space-vim-dark]
 git = "liuchengxu/space-vim-dark"
@@ -121,3 +120,7 @@ git = "wadackel/vim-dogrun"
 
 [plugins.yorumi]
 git = "yorumicolors/yorumi.nvim"
+
+[plugins.noirblaze-vim]
+git = "n1ghtmare/noirblaze-vim"
+rev = "03132e01915d261ce5a8812ec633ff63d84718a1"

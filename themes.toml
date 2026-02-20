@@ -12,7 +12,7 @@ ddgr_colors = "hcegch"
 
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+path = "'/usr/share/fonts/TTF/pragmasevka-nf-regular.ttf'"
 size = 14
 
 # SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
@@ -28,9 +28,14 @@ opacity = 0.8
 ddgr_colors = "gcedge"
 
 [sweetie.active_font]
-name = "Lilex Nerd Font:18"
-path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
-size = 18
+name = "Pragmasevka Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14
+
+# [sweetie.active_font]
+# name = "Lilex Nerd Font:18"
+# path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+# size = 18
 
 # SRCERY https://github.com/srcery-colors/srcery-vim
 [srcery]
