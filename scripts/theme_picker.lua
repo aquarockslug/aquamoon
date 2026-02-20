@@ -1,13 +1,10 @@
-package.path = "" ..
-    os.getenv("HOME") .. '/.aquamoon/?.lua;' ..
-    os.getenv("HOME") .. '/.aquamoon/?/?.lua;'
+-- TODO allow this file to be used as a module
 
-TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+TT = dofile(S.path .. "/etc/tinytoml.lua")
 
--- set up tofi menu
 local tofi_style = S.theme.tofi
-local menu = require("scripts/tofi").options(tofi_style)
+local menu = dofile(S.path .. "/scripts/tofi.lua").options(tofi_style)
 
 local theme_list = S.theme_list
 local choice = menu.choices(theme_list).open()
@@ -23,4 +20,4 @@ os.execute(string.gsub(cmd, "\n", "")) -- remove newlines and execute
 os.execute "killall river-luatile"
 
 -- restart river
-require('river/init')
+dofile(S.path .. "/river/init.lua")

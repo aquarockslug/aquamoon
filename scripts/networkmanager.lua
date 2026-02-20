@@ -1,10 +1,6 @@
-local home = os.getenv("HOME") or "/home/aqua"
-package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;' ..
-    home .. '/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    home .. '/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
--- get tofi style from theme
-local tofi_style = require("settings").theme.tofi
+local tofi_style = S.theme.tofi
 
 local cmd = "networkmanager_dmenu"
 for setting, value in pairs(tofi_style) do

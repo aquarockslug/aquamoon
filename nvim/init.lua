@@ -1,4 +1,3 @@
-package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
 local vim = vim
 
 -- BOOTSTRAP ROCKS.NVIM
@@ -158,6 +157,7 @@ vim.diagnostic.enable(false)
 
 
 -- require the other aquamoon nvim config files
+package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
 -- require "nvim/neorg"
 require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"
 require "nvim/autocmds"; require "nvim/highlights";

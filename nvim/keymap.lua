@@ -60,7 +60,8 @@ end
 local leader_keymaps = {
 	-- Left hand top row
 	e = vim.cmd.Oil,
-	w = vim.cmd.terminal,
+	w = vim.cmd.terminal, 
+	-- w = function() M.open_terminal("hilbish") end,
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,
 	c = M.show_cursor_position,

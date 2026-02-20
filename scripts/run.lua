@@ -1,9 +1,4 @@
--- TODO avoid having to set path in each script
-local home = os.getenv("HOME") or "/home/aqua"
-package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;' ..
-    home .. '/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    home .. '/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
-
-require("scripts/tofi")
-    .options(require("settings").theme.tofi)
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+dofile(S.path .. "/scripts/tofi.lua")
+    .options(S.theme.tofi)
     .open()

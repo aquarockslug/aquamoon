@@ -3,12 +3,9 @@
 -- AQUA BOOKMARKS
 -- Reads bookmarks from bookmarks.toml and opens the selected URL
 
-local home = os.getenv("HOME") or "/home/aqua"
-package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;' ..
-    home .. '/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    home .. '/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
-local tofi = require("scripts/tofi")
+local tofi = dofile(S.path .. "/scripts/tofi.lua")
 
 -- Get the bookmarks file path
 local function get_bookmarks_path()
@@ -83,7 +80,7 @@ local function main()
 	end
 
 	-- Show tofi selector
-	local tofi_style = require("settings").theme.tofi
+	local tofi_style = S.theme.tofi
 	tofi_style.prompt = [["Open URL: "]]
 	local selector = tofi.choices(choices).options(tofi_style)
 

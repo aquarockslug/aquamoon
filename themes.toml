@@ -12,7 +12,7 @@ ddgr_colors = "hcegch"
 
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/pragmasevka-nf-regular.ttf'"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
@@ -28,14 +28,9 @@ opacity = 0.8
 ddgr_colors = "gcedge"
 
 [sweetie.active_font]
-name = "Pragmasevka Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+name = "Lilex Nerd Font:14"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
 size = 14
-
-# [sweetie.active_font]
-# name = "Lilex Nerd Font:18"
-# path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
-# size = 18
 
 # SRCERY https://github.com/srcery-colors/srcery-vim
 [srcery]
@@ -46,7 +41,7 @@ bg2 = "ef2f27"
 accent = "e02c6d"
 background_image = "~/.aquamoon/wallpapers/wizard_cover.jpg"
 border_width = 6
-opacity = 1.00
+opacity = 0.95
 ddgr_colors = "bdhbdb"
 
 [srcery.active_font]
@@ -84,8 +79,8 @@ opacity = 0.33
 ddgr_colors = "cehceh"
 
 [dracula.active_font]
-name = "Hurmit Nerd Font:h14"
-path = "'/usr/share/fonts/OTF/HurmitNerdFont-Regular.otf'"
+name = "Pragmasevka Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/pragmasevka-nf-regular.ttf'"
 size = 14
 
 # ICECLIMBER - Ice Climbers theme
@@ -97,13 +92,18 @@ bg2 = "86a3f0"
 accent = "cc93b8"
 background_image = "~/.aquamoon/wallpapers/panther.png"
 border_width = 4
-opacity = 1
+opacity = 0.66
 ddgr_colors = "gedegd"
 
 [iceclimber.active_font]
-name = "ProggyClean Nerd Font Propo:h16"
-path = "'/usr/share/fonts/TTF/ProggyCleanNerdFontPropo-Regular.ttf'"
-size = 16
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14
+
+# [iceclimber.active_font]
+# name = "ProggyClean Nerd Font Propo:h18"
+# path = "'/usr/share/fonts/TTF/ProggyCleanNerdFontPropo-Regular.ttf'"
+# size = 18
 
 # BLULOCO https://github.com/uloco/bluloco.nvim
 [bluloco]

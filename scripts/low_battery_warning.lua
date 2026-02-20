@@ -1,8 +1,7 @@
 -- LOW BATTERY WARNING
 -- frequently checks the battery and warns if its too low
 
-local home = os.getenv("HOME") or "/home/aqua"
-package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;'
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
 local threshold = 10      -- the battery level required to trigger the warning
 local frequency = 2       -- the amount of times to check in a minute
@@ -15,7 +14,7 @@ while true do
 
 	if (tonumber(power_left) < threshold and not low_battery) then
 		low_battery = true
-		require("scripts/notify").send("LOW BATTERY")
+		dofile(S.path .. "/scripts/notify.lua").send("LOW BATTERY")
 	end
 
 	if (tonumber(power_left) >= threshold and low_battery) then

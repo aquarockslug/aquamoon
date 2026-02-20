@@ -1,5 +1,5 @@
 -- use a variable to check if the current tag has changed
-local S = require("settings")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 local M = {}
 
 M.tally = function(t)

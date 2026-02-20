@@ -2,35 +2,12 @@ local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/
 rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
 local rocks_cpath = os.getenv("HOME") .. "/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
 rocks_cpath = rocks_cpath .. os.getenv("HOME") .. "/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
-local aquamoon_path = os.getenv("HOME") .. '/.aquamoon/?.lua;' .. os.getenv("HOME") .. '/.aquamoon/?/?.lua;'
-package.path = package.path .. rocks_path .. aquamoon_path .. ";"
+package.path = package.path .. rocks_path .. ";"
 package.cpath = package.cpath .. rocks_cpath .. ";"
 
 TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
 get_theme = function(name)
-	name = name or (function()
-		local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
-		local current_theme_name = toml_settings.config.colorscheme
-
-		-- map nvim colorscheme names to aquamoon config names
-		local theme_mappings = {
-			["sweetie"] = "sweetie",
-			["dracula"] = "dracula",
-			["dracula-soft"] = "dracula",
-			["eldritch"] = "dracula",
-			["OceanicNext"] = "OceanicNext",
-			["minicyan"] = "OceanicNext",
-			["srcery"] = "srcery",
-			["moonfly"] = "moonfly",
-			["iceclimber"] = "iceclimber",
-			["bluloco"] = "bluloco"
-		}
-
-		return theme_mappings[current_theme_name] or "sweetie"
-	end)()
-
-	local my_flag = "󰈿"
 	local toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/themes.toml")
 	local theme = toml[name]
 	theme.name = name
@@ -55,31 +32,65 @@ get_theme = function(name)
 	return theme
 end
 
+choose_theme_from_nvim = function()
+	local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
+	local current_theme_name = toml_settings.config.colorscheme
+
+	-- map nvim colorscheme names to aquamoon config names
+	local theme_mappings = {
+		["sweetie"] = "sweetie",
+		["challenger_deep"] = "sweetie",
+		["dracula"] = "dracula",
+		["dracula-soft"] = "dracula",
+		["eldritch"] = "dracula",
+		["eldritch-minimal"] = "dracula",
+		["moonfly"] = "moonfly",
+		["boo"] = "moonfly",
+		["OceanicNext"] = "OceanicNext",
+		["minicyan"] = "OceanicNext",
+		["srcery"] = "srcery",
+		["mfd-amber"] = "srcery",
+		["mfd-flir-fusion"] = "srcery",
+		["iceclimber"] = "iceclimber",
+		["dogrun"] = "iceclimber",
+		["seoul256"] = "iceclimber",
+		["bluloco"] = "bluloco"
+	}
+
+	return theme_mappings[current_theme_name] or "sweetie"
+end
+
 choose_theme_by_hour = function()
 	local theme_list = { "dracula", "sweetie" }
 	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
-	return get_theme(theme_name)
+	return theme_name
 end
 
-theme = get_theme()
+theme = get_theme(choose_theme_from_nvim())
 
 return {
 	path = os.getenv("HOME") .. "/.aquamoon",
-	mappings = require("mappings"),
+	mappings = dofile(os.getenv("HOME") .. "/.aquamoon/mappings.lua"),
 	theme_name = theme.name,
 	theme = theme,
 	theme_list = {
-		"OceanicNext",
+		"boo",
 		"dracula-soft",
-		-- "eldritch",
-		"minicyan",
+		"challenger_deep",
+		"OceanicNext",
+		"eldritch-minimal",
 		"moonfly",
 		"srcery",
 		"sweetie",
-		"iceclimber",
+		"seoul256",
+		"mfd-amber",
+		"mfd-flir-fusion",
 		"bluloco",
+		"minicyan",
+		"iceclimber",
+		"dogrun",
 		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
-		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon", 
+		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",
 		-- "neomodern", "vim-256noir", "yourumi", "challenger-deep-theme"
 	},
 	river_options = {

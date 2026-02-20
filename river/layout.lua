@@ -4,7 +4,7 @@ package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
 
 local main_ratio = 2 / 3
 local gaps = 0 -- 6 TODO make this an aquamoon theme settings
-local smart_gaps = false
+local smart_gaps = true
 local offset = 0
 
 local last_view_count = 0

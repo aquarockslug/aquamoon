@@ -1,5 +1,4 @@
-local home = os.getenv("HOME") or "/home/aqua"
-package.path = home .. '/.aquamoon/?.lua;' .. home .. '/.aquamoon/?/?.lua;'
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
 local wait_time = arg[1]
 local message = arg[2]
@@ -15,4 +14,4 @@ if not message then
 end
 
 os.execute("sleep " .. wait_time)
-require("scripts/notify").send(message)
+dofile(S.path .. "/scripts/notify.lua").send(message)
