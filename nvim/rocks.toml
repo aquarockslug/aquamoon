@@ -2,11 +2,10 @@
 
 [rocks]
 microlight = "1.0"
-tinytoml = "1.0.0"
 catppuccin = "0.1.0"
 inifile = "1.1"
 warna = "0.3.5"
-luafilesystem = "1.8.0"
+luafilesystem = "1.9.0"
 
 # CONFIG
 [config]
@@ -55,7 +54,6 @@ neorg = { version = "9.3.0", ft = "norg" }
 "lush.nvim" = "scm"
 "cybu.nvim" = "1.0"
 "snipe.nvim" = "scm"
-warna = "0.3.5"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 # GIT PLUGINS ##############################################################
