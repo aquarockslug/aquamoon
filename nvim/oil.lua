@@ -40,7 +40,6 @@ local oil_config = {
 		["<Tab>"] = { "actions.preview", mode = "n" }, -- TODO shows an error on image preview
 		['<C-q>'] = oil_files_to_quickfix,
 
-		-- "z" is like the <leader> for Oil
 		["zo"] = { "actions.open_external", mode = "n" },
 		["zy"] = { "actions.yank_entry", mode = "n" },
 		["zz"] = { "actions.open_terminal", mode = "n" },
