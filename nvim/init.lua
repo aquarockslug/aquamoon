@@ -160,5 +160,4 @@ vim.diagnostic.enable(false)
 package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
 -- require "nvim/neorg"
 require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"
-require "nvim/autocmds"; require "nvim/highlights";
-require "nvim/keymap"; require "nvim/terminal";
+require "nvim/autocmds"; require "nvim/highlights"; require "nvim/keymap";

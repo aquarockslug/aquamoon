@@ -58,10 +58,8 @@ end
 
 -- Leader keymaps
 local leader_keymaps = {
-	-- Left hand top row
 	e = vim.cmd.Oil,
-	w = vim.cmd.terminal, 
-	-- w = function() M.open_terminal("hilbish") end,
+	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua") end,
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,
 	c = M.show_cursor_position,
@@ -71,8 +69,6 @@ local leader_keymaps = {
 	k = function() M.adjust_neovide_scale(0.1) end,
 	l = function() require "chainsaw".variableLog() end,
 	L = function() require "chainsaw".removeLogs() end,
-
-	-- Right hand bottom
 	["/"] = vim.cmd.noh,
 }
 
@@ -82,14 +78,10 @@ end
 
 -- Function key keymaps
 local function_keymaps = {
-	-- Right hand (F1-F4)
 	[1] = function() vim.cmd "LazyGit" end,
-	-- [1] = vim.cmd.aqua_git,
 	[2] = vim.cmd.aqua_save,
 	[3] = function() vim.cmd.split "./" end,
 	[4] = function() vim.cmd.vsplit "./" end,
-
-	-- Left hand (F5-F8)
 	[5] = "<Plug>(CybuPrev)",
 	[6] = "<Plug>(CybuNext)",
 	[7] = function() require("snipe").open_buffer_menu() end,

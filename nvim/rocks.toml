@@ -10,7 +10,7 @@ luafilesystem = "1.8.0"
 
 # CONFIG
 [config]
-colorscheme = "bluloco"
+colorscheme = "challenger_deep"
 
 [config.options]
 autochdir = true
@@ -55,6 +55,7 @@ neorg = { version = "9.3.0", ft = "norg" }
 "lush.nvim" = "scm"
 "cybu.nvim" = "1.0"
 "snipe.nvim" = "scm"
+warna = "0.3.5"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 # GIT PLUGINS ##############################################################

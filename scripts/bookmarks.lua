@@ -4,7 +4,6 @@
 -- Reads bookmarks from bookmarks.toml and opens the selected URL
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-
 local tofi = dofile(S.path .. "/scripts/tofi.lua")
 
 -- Get the bookmarks file path

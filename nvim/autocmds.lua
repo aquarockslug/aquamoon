@@ -26,13 +26,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.treesitter.start()
 	end
 })
-vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = { "*.js", "*.lua" },
-	callback = function()
-		vim.b.minicompletion_disable = false
-		require("mini.completion").setup()
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufEnter", {
+-- 	pattern = { "*.js", "*.lua" },
+-- 	callback = function()
+-- 		vim.b.minicompletion_disable = false
+-- 		require("mini.completion").setup()
+-- 	end,
+-- })
 vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Sync nvim with oil's current directory",
 	pattern = { "*/" },

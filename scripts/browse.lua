@@ -1,6 +1,6 @@
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
-local browser = "qutebrowser"
+local browser = "firefox"
 
 local tofi_style = S.theme.tofi
 local menu = dofile(S.path .. "/scripts/tofi.lua").options(tofi_style)
