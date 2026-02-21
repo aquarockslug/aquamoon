@@ -128,6 +128,10 @@ require("cling").setup({
 			command = "Theme",
 		},
 		{
+			binary = "lua ./deploy.lua",
+			command = "Deploy",
+		},
+		{
 			binary = "scooter",
 			command = "Far",
 		},
@@ -145,7 +149,7 @@ vim.cmd.aqua_save = function()
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
-		require("fidget").notify(require('lsp-status').status())
+		require("scripts/notify").send(require('lsp-status').status())
 	end
 
 	vim.cmd "silent write"
@@ -166,7 +170,6 @@ local lspconfig = require('lspconfig')
 lspconfig.biome.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.gdscript.setup({})
-
 
 -- DIAGNOSTICS
 vim.diagnostic.config({

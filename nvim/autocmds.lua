@@ -17,22 +17,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.jpg", "*.png", "*.ico" },
 	callback = function()
-		vim.cmd([[ terminal timg % ]])
+		vim.cmd([[ terminal chafa % ]])
 	end
 })
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.js", "*.gd", "*.lua", "*.md" },
 	callback = function()
 		vim.treesitter.start()
+		-- vim.b.minicompletion_disable = false
+		-- require("mini.completion").setup()
 	end
 })
--- vim.api.nvim_create_autocmd("BufEnter", {
--- 	pattern = { "*.js", "*.lua" },
--- 	callback = function()
--- 		vim.b.minicompletion_disable = false
--- 		require("mini.completion").setup()
--- 	end,
--- })
 vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Sync nvim with oil's current directory",
 	pattern = { "*/" },
@@ -52,7 +47,7 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	desc = "check for file changes when leaving the terminal",
-	callback = function() 
+	callback = function()
 		vim.cmd.checktime()
 		-- vim.cmd "DiffviewRefresh"
 	end

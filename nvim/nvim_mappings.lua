@@ -59,7 +59,7 @@ end
 -- Leader keymaps
 local leader_keymaps = {
 	e = vim.cmd.Oil,
-	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua") end,
+	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua --") end,
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,
 	c = M.show_cursor_position,
