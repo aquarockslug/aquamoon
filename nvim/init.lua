@@ -74,7 +74,6 @@ require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "ita
 require "bluloco".setup({ transparent = true, italics = true })
 
 
--- LEAP
 require "leap".setup({})
 -- define a preview filter to reduce visual noise
 require "leap".opts.preview = function(ch0, ch1, ch2)
@@ -88,7 +87,6 @@ require "leap".opts.equivalence_classes = {
 }
 
 
--- TV
 require "tv".setup({
 	channels = {
 		files = {
@@ -105,7 +103,6 @@ require "tv".setup({
 })
 
 
--- SNIPE
 require "snipe".setup({
 	ui = {
 		position = "center",
@@ -120,6 +117,32 @@ require "snipe".setup({
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
 
 
+require("cling").setup({
+	wrappers = {
+		{
+			binary = "lazygit",
+			command = "Lg",
+		},
+		{
+			binary = "tofi-drun",
+			command = "Tofi",
+		},
+		{
+			binary = "lua /home/aqua/.aquamoon/scripts/theme_picker.lua",
+			command = "Theme",
+		},
+		{
+			binary = "scooter",
+			command = "Far",
+		},
+		{
+			binary = "opencode",
+			command = "Opencode",
+		},
+	}
+})
+
+
 -- SAVE
 vim.cmd.aqua_save = function()
 	-- avoid warnings from oil and ministart filetype
@@ -131,6 +154,7 @@ vim.cmd.aqua_save = function()
 
 	vim.cmd "silent write"
 end
+
 
 -- RUN
 vim.cmd.aqua_run = function()
