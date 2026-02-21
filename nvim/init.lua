@@ -124,11 +124,7 @@ require("cling").setup({
 			command = "Lg",
 		},
 		{
-			binary = "tofi-drun",
-			command = "Tofi",
-		},
-		{
-			binary = "lua /home/aqua/.aquamoon/scripts/theme_picker.lua",
+			binary = "lua " .. S.path .. "/scripts/theme_picker.lua",
 			command = "Theme",
 		},
 		{
