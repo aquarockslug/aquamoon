@@ -18,7 +18,7 @@ M.tally = function(t)
 			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string
 		end
 
-		os.execute("dunstify --timeout=1000 --appname=luatile " ..
+		os.execute("dunstify --timeout=1000" ..
 			" --icon=''" .. -- no icon
 			" -h string:bgcolor:#" .. S.theme.bg ..
 			" -h string:fgcolor:#" .. S.theme.fg ..
