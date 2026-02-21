@@ -16,6 +16,10 @@ url = "https://wikipedia.org"
 name = "Neovim"
 url = "https://neovim.io"
 
+[luarocks]
+name = "Luarocks"
+url = "https://luarocks.org"
+
 [aur]
 name = "Arch User Repository"
 url = "https://aur.archlinux.org/"
