@@ -6,7 +6,7 @@ local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 local threshold = 10      -- the battery level required to trigger the warning
 local frequency = 2       -- the amount of times to check in a minute
 local low_battery = false -- the state of the battery
-local battery_path = "/sys/class/power_supply/BAT1/capacity"
+local battery_path = "/sys/class/power_supply/BAT0/capacity"
 
 while true do
 	local battery = io.popen("cat " .. battery_path)

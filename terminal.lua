@@ -11,7 +11,7 @@ hilbish.opts = {
 }
 
 hilbish.prompt(lunacolors.format(
-	'{blue}%u {cyan}%d ' .. (fail and '{red}' or '{green}') .. '󰈿 '
+	'{blue}%u {cyan}%d ' .. (fail and '{red}' or '{cyan}') .. '󰈿 '
 ))
 
 local ls = "eza --color --icons -F --hyperlink "
@@ -19,9 +19,12 @@ os.execute(ls .. hilbish.cwd())
 
 hilbish.alias("df", "duf")
 hilbish.alias("du", "dust")
+hilbish.alias("top", "htop")
+hilbish.alias("s", "sudo")
 hilbish.alias("q", "exit")
 hilbish.alias("l", "clear && " .. ls)
 hilbish.alias("ll", ls .. " --all")
 hilbish.alias("lg", "lazygit")
 hilbish.alias("paru", "paru --bottomup")
 hilbish.alias("chmodx", "sudo chmod u+x")
+hilbish.alias("ddgr", "ddgr --reverse")

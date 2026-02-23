@@ -1,2 +1,4 @@
 [global]
 	origin = top-center
+	width = 640
+	font = BigBlueTermPlus Nerd Font Mono 14
