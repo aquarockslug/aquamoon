@@ -171,6 +171,7 @@ lspconfig.biome.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.gdscript.setup({})
 
+
 -- DIAGNOSTICS
 vim.diagnostic.config({
 	signs = false,
