@@ -54,6 +54,7 @@ neorg = { version = "9.3.0", ft = "norg" }
 "lush.nvim" = "scm"
 "cybu.nvim" = "1.0"
 "snipe.nvim" = "scm"
+luafilesystem = "1.9.0"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 # GIT PLUGINS ##############################################################
