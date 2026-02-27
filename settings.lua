@@ -54,7 +54,8 @@ choose_theme_from_nvim = function()
 		["iceclimber"] = "iceclimber",
 		["dogrun"] = "iceclimber",
 		["seoul256"] = "iceclimber",
-		["bluloco"] = "bluloco"
+		["bluloco"] = "bluloco",
+		["neon"] = "bluloco"
 	}
 
 	return theme_mappings[current_theme_name] or "sweetie"
@@ -74,19 +75,20 @@ return {
 	theme_name = theme.name,
 	theme = theme,
 	theme_list = {
-		"OceanicNext",
-		"boo",
-		"eldritch-minimal",
-		"moonfly",
-		"srcery",
-		"sweetie",
-		"challenger_deep",
-		"bluloco",
+		{ "Ocean",        "OceanicNext" },
+		{ "Moonfly (boo)",      "boo" },
+		{ "Moonfly (eldritch)", "eldritch-minimal" },
+		{ "Moonfly",            "moonfly" },
+		{ "Sorcery",            "srcery" },
+		{ "Sweetie",            "sweetie" },
+		{ "Sweetie (deep)",     "challenger_deep" },
+		{ "Blueloco",           "bluloco" },
+		{ "Blueloco (neon)",    "neon" },
 		-- "dracula-soft",
 		-- "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
 		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
 		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",
-		-- "neomodern", "vim-256noir", "yourumi", "challenger-deep-theme"
+		-- "neomodern", "vim-256noir", "yourumi"
 	},
 	river_options = {
 		-- Theme options

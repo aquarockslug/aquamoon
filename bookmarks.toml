@@ -16,6 +16,10 @@ url = "https://wikipedia.org"
 name = "Neovim"
 url = "https://neovim.io"
 
+[localhost]
+name = "Localhost"
+url = "http://localhost:8000"
+
 [luarocks]
 name = "Luarocks"
 url = "https://luarocks.org"

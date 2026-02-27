@@ -2,15 +2,15 @@
 local lunacolors = require 'lunacolors'
 local hilbifetch = {
 	order = {
-		{'title', showName = false},
-		{'infosep', showName = false},
+		{ 'title',   showName = false },
+		{ 'infosep', showName = false },
 		'os',
 		'kernel',
-		'uptime',
+		-- 'uptime',
 		'terminal',
 		'shell',
-		{'padding', showName = false},
-		{'colors', showName = false}
+		{ 'padding', showName = false },
+		{ 'colors',  showName = false }
 	}
 }
 local infotable = {}
@@ -58,7 +58,7 @@ end)
 
 hilbifetch.addInfo('colors', function()
 	local r = '\27[49m'
-	local result = {'', ''}
+	local result = { '', '' }
 
 	for i = 0, 7 do
 		result[1] = result[1] .. '\27[4' .. i .. 'm   '
@@ -108,10 +108,10 @@ hilbifetch.addInfo('memory', function()
 	local meminfo = f:read '*a'
 	local memTotal, usedMem
 	if meminfo then
-		memTotal = meminfo:sub(select(1, meminfo:find 'MemTotal:' ), -1)
+		memTotal = meminfo:sub(select(1, meminfo:find 'MemTotal:'), -1)
 		memTotal = memTotal:sub(1, select(2, memTotal:find '\n'))
-		:gsub('MemTotal:%s+', '')
-			:gsub(' kB\n', '')
+		    :gsub('MemTotal:%s+', '')
+		    :gsub(' kB\n', '')
 
 		p = io.popen 'free | grep Mem'
 		usedMem = p:read '*a'
@@ -232,7 +232,7 @@ function hilbifetch.echo()
 end
 
 if not pcall(debug.getlocal, 4, 1) then
-	local env = setmetatable({hilbifetch = hilbifetch}, {__index = _G})
+	local env = setmetatable({ hilbifetch = hilbifetch }, { __index = _G })
 	local f, err = loadfile(hilbish.userDir.config .. '/hilbifetch/init.lua', 't', env)
 	assert(f, err)
 	f()
