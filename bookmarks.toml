@@ -31,3 +31,7 @@ url = "https://aur.archlinux.org/"
 [arch_wiki]
 name = "Arch Wiki"
 url = "https://wiki.archlinux.org"
+
+[cpanel]
+name = "cPanel"
+url = "https://ap.www.namecheap.com/domains/hosting/package/cpanellogin/4150875"
