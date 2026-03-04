@@ -9,7 +9,7 @@ local tofi = dofile(S.path .. "/scripts/tofi.lua")
 -- Get the bookmarks file path
 local function get_bookmarks_path()
 	local home = os.getenv("HOME") or os.getenv("USERPROFILE")
-	return home .. "/.aquamoon/bookmarks.toml"
+	return home .. "/.aquamoon/toml/bookmarks.toml"
 end
 
 -- Read and parse TOML file

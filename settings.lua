@@ -5,7 +5,7 @@ package.path = package.path .. rocks_path .. ";"
 TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
 get_theme = function(name)
-	local toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/themes.toml")
+	local toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")
 	local theme = toml[name]
 	theme.name = name
 	theme.tofi = {
@@ -74,16 +74,14 @@ return {
 	theme = theme,
 	-- map theme name to nvim colorscheme
 	theme_list = {
-		{ "Ocean",                "OceanicNext" },
-		{ "Moonfly (boo)",        "boo" },
-		{ "Moonfly (eldritch)",   "eldritch-minimal" },
-		{ "Moonfly",              "moonfly" },
-		{ "Sweetie",              "sweetie" },
-		{ "Sweetie (deep)",       "challenger_deep" },
-		{ "Sorcery",              "srcery" },
-		{ "Blueloco",             "bluloco" },
-		{ "Blueloco (noirblaze)", "noirblaze" },
-		{ "Blueloco (dogrun)",    "dogrun" },
+		{ "Ocean",              "OceanicNext" },
+		{ "Moonfly (boo)",      "boo" },
+		{ "Moonfly (eldritch)", "eldritch-minimal" },
+		{ "Moonfly",            "moonfly" },
+		{ "Sweetie",            "sweetie" },
+		{ "Sweetie (deep)",     "challenger_deep" },
+		{ "Sorcery",            "srcery" },
+		{ "Blueloco",           "bluloco" },
 		-- "dracula-soft", "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
 		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
 		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",

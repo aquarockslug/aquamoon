@@ -3,7 +3,7 @@
 local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
 -- Paths to configuration files
-local themes_path = os.getenv("HOME") .. "/.aquamoon/themes.toml"
+local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
 local dunstrc_path = os.getenv("HOME") .. "/.config/dunst/dustrc"
 local television_path = os.getenv("HOME") .. "/.config/television/config.toml"
 local lazygit_path = os.getenv("HOME") .. "/.config/lazygit/config.yml"
