@@ -9,7 +9,7 @@ luafilesystem = "1.9.0"
 
 # CONFIG
 [config]
-colorscheme = "eldritch-minimal"
+colorscheme = "dogrun"
 
 [config.options]
 autochdir = true
@@ -55,6 +55,7 @@ neorg = { version = "9.3.0", ft = "norg" }
 "cybu.nvim" = "1.0"
 "snipe.nvim" = "scm"
 luafilesystem = "1.9.0"
+neogit = "3.0.0"
 # "diffview.nvim" = "scm" -- use with gitu?
 
 # GIT PLUGINS ##############################################################

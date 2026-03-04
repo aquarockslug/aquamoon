@@ -1,9 +1,6 @@
 local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
 rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
-local rocks_cpath = os.getenv("HOME") .. "/.local/share/nvim/rocks/lib/lua/5.1/?.so;"
-rocks_cpath = rocks_cpath .. os.getenv("HOME") .. "/.local/share/nvim/rocks/lib64/lua/5.1/?.so;"
 package.path = package.path .. rocks_path .. ";"
-package.cpath = package.cpath .. rocks_cpath .. ";"
 
 TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
@@ -36,7 +33,7 @@ choose_theme_from_nvim = function()
 	local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
 	local current_theme_name = toml_settings.config.colorscheme
 
-	-- map nvim colorscheme names to aquamoon config names
+	-- map nvim colorscheme names to nvim colorschemes in themes.toml
 	local theme_mappings = {
 		["sweetie"] = "sweetie",
 		["challenger_deep"] = "sweetie",
@@ -52,10 +49,11 @@ choose_theme_from_nvim = function()
 		["mfd-amber"] = "srcery",
 		["mfd-flir-fusion"] = "srcery",
 		["iceclimber"] = "iceclimber",
-		["dogrun"] = "iceclimber",
 		["seoul256"] = "iceclimber",
 		["bluloco"] = "bluloco",
-		["neon"] = "bluloco"
+		["neon"] = "bluloco",
+		["noirblaze"] = "bluloco",
+		["dogrun"] = "bluloco"
 	}
 
 	return theme_mappings[current_theme_name] or "sweetie"
@@ -74,18 +72,19 @@ return {
 	mappings = dofile(os.getenv("HOME") .. "/.aquamoon/mappings.lua"),
 	theme_name = theme.name,
 	theme = theme,
+	-- map theme name to nvim colorscheme
 	theme_list = {
-		{ "Ocean",        "OceanicNext" },
-		{ "Moonfly (boo)",      "boo" },
-		{ "Moonfly (eldritch)", "eldritch-minimal" },
-		{ "Moonfly",            "moonfly" },
-		{ "Sorcery",            "srcery" },
-		{ "Sweetie",            "sweetie" },
-		{ "Sweetie (deep)",     "challenger_deep" },
-		{ "Blueloco",           "bluloco" },
-		{ "Blueloco (neon)",    "neon" },
-		-- "dracula-soft",
-		-- "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
+		{ "Ocean",                "OceanicNext" },
+		{ "Moonfly (boo)",        "boo" },
+		{ "Moonfly (eldritch)",   "eldritch-minimal" },
+		{ "Moonfly",              "moonfly" },
+		{ "Sweetie",              "sweetie" },
+		{ "Sweetie (deep)",       "challenger_deep" },
+		{ "Sorcery",              "srcery" },
+		{ "Blueloco",             "bluloco" },
+		{ "Blueloco (noirblaze)", "noirblaze" },
+		{ "Blueloco (dogrun)",    "dogrun" },
+		-- "dracula-soft", "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
 		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
 		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",
 		-- "neomodern", "vim-256noir", "yourumi"
