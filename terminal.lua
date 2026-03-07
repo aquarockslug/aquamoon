@@ -1,6 +1,5 @@
 local hilbish = require 'hilbish'
 local fs = require 'fs'
-local bait = require 'bait'
 local lunacolors = require 'lunacolors'
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
@@ -15,19 +14,16 @@ hilbish.opts = {
 	notifyJobFinish = true,
 }
 
-hilbish.prompt(lunacolors.format(
-	'{cyan}%d ' .. (fail and '{red}' or '{cyan}') .. '󰈿 '
-))
-
-bait.catch("hilbish.cd", function(dir)
-	hilbish.prompt(lunacolors.format(
-		'{cyan}' .. dir .. (fail and '{red}' or '{cyan}') .. ' 󰈿 '
-	))
-end)
+local myPrompt = function()
+	return lunacolors.format(
+		'{cyan}%d ' .. (fail and '{red}' or '{cyan}') .. '󰈿 '
+	)
+end
+hilbish.prompt(myPrompt())
 
 commander.register('cd', function(args, sinks)
 	fs.cd(args[1])
-	bait.throw("hilbish.cd", fs.dir(args[1]))
+	hilbish.prompt(myPrompt())
 end)
 
 local ls = "eza --color --icons -F --hyperlink "
