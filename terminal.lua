@@ -15,7 +15,6 @@ hilbish.opts = {
 	notifyJobFinish = true,
 }
 
--- TODO use hex codes instead of color names S.theme.fg
 hilbish.prompt(lunacolors.format(
 	'{cyan}%d ' .. (fail and '{red}' or '{cyan}') .. '󰈿 '
 ))
@@ -39,6 +38,7 @@ hilbish.alias("du", "dust")
 hilbish.alias("top", "htop")
 hilbish.alias("s", "sudo")
 hilbish.alias("q", "exit")
+hilbish.alias("ls", ls)
 hilbish.alias("l", "clear && " .. ls)
 hilbish.alias("ll", ls .. " --all")
 hilbish.alias("lg", "lazygit")
