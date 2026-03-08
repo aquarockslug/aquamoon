@@ -1,5 +1,3 @@
-local hilbish = require 'hilbish'
-local fs = require 'fs'
 local lunacolors = require 'lunacolors'
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
@@ -21,9 +19,15 @@ local myPrompt = function()
 end
 hilbish.prompt(myPrompt())
 
+hilbish.appendPath("~/.aquamoon/scripts/")
+
 commander.register('cd', function(args, sinks)
 	fs.cd(args[1])
 	hilbish.prompt(myPrompt())
+end)
+
+commander.register('cpanel', function(args, sinks)
+	os.execute("ssh -p 21098 -i ~/.ssh/id_rsa aquawwae@68.65.123.84")
 end)
 
 local ls = "eza --color --icons -F --hyperlink "

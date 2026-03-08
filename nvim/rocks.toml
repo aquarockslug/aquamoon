@@ -9,7 +9,7 @@ luafilesystem = "1.9.0"
 
 # CONFIG
 [config]
-colorscheme = "moonfly"
+colorscheme = "boo"
 
 [config.options]
 autochdir = true
