@@ -109,6 +109,8 @@ return {
 		},
 		-- Startup programs
 		{
+			-- TODO use weathr as a lock screen
+			--
 			"swayidle timeout 1800 'gtklock'", -- lock the screen after 30 min
 		},
 		{
