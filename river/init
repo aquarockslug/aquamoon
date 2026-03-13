@@ -1,7 +1,0 @@
-#!/bin/bash
-
-username="aqua"
-userdir="/home/$username"
-aquamoondir="$userdir/.aquamoon"
-
-lua $aquamoondir/river/init.lua
