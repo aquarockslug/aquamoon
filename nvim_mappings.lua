@@ -14,10 +14,17 @@ end
 
 function M.show_cursor_position()
 	local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
-	require("fidget").notify(
+	require("scripts/notify").send(
 		"Row: " .. tostring(cursor_row) .. ", " ..
 		"Col: " .. tostring(cursor_col)
 	)
+end
+
+function M.show_file_status()
+	local file_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~')
+	local modified = vim.bo.modified and ' [modified]' or ''
+	local msg = file_path .. modified
+	require("scripts/notify").send(msg)
 end
 
 function M.adjust_neovide_scale(delta)
@@ -98,6 +105,7 @@ local leader_keymaps = {
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,
 	c = M.show_cursor_position,
+	v = M.show_file_status,
 	i = vim.lsp.buf.hover,
 	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
 	j = function() M.adjust_neovide_scale(-0.1) end,
