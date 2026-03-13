@@ -52,6 +52,7 @@ end
 -- NEOVIM CONFIGURATION FOR AQUAMOON
 local vim = vim -- avoid undefined warnings
 S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
 
 
 -- GLOBAL VARIABLES
@@ -62,86 +63,6 @@ vim.g.godot_executable = "/bin/godot3"
 vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
 vim.flag = "󰈿"
-
-require "chainsaw".setup()
-require "cybu".setup()
-
-
--- COLORSCHEMES
-vim.g.oceanic_next_terminal_bold = 1
-vim.g.oceanic_next_terminal_italic = 1
-require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
-require "bluloco".setup({ transparent = true, italics = true })
-
-
-require "leap".setup({})
--- define a preview filter to reduce visual noise
-require "leap".opts.preview = function(ch0, ch1, ch2)
-	return not (
-		ch1:match('%s')
-		or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
-	)
-end
-require "leap".opts.equivalence_classes = {
-	' \t\r\n', '([{', ')]}', '\'"`'
-}
-
-
-require "tv".setup({
-	channels = {
-		files = {
-			keybinding = '<leader>f', -- Launch the files channel
-		},
-		text = {
-			keybinding = '<leader>g',
-		},
-	},
-	window = {
-		width = 1,
-		height = 1,
-	}
-})
-
-
-require "snipe".setup({
-	ui = {
-		position = "center",
-		text_align = "file-first",
-		open_win_override = {
-			title = vim.flag,
-			border = "rounded"
-		}
-	},
-	navigate = { open_vsplit = "e", open_split = "E" }
-})
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>") -- exit terminal with Esc
-
-
-require("cling").setup({
-	wrappers = {
-		{
-			binary = "lazygit",
-			command = "Lg",
-		},
-		{
-			binary = "lua " .. S.path .. "/scripts/theme_picker.lua",
-			command = "Theme",
-		},
-		{
-			binary = "lua ./deploy.lua",
-			command = "Deploy",
-		},
-		{
-			binary = "scooter",
-			command = "Far",
-		},
-		{
-			binary = "opencode",
-			command = "Opencode",
-		},
-	}
-})
-
 
 -- SAVE
 vim.cmd.aqua_save = function()
@@ -165,23 +86,102 @@ vim.cmd.aqua_run = function()
 end
 
 
--- LANGUAGE SERVERS
-local lspconfig = require('lspconfig')
-lspconfig.biome.setup({})
-lspconfig.lua_ls.setup({})
-lspconfig.gdscript.setup({})
-
-
--- DIAGNOSTICS
-vim.diagnostic.config({
-	signs = false,
-	virtual_lines = true
+-- AUTOCOMMANDS
+vim.api.nvim_create_autocmd("InsertEnter", {
+	callback = function()
+		vim.opt.cursorline = false
+	end,
 })
-vim.diagnostic.enable(false)
+vim.api.nvim_create_autocmd("InsertLeave", {
+	callback = function()
+		vim.opt.cursorline = true
+	end,
+})
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function() vim.hl.on_yank({ higroup = "LineNr", timeout = 250 }) end,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.jpg", "*.png", "*.ico" },
+	callback = function()
+		vim.cmd([[ terminal chafa % ]])
+	end
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.js", "*.gd", "*.lua", "*.md" },
+	callback = function()
+		vim.treesitter.start()
+	end
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	desc = "Sync nvim with oil's current directory",
+	pattern = { "*/" },
+	callback = function()
+		vim.b.minicompletion_disable = true
+		require("oil.actions").cd.callback()
+	end
+})
+vim.api.nvim_create_autocmd("VimResized", {
+	desc = "resize windows to be equal",
+	callback = function() vim.cmd("tabdo wincmd =") end
+})
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+	callback = function()
+		vim.wo[0][0].scrolloff = 0
+	end
+})
+vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
+	desc = "check for file changes when leaving the terminal",
+	callback = function()
+		vim.cmd.checktime()
+	end
+})
+
+
+-- HIGHLIGHTS
+local theme = S.theme
+local highlights = {
+	LineNr = { bg = theme.bg, fg = theme.fg },
+	LineNrAbove = { fg = theme.fg },
+	LineNrBelow = { fg = theme.fg },
+	CursorLineNr = { fg = theme.fg },
+	OilDir = { fg = theme.fg },
+	LazyGitFloat = { fg = theme.fg2 },
+	LazyGitBorder = { fg = theme.fg },
+	MiniStarterSection = { fg = theme.fg },
+	MiniStarterItemPrefix = { fg = theme.accent },
+	MiniStarterQuery = { fg = theme.accent },
+	Cursor = { bg = theme.fg, fg = theme.bg },
+	lCursor = { bg = theme.fg, fg = theme.bg },
+	CursorIM = { bg = theme.accent, fg = theme.bg },
+}
+
+for group, colors in pairs(highlights) do
+	local attrs = {}
+	if colors.bg then table.insert(attrs, "guibg=#" .. colors.bg) end
+	if colors.fg then table.insert(attrs, "guifg=#" .. colors.fg) end
+	vim.cmd.highlight(group .. " " .. table.concat(attrs, " "))
+end
+
+
+-- NEOVIDE CONFIGURATION
+if vim.g.neovide then
+	vim.g.neovide_opacity = S.theme.opacity
+	vim.o.guifont = S.theme.active_font.name
+	vim.g.neovide_text_gamma = 0.8
+	vim.g.neovide_text_contrast = 0.1
+	vim.g.neovide_padding_left = 10
+	vim.g.neovide_padding_top = 10
+	vim.opt.linespace = 3
+
+	if S.theme_name == "OceanicNext" or S.theme_name == "minicyan" then
+		vim.g.neovide_cursor_vfx_mode = "torpedo"
+	end
+	if S.theme_name == "srcery" or S.theme_name == "eldritch" then
+		vim.g.neovide_cursor_vfx_mode = "pixiedust"
+	end
+end
+
 
 
 -- require the other aquamoon nvim config files
-package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
--- require "nvim/neorg"
-require "nvim/mini"; require "nvim/oil"; require "nvim/neovide"
-require "nvim/autocmds"; require "nvim/highlights"; require "nvim/nvim_mappings";
+require "nvim_plugins"; require "nvim_mappings";

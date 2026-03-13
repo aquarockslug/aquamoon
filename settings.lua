@@ -30,7 +30,7 @@ get_theme = function(name)
 end
 
 choose_theme_from_nvim = function()
-	local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
+	local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 	local current_theme_name = toml_settings.config.colorscheme
 
 	-- map nvim colorscheme names to nvim colorschemes in themes.toml
