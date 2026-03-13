@@ -4,4 +4,4 @@ username="aqua"
 userdir="/home/$username"
 aquamoondir="$userdir/.aquamoon"
 
-sudo -u "$username" lua $aquamoondir/river/init.lua
+lua $aquamoondir/river/init.lua
