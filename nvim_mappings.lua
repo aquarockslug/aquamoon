@@ -1,6 +1,10 @@
 -- KEYMAP CONFIGURATION
 local vim = vim
 
+-- Must be set before any leader keymaps
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
+
 -- Utility functions
 local M = {}
 
@@ -23,6 +27,37 @@ end
 function M.open_terminal(command)
 	vim.cmd("terminal " .. command)
 end
+
+function M.oil_files_to_quickfix()
+	if vim.bo.filetype ~= 'oil' then return end
+	local oil = require 'oil'
+	local dir = oil.get_current_dir()
+
+	local entries = {}
+	for i = 1, vim.fn.line '$' do
+		local entry = oil.get_entry_on_line(0, i)
+		if entry and entry.type == 'file' then
+			table.insert(entries, { filename = dir .. entry.name })
+		end
+	end
+	if #entries == 0 then return end
+
+	vim.fn.setqflist(entries)
+	return vim.cmd.copen()
+end
+
+M.oil_keymaps = {
+	["H"] = { "actions.parent", mode = "n" },
+	["L"] = { "actions.select", mode = "n" },
+	["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
+	["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
+	["<Tab>"] = { "actions.preview", mode = "n" },
+	['<C-q>'] = M.oil_files_to_quickfix,
+	["zo"] = { "actions.open_external", mode = "n" },
+	["zy"] = { "actions.yank_entry", mode = "n" },
+	["zz"] = { "actions.open_terminal", mode = "n" },
+	["zh"] = { "actions.toggle_hidden", mode = "n" },
+}
 
 -- keymaps
 vim.keymap.set({ "n", "x", "o" }, "<CR>", function() require("leap").leap({ backward = true }) end)

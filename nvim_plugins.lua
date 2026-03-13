@@ -54,39 +54,11 @@ function _G.get_oil_winbar()
 	end
 end
 
-local function oil_files_to_quickfix()
-	if vim.bo.filetype ~= 'oil' then return end
-	local oil = require 'oil'
-	local dir = oil.get_current_dir()
-
-	local entries = {}
-	for i = 1, vim.fn.line '$' do
-		local entry = oil.get_entry_on_line(0, i)
-		if entry and entry.type == 'file' then
-			table.insert(entries, { filename = dir .. entry.name })
-		end
-	end
-	if #entries == 0 then return end
-
-	vim.fn.setqflist(entries)
-	return vim.cmd.copen()
-end
-
+local mappings = require("nvim_mappings")
 local oil_config = {
 	watch_for_changes = true,
 	use_default_keymaps = false,
-	keymaps = {
-		["H"] = { "actions.parent", mode = "n" },
-		["L"] = { "actions.select", mode = "n" },
-		["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
-		["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
-		["<Tab>"] = { "actions.preview", mode = "n" },
-		['<C-q>'] = oil_files_to_quickfix,
-		["zo"] = { "actions.open_external", mode = "n" },
-		["zy"] = { "actions.yank_entry", mode = "n" },
-		["zz"] = { "actions.open_terminal", mode = "n" },
-		["zh"] = { "actions.toggle_hidden", mode = "n" },
-	},
+	keymaps = mappings.oil_keymaps,
 	columns = {
 		"icon",
 		"size"
@@ -157,7 +129,6 @@ require "snipe".setup({
 	},
 	navigate = { open_vsplit = "e", open_split = "E" }
 })
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
 
 
 -- CLING

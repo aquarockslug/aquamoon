@@ -56,9 +56,6 @@ package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/
 
 
 -- GLOBAL VARIABLES
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
--- vim.g.loaded_matchparen = 1
 vim.g.godot_executable = "/bin/godot3"
 vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
@@ -184,4 +181,4 @@ end
 
 
 -- require the other aquamoon nvim config files
-require "nvim_plugins"; require "nvim_mappings";
+require "nvim_mappings"; require "nvim_plugins";
