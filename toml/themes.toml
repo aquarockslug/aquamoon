@@ -6,7 +6,7 @@ bg = "080808"
 bg2 = "ae81ff"
 accent = "cf87e8"
 background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 4
+border_width = 8
 opacity = 0.8
 ddgr_colors = "hcegch"
 

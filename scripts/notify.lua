@@ -29,7 +29,7 @@ M.tally = function(t)
 	end
 end
 M.send = function(message)
-	os.execute("dunstify" ..
+	os.execute("dunstify --timeout=1000" ..
 		" --icon=''" .. -- no icon
 		" -h string:bgcolor:#" .. S.theme.bg ..
 		" -h string:fgcolor:#" .. S.theme.fg ..

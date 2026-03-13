@@ -1,6 +1,6 @@
 local lua_script = function(script_name)
 	local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
-	-- TODO run with "nvim -l ..."?
+	-- TODO run with "nvim -l ..."? or hilbish?
 	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
 end
 local terminal_app = function(app, terminal_app)
@@ -89,28 +89,6 @@ mappings.map = {
 			key = "Q",
 			command = "close",
 		},
-		-- Super+{J,K} to focus next/previous view in the layout stack
-		{
-			mod = "Super",
-			key = "J",
-			command = { "focus-view", "previous" },
-		},
-		{
-			mod = "Super",
-			key = "K",
-			command = { "focus-view", "next" },
-		},
-		-- Super+Shift+{J,K} to rotate the layout stack
-		{
-			mod = { "Super", "Shift" },
-			key = "J",
-			command = { "send-layout-cmd", "luatile", [[ "rotate(false)" ]] },
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "K",
-			command = { "send-layout-cmd", "luatile", [[ "rotate(true)" ]] },
-		},
 		-- Super+E to bump the focused view to the top of the layout stack
 		{
 			mod = "Super",
@@ -123,16 +101,38 @@ mappings.map = {
 			key = "F",
 			command = "toggle-fullscreen",
 		},
-		-- Super+{H,L} to decrease/increase the main_factor value of luatile by 0.02
+		-- Super+{J,K} to focus next/previous view in the layout stack
 		{
-			mod = { "Super" },
+			mod = "Super",
+			key = "J",
+			command = { "focus-view", "previous" },
+		},
+		{
+			mod = "Super",
+			key = "K",
+			command = { "focus-view", "next" },
+		},
+		-- Super+Shift+{H,L} 
+		{
+			mod = { "Super", "Shift" },
 			key = "H",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(-1)" ]] },
 		},
 		{
-			mod = { "Super" },
+			mod = { "Super", "Shift" },
 			key = "L",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
+		},
+		-- Super+{H,L}
+		{
+			mod = { "Super" },
+			key = "H",
+			command = { "set-focused-tags", "1" },
+		},
+		{
+			mod = { "Super" },
+			key = "L",
+			command = { "set-focused-tags", "2" },
 		},
 	},
 }
