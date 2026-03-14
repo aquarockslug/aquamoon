@@ -9,7 +9,7 @@ luafilesystem = "1.9.0"
 
 # CONFIG
 [config]
-colorscheme = "boo"
+colorscheme = "challenger_deep"
 
 [config.options]
 autochdir = true
@@ -130,3 +130,23 @@ rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
 [plugins.neon]
 git = "rafamadriz/neon"
 rev = "7765aaa7d1cd3804176140644640766e4411c766"
+
+[plugins."oh-lucy.nvim"]
+git = "yazeed1s/oh-lucy.nvim"
+rev = "2d94e9b03efe4c50f4653b6f2b7b200d970fe1aa"
+
+[plugins."minimal.nvim"]
+git = "yazeed1s/minimal.nvim"
+rev = "22d837b814d3bd22625640ef63cc73b8507f291d"
+
+[plugins."citruszest.nvim"]
+git = "zootedb0t/citruszest.nvim"
+rev = "ce6749e4c3a842679cc302ce1c2db76c2d07f700"
+
+[plugins."serene.nvim"]
+git = "samharju/serene.nvim"
+rev = "e44be3b1c8a824c4c33d851fc92b02c3e893ec66"
+
+[plugins."deepwhite.nvim"]
+git = "verf/deepwhite.nvim"
+rev = "ccad56bb5eb7d29258980cfc0a716eb87bcad69e"

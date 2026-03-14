@@ -41,7 +41,7 @@ bg2 = "ef2f27"
 accent = "e02c6d"
 background_image = "~/.aquamoon/wallpapers/wizard_cover.jpg"
 border_width = 6
-opacity = 0.95
+opacity = 1.00
 ddgr_colors = "bdhbdb"
 
 [srcery.active_font]

@@ -37,6 +37,8 @@ choose_theme_from_nvim = function()
 	local theme_mappings = {
 		["sweetie"] = "sweetie",
 		["challenger_deep"] = "sweetie",
+		["deepwhite"] = "sweetie",
+		["minimal"] = "sweetie",
 		["dracula"] = "dracula",
 		["dracula-soft"] = "dracula",
 		["eldritch"] = "dracula",
@@ -48,12 +50,16 @@ choose_theme_from_nvim = function()
 		["srcery"] = "srcery",
 		["mfd-amber"] = "srcery",
 		["mfd-flir-fusion"] = "srcery",
+		["citruszest"] = "srcery",
 		["iceclimber"] = "iceclimber",
 		["seoul256"] = "iceclimber",
 		["bluloco"] = "bluloco",
 		["neon"] = "bluloco",
 		["noirblaze"] = "bluloco",
-		["dogrun"] = "bluloco"
+		["dogrun"] = "bluloco",
+		["serene"] = "bluloco",
+		["oh-lucy"] = "bluloco",
+		["serene-transparent"] = "bluloco",
 	}
 
 	return theme_mappings[current_theme_name] or "sweetie"
@@ -74,14 +80,21 @@ return {
 	theme = theme,
 	-- map theme name to nvim colorscheme
 	theme_list = {
-		{ "Ocean",              "OceanicNext" },
-		{ "Moonfly (boo)",      "boo" },
-		{ "Moonfly (eldritch)", "eldritch-minimal" },
-		{ "Moonfly",            "moonfly" },
-		{ "Sweetie",            "sweetie" },
-		{ "Sweetie (deep)",     "challenger_deep" },
-		{ "Sorcery",            "srcery" },
-		{ "Blueloco",           "bluloco" },
+		{ "Pastel", "sweetie" },
+		{ "Teal",   "challenger_deep" },
+		{ "Purple", "moonfly" },
+		{ "Blue",   "bluloco" },
+		-- TODO choose more colorschemes to add
+		-- { "Ghost",  "boo" },
+		-- { "Void",   "eldritch-minimal" },
+		-- { "Bright", "deepwhite" },
+		-- { "Sorcery",           "srcery" },
+		-- { "Ocean",             "OceanicNext" },
+		-- { "Sweetie (minimal)", "minimal" },
+		-- { "Blueloco (serene)", "serene-transparent" },
+		-- { "Blueloco (lucy)",   "oh-lucy" },
+		-- { "Sorcery (citrus)",   "citruszest" },
+		-- "oh-lucy",:
 		-- "dracula-soft", "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
 		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
 		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",

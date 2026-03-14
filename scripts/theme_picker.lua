@@ -28,10 +28,10 @@ choice = choice:match("^%s*(.-)%s*$") -- trim whitespace
 local actual_theme = value_map[choice] or choice
 
 -- use sed to replace the current colorscheme name in the rock.toml config file
-local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/nvim/rocks.toml")
+local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/"]] .. actual_theme ..
-    [["/g' ~/.aquamoon/nvim/rocks.toml]]
+    [["/g' ~/.aquamoon/rocks.toml]]
 os.execute(string.gsub(cmd, "\n", "")) -- remove newlines and execute
 
 -- kill river-luatile so that the init script can restart it with the new settings

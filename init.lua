@@ -1,5 +1,7 @@
 local vim = vim
 
+-- TODO check if ~/.aquamoon/river/init exists and run the create_river_init script if it doesn't
+
 -- BOOTSTRAP ROCKS.NVIM
 do
 	-- Specifies where to install/use rocks.nvim
