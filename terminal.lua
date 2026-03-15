@@ -12,14 +12,17 @@ hilbish.opts = {
 	notifyJobFinish = true,
 }
 
+-- TODO
+-- add S.path .. "/scripts" to path
+-- add S.path .. "/etc" to path
+hilbish.appendPath("~/.aquamoon/scripts/")
+
 local myPrompt = function()
 	return lunacolors.format(
 		'{cyan}%d ' .. (fail and '{red}' or '{cyan}') .. '󰈿 '
 	)
 end
 hilbish.prompt(myPrompt())
-
-hilbish.appendPath("~/.aquamoon/scripts/")
 
 commander.register('cd', function(args, sinks)
 	fs.cd(args[1])
@@ -40,11 +43,10 @@ hilbish.alias("s", "sudo")
 hilbish.alias("q", "exit")
 hilbish.alias("ls", ls)
 hilbish.alias("l", "clear && " .. ls)
-hilbish.alias("ll", ls .. " --all")
+hilbish.alias("ll", ls .. " -la")
 hilbish.alias("lg", "lazygit")
 hilbish.alias("put", "wl-paste")
 hilbish.alias("yank", "wl-copy")
 hilbish.alias("paru", "paru --bottomup")
 hilbish.alias("chmodx", "sudo chmod u+x")
 hilbish.alias("ddgr", "ddgr --reverse")
--- hilbish.alias("weathr", "weathr --imperial")
