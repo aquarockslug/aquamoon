@@ -63,6 +63,15 @@ vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
 vim.flag = "󰈿"
 
+-- DIAGNOSTICS
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("biome")
+vim.diagnostic.config({
+	signs = false,
+	virtual_lines = true
+})
+vim.diagnostic.enable(false)
+
 -- SAVE
 vim.cmd.aqua_save = function()
 	-- avoid warnings from oil and ministart filetype

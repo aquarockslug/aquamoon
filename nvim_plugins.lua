@@ -137,6 +137,12 @@ require("cling").setup({
 		{
 			binary = "lazygit",
 			command = "Lg",
+			close_on_exit = true
+		},
+		{
+			binary = "simple-http-server",
+			command = "Serve",
+			close_on_exit = true
 		},
 		{
 			binary = "lua " .. S.path .. "/scripts/theme_picker.lua",
@@ -149,25 +155,12 @@ require("cling").setup({
 		{
 			binary = "scooter",
 			command = "Far",
+			close_on_exit = true
 		},
 		{
 			binary = "opencode",
-			command = "Opencode",
+			command = "AI",
+			close_on_exit = true
 		},
 	}
 })
-
-
--- LSP CONFIG
-local lspconfig = require('lspconfig')
-lspconfig.biome.setup({})
-lspconfig.lua_ls.setup({})
-lspconfig.gdscript.setup({})
-
-
--- DIAGNOSTICS
-vim.diagnostic.config({
-	signs = false,
-	virtual_lines = true
-})
-vim.diagnostic.enable(false)
