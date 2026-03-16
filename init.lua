@@ -189,7 +189,5 @@ if vim.g.neovide then
 	end
 end
 
-
-
 -- require the other aquamoon nvim config files
 require "nvim_mappings"; require "nvim_plugins";

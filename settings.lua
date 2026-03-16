@@ -80,22 +80,22 @@ return {
 	theme = theme,
 	-- map theme name to nvim colorscheme
 	theme_list = {
-		{ "Pastel", "sweetie" },
-		{ "Teal",   "challenger_deep" },
-		{ "Purple", "moonfly" },
-		{ "Blue",   "bluloco" },
+		{ "Sweetie", "sweetie" },
+		{ "Moonfly", "moonfly" },
+		{ "Teal",    "challenger_deep" },
+		{ "Blue",    "bluloco" },
+		{ "Purple",  "boo" },
+		{ "Green",   "eldritch-minimal" },
+		{ "White",   "deepwhite" },
 		-- TODO choose more colorschemes to add
-		-- { "Ghost",  "boo" },
-		-- { "Void",   "eldritch-minimal" },
-		-- { "Bright", "deepwhite" },
+		-- { "Sweetie (minimal)", "minimal" },
+		-- { "Green",  "eldritch" },
 		-- { "Sorcery",           "srcery" },
 		-- { "Ocean",             "OceanicNext" },
-		-- { "Sweetie (minimal)", "minimal" },
 		-- { "Blueloco (serene)", "serene-transparent" },
 		-- { "Blueloco (lucy)",   "oh-lucy" },
 		-- { "Sorcery (citrus)",   "citruszest" },
-		-- "oh-lucy",:
-		-- "dracula-soft", "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
+		-- "oh-lucy", "dracula-soft", "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
 		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
 		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",
 		-- "neomodern", "vim-256noir", "yourumi"

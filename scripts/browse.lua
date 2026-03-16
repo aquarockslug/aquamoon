@@ -1,8 +1,6 @@
--- TODO search files?
--- local choices = menu.choices({
--- "neovide term://ddgr",
--- })
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
--- TODO run with custom ddgr colors 
--- local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-os.execute("riverctl spawn 'neovide term://ddgr'")
+local theme = "DDGR_COLORS=" .. S.theme.ddgr_colors
+local cmd = "'" .. theme .. " neovide term://ddgr'"
+
+os.execute("riverctl spawn " .. cmd)

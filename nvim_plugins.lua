@@ -135,31 +135,37 @@ require "snipe".setup({
 require("cling").setup({
 	wrappers = {
 		{
-			binary = "lazygit",
 			command = "Lg",
+			binary = "lazygit",
 			close_on_exit = true
 		},
 		{
-			binary = "simple-http-server",
 			command = "Serve",
+			binary = "simple-http-server",
 			close_on_exit = true
 		},
 		{
-			binary = "lua " .. S.path .. "/scripts/theme_picker.lua",
 			command = "Theme",
+			binary = "lua " .. S.path .. "/scripts/theme_picker.lua",
 		},
 		{
-			binary = "lua ./deploy.lua",
 			command = "Deploy",
+			binary = "lua ./deploy.lua",
 		},
 		{
-			binary = "scooter",
 			command = "Far",
+			binary = "scooter",
 			close_on_exit = true
 		},
 		{
-			binary = "opencode",
 			command = "AI",
+			binary = "opencode",
+			close_on_exit = true
+		},
+		{
+			-- TODO use DDGR_COLORS
+			command = "DDGR",
+			binary = "ddgr",
 			close_on_exit = true
 		},
 	}

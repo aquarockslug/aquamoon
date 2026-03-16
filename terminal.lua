@@ -3,6 +3,8 @@ local lunacolors = require 'lunacolors'
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 local tofi = dofile(S.path .. "/scripts/tofi.lua")
 
+DDGR_COLORS=S.theme.ddgr_colors;
+
 hilbish.opts = {
 	autocd = true,
 	history = true,
