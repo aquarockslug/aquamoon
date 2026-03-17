@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "challenger_deep"
+colorscheme = "bluloco"
 
 [config.options]
 autochdir = true
