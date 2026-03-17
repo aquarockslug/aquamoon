@@ -32,37 +32,7 @@ end
 choose_theme_from_nvim = function()
 	local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 	local current_theme_name = toml_settings.config.colorscheme
-
-	-- map nvim colorscheme names to nvim colorschemes in themes.toml
-	local theme_mappings = {
-		["sweetie"] = "sweetie",
-		["challenger_deep"] = "sweetie",
-		["deepwhite"] = "sweetie",
-		["minimal"] = "sweetie",
-		["dracula"] = "dracula",
-		["dracula-soft"] = "dracula",
-		["eldritch"] = "dracula",
-		["eldritch-minimal"] = "dracula",
-		["moonfly"] = "moonfly",
-		["boo"] = "moonfly",
-		["OceanicNext"] = "OceanicNext",
-		["minicyan"] = "OceanicNext",
-		["srcery"] = "srcery",
-		["mfd-amber"] = "srcery",
-		["mfd-flir-fusion"] = "srcery",
-		["citruszest"] = "srcery",
-		["iceclimber"] = "iceclimber",
-		["seoul256"] = "iceclimber",
-		["bluloco"] = "bluloco",
-		["neon"] = "bluloco",
-		["noirblaze"] = "bluloco",
-		["dogrun"] = "bluloco",
-		["serene"] = "bluloco",
-		["oh-lucy"] = "bluloco",
-		["serene-transparent"] = "bluloco",
-	}
-
-	return theme_mappings[current_theme_name] or "sweetie"
+	return current_theme_name or "sweetie"
 end
 
 choose_theme_by_hour = function()
@@ -82,23 +52,8 @@ return {
 	theme_list = {
 		{ "Sweetie", "sweetie" },
 		{ "Moonfly", "moonfly" },
-		{ "Teal",    "challenger_deep" },
-		{ "Blue",    "bluloco" },
-		{ "Purple",  "boo" },
-		{ "Green",   "eldritch-minimal" },
-		{ "White",   "deepwhite" },
-		-- TODO choose more colorschemes to add
-		-- { "Sweetie (minimal)", "minimal" },
-		-- { "Green",  "eldritch" },
-		-- { "Sorcery",           "srcery" },
-		-- { "Ocean",             "OceanicNext" },
-		-- { "Blueloco (serene)", "serene-transparent" },
-		-- { "Blueloco (lucy)",   "oh-lucy" },
-		-- { "Sorcery (citrus)",   "citruszest" },
-		-- "oh-lucy", "dracula-soft", "mfd-flir-fusion", "seoul256", "mfd-amber", "minicyan", "iceclimber", "dogrun",
-		-- "apprentice", "bamboo", "desert", "mellifluous", "minischeme", "neofusion",
-		-- "nvim-tundra", "seoul256", "unokai", "vague", "vim-colors-paramount", "vim-pink-moon",
-		-- "neomodern", "vim-256noir", "yourumi"
+		{ "Bluloco", "bluloco" },
+		{ "Deep",    "challenger_deep" },
 	},
 	river_options = {
 		-- Theme options
@@ -138,15 +93,11 @@ return {
 		{
 			"lua " .. os.getenv("HOME") .. "/.aquamoon/scripts/low_battery_warning.lua"
 		},
-		{
-			"clipse -listen-shell"
-		}
 	},
 	window_rules = {
 		-- use server side decorations
 		["ssd"] = {
 			"glide-glide", "gimp", "neovide", "steam", "qutebrowser",
-			"libreoffice-writer", "libreoffice-startcenter",
 			"com.system76.CosmicFiles", "mpv", "imv"
 		}
 	},

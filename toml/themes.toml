@@ -6,7 +6,7 @@ bg = "080808"
 bg2 = "ae81ff"
 accent = "cf87e8"
 background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 8
+border_width = 4
 opacity = 0.8
 ddgr_colors = "hcegch"
 
@@ -32,87 +32,6 @@ name = "Lilex Nerd Font:14"
 path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
 size = 14
 
-# SRCERY https://github.com/srcery-colors/srcery-vim
-[srcery]
-fg = "ef2f27"
-fg2 = "baa67f"
-bg = "1c1b19"
-bg2 = "ef2f27"
-accent = "e02c6d"
-background_image = "~/.aquamoon/wallpapers/wizard_cover.jpg"
-border_width = 6
-opacity = 1.00
-ddgr_colors = "bdhbdb"
-
-[srcery.active_font]
-name = "Fairiesevka Nerd Font:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
-size = 14
-
-# OCEANIC https://github.com/mhartington/oceanic-next
-[OceanicNext]
-fg = "5fb3b3"
-fg2 = "d8dee9"
-bg = "1b2b34"
-bg2 = "5fb3b3"
-accent = "f99157"
-background_image = "~/.aquamoon/wallpapers/mavericks_grey.jpg"
-border_width = 4
-opacity = 0.8
-ddgr_colors = "gedegd"
-
-[OceanicNext.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
-size = 14
-
-# name = "SpaceMono Nerd Font:h14"
-# path = "'/usr/share/fonts/TTF/SpaceMonoNerdFont-Regular.ttf'"
-# size = 14
-
-# DRACULA https://github.com/binhtran432k/dracula.nvim
-[dracula]
-fg = "50fa7b"
-fg2 = "f8f8f2"
-bg = "282a36"
-bg2 = "50fa7b"
-accent = "50fa7b"
-background_image = "~/.aquamoon/wallpapers/snow_leopard_green.jpg"
-border_width = 4
-opacity = 0.33
-ddgr_colors = "cehceh"
-
-[dracula.active_font]
-name = "Fairiesevka Nerd Font:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
-size = 14
-
-# name = "Pragmasevka Nerd Font:h14"
-# path = "'/usr/share/fonts/TTF/pragmasevka-nf-regular.ttf'"
-# size = 14
-
-# ICECLIMBER - Ice Climbers theme
-[iceclimber]
-fg = "bbbac1"
-fg2 = "abbceb"
-bg = "171719"
-bg2 = "86a3f0"
-accent = "cc93b8"
-background_image = "~/.aquamoon/wallpapers/panther.png"
-border_width = 4
-opacity = 0.66
-ddgr_colors = "gedegd"
-
-[iceclimber.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
-# [iceclimber.active_font]
-# name = "ProggyClean Nerd Font Propo:h18"
-# path = "'/usr/share/fonts/TTF/ProggyCleanNerdFontPropo-Regular.ttf'"
-# size = 18
-
 # BLULOCO https://github.com/uloco/bluloco.nvim
 [bluloco]
 fg = "10b0fe"
@@ -129,4 +48,21 @@ ddgr_colors = "gedegd"
 [bluloco.active_font]
 name = "Agave Nerd Font:h14"
 path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# CHALLENGER DEEP https://github.com/challenger-deep-theme
+[challenger_deep]
+fg = "cbe3e7"
+fg2 = "a6b3cc"
+bg = "1b182c"
+bg2 = "100e23"
+accent = "95ffa4"
+background_image = "~/.aquamoon/wallpapers/panther.png"
+border_width = 4
+opacity = 0.8
+ddgr_colors = "gcedge"
+
+[challenger_deep.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
