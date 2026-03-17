@@ -17,12 +17,6 @@ mappings.map = {
 			key = "Return",
 			command = { "spawn", [[ "neovide --no-tabs" ]] },
 		},
-		-- Browser
-		{
-			mod = { "Super", "Shift" },
-			key = "Return",
-			command = { "spawn", "qutebrowser -C ~/.aquamoon/qutebrowser.py" },
-		},
 		{
 			mod = { "Super" },
 			key = "S",

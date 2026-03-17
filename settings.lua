@@ -29,19 +29,9 @@ get_theme = function(name)
 	return theme
 end
 
-choose_theme_from_nvim = function()
-	local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
-	local current_theme_name = toml_settings.config.colorscheme
-	return current_theme_name or "sweetie"
-end
-
-choose_theme_by_hour = function()
-	local theme_list = { "dracula", "sweetie" }
-	local theme_name = theme_list[math.ceil(tonumber(os.date("%H")) / 24 * #theme_list)]
-	return theme_name
-end
-
-theme = get_theme(choose_theme_from_nvim())
+local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
+local current_theme_name = toml_settings.config.colorscheme
+theme = get_theme(current_theme_name or "sweetie")
 
 return {
 	path = os.getenv("HOME") .. "/.aquamoon",
@@ -50,10 +40,10 @@ return {
 	theme = theme,
 	-- map theme name to nvim colorscheme
 	theme_list = {
-		{ "Sweetie", "sweetie" },
-		{ "Moonfly", "moonfly" },
-		{ "Bluloco", "bluloco" },
-		{ "Deep",    "challenger_deep" },
+		{ "Grey",   "sweetie" },
+		{ "Purple", "moonfly" },
+		{ "Blue",   "bluloco" },
+		-- { "Teal",   "challenger_deep" },
 	},
 	river_options = {
 		-- Theme options
@@ -77,7 +67,7 @@ return {
 		},
 		-- Startup programs
 		{
-			-- TODO use weathr as a lock screen
+			-- TODO use screensaver.lua as a lock screen
 			--
 			"swayidle timeout 1800 'gtklock'", -- lock the screen after 30 min
 		},
@@ -97,8 +87,9 @@ return {
 	window_rules = {
 		-- use server side decorations
 		["ssd"] = {
-			"glide-glide", "gimp", "neovide", "steam", "qutebrowser",
-			"com.system76.CosmicFiles", "mpv", "imv"
+			"firefox", "gimp", "neovide", "steam",
+			"com.system76.CosmicFiles", "mpv", "imv",
+			"qutebrowser", "glide-glide"
 		}
 	},
 }

@@ -23,8 +23,8 @@ bg = "2a2a3a"
 bg2 = "92d3c5"
 accent = "b094e2"
 background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
-border_width = 4
-opacity = 0.8
+border_width = 2
+opacity = 0.66
 ddgr_colors = "gcedge"
 
 [sweetie.active_font]
@@ -52,17 +52,17 @@ size = 14
 
 # CHALLENGER DEEP https://github.com/challenger-deep-theme
 [challenger_deep]
-fg = "cbe3e7"
-fg2 = "a6b3cc"
+fg = "a6b3cc"
+fg2 = "91ddff"
 bg = "1b182c"
-bg2 = "100e23"
+bg2 = "91ddff"
 accent = "95ffa4"
 background_image = "~/.aquamoon/wallpapers/panther.png"
-border_width = 4
-opacity = 0.8
+border_width = 2
+opacity = 1.0
 ddgr_colors = "gcedge"
 
 [challenger_deep.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+name = "Fairiesevka Nerd Font:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
