@@ -9,12 +9,4 @@
 | Notifications | Dunst |
 | Editor+Terminal | Neovide |
 | Shell | Hilbish |
-| Browser | Glide |
-
-# SCREENSHOTS
-## Sweetie
-![Sweetie](screenshots/sweetie.png)
-## Oceanic
-![OceanicNext](screenshots/oceanic.png)
-## Dracula
-![Dracula](screenshots/dracula.png)
+| Browser | Firefox |
