@@ -28,6 +28,10 @@ url = "https://luarocks.org"
 name = "Arch User Repository"
 url = "https://aur.archlinux.org/"
 
+[itch]
+name = "Itch Dashboard"
+url = "https://itch.io/dashboard"
+
 [arch_wiki]
 name = "Arch Wiki"
 url = "https://wiki.archlinux.org"

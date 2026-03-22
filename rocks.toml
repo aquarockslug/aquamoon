@@ -58,6 +58,8 @@ neorg = { version = "9.3.0", ft = "norg" }
 luafilesystem = "1.9.0"
 neogit = "3.0.0"
 tree-sitter-markdown = "0.0.51"
+"bamboo.nvim" = "scm"
+"nightfox.nvim" = "3.10.0"
 
 [plugins.tv]
 git = "alexpasmantier/tv.nvim"
@@ -160,3 +162,7 @@ rev = "e44be3b1c8a824c4c33d851fc92b02c3e893ec66"
 [plugins."deepwhite.nvim"]
 git = "verf/deepwhite.nvim"
 rev = "ccad56bb5eb7d29258980cfc0a716eb87bcad69e"
+
+[plugins."monokai-nightasty.nvim"]
+git = "polirritmico/monokai-nightasty.nvim"
+rev = "v1.0"
