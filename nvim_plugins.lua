@@ -20,7 +20,7 @@ require("mini.starter").setup({
 	},
 })
 
-for _, plug in ipairs({
+local unconfigured_mini = {
 	"ai",
 	"align",
 	"basics",
@@ -36,7 +36,9 @@ for _, plug in ipairs({
 	"surround",
 	"trailspace",
 	"visits",
-}) do
+}
+
+for _, plug in ipairs(unconfigured_mini) do
 	require("mini." .. plug).setup()
 end
 
