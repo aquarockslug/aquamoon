@@ -58,19 +58,19 @@ package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/
 
 
 -- GLOBAL VARIABLES
-vim.g.godot_executable = "/bin/godot3"
-vim.g.lazygit_floating_window_scaling_factor = 1
-vim.g.lazygit_floating_window_border_chars = { '', '', '', '', '', '', '', '' } -- remove border
-vim.flag = "󰈿"
+vim.g.godot_executable = S.nvim.godot_executable
+vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor
+vim.g.lazygit_floating_window_border_chars = S.nvim.lazygit.border_chars
+vim.flag = S.nvim.flag
 
 -- DIAGNOSTICS
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("biome")
 vim.diagnostic.config({
-	signs = false,
-	virtual_lines = true
+	signs = S.nvim.diagnostics.signs,
+	virtual_lines = S.nvim.diagnostics.virtual_lines
 })
-vim.diagnostic.enable(false)
+vim.diagnostic.enable(S.nvim.diagnostics.enable)
 
 -- SAVE
 vim.cmd.aqua_save = function()
@@ -97,12 +97,12 @@ end
 -- AUTOCOMMANDS
 vim.api.nvim_create_autocmd("InsertEnter", {
 	callback = function()
-		vim.opt.cursorline = false
+		vim.opt.cursorline = S.nvim.autocmd.cursorline.insert_enter
 	end,
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
 	callback = function()
-		vim.opt.cursorline = true
+		vim.opt.cursorline = S.nvim.autocmd.cursorline.insert_leave
 	end,
 })
 vim.api.nvim_create_autocmd("TextYankPost", {

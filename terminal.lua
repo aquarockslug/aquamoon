@@ -1,28 +1,16 @@
 local lunacolors = require 'lunacolors'
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-local tofi = dofile(S.path .. "/scripts/tofi.lua")
+-- local tofi = dofile(S.path .. "/scripts/tofi.lua")
 
 DDGR_COLORS=S.theme.ddgr_colors;
 
-hilbish.opts = {
-	autocd = true,
-	history = true,
-	greeting = false,
-	motd = false,
-	fuzzy = true,
-	notifyJobFinish = true,
-}
-
--- TODO
--- add S.path .. "/scripts" to path
--- add S.path .. "/etc" to path
+hilbish.opts = S.terminal.hilbish_opts
 hilbish.appendPath("~/.aquamoon/scripts/")
 
 local myPrompt = function()
-	return lunacolors.format(
-		'{cyan}%d ' .. (fail and '{red}' or '{cyan}') .. '󰈿 '
-	)
+	local status_color = fail and S.terminal.prompt.red or S.terminal.prompt.cyan
+	return lunacolors.format(status_color .. '%d ' .. status_color .. S.terminal.prompt.flag)
 end
 hilbish.prompt(myPrompt())
 
@@ -35,20 +23,9 @@ commander.register('cpanel', function(args, sinks)
 	os.execute("ssh -p 21098 -i ~/.ssh/id_rsa aquawwae@68.65.123.84")
 end)
 
-local ls = "eza --color --icons -F --hyperlink "
+local ls = S.terminal.aliases.ls
 os.execute(ls .. hilbish.cwd())
 
-hilbish.alias("df", "duf")
-hilbish.alias("du", "dust")
-hilbish.alias("top", "htop")
-hilbish.alias("s", "sudo")
-hilbish.alias("q", "exit")
-hilbish.alias("ls", ls)
-hilbish.alias("l", "clear && " .. ls)
-hilbish.alias("ll", ls .. " -la")
-hilbish.alias("lg", "lazygit")
-hilbish.alias("put", "wl-paste")
-hilbish.alias("yank", "wl-copy")
-hilbish.alias("paru", "paru --bottomup")
-hilbish.alias("chmodx", "sudo chmod u+x")
-hilbish.alias("ddgr", "ddgr --reverse")
+for i, v in pairs(S.terminal.aliases) do
+  hilbish.aliases.add(i, v)
+end

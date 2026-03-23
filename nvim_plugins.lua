@@ -1,10 +1,8 @@
 -- MINI.PLUGINS
+local S = require "settings"
+
 require("mini.hipatterns").setup({
-	highlighters = {
-		WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
-		HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-		TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-	},
+	highlighters = S.plugins.hipatterns,
 })
 
 local starter = require('mini.starter')
@@ -13,11 +11,11 @@ require("mini.starter").setup({
 	footer = "",
 	evaluate_single = true,
 	items = {
-		starter.sections.recent_files(20, false),
+		starter.sections.recent_files(S.plugins.starter.recent_files_count, false),
 	},
 	content_hooks = {
 		starter.gen_hook.aligning('center', 'top'),
-		starter.gen_hook.padding(0, 5),
+		starter.gen_hook.padding(unpack(S.plugins.starter.padding)),
 		starter.gen_hook.adding_bullet(vim.flag .. " "),
 	},
 })
@@ -65,8 +63,7 @@ local oil_config = {
 	},
 }
 
-local settings = require "settings"
-if settings.theme_name == "minicyan" or settings.theme_name == "moonfly" then
+if S.theme_name == "minicyan" or S.theme_name == "moonfly" then
 	oil_config.win_options = {
 		winbar = "%!v:lua.get_oil_winbar()",
 	}
@@ -95,21 +92,12 @@ require "leap".opts.preview = function(ch0, ch1, ch2)
 		or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
 	)
 end
-require "leap".opts.equivalence_classes = {
-	' \t\r\n', '([{', ')]}', '\'"`'
-}
+require "leap".opts.equivalence_classes = S.plugins.leap.equivalence_classes
 
 
 -- TV
 require "tv".setup({
-	channels = {
-		files = {
-			keybinding = '<leader>f',
-		},
-		text = {
-			keybinding = '<leader>g',
-		},
-	},
+	channels = S.plugins.tv.channels,
 	window = {
 		width = 1,
 		height = 1,
@@ -120,53 +108,18 @@ require "tv".setup({
 -- SNIPE
 require "snipe".setup({
 	ui = {
-		position = "center",
-		text_align = "file-first",
+		position = S.plugins.snipe.position,
+		text_align = S.plugins.snipe.text_align,
 		open_win_override = {
 			title = vim.flag,
 			border = "rounded"
 		}
 	},
-	navigate = { open_vsplit = "e", open_split = "E" }
+	navigate = S.plugins.snipe.navigate
 })
 
 
 -- CLING
 require("cling").setup({
-	wrappers = {
-		{
-			command = "Lg",
-			binary = "lazygit",
-			close_on_exit = true
-		},
-		{
-			command = "Serve",
-			binary = "simple-http-server",
-			close_on_exit = true
-		},
-		{
-			command = "Theme",
-			binary = "lua " .. S.path .. "/scripts/theme_picker.lua",
-		},
-		{
-			command = "Deploy",
-			binary = "lua ./deploy.lua",
-		},
-		{
-			command = "Far",
-			binary = "scooter",
-			close_on_exit = true
-		},
-		{
-			command = "AI",
-			binary = "opencode",
-			close_on_exit = true
-		},
-		{
-			-- TODO use DDGR_COLORS
-			command = "DDGR",
-			binary = "ddgr",
-			close_on_exit = true
-		},
-	}
+	wrappers = S.plugins.cling.wrappers
 })

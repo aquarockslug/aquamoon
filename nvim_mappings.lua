@@ -1,9 +1,10 @@
 -- KEYMAP CONFIGURATION
 local vim = vim
+local S = require "settings"
 
 -- Must be set before any leader keymaps
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.mapleader = S.nvim.leader.mapleader
+vim.g.maplocalleader = S.nvim.leader.maplocalleader
 
 -- Utility functions
 local M = {}
