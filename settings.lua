@@ -135,47 +135,54 @@ return {
 			mapleader = ",",
 			maplocalleader = ",",
 		},
-		autocmd = {
-			cursorline = {
-				insert_enter = false,
-				insert_leave = true,
+		plugins = {
+			hipatterns = {
+				WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
+				HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+				TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 			},
-		},
-	},
-
-	plugins = {
-		hipatterns = {
-			WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
-			HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-			TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-		},
-		starter = {
-			recent_files_count = 20,
-			padding = { 0, 5 },
-		},
-		leap = {
-			equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' },
-		},
-		tv = {
-			channels = {
-				files = { keybinding = '<leader>f' },
-				text = { keybinding = '<leader>g' },
+			starter = {
+				recent_files_count = 20,
+				padding = { 0, 5 },
 			},
-		},
-		snipe = {
-			position = "center",
-			text_align = "file-first",
-			navigate = { open_vsplit = "e", open_split = "E" },
-		},
-		cling = {
-			wrappers = {
-				{ command = "Lg",     binary = "lazygit",                                                           close_on_exit = true },
-				{ command = "Serve",  binary = "simple-http-server",                                                close_on_exit = true },
-				{ command = "Theme",  binary = "lua " .. os.getenv("HOME") .. "/.aquamoon/scripts/theme_picker.lua" },
-				{ command = "Deploy", binary = "lua ./deploy.lua" },
-				{ command = "Far",    binary = "scooter",                                                           close_on_exit = true },
-				{ command = "AI",     binary = "opencode",                                                          close_on_exit = true },
-				{ command = "DDGR",   binary = "ddgr",                                                              close_on_exit = true },
+			unconfigured_mini = {
+				"ai",
+				"align",
+				"basics",
+				"bracketed",
+				"comment",
+				"diff",
+				"icons",
+				"jump",
+				"keymap",
+				"move",
+				"pairs",
+				"sessions",
+				"surround",
+				"trailspace",
+				"visits",
+			},
+			tv = {
+				channels = {
+					files = { keybinding = '<leader>f' },
+					text = { keybinding = '<leader>g' },
+				},
+			},
+			snipe = {
+				position = "center",
+				text_align = "file-first",
+				navigate = { open_vsplit = "e", open_split = "E" },
+			},
+			cling = {
+				wrappers = {
+					{ command = "Lg",     binary = "lazygit",                                                           close_on_exit = true },
+					{ command = "Serve",  binary = "simple-http-server",                                                close_on_exit = true },
+					{ command = "Theme",  binary = "lua " .. os.getenv("HOME") .. "/.aquamoon/scripts/theme_picker.lua" },
+					{ command = "Deploy", binary = "lua ./deploy.lua" },
+					{ command = "Far",    binary = "scooter",                                                           close_on_exit = true },
+					{ command = "AI",     binary = "opencode",                                                          close_on_exit = true },
+					{ command = "DDGR",   binary = "ddgr",                                                              close_on_exit = true },
+				},
 			},
 		},
 	},

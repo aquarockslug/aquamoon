@@ -2,7 +2,7 @@
 local S = require "settings"
 
 require("mini.hipatterns").setup({
-	highlighters = S.plugins.hipatterns,
+	highlighters = S.nvim.plugins.hipatterns,
 })
 
 local starter = require('mini.starter')
@@ -11,34 +11,17 @@ require("mini.starter").setup({
 	footer = "",
 	evaluate_single = true,
 	items = {
-		starter.sections.recent_files(S.plugins.starter.recent_files_count, false),
+		starter.sections.recent_files(S.nvim.plugins.starter.recent_files_count, false),
 	},
 	content_hooks = {
 		starter.gen_hook.aligning('center', 'top'),
-		starter.gen_hook.padding(unpack(S.plugins.starter.padding)),
+		starter.gen_hook.padding(unpack(S.nvim.plugins.starter.padding)),
 		starter.gen_hook.adding_bullet(vim.flag .. " "),
 	},
 })
 
-local unconfigured_mini = {
-	"ai",
-	"align",
-	"basics",
-	"bracketed",
-	"comment",
-	"diff",
-	"icons",
-	"jump",
-	"keymap",
-	"move",
-	"pairs",
-	"sessions",
-	"surround",
-	"trailspace",
-	"visits",
-}
 
-for _, plug in ipairs(unconfigured_mini) do
+for _, plug in ipairs(S.nvim.plugins.unconfigured_mini) do
 	require("mini." .. plug).setup()
 end
 
@@ -94,12 +77,12 @@ require "leap".opts.preview = function(ch0, ch1, ch2)
 		or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
 	)
 end
-require "leap".opts.equivalence_classes = S.plugins.leap.equivalence_classes
+require "leap".opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
 
 
 -- TV
 require "tv".setup({
-	channels = S.plugins.tv.channels,
+	channels = S.nvim.plugins.tv.channels,
 	window = {
 		width = 1,
 		height = 1,
@@ -110,18 +93,18 @@ require "tv".setup({
 -- SNIPE
 require "snipe".setup({
 	ui = {
-		position = S.plugins.snipe.position,
-		text_align = S.plugins.snipe.text_align,
+		position = S.nvim.plugins.snipe.position,
+		text_align = S.nvim.plugins.snipe.text_align,
 		open_win_override = {
 			title = vim.flag,
 			border = "rounded"
 		}
 	},
-	navigate = S.plugins.snipe.navigate
+	navigate = S.nvim.plugins.snipe.navigate
 })
 
 
 -- CLING
 require("cling").setup({
-	wrappers = S.plugins.cling.wrappers
+	wrappers = S.nvim.plugins.cling.wrappers
 })
