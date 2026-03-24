@@ -62,6 +62,7 @@ return {
 			"XDG_CURRENT_DESKTOP",
 		},
 		{
+			-- TODO use screensaver.lua
 			"swayidle timeout 1800 'gtklock'",
 		},
 		{
