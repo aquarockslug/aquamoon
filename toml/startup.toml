@@ -1,6 +1,5 @@
 0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
 1 = ["swayidle", "timeout", "1800", "gtklock"]
 2 = ["dunst"]
-3 = ["swaybg", "--image", "/home/aqua/.aquamoon/wallpapers/glowtime_light.jpg"]
 4 = ["river-luatile"]
 5 = ["lua ~/.aquamoon/scripts/low_battery_warning.lua"]

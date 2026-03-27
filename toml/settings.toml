@@ -6,7 +6,6 @@ Grey = "sweetie"
 Purple = "moonfly"
 Blue = "bluloco"
 
-
 [nvim]
 godot_executable = "/bin/godot3"
 flag = "󰈿"
@@ -61,13 +60,13 @@ text_align = "file-first"
 navigate = { open_vsplit = "e", open_split = "E" }
 
 [nvim.plugins.cling.wrappers]
-0 = { command = "Lg", binary = "lazygit", close_on_exit = true }
-1 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
-2 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme_picker.lua" }
-3 = { command = "Deploy", binary = "lua ./deploy.lua" }
-4 = { command = "Far", binary = "scooter", close_on_exit = true }
-5 = { command = "AI", binary = "opencode", close_on_exit = true }
-6 = { command = "DDGR", binary = "ddgr", close_on_exit = true }
+1 = { command = "Lg", binary = "lazygit", close_on_exit = true }
+2 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
+3 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme_picker.lua" }
+4 = { command = "Deploy", binary = "lua ./deploy.lua" }
+5 = { command = "Far", binary = "scooter", close_on_exit = true }
+6 = { command = "AI", binary = "opencode", close_on_exit = true }
+7 = { command = "DDGR", binary = "ddgr", close_on_exit = true }
 
 [window_rules.ssd]
 0 = "firefox"
@@ -79,8 +78,6 @@ navigate = { open_vsplit = "e", open_split = "E" }
 6 = "imv"
 7 = "qutebrowser"
 8 = "glide-glide"
-
-
 
 [river_options]
 border-width = 2

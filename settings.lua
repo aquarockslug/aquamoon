@@ -33,9 +33,9 @@ local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local current_theme_name = toml_settings.config.colorscheme
 theme = get_theme(current_theme_name or "sweetie")
 
-local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/settings.toml")
-local terminal_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/terminal.toml")
-local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/startup.toml")
+local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")
+local terminal_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/terminal.toml")
+local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/startup.toml")
 
 return {
 	path = os.getenv("HOME") .. "/.aquamoon",

@@ -10,7 +10,7 @@ local theme_list = S.theme_list
 
 local display_list = {}
 local value_map = {}
-for _, entry in ipairs(theme_list) do
+for _, entry in pairs(theme_list) do
 	local display_name, value
 	if type(entry) == "table" then
 		display_name = entry.d or entry[1]

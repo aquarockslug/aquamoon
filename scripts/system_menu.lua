@@ -9,10 +9,13 @@ local battery = battery_cmd:read("*a")
 local tofi_style = S.theme.tofi
 local menu = dofile(S.path .. "/scripts/tofi.lua").options(tofi_style)
 
+-- local info = {}
+
 -- open
 local cmd = menu.choices({
 	date ..
 	"\nbattery: " .. battery ..
+	"\nlua ~/.aquamoon/scripts/screensaver.lua " ..
 	"\ngtklock " ..
 	"\nriverctl exit"
 }).open()

@@ -10,7 +10,7 @@ hilbish.appendPath("~/.aquamoon/scripts/")
 hilbish.appendPath("~/.cargo/bin/")
 
 local myPrompt = function()
-	local status_color = fail and S.terminal.prompt.red or S.terminal.prompt.cyan
+	local status_color = fail and '{red}' or '{cyan}'
 	return lunacolors.format(status_color .. '%d ' .. status_color .. S.terminal.prompt.flag)
 end
 hilbish.prompt(myPrompt())

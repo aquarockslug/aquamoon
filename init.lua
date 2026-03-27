@@ -189,5 +189,254 @@ if vim.g.neovide then
 	end
 end
 
--- require the other aquamoon nvim config files
-require "nvim_mappings"; require "nvim_plugins";
+-- NEOVIM CONFIGURATION
+vim.g.mapleader = S.nvim.leader.mapleader
+vim.g.maplocalleader = S.nvim.leader.maplocalleader
+
+-- ===========================================
+-- MAPPINGS
+-- ===========================================
+
+local M = {}
+
+function M.toggle_diagnostics()
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end
+
+function M.show_cursor_position()
+	local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
+	require("scripts/notify").send(
+		"Row: " .. tostring(cursor_row) .. ", " ..
+		"Col: " .. tostring(cursor_col)
+	)
+end
+
+function M.show_file_status()
+	local file_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~')
+	local modified = vim.bo.modified and ' [modified]' or ''
+	local msg = file_path .. modified
+	require("scripts/notify").send(msg)
+end
+
+function M.adjust_neovide_scale(delta)
+	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + delta
+end
+
+function M.open_terminal(command)
+	vim.cmd("terminal " .. command)
+end
+
+function M.oil_files_to_quickfix()
+	if vim.bo.filetype ~= 'oil' then return end
+	local oil = require 'oil'
+	local dir = oil.get_current_dir()
+
+	local entries = {}
+	for i = 1, vim.fn.line '$' do
+		local entry = oil.get_entry_on_line(0, i)
+		if entry and entry.type == 'file' then
+			table.insert(entries, { filename = dir .. entry.name })
+		end
+	end
+	if #entries == 0 then return end
+
+	vim.fn.setqflist(entries)
+	return vim.cmd.copen()
+end
+
+M.oil_keymaps = {
+	["H"] = { "actions.parent", mode = "n" },
+	["L"] = { "actions.select", mode = "n" },
+	["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
+	["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
+	["<Tab>"] = { "actions.preview", mode = "n" },
+	['<C-q>'] = M.oil_files_to_quickfix,
+	["zo"] = { "actions.open_external", mode = "n" },
+	["zy"] = { "actions.yank_entry", mode = "n" },
+	["zz"] = { "actions.open_terminal", mode = "n" },
+	["zh"] = { "actions.toggle_hidden", mode = "n" },
+}
+
+-- keymaps
+vim.keymap.set({ "n", "x", "o" }, "<CR>", function() require("leap").leap({ backward = true }) end)
+vim.keymap.set("n", "U", "<c-r>")
+vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
+
+-- Smart splits configuration
+local smart_splits = require('smart-splits')
+local split_keymaps = {
+	['<A-Left>'] = smart_splits.resize_left,
+	['<A-Down>'] = smart_splits.resize_down,
+	['<A-Up>'] = smart_splits.resize_up,
+	['<A-Right>'] = smart_splits.resize_right,
+	['<Left>'] = smart_splits.move_cursor_left,
+	['<Down>'] = smart_splits.move_cursor_down,
+	['<Up>'] = smart_splits.move_cursor_up,
+	['<Right>'] = smart_splits.move_cursor_right,
+	['<C-\\>'] = smart_splits.move_cursor_previous,
+	['<leader><Left>'] = smart_splits.swap_buf_left,
+	['<leader><Down>'] = smart_splits.swap_buf_down,
+	['<leader><Up>'] = smart_splits.swap_buf_up,
+	['<leader><Right>'] = smart_splits.swap_buf_right,
+}
+
+for key, func in pairs(split_keymaps) do
+	vim.keymap.set('n', key, func)
+end
+
+-- Leader keymaps
+local leader_keymaps = {
+	e = vim.cmd.Oil,
+	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua --") end,
+	q = vim.cmd.bd,
+	d = M.toggle_diagnostics,
+	c = M.show_cursor_position,
+	v = M.show_file_status,
+	i = vim.lsp.buf.hover,
+	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
+	j = function() M.adjust_neovide_scale(-0.1) end,
+	k = function() M.adjust_neovide_scale(0.1) end,
+	l = function() require "chainsaw".variableLog() end,
+	L = function() require "chainsaw".removeLogs() end,
+	["/"] = vim.cmd.noh,
+}
+
+for key, func in pairs(leader_keymaps) do
+	vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func)
+end
+
+-- Function key keymaps
+local function_keymaps = {
+	[1] = function() vim.cmd "LazyGit" end,
+	[2] = vim.cmd.aqua_save,
+	[3] = function() vim.cmd.split "./" end,
+	[4] = function() vim.cmd.vsplit "./" end,
+	[5] = "<Plug>(CybuPrev)",
+	[6] = "<Plug>(CybuNext)",
+	[7] = function() require("snipe").open_buffer_menu() end,
+	[8] = vim.cmd.aqua_run,
+}
+
+for cmd, func in pairs(function_keymaps) do
+	vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func)
+end
+
+-- ===========================================
+-- PLUGINS
+-- ===========================================
+
+require("mini.hipatterns").setup({
+	highlighters = S.nvim.plugins.hipatterns,
+})
+
+local starter = require('mini.starter')
+require("mini.starter").setup({
+	header = "",
+	footer = "",
+	evaluate_single = true,
+	items = {
+		starter.sections.recent_files(S.nvim.plugins.starter.recent_files_count, false),
+	},
+	content_hooks = {
+		starter.gen_hook.aligning('center', 'top'),
+		starter.gen_hook.padding(unpack(S.nvim.plugins.starter.padding)),
+		starter.gen_hook.adding_bullet(vim.flag .. " "),
+	},
+})
+
+for _, plug in pairs(S.nvim.plugins.unconfigured_mini) do
+	require("mini." .. plug).setup()
+end
+
+
+-- OIL
+function _G.get_oil_winbar()
+	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+	local dir = require("oil").get_current_dir(bufnr)
+	if dir then
+		return " " .. vim.flag .. " " .. vim.fn.fnamemodify(dir, ":~")
+	else
+		return " " .. vim.flag .. " " .. vim.api.nvim_buf_get_name(0)
+	end
+end
+
+local oil_config = {
+	watch_for_changes = true,
+	use_default_keymaps = false,
+	keymaps = M.oil_keymaps,
+	columns = {
+		"icon",
+		"size"
+	},
+}
+
+if S.theme_name == "minicyan" or S.theme_name == "moonfly" then
+	oil_config.win_options = {
+		winbar = "%!v:lua.get_oil_winbar()",
+	}
+end
+
+require "oil".setup(oil_config)
+
+
+-- CHAINSAW
+require "chainsaw".setup()
+require "cybu".setup()
+
+
+-- COLORSCHEMES
+vim.g.oceanic_next_terminal_bold = 1
+vim.g.oceanic_next_terminal_italic = 1
+require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
+require "bluloco".setup({ transparent = true, italics = true })
+
+
+-- LEAP
+require "leap".setup({})
+require "leap".opts.preview = function(ch0, ch1, ch2)
+	return not (
+		ch1:match('%s')
+		or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
+	)
+end
+require "leap".opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+
+
+-- TV
+require "tv".setup({
+	channels = S.nvim.plugins.tv.channels,
+	window = {
+		width = 1,
+		height = 1,
+	}
+})
+
+
+-- SNIPE
+require "snipe".setup({
+	ui = {
+		position = S.nvim.plugins.snipe.position,
+		text_align = S.nvim.plugins.snipe.text_align,
+		open_win_override = {
+			title = vim.flag,
+			border = "rounded"
+		}
+	},
+	navigate = S.nvim.plugins.snipe.navigate
+})
+
+
+-- CLING
+local cling_wrappers = S.nvim.plugins.cling.wrappers
+local wrappers_list = {}
+for i = 1, 20 do
+	if cling_wrappers[tostring(i)] then
+		table.insert(wrappers_list, cling_wrappers[tostring(i)])
+	end
+end
+require("cling").setup({
+	wrappers = wrappers_list
+})
+
+
+return M
