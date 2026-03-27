@@ -33,158 +33,19 @@ local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local current_theme_name = toml_settings.config.colorscheme
 theme = get_theme(current_theme_name or "sweetie")
 
+local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/settings.toml")
+local terminal_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/terminal.toml")
+local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/startup.toml")
+
 return {
 	path = os.getenv("HOME") .. "/.aquamoon",
 	mappings = dofile(os.getenv("HOME") .. "/.aquamoon/mappings.lua"),
 	theme_name = theme.name,
 	theme = theme,
-	theme_list = {
-		{ "Grey",   "sweetie" },
-		{ "Purple", "moonfly" },
-		{ "Blue",   "bluloco" },
-	},
-	river_options = {
-		["border-width"] = theme.border_width,
-		["border-color-focused"] = "0x" .. theme.fg,
-		["border-color-unfocused"] = "0x" .. theme.bg,
-		["set-repeat"] = { 50, 300 },
-		["focus-follows-cursor"] = "normal",
-		["attach-mode"] = "right",
-		["default-layout"] = "luatile",
-		["output-layout"] = "luatile",
-	},
-	startup_commands = {
-		{
-			"dbus-update-activation-environment",
-			"DISPLAY",
-			"WAYLAND_DISPLAY",
-			"XDG_SESSION_TYPE",
-			"XDG_CURRENT_DESKTOP",
-		},
-		{
-			-- TODO use screensaver.lua
-			"swayidle timeout 1800 'gtklock'",
-		},
-		{
-			"dunst"
-		},
-		{
-			"swaybg --image " .. theme.background_image,
-		},
-		{
-			"river-luatile"
-		},
-		{
-			"lua " .. os.getenv("HOME") .. "/.aquamoon/scripts/low_battery_warning.lua"
-		},
-	},
-	window_rules = {
-		["ssd"] = {
-			"firefox", "gimp", "neovide", "steam",
-			"com.system76.CosmicFiles", "mpv", "imv",
-			"qutebrowser", "glide-glide"
-		}
-	},
-
-	terminal = {
-		aliases = {
-			["df"] = "duf",
-			["du"] = "dust",
-			["top"] = "htop",
-			["s"] = "sudo",
-			["q"] = "exit",
-			["ls"] = "eza --color --icons -F --hyperlink ",
-			["l"] = "clear && eza --color --icons -F --hyperlink ",
-			["ll"] = "eza --color --icons -F --hyperlink  -la",
-			["lg"] = "lazygit",
-			["put"] = "wl-paste",
-			["yank"] = "wl-copy",
-			["paru"] = "paru --bottomup",
-			["chmodx"] = "sudo chmod u+x",
-			["ddgr"] = "ddgr --reverse",
-			["hist"] = "cat ~/.local/share/hilbish/.hilbish-history",
-		},
-		hilbish_opts = {
-			autocd = true,
-			history = true,
-			greeting = false,
-			motd = false,
-			fuzzy = true,
-			notifyJobFinish = true,
-		},
-		prompt = {
-			cyan = '{cyan}',
-			red = '{red}',
-			flag = '󰈿 ',
-		},
-	},
-
-	nvim = {
-		godot_executable = "/bin/godot3",
-		lazygit = {
-			scaling_factor = 1,
-			border_chars = { '', '', '', '', '', '', '', '' },
-		},
-		flag = "󰈿",
-		diagnostics = {
-			signs = false,
-			virtual_lines = true,
-			enable = false,
-		},
-		leader = {
-			key = ",",
-			mapleader = ",",
-			maplocalleader = ",",
-		},
-		plugins = {
-			hipatterns = {
-				WARN = { pattern = "%f[%w]()WARN()%f[%W]", group = "MiniHipatternsWarn" },
-				HACK = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-				TODO = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-			},
-			starter = {
-				recent_files_count = 20,
-				padding = { 0, 5 },
-			},
-			unconfigured_mini = {
-				"ai",
-				"align",
-				"basics",
-				"bracketed",
-				"comment",
-				"diff",
-				"icons",
-				"jump",
-				"keymap",
-				"move",
-				"pairs",
-				"sessions",
-				"surround",
-				"trailspace",
-				"visits",
-			},
-			tv = {
-				channels = {
-					files = { keybinding = '<leader>f' },
-					text = { keybinding = '<leader>g' },
-				},
-			},
-			snipe = {
-				position = "center",
-				text_align = "file-first",
-				navigate = { open_vsplit = "e", open_split = "E" },
-			},
-			cling = {
-				wrappers = {
-					{ command = "Lg",     binary = "lazygit",                                                           close_on_exit = true },
-					{ command = "Serve",  binary = "simple-http-server",                                                close_on_exit = true },
-					{ command = "Theme",  binary = "lua " .. os.getenv("HOME") .. "/.aquamoon/scripts/theme_picker.lua" },
-					{ command = "Deploy", binary = "lua ./deploy.lua" },
-					{ command = "Far",    binary = "scooter",                                                           close_on_exit = true },
-					{ command = "AI",     binary = "opencode",                                                          close_on_exit = true },
-					{ command = "DDGR",   binary = "ddgr",                                                              close_on_exit = true },
-				},
-			},
-		},
-	},
+	theme_list = config.theme_list,
+	river_options = config.river_options,
+	startup_commands = startup_config,
+	window_rules = config.window_rules,
+	terminal = terminal_config,
+	nvim = config.nvim,
 }

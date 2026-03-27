@@ -7,6 +7,7 @@ DDGR_COLORS = S.theme.ddgr_colors;
 
 hilbish.opts = S.terminal.hilbish_opts
 hilbish.appendPath("~/.aquamoon/scripts/")
+hilbish.appendPath("~/.cargo/bin/")
 
 local myPrompt = function()
 	local status_color = fail and S.terminal.prompt.red or S.terminal.prompt.cyan

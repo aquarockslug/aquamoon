@@ -1,0 +1,30 @@
+[aliases]
+df = "duf"
+du = "dust"
+top = "htop"
+s = "sudo"
+q = "exit"
+ls = "eza --color --icons -F --hyperlink "
+l = "clear && eza --color --icons -F --hyperlink "
+ll = "eza --color --icons -F --hyperlink  -la"
+lg = "lazygit"
+put = "wl-paste"
+yank = "wl-copy"
+paru = "paru --bottomup"
+chmodx = "sudo chmod u+x"
+ddgr = "ddgr --reverse"
+hist = "cat ~/.local/share/hilbish/.hilbish-history"
+serve = "simple-http-server --nocache --threads 6"
+
+[hilbish_opts]
+autocd = true
+history = true
+greeting = false
+motd = false
+fuzzy = true
+notifyJobFinish = true
+
+[prompt]
+cyan = "{cyan}"
+red = "{red}"
+flag = "󰈿 "

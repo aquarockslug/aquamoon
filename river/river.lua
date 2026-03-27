@@ -40,7 +40,7 @@ end
 ------@param settings table
 M.apply_settings = function(settings)
 	-- Run startup commands
-	for _, cmd in ipairs(settings.startup_commands) do
+	for _, cmd in pairs(settings.startup_commands) do
 		os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
 	end
 
