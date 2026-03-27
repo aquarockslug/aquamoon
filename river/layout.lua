@@ -1,20 +1,19 @@
+-- River layout handler for Aquamoon
+-- Implements custom window tiling layout and tag notifications
+
+local M = {}
+
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
 
 local main_ratio = 2 / 3
-local gaps = 0 -- 6 TODO make this an aquamoon theme settings
+local gaps = 0
 local smart_gaps = true
 local offset = 0
-
 local last_view_count = 0
 
---  * Focused tags (`args.tags`)
---  * Window count (`args.count`)
---  * Output width (`args.width`)
---  * Output height (`args.height`)
---  * Output name (`args.output`)
-function handle_layout(args)
+function M.handle_layout(args)
 	last_view_count = args.count
 	local retval = {}
 	if args.count == 1 then
@@ -44,7 +43,6 @@ function handle_layout(args)
 		end
 	end
 
-	-- only use layout notifications on the laptop screen "eDP-1"
 	if args.output ~= "eDP-1" then return retval end
 
 	require("scripts/notify").tally(args.tags)
@@ -52,17 +50,14 @@ function handle_layout(args)
 	return retval
 end
 
-function handle_metadata()
+function M.handle_metadata()
 	return { name = "river_rotate" }
 end
 
--- keep focus on the top of the stack while shifting views
-function rotate(clockwise)
+function M.rotate(clockwise)
 	if (clockwise) then
-		-- rotate clockwise: last to first
 		os.execute "riverctl focus-view previous && riverctl zoom"
 	else
-		-- rotate counter-clockwise: move first to last
 		for i = 1, last_view_count - 1 do
 			os.execute "riverctl swap next"
 		end
@@ -72,6 +67,8 @@ function rotate(clockwise)
 	end
 end
 
-function modify_main_ratio(amount)
+function M.modify_main_ratio(amount)
 	main_ratio = main_ratio + amount * 0.01
 end
+
+return M

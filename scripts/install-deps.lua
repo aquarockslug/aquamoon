@@ -1,5 +1,10 @@
 #!/usr/bin/env lua5.1
 
+-- Dependency installer for Aquamoon
+-- Installs and verifies required packages on Arch Linux
+
+local M = {}
+
 local lfs_available, lfs = pcall(require, "lfs")
 
 local VERSION = "1.0.0"
@@ -381,7 +386,7 @@ local function parse_args()
     end
 end
 
-local function main()
+M.main = function()
     parse_args()
 
     print(CYAN .. BOLD)
@@ -415,4 +420,6 @@ local function main()
     print()
 end
 
-main()
+M.main()
+
+return M

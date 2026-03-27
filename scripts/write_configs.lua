@@ -1,16 +1,15 @@
--- Writes configuration files to match the theme from themes.toml
+-- Configuration writer for Aquamoon
+-- Updates dunst, television, and lazygit configs based on selected theme
+
+local M = {}
 
 local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
--- Paths to configuration files
 local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
 local dunstrc_path = os.getenv("HOME") .. "/.config/dunst/dustrc"
 local television_path = os.getenv("HOME") .. "/.config/television/config.toml"
 local lazygit_path = os.getenv("HOME") .. "/.config/lazygit/config.yml"
 
-local M = {}
-
--- Dunst-specific functions
 local function read_dunstrc()
 	local file = io.open(dunstrc_path, "r")
 	if not file then
@@ -45,7 +44,6 @@ local function update_urgency_section(content, section_name, bg_color, fg_color,
 	return content
 end
 
--- Television-specific functions
 local function generate_toml(data)
 	local toml = ""
 
@@ -92,7 +90,6 @@ local function generate_toml(data)
 	return toml
 end
 
--- Main update functions
 local function update_dunst(theme_name)
 	local themes_data = tinytoml.parse(themes_path)
 	local theme = themes_data[theme_name]
@@ -204,7 +201,6 @@ local function update_lazygit(theme_name)
 	return true, "Successfully updated lazygit.yml"
 end
 
--- Main update function that writes all configurations
 M.update_all = function(theme_name)
 	if not theme_name then
 		return false, "No theme name provided"
@@ -213,17 +209,14 @@ M.update_all = function(theme_name)
 	local results = {}
 	local overall_success = true
 
-	-- Update dunst
 	local success, message = update_dunst(theme_name)
 	table.insert(results, { app = "dunst", success = success, message = message })
 	if not success then overall_success = false end
 
-	-- Update television
 	success, message = update_television(theme_name)
 	table.insert(results, { app = "television", success = success, message = message })
 	if not success then overall_success = false end
 
-	-- Update lazygit
 	success, message = update_lazygit(theme_name)
 	table.insert(results, { app = "lazygit", success = success, message = message })
 	if not success then overall_success = false end
@@ -231,7 +224,6 @@ M.update_all = function(theme_name)
 	return overall_success, results
 end
 
--- Individual update functions
 M.update_dunst = function(theme_name)
 	return update_dunst(theme_name)
 end
@@ -244,7 +236,6 @@ M.update_lazygit = function(theme_name)
 	return update_lazygit(theme_name)
 end
 
--- Function to get available themes
 M.get_available_themes = function()
 	local themes_data = tinytoml.parse(themes_path)
 	local themes = {}
@@ -258,10 +249,9 @@ M.get_available_themes = function()
 	return themes
 end
 
--- Command line interface
 if arg and arg[0] and arg[0]:match("write_files%.lua$") then
 	local theme_name = arg and arg[1]
-	local app_name = arg and arg[2] -- optional: update specific app only
+	local app_name = arg and arg[2]
 
 	if not theme_name then
 		print("Usage: lua write_files.lua <theme_name> [app_name]")
@@ -277,7 +267,6 @@ if arg and arg[0] and arg[0]:match("write_files%.lua$") then
 
 	local success, result
 	if app_name then
-		-- Update specific app
 		if app_name == "dunst" then
 			success, result = M.update_dunst(theme_name)
 		elseif app_name == "television" then
@@ -296,7 +285,6 @@ if arg and arg[0] and arg[0]:match("write_files%.lua$") then
 			os.exit(1)
 		end
 	else
-		-- Update all apps
 		success, results = M.update_all(theme_name)
 
 		if success then

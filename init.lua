@@ -1,69 +1,59 @@
+-- Main Neovim configuration for Aquamoon desktop environment
+-- Handles plugin bootstrapping, settings, keymaps, and UI configuration
+
+local M = {}
 local vim = vim
 
--- TODO check if ~/.aquamoon/river/init exists and run the create_river_init script if it doesn't
-
--- BOOTSTRAP ROCKS.NVIM
-do
-	-- Specifies where to install/use rocks.nvim
+local function bootstrap_rocks()
 	local install_location = vim.fs.joinpath(vim.fn.stdpath("data") --[[@as string]], "rocks")
 
-	-- Set up configuration options related to rocks.nvim (recommended to leave as default)
 	local rocks_config = {
 		rocks_path = vim.fs.normalize(install_location),
 	}
 
 	vim.g.rocks_nvim = rocks_config
 
-	-- Configure the package path (so that plugin code can be found)
 	local luarocks_path = {
 		vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
 		vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
 	}
 	package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
 
-	-- Configure the C path (so that e.g. tree-sitter parsers can be found)
 	local luarocks_cpath = {
 		vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
 		vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
 	}
 	package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
 
-	-- Add rocks.nvim to the runtimepath
 	vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim",
 		"*"))
-end
--- If rocks.nvim is not installed then install it!
-if not pcall(require, "rocks") then
-	local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache") --[[@as string]], "rocks.nvim")
 
-	if not vim.uv.fs_stat(rocks_location) then
-		-- Pull down rocks.nvim
-		local url = "https://github.com/lumen-oss/rocks.nvim"
-		vim.fn.system({ "git", "clone", "--filter=blob:none", url, rocks_location })
-		-- Make sure the clone was successfull
-		assert(vim.v.shell_error == 0, "rocks.nvim installation failed. Try exiting and re-entering Neovim!")
+	if not pcall(require, "rocks") then
+		local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache") --[[@as string]], "rocks.nvim")
+
+		if not vim.uv.fs_stat(rocks_location) then
+			local url = "https://github.com/lumen-oss/rocks.nvim"
+			vim.fn.system({ "git", "clone", "--filter=blob:none", url, rocks_location })
+			assert(vim.v.shell_error == 0,
+				"rocks.nvim installation failed. Try exiting and re-entering Neovim!")
+		end
+
+		vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
+
+		vim.fn.delete(rocks_location, "rf")
 	end
-
-	-- If the clone was successful then source the bootstrapping script
-	vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
-
-	vim.fn.delete(rocks_location, "rf")
 end
 
+bootstrap_rocks()
 
--- NEOVIM CONFIGURATION FOR AQUAMOON
-local vim = vim -- avoid undefined warnings
-S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
 
-
--- GLOBAL VARIABLES
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor
 vim.g.lazygit_floating_window_border_chars = S.nvim.lazygit.border_chars
 vim.flag = S.nvim.flag
 
--- DIAGNOSTICS
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("biome")
 vim.diagnostic.config({
@@ -72,9 +62,7 @@ vim.diagnostic.config({
 })
 vim.diagnostic.enable(S.nvim.diagnostics.enable)
 
--- SAVE
 vim.cmd.aqua_save = function()
-	-- avoid warnings from oil and ministart filetype
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
@@ -84,8 +72,6 @@ vim.cmd.aqua_save = function()
 	vim.cmd "silent write"
 end
 
-
--- RUN
 vim.cmd.aqua_run = function()
 	if vim.bo.filetype == 'gdscript' then
 		require("fidget").notify("RUN")
@@ -93,8 +79,6 @@ vim.cmd.aqua_run = function()
 	end
 end
 
-
--- AUTOCOMMANDS
 vim.api.nvim_create_autocmd("InsertEnter", {
 	callback = function()
 		vim.opt.cursorline = true
@@ -144,8 +128,6 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	end
 })
 
-
--- HIGHLIGHTS
 local theme = S.theme
 local highlights = {
 	LineNr = { bg = theme.bg, fg = theme.fg },
@@ -170,8 +152,6 @@ for group, colors in pairs(highlights) do
 	vim.cmd.highlight(group .. " " .. table.concat(attrs, " "))
 end
 
-
--- NEOVIDE CONFIGURATION
 if vim.g.neovide then
 	vim.g.neovide_opacity = S.theme.opacity
 	vim.o.guifont = S.theme.active_font.name
@@ -189,15 +169,8 @@ if vim.g.neovide then
 	end
 end
 
--- NEOVIM CONFIGURATION
 vim.g.mapleader = S.nvim.leader.mapleader
 vim.g.maplocalleader = S.nvim.leader.maplocalleader
-
--- ===========================================
--- MAPPINGS
--- ===========================================
-
-local M = {}
 
 function M.toggle_diagnostics()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
@@ -257,12 +230,10 @@ M.oil_keymaps = {
 	["zh"] = { "actions.toggle_hidden", mode = "n" },
 }
 
--- keymaps
 vim.keymap.set({ "n", "x", "o" }, "<CR>", function() require("leap").leap({ backward = true }) end)
 vim.keymap.set("n", "U", "<c-r>")
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
 
--- Smart splits configuration
 local smart_splits = require('smart-splits')
 local split_keymaps = {
 	['<A-Left>'] = smart_splits.resize_left,
@@ -284,7 +255,6 @@ for key, func in pairs(split_keymaps) do
 	vim.keymap.set('n', key, func)
 end
 
--- Leader keymaps
 local leader_keymaps = {
 	e = vim.cmd.Oil,
 	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua --") end,
@@ -305,7 +275,6 @@ for key, func in pairs(leader_keymaps) do
 	vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func)
 end
 
--- Function key keymaps
 local function_keymaps = {
 	[1] = function() vim.cmd "LazyGit" end,
 	[2] = vim.cmd.aqua_save,
@@ -320,10 +289,6 @@ local function_keymaps = {
 for cmd, func in pairs(function_keymaps) do
 	vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func)
 end
-
--- ===========================================
--- PLUGINS
--- ===========================================
 
 require("mini.hipatterns").setup({
 	highlighters = S.nvim.plugins.hipatterns,
@@ -348,8 +313,6 @@ for _, plug in pairs(S.nvim.plugins.unconfigured_mini) do
 	require("mini." .. plug).setup()
 end
 
-
--- OIL
 function _G.get_oil_winbar()
 	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
 	local dir = require("oil").get_current_dir(bufnr)
@@ -378,20 +341,14 @@ end
 
 require "oil".setup(oil_config)
 
-
--- CHAINSAW
 require "chainsaw".setup()
 require "cybu".setup()
 
-
--- COLORSCHEMES
 vim.g.oceanic_next_terminal_bold = 1
 vim.g.oceanic_next_terminal_italic = 1
 require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 require "bluloco".setup({ transparent = true, italics = true })
 
-
--- LEAP
 require "leap".setup({})
 require "leap".opts.preview = function(ch0, ch1, ch2)
 	return not (
@@ -401,8 +358,6 @@ require "leap".opts.preview = function(ch0, ch1, ch2)
 end
 require "leap".opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
 
-
--- TV
 require "tv".setup({
 	channels = S.nvim.plugins.tv.channels,
 	window = {
@@ -411,8 +366,6 @@ require "tv".setup({
 	}
 })
 
-
--- SNIPE
 require "snipe".setup({
 	ui = {
 		position = S.nvim.plugins.snipe.position,
@@ -425,8 +378,6 @@ require "snipe".setup({
 	navigate = S.nvim.plugins.snipe.navigate
 })
 
-
--- CLING
 local cling_wrappers = S.nvim.plugins.cling.wrappers
 local wrappers_list = {}
 for i = 1, 20 do
@@ -434,9 +385,6 @@ for i = 1, 20 do
 		table.insert(wrappers_list, cling_wrappers[tostring(i)])
 	end
 end
-require("cling").setup({
-	wrappers = wrappers_list
-})
-
+require("cling").setup({ wrappers = wrappers_list })
 
 return M

@@ -1,17 +1,19 @@
-local lua_script = function(script_name)
+-- River window manager key mappings for Aquamoon
+-- Defines keyboard and mouse bindings for launching apps and window management
+
+local M = {}
+
+local function lua_script(script_name)
 	local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
-	-- TODO run with "nvim -l ..."? or hilbish?
 	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
 end
-local terminal_app = function(app, terminal_app)
+
+local function terminal_app(app)
 	return { "spawn", [['neovide term://"]] .. app .. [["']] }
 end
 
--- RIVER
-local mappings = {}
-mappings.map = {
+M.map = {
 	normal = {
-		-- Terminal
 		{
 			mod = { "Super" },
 			key = "Return",
@@ -27,13 +29,11 @@ mappings.map = {
 			key = "A",
 			command = lua_script("bookmarks"),
 		},
-		-- Launcher
 		{
 			mod = { "Super" },
 			key = "D",
 			command = lua_script("run"),
 		},
-		-- Menus
 		{
 			mod = { "Super" },
 			key = "Z",
@@ -49,7 +49,6 @@ mappings.map = {
 			key = "T",
 			command = lua_script("theme_picker"),
 		},
-		-- Brightness
 		{
 			mod = { "Super" },
 			key = "V",
@@ -60,7 +59,6 @@ mappings.map = {
 			key = "M",
 			command = lua_script("raise_brightness"),
 		},
-		-- Volume
 		{
 			mod = { "Super" },
 			key = "B",
@@ -71,31 +69,26 @@ mappings.map = {
 			key = "N",
 			command = lua_script("raise_volume"),
 		},
-		-- Screenshot
 		{
 			mod = { "Super", "Shift" },
 			key = "S",
 			command = lua_script("screenshot"),
 		},
-		-- Close
 		{
 			mod = "Super",
 			key = "Q",
 			command = "close",
 		},
-		-- Super+E to bump the focused view to the top of the layout stack
 		{
 			mod = "Super",
 			key = "E",
 			command = "zoom",
 		},
-		-- Super+F to toggle fullscreen
 		{
 			mod = "Super",
 			key = "F",
 			command = "toggle-fullscreen",
 		},
-		-- Super+{J,K} to focus next/previous view in the layout stack
 		{
 			mod = "Super",
 			key = "J",
@@ -106,7 +99,6 @@ mappings.map = {
 			key = "K",
 			command = { "focus-view", "next" },
 		},
-		-- Super+Shift+{H,L} 
 		{
 			mod = { "Super", "Shift" },
 			key = "H",
@@ -117,7 +109,6 @@ mappings.map = {
 			key = "L",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
 		},
-		-- Super+{H,L}
 		{
 			mod = { "Super" },
 			key = "H",
@@ -131,16 +122,13 @@ mappings.map = {
 	},
 }
 
--- mappings for pointer (mouse)
-mappings["map-pointer"] = {
+M["map-pointer"] = {
 	normal = {
-		-- Super + Left Mouse Button to move views
 		{
 			mod = "Super",
 			key = "BTN_LEFT",
 			command = "move-view",
 		},
-		-- Super + Right Mouse Button to resize views
 		{
 			mod = "Super",
 			key = "BTN_RIGHT",
@@ -149,4 +137,4 @@ mappings["map-pointer"] = {
 	},
 }
 
-return mappings
+return M

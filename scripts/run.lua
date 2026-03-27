@@ -1,4 +1,10 @@
+-- Application launcher using Tofi
+-- Opens a drun menu to launch applications
+
+local M = {}
+
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-dofile(S.path .. "/scripts/tofi.lua")
-    .options(S.theme.tofi)
-    .open()
+local tofi = dofile(S.path .. "/scripts/tofi.lua")
+tofi.opener.options(S.theme.tofi).open()
+
+return M

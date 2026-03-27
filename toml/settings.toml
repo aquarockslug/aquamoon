@@ -6,6 +6,16 @@ Grey = "sweetie"
 Purple = "moonfly"
 Blue = "bluloco"
 
+[river_options]
+border-width = 2
+border-color-focused = "0x"
+border-color-unfocused = "0x"
+set-repeat = [50, 300]
+focus-follows-cursor = "normal"
+attach-mode = "right"
+default-layout = "luatile"
+output-layout = "luatile"
+
 [nvim]
 godot_executable = "/bin/godot3"
 flag = "󰈿"
@@ -78,13 +88,3 @@ navigate = { open_vsplit = "e", open_split = "E" }
 6 = "imv"
 7 = "qutebrowser"
 8 = "glide-glide"
-
-[river_options]
-border-width = 2
-border-color-focused = "0x"
-border-color-unfocused = "0x"
-set-repeat = [50, 300]
-focus-follows-cursor = "normal"
-attach-mode = "right"
-default-layout = "luatile"
-output-layout = "luatile"

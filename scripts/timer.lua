@@ -1,3 +1,10 @@
+#!/usr/bin/env lua
+
+-- Timer utility for Aquamoon
+-- Waits specified duration then sends notification with custom message
+
+local M = {}
+
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
 local wait_time = arg[1]
@@ -15,3 +22,5 @@ end
 
 os.execute("sleep " .. wait_time)
 dofile(S.path .. "/scripts/notify.lua").send(message)
+
+return M

@@ -1,11 +1,13 @@
--- LOW BATTERY WARNING
--- frequently checks the battery and warns if its too low
+-- Low battery warning daemon for Aquamoon
+-- Periodically checks battery level and warns when below threshold
+
+local M = {}
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 
-local threshold = 10      -- the battery level required to trigger the warning
-local frequency = 2       -- the amount of times to check in a minute
-local low_battery = false -- the state of the battery
+local threshold = 10
+local frequency = 2
+local low_battery = false
 local battery_path = "/sys/class/power_supply/BAT0/capacity"
 
 while true do
@@ -23,3 +25,5 @@ while true do
 
 	os.execute("sleep " .. 60 / frequency)
 end
+
+return M
