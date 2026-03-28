@@ -1,8 +1,6 @@
 -- River layout handler for Aquamoon
 -- Implements custom window tiling layout and tag notifications
 
-local M = {}
-
 package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
     '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
@@ -13,7 +11,7 @@ local smart_gaps = true
 local offset = 0
 local last_view_count = 0
 
-function M.handle_layout(args)
+function handle_layout(args)
 	last_view_count = args.count
 	local retval = {}
 	if args.count == 1 then
@@ -50,25 +48,11 @@ function M.handle_layout(args)
 	return retval
 end
 
-function M.handle_metadata()
+function handle_metadata()
 	return { name = "river_rotate" }
 end
 
-function M.rotate(clockwise)
-	if (clockwise) then
-		os.execute "riverctl focus-view previous && riverctl zoom"
-	else
-		for i = 1, last_view_count - 1 do
-			os.execute "riverctl swap next"
-		end
-		for i = 1, last_view_count - 1 do
-			os.execute "riverctl focus-view previous"
-		end
-	end
-end
-
-function M.modify_main_ratio(amount)
+function modify_main_ratio(amount)
 	main_ratio = main_ratio + amount * 0.01
 end
 
-return M
