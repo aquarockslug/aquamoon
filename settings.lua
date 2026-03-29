@@ -41,6 +41,7 @@ local theme = get_theme(current_theme_name or "sweetie")
 local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")
 local terminal_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/terminal.toml")
 local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/startup.toml")
+local input_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/inputs.toml")
 
 M.path = os.getenv("HOME") .. "/.aquamoon"
 M.mappings = dofile(os.getenv("HOME") .. "/.aquamoon/mappings.lua")
@@ -52,5 +53,6 @@ M.startup_commands = startup_config
 M.window_rules = config.window_rules
 M.terminal = terminal_config
 M.nvim = config.nvim
+M.inputs = input_config
 
 return M

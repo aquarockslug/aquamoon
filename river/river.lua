@@ -29,6 +29,15 @@ local function tag_mappings()
 end
 
 M.apply_settings = function(settings)
+	for _, input in pairs(settings.inputs) do
+		for key, value in pairs(input) do
+			if key ~= "device" then
+				local cmd = string.format("riverctl input %s %s %s", input.device, key, tostring(value))
+				os.execute(cmd)
+			end
+		end
+	end
+
 	for _, cmd in pairs(settings.startup_commands) do
 		os.execute(string.format([[riverctl spawn '%s']], concat(cmd, " ")))
 	end
@@ -45,11 +54,7 @@ M.apply_settings = function(settings)
 				local cmd = concat(binding.command, " ")
 
 				local opt = binding.opt
-				if opt ~= "release" and opt ~= "repeat" then
-					opt = ""
-				else
-					opt = "-" .. opt
-				end
+				if opt ~= "release" and opt ~= "repeat" then opt = "" else opt = "-" .. opt end
 
 				os.execute(string.format("riverctl %s %s %s %s %s %s", map_type, opt, mode, modifiers,
 					binding.key, cmd))
