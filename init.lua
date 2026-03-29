@@ -129,6 +129,8 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	end
 })
 
+require('mfd').setup({ bright_comments = true })
+
 local theme = S.theme
 local highlights = {
 	LineNr = { bg = theme.background, fg = theme.text_primary },
@@ -137,7 +139,7 @@ local highlights = {
 	CursorLineNr = { fg = theme.text_primary },
 	OilDir = { fg = theme.text_primary },
 	-- LazyGitFloat = { fg = theme.text_primary2 },
-	-- LazyGitBorder = { fg = theme.text_primary },
+	LazyGitBorder = { fg = theme.text_primary },
 	MiniStarterSection = { fg = theme.text_primary },
 	MiniStarterItemPrefix = { fg = theme.accent },
 	MiniStarterQuery = { fg = theme.accent },

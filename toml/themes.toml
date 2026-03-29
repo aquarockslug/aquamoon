@@ -66,3 +66,292 @@ ddgr_colors = "gcedge"
 name = "Fairiesevka Nerd Font:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
+
+# BLULOCO https://github.com/uloco/bluloco.nvim
+[bluloco_aqua]
+text_primary = "abb2bf"
+text_secondary = "636d83"
+background = "282c34"
+background_alt = "10b1fe"
+accent = "3691ff"
+background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "gedegd"
+
+[bluloco_aqua.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# CITRUSZEST https://github.com/BinaryPhage/citruszest.nvim
+[citruszest]
+text_primary = "bfbfbf"
+text_secondary = "8a8a8a"
+background = "121212"
+background_alt = "00bfff"
+accent = "ff5454"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 2
+opacity = 0.85
+ddgr_colors = "hcehce"
+
+[citruszest.active_font]
+name = "Lilex Nerd Font:14"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 14
+
+# MFD https://github.com/cursorinsight/mfd.nvim
+[mfd]
+text_primary = "1e2d1e"
+text_secondary = "5a6b49"
+background = "7a8b69"
+background_alt = "0d1d0d"
+accent = "0d1d0d"
+background_image = "~/.aquamoon/wallpapers/puma.png"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[mfd.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD DARK https://github.com/cursorinsight/mfd.nvim
+[mfd_dark]
+text_primary = "8a9b70"
+text_secondary = "3a4a3a"
+background = "1e2d1e"
+background_alt = "a0b180"
+accent = "a0b180"
+background_image = "~/.aquamoon/wallpapers/puma.png"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[mfd_dark.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD PAPER https://github.com/cursorinsight/mfd.nvim
+[mfd_paper]
+text_primary = "002611"
+text_secondary = "8a9a88"
+background = "bbc5b7"
+background_alt = "001008"
+accent = "001008"
+background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
+border_width = 2
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[mfd_paper.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD STEALTH https://github.com/cursorinsight/mfd.nvim
+[mfd_stealth]
+text_primary = "7a9a7a"
+text_secondary = "253828"
+background = "0d1410"
+background_alt = "9abb9a"
+accent = "9abb9a"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[mfd_stealth.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD AMBER https://github.com/cursorinsight/mfd.nvim
+[mfd_amber]
+text_primary = "cc9944"
+text_secondary = "382818"
+background = "0f0c08"
+background_alt = "ffbb55"
+accent = "ffbb55"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "hchchc"
+
+[mfd_amber.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD SCARLET https://github.com/cursorinsight/mfd.nvim
+[mfd_scarlet]
+text_primary = "a05050"
+text_secondary = "4a2020"
+background = "0f0a0a"
+background_alt = "d06060"
+accent = "d06060"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "chchch"
+
+[mfd_scarlet.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD LUMON https://github.com/cursorinsight/mfd.nvim
+[mfd_lumon]
+text_primary = "60a060"
+text_secondary = "2a4a2a"
+background = "0a140a"
+background_alt = "80c080"
+accent = "80c080"
+background_image = "~/.aquamoon/wallpapers/puma.png"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[mfd_lumon.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# MFD NVG https://github.com/cursorinsight/mfd.nvim
+[mfd_nvg]
+text_primary = "50a0a0"
+text_secondary = "203040"
+background = "08101a"
+background_alt = "70c0c0"
+accent = "70c0c0"
+background_image = "~/.aquamoon/wallpapers/panther.png"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "chchch"
+
+[mfd_nvg.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# NIGHTFOX https://github.com/EdenEast/nightfox.nvim
+[nightfox]
+text_primary = "cdcecf"
+text_secondary = "738091"
+background = "131a24"
+background_alt = "719cd6"
+accent = "9d79d6"
+background_image = "~/.aquamoon/wallpapers/panther.png"
+border_width = 2
+opacity = 0.85
+ddgr_colors = "gcedge"
+
+[nightfox.active_font]
+name = "Fairiesevka Nerd Font:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
+size = 14
+
+# SERENE https://github.com/rolim8/serene.nvim
+[serene]
+text_primary = "ebfcfb"
+text_secondary = "636363"
+background = "031120"
+background_alt = "7fb7be"
+accent = "c492b1"
+background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
+border_width = 2
+opacity = 0.75
+ddgr_colors = "gchgch"
+
+[serene.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14
+
+# YORUMI https://github.com/yorukotakee/yorumi.nvim
+[yorumi]
+text_primary = "c6dfec"
+text_secondary = "878996"
+background = "060914"
+background_alt = "a188c3"
+accent = "a188c3"
+background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "chchch"
+
+[yorumi.active_font]
+name = "Lilex Nerd Font:14"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 14
+
+# MONOKAI NIGHTASTY https://github.com/andersevenrud/monokai-nightasty.nvim
+[monokai_nightasty]
+text_primary = "ffffff"
+text_secondary = "8a8a8a"
+background = "2b2b2b"
+background_alt = "fc1a70"
+accent = "fc1a70"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 2
+opacity = 0.85
+ddgr_colors = "hchchc"
+
+[monokai_nightasty.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
+
+# NOIRBLAZE https://github.com/aquamoon/noirblaze-vim
+[noirblaze]
+text_primary = "b4b4b4"
+text_secondary = "737373"
+background = "121212"
+background_alt = "ff0088"
+accent = "ff0088"
+background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "chchch"
+
+[noirblaze.active_font]
+name = "FiraCode Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf'"
+size = 14
+
+# AFTERGLOW https://github.com/danilo-augusto/afterglow
+[afterglow]
+text_primary = "d6d6d6"
+text_secondary = "797979"
+background = "1a1a1a"
+background_alt = "e87d3e"
+accent = "e87d3e"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 2
+opacity = 0.85
+ddgr_colors = "eheheh"
+
+[afterglow.active_font]
+name = "FiraCode Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf'"
+size = 14
+
+# DOGRUN https://github.com/wadackel/vim-dogrun
+[dogrun]
+text_primary = "9ea3c0"
+text_secondary = "545c8c"
+background = "222433"
+background_alt = "929be5"
+accent = "929be5"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 2
+opacity = 0.85
+ddgr_colors = "geggeg"
+
+[dogrun.active_font]
+name = "Agave Nerd Font:h14"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 14
