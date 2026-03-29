@@ -47,8 +47,6 @@ end
 bootstrap_rocks()
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-package.path = package.path .. ";" .. S.path .. "/?.lua"
-package.path = package.path .. ";" .. S.path .. "/?/init.lua"
 
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor
@@ -71,13 +69,6 @@ vim.cmd.aqua_save = function()
 	end
 
 	vim.cmd "silent write"
-end
-
-vim.cmd.aqua_run = function()
-	if vim.bo.filetype == 'gdscript' then
-		require("fidget").notify("RUN")
-		os.execute(vim.g.godot_executable .. " --upwards " .. vim.fn.expand('%:p:f'))
-	end
 end
 
 vim.api.nvim_create_autocmd("InsertEnter", {
