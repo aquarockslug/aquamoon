@@ -3,9 +3,8 @@
 
 local M = {}
 
-local rocks_path = os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua;"
-rocks_path = rocks_path .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua;"
-package.path = package.path .. rocks_path .. ";"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua"
 
 local TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 

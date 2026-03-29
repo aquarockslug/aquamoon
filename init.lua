@@ -47,7 +47,8 @@ end
 bootstrap_rocks()
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-package.path = package.path .. '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;;'
+package.path = package.path .. ";" .. S.path .. "/?.lua"
+package.path = package.path .. ";" .. S.path .. "/?/init.lua"
 
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor

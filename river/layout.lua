@@ -1,10 +1,6 @@
 -- River layout handler for Aquamoon
 -- Implements custom window tiling layout and tag notifications
 
-package.path = '/home/aqua/.aquamoon/?.lua;/home/aqua/.aquamoon/?/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?.lua;' ..
-    '/home/aqua/.aquamoon/rocks/share/lua/5.1/?/?.lua;;'
-
 local main_ratio = 2 / 3
 local gaps = 0
 local smart_gaps = true
@@ -43,7 +39,7 @@ function handle_layout(args)
 
 	if args.output ~= "eDP-1" then return retval end
 
-	require("scripts/notify").tally(args.tags)
+	dofile(os.getenv("HOME") .. "/.aquamoon/scripts/notify.lua").tally(args.tags)
 
 	return retval
 end
