@@ -1,9 +1,9 @@
 # MOONFLY https://github.com/bluz71/vim-moonfly-colors
 [moonfly]
-fg = "ae81ff"
-fg2 = "bdbdbd"
-bg = "080808"
-bg2 = "ae81ff"
+text_primary = "ae81ff"
+text_secondary = "bdbdbd"
+background = "080808"
+background_alt = "ae81ff"
 accent = "cf87e8"
 background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 4
@@ -17,10 +17,10 @@ size = 14
 
 # SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
 [sweetie]
-fg = "92d3c5"
-fg2 = "d3d7de"
-bg = "2a2a3a"
-bg2 = "92d3c5"
+text_primary = "92d3c5"
+text_secondary = "d3d7de"
+background = "2a2a3a"
+background_alt = "92d3c5"
 accent = "b094e2"
 background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
@@ -34,11 +34,11 @@ size = 14
 
 # BLULOCO https://github.com/uloco/bluloco.nvim
 [bluloco]
-fg = "10b0fe"
-# fg = "abb2bf"
-fg2 = "cdd3e0"
-bg = "282c34"
-bg2 = "10b0fe"
+text_primary = "10b0fe"
+# text_primary = "abb2bf"
+text_secondary = "cdd3e0"
+background = "282c34"
+background_alt = "10b0fe"
 accent = "3691ff"
 background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 2
@@ -52,10 +52,10 @@ size = 14
 
 # CHALLENGER DEEP https://github.com/challenger-deep-theme
 [challenger_deep]
-fg = "a6b3cc"
-fg2 = "91ddff"
-bg = "1b182c"
-bg2 = "91ddff"
+text_primary = "a6b3cc"
+text_secondary = "91ddff"
+background = "1b182c"
+background_alt = "91ddff"
 accent = "95ffa4"
 background_image = "~/.aquamoon/wallpapers/panther.png"
 border_width = 2

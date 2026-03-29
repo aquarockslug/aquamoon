@@ -21,10 +21,10 @@ M.tally = function(t)
 
 		os.execute("dunstify --timeout=1000" ..
 			" --icon=''" ..
-			" -h string:bgcolor:#" .. S.theme.bg ..
-			" -h string:fgcolor:#" .. S.theme.fg ..
-			" -h string:frcolor:#" .. S.theme.fg ..
-			" -h string:hlcolor:#" .. S.theme.fg ..
+			" -h string:bgcolor:#" .. S.theme.background ..
+			" -h string:fgcolor:#" .. S.theme.text_primary ..
+			" -h string:frcolor:#" .. S.theme.text_primary ..
+			" -h string:hlcolor:#" .. S.theme.text_primary ..
 			" -h int:width:300" ..
 			" --replace=9 '" .. flag_string .. "'")
 	end
@@ -33,20 +33,20 @@ end
 M.send = function(message)
 	os.execute("dunstify --timeout=1000" ..
 		" --icon=''" ..
-		" -h string:bgcolor:#" .. S.theme.bg ..
-		" -h string:fgcolor:#" .. S.theme.fg ..
-		" -h string:frcolor:#" .. S.theme.fg ..
-		" -h string:hlcolor:#" .. S.theme.fg ..
+		" -h string:bgcolor:#" .. S.theme.background ..
+		" -h string:fgcolor:#" .. S.theme.text_primary ..
+		" -h string:frcolor:#" .. S.theme.text_primary ..
+		" -h string:hlcolor:#" .. S.theme.text_primary ..
 		" -h int:width:600" ..
 		" --replace=9 '" .. message .. "'")
 end
 
 M.bar = function(value, message)
 	os.execute("dunstify --timeout=500 " ..
-		" -h string:bgcolor:#" .. S.theme.bg ..
-		" -h string:fgcolor:#" .. S.theme.fg ..
-		" -h string:frcolor:#" .. S.theme.fg ..
-		" -h string:hlcolor:#" .. S.theme.fg ..
+		" -h string:bgcolor:#" .. S.theme.background ..
+		" -h string:fgcolor:#" .. S.theme.text_primary ..
+		" -h string:frcolor:#" .. S.theme.text_primary ..
+		" -h string:hlcolor:#" .. S.theme.text_primary ..
 		" -h 'int:value:" .. value .. "' " .. message)
 end
 

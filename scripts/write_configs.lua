@@ -103,8 +103,8 @@ local function update_dunst(theme_name)
 		return false, err
 	end
 
-	local bg_color = "#" .. theme.bg
-	local fg_color = "#" .. theme.fg
+	local bg_color = "#" .. theme.background
+	local fg_color = "#" .. theme.text_primary
 	local accent_color = "#" .. theme.accent
 
 	dunstrc_content = update_urgency_section(dunstrc_content, "urgency_low", bg_color, fg_color, fg_color)
@@ -134,22 +134,22 @@ local function update_television(theme_name)
 	end
 
 	television_data.ui.theme_overrides = {}
-	television_data.ui.theme_overrides.background = '#' .. theme.bg
-	television_data.ui.theme_overrides.border_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.text_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.dimmed_text_fg = '#' .. theme.fg2
-	television_data.ui.theme_overrides.input_text_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.result_count_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.result_name_fg = '#' .. theme.fg
+	television_data.ui.theme_overrides.background = '#' .. theme.background
+	television_data.ui.theme_overrides.border_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.text_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.dimmed_text_fg = '#' .. theme.text_secondary
+	television_data.ui.theme_overrides.input_text_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.result_count_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.result_name_fg = '#' .. theme.text_primary
 	television_data.ui.theme_overrides.result_line_number_fg = '#' .. theme.accent
-	television_data.ui.theme_overrides.result_value_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.selection_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.selection_bg = '#' .. theme.bg
-	television_data.ui.theme_overrides.match_fg = '#' .. theme.fg2
-	television_data.ui.theme_overrides.preview_title_fg = '#' .. theme.fg
-	television_data.ui.theme_overrides.channel_mode_fg = '#' .. theme.bg
-	television_data.ui.theme_overrides.channel_mode_bg = '#' .. theme.fg
-	television_data.ui.theme_overrides.remote_control_mode_fg = '#' .. theme.bg
+	television_data.ui.theme_overrides.result_value_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.selection_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.selection_bg = '#' .. theme.background
+	television_data.ui.theme_overrides.match_fg = '#' .. theme.text_secondary
+	television_data.ui.theme_overrides.preview_title_fg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.channel_mode_fg = '#' .. theme.background
+	television_data.ui.theme_overrides.channel_mode_bg = '#' .. theme.text_primary
+	television_data.ui.theme_overrides.remote_control_mode_fg = '#' .. theme.background
 	television_data.ui.theme_overrides.remote_control_mode_bg = '#' .. theme.accent
 
 	local file = io.open(television_path, "w")
@@ -177,18 +177,18 @@ local function update_lazygit(theme_name)
 	yaml = yaml .. "gui:\n"
 	yaml = yaml .. "  nerdFontsVersion: 3\n\n"
 	yaml = yaml .. "  theme:\n"
-	yaml = yaml .. string.format("    activeBorderColor:\n      - '#%s'\n", theme.fg)
+	yaml = yaml .. string.format("    activeBorderColor:\n      - '#%s'\n", theme.text_primary)
 	yaml = yaml .. "      - bold\n"
-	yaml = yaml .. string.format("    inactiveBorderColor:\n      - '#%s'\n", theme.fg2)
-	yaml = yaml .. string.format("    optionsTextColor:\n      - '#%s'\n", theme.bg2)
-	yaml = yaml .. string.format("    selectedLineBgColor:\n      - '#%s'\n", theme.bg)
-	yaml = yaml .. string.format("    cherryPickedCommitBgColor:\n      - '#%s'\n", theme.bg2)
+	yaml = yaml .. string.format("    inactiveBorderColor:\n      - '#%s'\n", theme.text_secondary)
+	yaml = yaml .. string.format("    optionsTextColor:\n      - '#%s'\n", theme.background_alt)
+	yaml = yaml .. string.format("    selectedLineBgColor:\n      - '#%s'\n", theme.background)
+	yaml = yaml .. string.format("    cherryPickedCommitBgColor:\n      - '#%s'\n", theme.background_alt)
 	yaml = yaml .. string.format("    cherryPickedCommitFgColor:\n      - '#%s'\n", theme.accent)
 	yaml = yaml .. string.format("    unstagedChangesColor:\n      - '#%s'\n", theme.accent)
-	yaml = yaml .. string.format("    defaultFgColor:\n      - '#%s'\n", theme.fg)
-	yaml = yaml .. string.format("    searchingActiveBorderColor:\n      - '#%s'\n", theme.fg2)
+	yaml = yaml .. string.format("    defaultFgColor:\n      - '#%s'\n", theme.text_primary)
+	yaml = yaml .. string.format("    searchingActiveBorderColor:\n      - '#%s'\n", theme.text_secondary)
 	yaml = yaml .. "\n  authorColors:\n"
-	yaml = yaml .. string.format("    '*': '#%s'\n", theme.fg)
+	yaml = yaml .. string.format("    '*': '#%s'\n", theme.text_primary)
 
 	local file = io.open(lazygit_path, "w")
 	if not file then

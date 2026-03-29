@@ -131,19 +131,19 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 
 local theme = S.theme
 local highlights = {
-	LineNr = { bg = theme.bg, fg = theme.fg },
-	LineNrAbove = { fg = theme.fg },
-	LineNrBelow = { fg = theme.fg },
-	CursorLineNr = { fg = theme.fg },
-	OilDir = { fg = theme.fg },
-	LazyGitFloat = { fg = theme.fg2 },
-	LazyGitBorder = { fg = theme.fg },
-	MiniStarterSection = { fg = theme.fg },
+	LineNr = { bg = theme.background, fg = theme.text_primary },
+	LineNrAbove = { fg = theme.text_primary },
+	LineNrBelow = { fg = theme.text_primary },
+	CursorLineNr = { fg = theme.text_primary },
+	OilDir = { fg = theme.text_primary },
+	-- LazyGitFloat = { fg = theme.text_primary2 },
+	-- LazyGitBorder = { fg = theme.text_primary },
+	MiniStarterSection = { fg = theme.text_primary },
 	MiniStarterItemPrefix = { fg = theme.accent },
 	MiniStarterQuery = { fg = theme.accent },
-	Cursor = { bg = theme.fg, fg = theme.bg },
-	lCursor = { bg = theme.fg, fg = theme.bg },
-	CursorIM = { bg = theme.accent, fg = theme.bg },
+	Cursor = { bg = theme.text_primary, fg = theme.background },
+	lCursor = { bg = theme.text_primary, fg = theme.background },
+	CursorIM = { bg = theme.accent, fg = theme.background },
 }
 
 for group, colors in pairs(highlights) do
