@@ -114,8 +114,8 @@ opacity = 1.0
 ddgr_colors = "cegceg"
 
 [mfd.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD DARK https://github.com/cursorinsight/mfd.nvim
@@ -131,8 +131,8 @@ opacity = 1.0
 ddgr_colors = "cegceg"
 
 [mfd_dark.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD PAPER https://github.com/cursorinsight/mfd.nvim
@@ -148,8 +148,8 @@ opacity = 1.0
 ddgr_colors = "cegceg"
 
 [mfd_paper.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD STEALTH https://github.com/cursorinsight/mfd.nvim
@@ -165,8 +165,8 @@ opacity = 1.0
 ddgr_colors = "cegceg"
 
 [mfd_stealth.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD AMBER https://github.com/cursorinsight/mfd.nvim
@@ -182,8 +182,8 @@ opacity = 1.0
 ddgr_colors = "hchchc"
 
 [mfd_amber.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD SCARLET https://github.com/cursorinsight/mfd.nvim
@@ -199,8 +199,8 @@ opacity = 1.0
 ddgr_colors = "chchch"
 
 [mfd_scarlet.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD LUMON https://github.com/cursorinsight/mfd.nvim
@@ -216,8 +216,8 @@ opacity = 1.0
 ddgr_colors = "cegceg"
 
 [mfd_lumon.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # MFD NVG https://github.com/cursorinsight/mfd.nvim
@@ -233,8 +233,8 @@ opacity = 1.0
 ddgr_colors = "chchch"
 
 [mfd_nvg.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 # NIGHTFOX https://github.com/EdenEast/nightfox.nvim

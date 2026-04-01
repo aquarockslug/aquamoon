@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "mfd-paper"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true
