@@ -119,23 +119,6 @@ path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 
-# YORUMI https://github.com/yorukotakee/yorumi.nvim
-[yorumi]
-text_primary = "c6dfec"
-text_secondary = "878996"
-background = "060914"
-background_alt = "a188c3"
-accent = "a188c3"
-background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
-border_width = 2
-opacity = 0.8
-ddgr_colors = "chchch"
-
-[yorumi.active_font]
-name = "Lilex Nerd Font:14"
-path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
-size = 14
-
 # MONOKAI NIGHTASTY https://github.com/andersevenrud/monokai-nightasty.nvim
 [monokai_nightasty]
 text_primary = "ffffff"
@@ -166,8 +149,8 @@ opacity = 1.0
 ddgr_colors = "chchch"
 
 [noirblaze.active_font]
-name = "FiraCode Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf'"
+name = "FairiesevkaTerm Nerd Font Mono:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
 
 # AFTERGLOW https://github.com/danilo-augusto/afterglow
@@ -183,8 +166,8 @@ opacity = 1.0
 ddgr_colors = "eheheh"
 
 [afterglow.active_font]
-name = "FiraCode Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf'"
+name = "FairiesevkaTerm Nerd Font Mono:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
 
 

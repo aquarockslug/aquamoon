@@ -13,6 +13,8 @@ local theme_list = S.theme_list
 
 local display_list = {}
 local value_map = {}
+table.insert(display_list, "Random")
+value_map["Random"] = "random"
 for _, entry in pairs(theme_list) do
 	local display_name, value
 	if type(entry) == "table" then
@@ -27,8 +29,16 @@ for _, entry in pairs(theme_list) do
 end
 
 local choice = menu.choices(display_list).open()
+if not choice or choice == "" then
+	return M
+end
 choice = choice:match("^%s*(.-)%s*$")
 local actual_theme = value_map[choice] or choice
+
+if actual_theme == "random" then
+	local random_theme = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/random_theme.lua")
+	return M
+end
 
 local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
@@ -40,6 +50,9 @@ local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/write_conf
 write_configs.update_all(actual_theme)
 
 os.execute "killall river-luatile"
+
+local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/notify.lua")
+notify.send("Theme switched to: " .. actual_theme)
 
 dofile(S.path .. "/river/init.lua")
 

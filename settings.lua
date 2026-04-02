@@ -35,6 +35,7 @@ end
 
 local nvim_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local current_theme_name = nvim_settings.config.colorscheme
+
 current_theme_name = string.gsub(current_theme_name, "-", "_") -- nvim uses "-" but themes.toml uses "_"
 local theme = get_theme(current_theme_name or "sweetie")
 
