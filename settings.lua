@@ -6,7 +6,7 @@ local M = {}
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua"
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua"
 
-local TT = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
+local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/tinytoml.lua")
 
 local function get_theme(name)
 	local toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")

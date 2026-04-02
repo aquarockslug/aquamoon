@@ -29,7 +29,7 @@ hilbifetch.ascii =
 ⠀⠀⠀⠸⣿⣿⣿⣿⢿⣯⣮⣟⣾⣿⠋⠘⠉⠑⣳⡻⣦⣯⣽⣿⣿⣿⡀
 ⠀⠀⠀⠀⠘⢿⣷⣽⣿⡿⡎⠛⠋⠁⠀⠀⠀⠀⢳⢿⣽⣷⣿⣝⢿⡿⠀
 ⠀⠀⠀⠀⠀⠀⠉⠙⠻⠋⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣽⣾⡿⠟⠁⠀]]
-hilbifetch.sep = ' > '
+hilbifetch.sep = ' 󰈿 '
 
 function hilbifetch.addInfo(name, cb)
 	infotable[name] = cb
@@ -97,10 +97,7 @@ hilbifetch.addInfo('uptime', function()
 end)
 
 hilbifetch.addInfo('shell', function()
-	local shellbin = os.getenv 'SHELL'
-	local _, out = hilbish.run(shellbin .. ' --version', false)
-
-	return out:gsub('\n', '')
+	return 'hilbish'
 end)
 
 hilbifetch.addInfo('memory', function()

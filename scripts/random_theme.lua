@@ -2,7 +2,7 @@
 -- Randomly selects and applies a desktop theme
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-local TT = dofile(S.path .. "/etc/tinytoml.lua")
+local TT = dofile(S.path .. "/scripts/tinytoml.lua")
 
 local themes_toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")
 

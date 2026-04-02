@@ -3,7 +3,7 @@
 
 local M = {}
 
-local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
+local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/tinytoml.lua")
 
 local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
 
