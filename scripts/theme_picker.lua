@@ -36,6 +36,9 @@ local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/g' ~/.aquamoon/rocks.toml]]
 os.execute(string.gsub(cmd, "\n", ""))
 
+local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/write_configs.lua")
+write_configs.update_all(actual_theme)
+
 os.execute "killall river-luatile"
 
 dofile(S.path .. "/river/init.lua")

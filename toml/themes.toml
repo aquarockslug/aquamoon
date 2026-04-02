@@ -1,3 +1,20 @@
+# MFD GBL LIGHT https://github.com/cursorinsight/mfd.nvim
+[mfd_gbl_light]
+text_primary = "004F3A"
+text_secondary = "009A70"
+background = "02B582"
+background_alt = "01A878"
+accent = "01694A"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[mfd_gbl_light.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14
+
 # MOONFLY https://github.com/bluz71/vim-moonfly-colors
 [moonfly]
 text_primary = "ae81ff"
@@ -50,57 +67,6 @@ name = "Agave Nerd Font:h14"
 path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
 size = 14
 
-# CHALLENGER DEEP https://github.com/challenger-deep-theme
-[challenger_deep]
-text_primary = "a6b3cc"
-text_secondary = "91ddff"
-background = "1b182c"
-background_alt = "91ddff"
-accent = "95ffa4"
-background_image = "~/.aquamoon/wallpapers/panther.png"
-border_width = 2
-opacity = 1.0
-ddgr_colors = "gcedge"
-
-[challenger_deep.active_font]
-name = "Fairiesevka Nerd Font:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
-size = 14
-
-# BLULOCO https://github.com/uloco/bluloco.nvim
-[bluloco_aqua]
-text_primary = "abb2bf"
-text_secondary = "636d83"
-background = "282c34"
-background_alt = "10b1fe"
-accent = "3691ff"
-background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
-border_width = 2
-opacity = 0.8
-ddgr_colors = "gedegd"
-
-[bluloco_aqua.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
-size = 14
-
-# CITRUSZEST https://github.com/BinaryPhage/citruszest.nvim
-[citruszest]
-text_primary = "bfbfbf"
-text_secondary = "8a8a8a"
-background = "121212"
-background_alt = "00bfff"
-accent = "ff5454"
-background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 2
-opacity = 0.85
-ddgr_colors = "hcehce"
-
-[citruszest.active_font]
-name = "Lilex Nerd Font:14"
-path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
-size = 14
-
 # MFD https://github.com/cursorinsight/mfd.nvim
 [mfd]
 text_primary = "1e2d1e"
@@ -114,59 +80,8 @@ opacity = 1.0
 ddgr_colors = "cegceg"
 
 [mfd.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
-# MFD DARK https://github.com/cursorinsight/mfd.nvim
-[mfd_dark]
-text_primary = "8a9b70"
-text_secondary = "3a4a3a"
-background = "1e2d1e"
-background_alt = "a0b180"
-accent = "a0b180"
-background_image = "~/.aquamoon/wallpapers/puma.png"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "cegceg"
-
-[mfd_dark.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
-# MFD PAPER https://github.com/cursorinsight/mfd.nvim
-[mfd_paper]
-text_primary = "002611"
-text_secondary = "8a9a88"
-background = "bbc5b7"
-background_alt = "001008"
-accent = "001008"
-background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
-border_width = 2
-opacity = 1.0
-ddgr_colors = "cegceg"
-
-[mfd_paper.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
-# MFD STEALTH https://github.com/cursorinsight/mfd.nvim
-[mfd_stealth]
-text_primary = "7a9a7a"
-text_secondary = "253828"
-background = "0d1410"
-background_alt = "9abb9a"
-accent = "9abb9a"
-background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "cegceg"
-
-[mfd_stealth.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
+path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
 size = 14
 
 # MFD AMBER https://github.com/cursorinsight/mfd.nvim
@@ -182,29 +97,12 @@ opacity = 1.0
 ddgr_colors = "hchchc"
 
 [mfd_amber.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
+path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
 size = 14
 
-# MFD SCARLET https://github.com/cursorinsight/mfd.nvim
-[mfd_scarlet]
-text_primary = "a05050"
-text_secondary = "4a2020"
-background = "0f0a0a"
-background_alt = "d06060"
-accent = "d06060"
-background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "chchch"
-
-[mfd_scarlet.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
-# MFD LUMON https://github.com/cursorinsight/mfd.nvim
-[mfd_lumon]
+# MFD HUD
+[mfd_hud]
 text_primary = "60a060"
 text_secondary = "2a4a2a"
 background = "0a140a"
@@ -215,61 +113,11 @@ border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
 
-[mfd_lumon.active_font]
+[mfd_hud.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
-# MFD NVG https://github.com/cursorinsight/mfd.nvim
-[mfd_nvg]
-text_primary = "50a0a0"
-text_secondary = "203040"
-background = "08101a"
-background_alt = "70c0c0"
-accent = "70c0c0"
-background_image = "~/.aquamoon/wallpapers/panther.png"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "chchch"
-
-[mfd_nvg.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
-# NIGHTFOX https://github.com/EdenEast/nightfox.nvim
-[nightfox]
-text_primary = "cdcecf"
-text_secondary = "738091"
-background = "131a24"
-background_alt = "719cd6"
-accent = "9d79d6"
-background_image = "~/.aquamoon/wallpapers/panther.png"
-border_width = 2
-opacity = 0.85
-ddgr_colors = "gcedge"
-
-[nightfox.active_font]
-name = "Fairiesevka Nerd Font:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
-size = 14
-
-# SERENE https://github.com/rolim8/serene.nvim
-[serene]
-text_primary = "ebfcfb"
-text_secondary = "636363"
-background = "031120"
-background_alt = "7fb7be"
-accent = "c492b1"
-background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
-border_width = 2
-opacity = 0.75
-ddgr_colors = "gchgch"
-
-[serene.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
 
 # YORUMI https://github.com/yorukotakee/yorumi.nvim
 [yorumi]
@@ -314,7 +162,7 @@ background_alt = "ff0088"
 accent = "ff0088"
 background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
 border_width = 2
-opacity = 0.8
+opacity = 1.0
 ddgr_colors = "chchch"
 
 [noirblaze.active_font]
@@ -331,7 +179,7 @@ background_alt = "e87d3e"
 accent = "e87d3e"
 background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 2
-opacity = 0.85
+opacity = 1.0
 ddgr_colors = "eheheh"
 
 [afterglow.active_font]
@@ -339,19 +187,4 @@ name = "FiraCode Nerd Font:h14"
 path = "'/usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf'"
 size = 14
 
-# DOGRUN https://github.com/wadackel/vim-dogrun
-[dogrun]
-text_primary = "9ea3c0"
-text_secondary = "545c8c"
-background = "222433"
-background_alt = "929be5"
-accent = "929be5"
-background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
-border_width = 2
-opacity = 0.85
-ddgr_colors = "geggeg"
 
-[dogrun.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
-size = 14

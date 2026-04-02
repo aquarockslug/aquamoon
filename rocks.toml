@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "moonfly"
+colorscheme = "monokai-nightasty"
 
 [config.options]
 autochdir = true
@@ -166,3 +166,7 @@ rev = "ccad56bb5eb7d29258980cfc0a716eb87bcad69e"
 [plugins."monokai-nightasty.nvim"]
 git = "polirritmico/monokai-nightasty.nvim"
 rev = "v1.0"
+
+[plugins.vim-afterglow]
+git = "danilo-augusto/vim-afterglow"
+rev = "v0.7"

@@ -6,9 +6,15 @@ local M = {}
 local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/etc/tinytoml.lua")
 
 local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
-local dunstrc_path = os.getenv("HOME") .. "/.config/dunst/dustrc"
-local television_path = os.getenv("HOME") .. "/.config/television/config.toml"
-local lazygit_path = os.getenv("HOME") .. "/.config/lazygit/config.yml"
+
+local settings = tinytoml.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")
+local function expand_path(path)
+	return path:gsub("^~/", os.getenv("HOME") .. "/")
+end
+
+local dunstrc_path = expand_path(settings.write_configs.dunstrc)
+local television_path = expand_path(settings.write_configs.television)
+local lazygit_path = expand_path(settings.write_configs.lazygit)
 
 local function read_dunstrc()
 	local file = io.open(dunstrc_path, "r")
@@ -249,12 +255,12 @@ M.get_available_themes = function()
 	return themes
 end
 
-if arg and arg[0] and arg[0]:match("write_files%.lua$") then
+if arg and arg[0] and arg[0]:match("write_configs%.lua$") then
 	local theme_name = arg and arg[1]
 	local app_name = arg and arg[2]
 
 	if not theme_name then
-		print("Usage: lua write_files.lua <theme_name> [app_name]")
+		print("Usage: lua write_configs.lua <theme_name> [app_name]")
 		print("Available themes:")
 
 		local themes = M.get_available_themes()
