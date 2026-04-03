@@ -36,7 +36,7 @@ choice = choice:match("^%s*(.-)%s*$")
 local actual_theme = value_map[choice] or choice
 
 if actual_theme == "random" then
-	local random_theme = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/theme_random_theme.lua")
+	local random_theme = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/theme_random.lua")
 	return M
 end
 
@@ -47,6 +47,7 @@ local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
 os.execute(string.gsub(cmd, "\n", ""))
 
 local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys_write_configs.lua")
+actual_theme = actual_theme:gsub("-", "_")
 write_configs.update_all(actual_theme)
 
 os.execute "killall river-luatile"

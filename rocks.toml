@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "mfd-amber"
+colorscheme = "mfd-gbl-light"
 
 [config.options]
 autochdir = true
