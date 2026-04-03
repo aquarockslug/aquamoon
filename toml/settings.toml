@@ -8,10 +8,9 @@ Blue = "bluloco"
 Olive = "mfd"
 Green = "mfd-hud"
 Amber = "mfd-amber"
-GB = "mfd-gbl-light"
+Teal = "mfd-gbl-light"
 Orange = "afterglow"
 Pink = "noirblaze"
-Monokai = "monokai-nightasty"
 
 [river_options]
 border-width = 2

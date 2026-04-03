@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "mfd-gbl-light"
+colorscheme = "noirblaze"
 
 [config.options]
 autochdir = true
@@ -128,14 +128,6 @@ rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7"
 git = "liuchengxu/space-vim-dark"
 rev = "0ab698bd2a3959e3bed7691ac55ba4d8abefd143"
 
-[plugins.vim-dogrun]
-git = "wadackel/vim-dogrun"
-rev = "203afe32971e2231db0d44e5543ee62b9f529618"
-
-[plugins.yorumi]
-git = "yorumicolors/yorumi.nvim"
-rev = "e5b93e2c0adb3d95ca9f3c5c20e824d15afcfe48"
-
 [plugins.noirblaze-vim]
 git = "n1ghtmare/noirblaze-vim"
 rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
@@ -144,29 +136,9 @@ rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
 git = "rafamadriz/neon"
 rev = "7765aaa7d1cd3804176140644640766e4411c766"
 
-[plugins."oh-lucy.nvim"]
-git = "yazeed1s/oh-lucy.nvim"
-rev = "2d94e9b03efe4c50f4653b6f2b7b200d970fe1aa"
-
 [plugins."minimal.nvim"]
 git = "yazeed1s/minimal.nvim"
 rev = "22d837b814d3bd22625640ef63cc73b8507f291d"
-
-[plugins."citruszest.nvim"]
-git = "zootedb0t/citruszest.nvim"
-rev = "ce6749e4c3a842679cc302ce1c2db76c2d07f700"
-
-[plugins."serene.nvim"]
-git = "samharju/serene.nvim"
-rev = "e44be3b1c8a824c4c33d851fc92b02c3e893ec66"
-
-[plugins."deepwhite.nvim"]
-git = "verf/deepwhite.nvim"
-rev = "ccad56bb5eb7d29258980cfc0a716eb87bcad69e"
-
-[plugins."monokai-nightasty.nvim"]
-git = "polirritmico/monokai-nightasty.nvim"
-rev = "v1.0"
 
 [plugins.vim-afterglow]
 git = "danilo-augusto/vim-afterglow"

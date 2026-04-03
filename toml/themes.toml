@@ -126,24 +126,6 @@ path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
 
-# MONOKAI NIGHTASTY https://github.com/andersevenrud/monokai-nightasty.nvim
-[monokai_nightasty]
-text_primary = "ffffff"
-text_secondary = "8a8a8a"
-background = "2b2b2b"
-background_alt = "fc1a70"
-accent = "fc1a70"
-background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
-border_width = 2
-opacity = 0.85
-ddgr_colors = "hchchc"
-crt = false
-
-[monokai_nightasty.active_font]
-name = "Agave Nerd Font:h14"
-path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
-size = 14
-
 # NOIRBLAZE https://github.com/aquamoon/noirblaze-vim
 [noirblaze]
 text_primary = "b4b4b4"
