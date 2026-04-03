@@ -77,7 +77,7 @@ navigate = { open_vsplit = "e", open_split = "E" }
 [nvim.plugins.cling.wrappers]
 1 = { command = "Lg", binary = "lazygit", close_on_exit = true }
 2 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
-3 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme_picker.lua" }
+3 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme_theme_picker.lua" }
 4 = { command = "Deploy", binary = "lua ./deploy.lua" }
 5 = { command = "Far", binary = "scooter", close_on_exit = true }
 6 = { command = "AI", binary = "opencode", close_on_exit = true }

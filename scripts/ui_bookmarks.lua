@@ -4,7 +4,7 @@
 local M = {}
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-local tofi = dofile(S.path .. "/scripts/tofi.lua").opener
+local tofi = dofile(S.path .. "/scripts/sys_tofi.lua").opener
 
 local function get_bookmarks_path()
 	local home = os.getenv("HOME") or os.getenv("USERPROFILE")

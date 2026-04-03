@@ -22,27 +22,27 @@ M.map = {
 		{
 			mod = { "Super" },
 			key = "S",
-			command = lua_script("browse"),
+			command = lua_script("ui_browse"),
 		},
 		{
 			mod = { "Super" },
 			key = "A",
-			command = lua_script("bookmarks"),
+			command = lua_script("ui_bookmarks"),
 		},
 		{
 			mod = { "Super" },
 			key = "D",
-			command = lua_script("run"),
+			command = lua_script("ui_run"),
 		},
 		{
 			mod = { "Super" },
 			key = "Z",
-			command = lua_script("system_menu"),
+			command = lua_script("ui_system_menu"),
 		},
 		{
 			mod = { "Super" },
 			key = "W",
-			command = lua_script("networkmanager"),
+			command = lua_script("ui_networkmanager"),
 		},
 		{
 			mod = { "Super" },
@@ -52,27 +52,27 @@ M.map = {
 		{
 			mod = { "Super" },
 			key = "V",
-			command = lua_script("lower_brightness"),
+			command = lua_script("media_lower_brightness"),
 		},
 		{
 			mod = { "Super" },
 			key = "M",
-			command = lua_script("raise_brightness"),
+			command = lua_script("media_raise_brightness"),
 		},
 		{
 			mod = { "Super" },
 			key = "B",
-			command = lua_script("lower_volume"),
+			command = lua_script("media_lower_volume"),
 		},
 		{
 			mod = { "Super" },
 			key = "N",
-			command = lua_script("raise_volume"),
+			command = lua_script("media_raise_volume"),
 		},
 		{
 			mod = { "Super", "Shift" },
 			key = "S",
-			command = lua_script("screenshot"),
+			command = lua_script("util_screenshot"),
 		},
 		{
 			mod = "Super",

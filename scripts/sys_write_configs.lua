@@ -3,7 +3,7 @@
 
 local M = {}
 
-local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/tinytoml.lua")
+local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys_tinytoml.lua")
 
 local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
 
@@ -207,6 +207,22 @@ local function update_lazygit(theme_name)
 	return true, "Successfully updated lazygit.yml"
 end
 
+local function update_crt(theme_name)
+	local themes_data = tinytoml.parse(themes_path)
+	local theme = themes_data[theme_name]
+
+	if not theme then
+		return false, "Theme '" .. theme_name .. "' not found in themes.toml"
+	end
+
+	local crt_enabled = theme.crt
+	local crt_script = os.getenv("HOME") .. "/.aquamoon/scripts/theme_crt.lua"
+
+	os.execute("cd " .. os.getenv("HOME") .. "/.aquamoon && lua " .. crt_script .. (crt_enabled and " start" or " stop") .. " 2>/dev/null")
+
+	return true, "CRT overlay " .. (crt_enabled and "started" or "stopped")
+end
+
 M.update_all = function(theme_name)
 	if not theme_name then
 		return false, "No theme name provided"
@@ -227,6 +243,10 @@ M.update_all = function(theme_name)
 	table.insert(results, { app = "lazygit", success = success, message = message })
 	if not success then overall_success = false end
 
+	success, message = update_crt(theme_name)
+	table.insert(results, { app = "crt", success = success, message = message })
+	if not success then overall_success = false end
+
 	return overall_success, results
 end
 
@@ -240,6 +260,10 @@ end
 
 M.update_lazygit = function(theme_name)
 	return update_lazygit(theme_name)
+end
+
+M.update_crt = function(theme_name)
+	return update_crt(theme_name)
 end
 
 M.get_available_themes = function()
@@ -267,7 +291,7 @@ if arg and arg[0] and arg[0]:match("write_configs%.lua$") then
 		for _, name in ipairs(themes) do
 			print("  - " .. name)
 		end
-		print("\nOptional app_name: dunst, television, lazygit (or omit for all)")
+		print("\nOptional app_name: dunst, television, lazygit, crt (or omit for all)")
 		os.exit(1)
 	end
 
@@ -279,8 +303,10 @@ if arg and arg[0] and arg[0]:match("write_configs%.lua$") then
 			success, result = M.update_television(theme_name)
 		elseif app_name == "lazygit" then
 			success, result = M.update_lazygit(theme_name)
+		elseif app_name == "crt" then
+			success, result = M.update_crt(theme_name)
 		else
-			print("Error: Invalid app_name. Use: dunst, television, lazygit")
+			print("Error: Invalid app_name. Use: dunst, television, lazygit, crt")
 			os.exit(1)
 		end
 

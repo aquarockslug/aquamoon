@@ -8,7 +8,7 @@ local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 local app = "wlr-randr"
 
 local tofi_style = S.theme.tofi
-local menu = dofile(S.path .. "/scripts/tofi.lua").opener.options(tofi_style)
+local menu = dofile(S.path .. "/scripts/sys_tofi.lua").opener.options(tofi_style)
 local choices = menu.choices({
 	app .. " --output HDMI-A-1 --scale 1.25",
 	app .. " --output HDMI-A-1 --scale 1.15",

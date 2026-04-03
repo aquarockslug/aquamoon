@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "monokai-nightasty"
+colorscheme = "mfd-amber"
 
 [config.options]
 autochdir = true
@@ -60,6 +60,7 @@ neogit = "3.0.0"
 tree-sitter-markdown = "0.0.51"
 "bamboo.nvim" = "scm"
 "nightfox.nvim" = "3.10.0"
+lgi = "make[1]:"
 
 [plugins.tv]
 git = "alexpasmantier/tv.nvim"

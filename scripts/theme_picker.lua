@@ -4,10 +4,10 @@
 local M = {}
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-local TT = dofile(S.path .. "/scripts/tinytoml.lua")
+local TT = dofile(S.path .. "/scripts/sys_tinytoml.lua")
 
 local tofi_style = S.theme.tofi
-local menu = dofile(S.path .. "/scripts/tofi.lua").opener.options(tofi_style)
+local menu = dofile(S.path .. "/scripts/sys_tofi.lua").opener.options(tofi_style)
 
 local theme_list = S.theme_list
 
@@ -36,7 +36,7 @@ choice = choice:match("^%s*(.-)%s*$")
 local actual_theme = value_map[choice] or choice
 
 if actual_theme == "random" then
-	local random_theme = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/random_theme.lua")
+	local random_theme = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/theme_random_theme.lua")
 	return M
 end
 
@@ -46,12 +46,12 @@ local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/g' ~/.aquamoon/rocks.toml]]
 os.execute(string.gsub(cmd, "\n", ""))
 
-local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/write_configs.lua")
+local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys_write_configs.lua")
 write_configs.update_all(actual_theme)
 
 os.execute "killall river-luatile"
 
-local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/notify.lua")
+local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/util_notify.lua")
 notify.send("Theme switched to: " .. actual_theme)
 
 dofile(S.path .. "/river/init.lua")

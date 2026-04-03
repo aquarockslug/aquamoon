@@ -15,7 +15,7 @@ local S = dofile(home .. "/.aquamoon/settings.lua")
 R.apply_settings(S)
 os.execute("swaybg --image " .. S.theme.background_image)
 
-dofile(home .. "/.aquamoon/scripts/write-configs.lua").update_all(S.theme_name)
+dofile(home .. "/.aquamoon/scripts/sys_write_configs.lua").update_all(S.theme_name)
 
 return M
 

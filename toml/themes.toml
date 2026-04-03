@@ -9,6 +9,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
+crt = true
 
 [mfd_gbl_light.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -26,6 +27,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 4
 opacity = 0.8
 ddgr_colors = "hcegch"
+crt = false
 
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -43,6 +45,7 @@ background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
 opacity = 0.66
 ddgr_colors = "gcedge"
+crt = false
 
 [sweetie.active_font]
 name = "Lilex Nerd Font:14"
@@ -61,6 +64,7 @@ background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 2
 opacity = 0.8
 ddgr_colors = "gedegd"
+crt = false
 
 [bluloco.active_font]
 name = "Agave Nerd Font:h14"
@@ -78,6 +82,7 @@ background_image = "~/.aquamoon/wallpapers/puma.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
+crt = true
 
 [mfd.active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
@@ -95,6 +100,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "hchchc"
+crt = true
 
 [mfd_amber.active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
@@ -112,6 +118,7 @@ background_image = "~/.aquamoon/wallpapers/puma.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
+crt = true
 
 [mfd_hud.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -130,6 +137,7 @@ background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
 opacity = 0.85
 ddgr_colors = "hchchc"
+crt = false
 
 [monokai_nightasty.active_font]
 name = "Agave Nerd Font:h14"
@@ -147,6 +155,7 @@ background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
 border_width = 2
 opacity = 1.0
 ddgr_colors = "chchch"
+crt = false
 
 [noirblaze.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
@@ -164,6 +173,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 2
 opacity = 1.0
 ddgr_colors = "eheheh"
+crt = false
 
 [afterglow.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
