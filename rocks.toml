@@ -10,7 +10,7 @@ roda = "1.0.3"
 
 # CONFIG
 [config]
-colorscheme = "noirblaze"
+colorscheme = "afterglow"
 
 [config.options]
 autochdir = true
@@ -37,7 +37,7 @@ visualbell = true
 "lsp-status.nvim" = "scm"
 "mini.nvim" = "0.17.0"
 "oil.nvim" = "2.15.0"
-"plenary.nvim" = "0.1.4"
+"plenary.nvim" = "scm"
 "render-markdown.nvim" = { version = "8.12.0", ft = "md" }
 "rocks-config.nvim" = "3.2.0"
 "rocks-git.nvim" = "2.5.10"
@@ -60,7 +60,9 @@ neogit = "3.0.0"
 tree-sitter-markdown = "0.0.51"
 "bamboo.nvim" = "scm"
 "nightfox.nvim" = "3.10.0"
-lgi = "make[1]:"
+lgi = "0.9.2"
+"cling.nvim"= "0.4.0"
+catppuccin = "0.1.0"
 
 [plugins.tv]
 git = "alexpasmantier/tv.nvim"
@@ -72,11 +74,7 @@ rev = "8303242ad5dda0c7840d128c52afe69e3fc97e8b"
 
 [plugins.opencode]
 git = "NickvanDyke/opencode.nvim"
-rev = "v0.5.2"
-
-[plugins."cling.nvim"]
-git = "juniorsundar/cling.nvim"
-rev = "v0.4.0"
+rev = "v0.6.0"
 
 # THEMES
 
@@ -143,3 +141,11 @@ rev = "22d837b814d3bd22625640ef63cc73b8507f291d"
 [plugins.vim-afterglow]
 git = "danilo-augusto/vim-afterglow"
 rev = "v0.7"
+
+[plugins."vesper.nvim"]
+git = "datsfilipe/vesper.nvim"
+rev = "1717b1ad657c94bec3fc2bdebb0c55452d9fe46d"
+
+[plugins.modus-theme-vim]
+git = "ishan9299/modus-theme-vim"
+rev = "4d827fbf1aad55f4d62225f7b999efc5023864a3"

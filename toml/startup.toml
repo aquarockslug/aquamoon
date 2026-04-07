@@ -2,4 +2,5 @@
 1 = ["swayidle", "timeout", "1800", "gtklock"]
 2 = ["dunst"]
 4 = ["river-luatile"]
+4 = ["wlsunset"]
 5 = ["lua ~/.aquamoon/scripts/util_low_battery_warning.lua"]
