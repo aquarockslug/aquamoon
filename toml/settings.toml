@@ -60,9 +60,10 @@ padding = [0, 5]
 9 = "move"
 10 = "pairs"
 11 = "sessions"
-12 = "surround"
-13 = "trailspace"
-14 = "visits"
+13 = "surround"
+14 = "splitjoin"
+15 = "trailspace"
+16 = "visits"
 
 [nvim.plugins.tv.channels]
 files = { keybinding = "<leader>f" }

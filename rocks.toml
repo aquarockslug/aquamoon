@@ -6,11 +6,11 @@ catppuccin = "0.1.0"
 inifile = "1.1"
 warna = "0.3.5"
 luafilesystem = "1.9.0"
-roda = "1.0.3"
+roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "afterglow"
+colorscheme = "mfd"
 
 [config.options]
 autochdir = true
@@ -46,11 +46,11 @@ visualbell = true
 "smart-splits.nvim" = "2.0.5"
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
-nvim-lspconfig = "2.7.0"
+nvim-lspconfig = "2.8.0"
 tree-sitter-lua = "0.0.44"
 tree-sitter-javascript = "0.0.41"
 tree-sitter-toml = "0.0.31"
-neorg = { version = "9.3.0", ft = "norg" }
+neorg = { version = "9.6.4", ft = "norg" }
 "rocks-lazy.nvim" = "1.2.2"
 "lush.nvim" = "scm"
 "cybu.nvim" = "1.0"
@@ -74,7 +74,7 @@ rev = "8303242ad5dda0c7840d128c52afe69e3fc97e8b"
 
 [plugins.opencode]
 git = "NickvanDyke/opencode.nvim"
-rev = "v0.6.0"
+rev = "v0.7.0"
 
 # THEMES
 
@@ -149,3 +149,27 @@ rev = "1717b1ad657c94bec3fc2bdebb0c55452d9fe46d"
 [plugins.modus-theme-vim]
 git = "ishan9299/modus-theme-vim"
 rev = "4d827fbf1aad55f4d62225f7b999efc5023864a3"
+
+[plugins.vim-archery]
+git = "badacadabra/vim-archery"
+rev = "0084b5d1199deb5c671e0e6017e9a0224f66f236"
+
+[plugins.witch]
+git = "sontungexpt/witch"
+rev = "1.0.0"
+
+[plugins.atom]
+git = "gregsexton/atom"
+rev = "v1.1"
+
+[plugins.vim-deep-space]
+git = "tyrannicaltoucan/vim-deep-space"
+rev = "v1.0"
+
+[plugins.abstract-cs]
+git = "abstract-ide/abstract-cs"
+rev = "94e77787c0380fed9944e6f57c3db00e79d69fdb"
+
+[plugins.purify]
+git = "kyoz/purify"
+rev = "70011ccc3225feb2e7bedda36d226adcf221f7ae"
