@@ -26,10 +26,21 @@ commander.register('cd', function(args, sinks)
 	hilbish.prompt(myPrompt())
 end)
 
--- TODO use the tofi script to choose a line from history to put into the terminal
 commander.register('h', function(args, sinks)
-	local choice = menu.choices(display_list).open()
-	menu.choices({ "a", "b", "c" }).open()
+	local histFile = os.getenv("HOME") .. "/.local/share/hilbish/.hilbish-history"
+	local handle = io.popen("tac " .. histFile)
+	local history = {}
+	if handle then
+		for line in handle:lines() do
+			table.insert(history, line)
+		end
+		handle:close()
+	end
+
+	local choice = menu.choices(history).open()
+	if choice and choice ~= "" then
+		hilbish.editor:insert(choice)
+	end
 end)
 
 commander.register('!!', function(args, sinks)

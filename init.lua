@@ -122,8 +122,6 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	end
 })
 
-require('mfd').setup({ bright_comments = true })
-
 local theme = S.theme
 local highlights = {
 	LineNr = { bg = theme.background, fg = theme.text_primary },
@@ -131,7 +129,6 @@ local highlights = {
 	LineNrBelow = { fg = theme.text_primary },
 	CursorLineNr = { fg = theme.text_primary },
 	OilDir = { fg = theme.text_primary },
-	-- LazyGitFloat = { fg = theme.text_primary2 },
 	LazyGitBorder = { fg = theme.text_primary },
 	MiniStarterSection = { fg = theme.text_primary },
 	MiniStarterItemPrefix = { fg = theme.accent },
@@ -156,13 +153,8 @@ if vim.g.neovide then
 	vim.g.neovide_padding_left = 10
 	vim.g.neovide_padding_top = 10
 	vim.opt.linespace = 3
-
-	if S.theme_name == "OceanicNext" or S.theme_name == "minicyan" then
-		vim.g.neovide_cursor_vfx_mode = "torpedo"
-	end
-	if S.theme_name == "srcery" or S.theme_name == "eldritch" then
-		vim.g.neovide_cursor_vfx_mode = "pixiedust"
-	end
+	-- 	vim.g.neovide_cursor_vfx_mode = "torpedo"
+	-- 	vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 
 vim.g.mapleader = S.nvim.leader.mapleader
@@ -226,7 +218,6 @@ M.oil_keymaps = {
 	["zh"] = { "actions.toggle_hidden", mode = "n" },
 }
 
-vim.keymap.set({ "n", "x", "o" }, "<CR>", function() require("leap").leap({ backward = true }) end)
 vim.keymap.set("n", "U", "<c-r>")
 vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
 
@@ -329,30 +320,17 @@ local oil_config = {
 	},
 }
 
-if S.theme_name == "minicyan" or S.theme_name == "moonfly" then
+if S.theme_name == "moonfly" then
 	oil_config.win_options = {
 		winbar = "%!v:lua.get_oil_winbar()",
 	}
 end
 
 require "oil".setup(oil_config)
-
 require "chainsaw".setup()
 require "cybu".setup()
-
-vim.g.oceanic_next_terminal_bold = 1
-vim.g.oceanic_next_terminal_italic = 1
-require "neomodern".setup({ theme = "iceclimber", code_style = { comments = "italic" } })
 require "bluloco".setup({ transparent = true, italics = true })
-
-require "leap".setup({})
-require "leap".opts.preview = function(ch0, ch1, ch2)
-	return not (
-		ch1:match('%s')
-		or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
-	)
-end
-require "leap".opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+require "mfd".setup({ bright_comments = true })
 
 require "tv".setup({
 	channels = S.nvim.plugins.tv.channels,
