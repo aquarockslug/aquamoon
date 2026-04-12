@@ -6,6 +6,7 @@ local M = {}
 local lunacolors = require 'lunacolors'
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local menu = dofile(S.path .. "/scripts/sys_tofi.lua").opener.options(S.theme.tofi)
 
 DDGR_COLORS = S.theme.ddgr_colors
 
@@ -25,6 +26,12 @@ commander.register('cd', function(args, sinks)
 	hilbish.prompt(myPrompt())
 end)
 
+-- TODO use the tofi script to choose a line from history to put into the terminal
+commander.register('h', function(args, sinks)
+	local choice = menu.choices(display_list).open()
+	menu.choices({ "a", "b", "c" }).open()
+end)
+
 commander.register('!!', function(args, sinks)
 	os.execute("cat ~/.local/share/hilbish/.hilbish-history | tail -n 1")
 end)
@@ -41,3 +48,4 @@ for i, v in pairs(S.terminal.aliases) do
 end
 
 return M
+

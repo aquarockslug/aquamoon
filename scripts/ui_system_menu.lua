@@ -18,7 +18,7 @@ local cmd = menu.choices({
 	date ..
 	"\nbattery: " .. battery ..
 	"\ntheme: " .. S.theme.name ..
-	"\nfont: " .. S.theme.active_font.name .. --TODO format by removing text after ';'
+	"\nfont: " .. (S.theme.active_font.name:match("^([^:]+)") or S.theme.active_font.name) ..
 	"\nlua ~/.aquamoon/scripts/theme_screensaver.lua " ..
 	"\ngtklock " ..
 	"\nriverctl exit"
