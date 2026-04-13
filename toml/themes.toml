@@ -67,9 +67,9 @@ ddgr_colors = "gedegd"
 crt = false
 
 [bluloco.active_font]
-name = "Agave Nerd Font:h14"
+name = "Agave Nerd Font:h16"
 path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
-size = 14
+size = 16
 
 # MFD https://github.com/cursorinsight/mfd.nvim
 [mfd]
@@ -125,7 +125,6 @@ name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
-
 # NOIRBLAZE https://github.com/aquamoon/noirblaze-vim
 [noirblaze]
 text_primary = "b4b4b4"
@@ -133,9 +132,9 @@ text_secondary = "737373"
 background = "121212"
 background_alt = "ff0088"
 accent = "ff0088"
-background_image = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
-opacity = 1.0
+opacity = 0.9
 ddgr_colors = "chchch"
 crt = false
 
@@ -161,5 +160,3 @@ crt = false
 name = "FairiesevkaTerm Nerd Font Mono:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
-
-
