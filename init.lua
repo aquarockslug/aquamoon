@@ -330,7 +330,7 @@ require "oil".setup(oil_config)
 require "chainsaw".setup()
 require "cybu".setup()
 require "bluloco".setup({ transparent = true, italics = true })
-require "mfd".setup({ bright_comments = true })
+require "mfd".setup({ accessibility_contrast = 5 })
 
 require "tv".setup({
 	channels = S.nvim.plugins.tv.channels,

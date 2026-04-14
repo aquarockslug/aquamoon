@@ -1,21 +1,3 @@
-# MFD GBL LIGHT https://github.com/cursorinsight/mfd.nvim
-[mfd_gbl_light]
-text_primary = "004F3A"
-text_secondary = "009A70"
-background = "02B582"
-background_alt = "01A878"
-accent = "01694A"
-background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "cegceg"
-crt = true
-
-[mfd_gbl_light.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
 # MOONFLY https://github.com/bluz71/vim-moonfly-colors
 [moonfly]
 text_primary = "ae81ff"
@@ -82,27 +64,9 @@ background_image = "~/.aquamoon/wallpapers/puma.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
-crt = true
+crt = false
 
 [mfd.active_font]
-name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
-path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
-size = 14
-
-# MFD AMBER https://github.com/cursorinsight/mfd.nvim
-[mfd_amber]
-text_primary = "cc9944"
-text_secondary = "382818"
-background = "0f0c08"
-background_alt = "ffbb55"
-accent = "ffbb55"
-background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "hchchc"
-crt = true
-
-[mfd_amber.active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
 path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
 size = 14
@@ -143,20 +107,56 @@ name = "FairiesevkaTerm Nerd Font Mono:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
 
-# AFTERGLOW https://github.com/danilo-augusto/afterglow
-[afterglow]
-text_primary = "d6d6d6"
-text_secondary = "797979"
-background = "1a1a1a"
-background_alt = "e87d3e"
-accent = "e87d3e"
+# MFD-LUMON cold cyan CRT colorscheme
+[mfd_lumon]
+text_primary = "5ac8d8"
+text_secondary = "122838"
+background = "0a1520"
+background_alt = "a0f0ff"
+accent = "a0f0ff"
 background_image = "~/.aquamoon/wallpapers/aurora.jpg"
-border_width = 2
-opacity = 1.0
-ddgr_colors = "eheheh"
+border_width = 4
+opacity = 0.8
+ddgr_colors = "chcech"
 crt = false
 
-[afterglow.active_font]
-name = "FairiesevkaTerm Nerd Font Mono:h14"
-path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
+[mfd_lumon.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14
+
+# MFD-NERV warm fire orange colorscheme
+[mfd_nerv]
+text_primary = "ee8822"
+text_secondary = "2a1208"
+background = "1a0a02"
+background_alt = "ffaa44"
+accent = "ffaa44"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 3
+opacity = 0.9
+ddgr_colors = "chchch"
+crt = false
+
+[mfd_nerv.active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14
+
+# MFD-PAPER cream/green-gray colorscheme
+[mfd_paper]
+text_primary = "002611"
+text_secondary = "a5b2a2"
+background = "bbc5b7"
+background_alt = "002611"
+accent = "002611"
+background_image = "~/.aquamoon/wallpapers/puma.png"
+border_width = 2
+opacity = 1.0
+ddgr_colors = "gedggd"
+crt = false
+
+[mfd_paper.active_font]
+name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
+path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
 size = 14

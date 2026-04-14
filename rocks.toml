@@ -10,7 +10,7 @@ roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "noirblaze"
+colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
@@ -40,7 +40,7 @@ visualbell = true
 "rocks-config.nvim" = "3.2.0"
 "rocks-git.nvim" = "2.5.10"
 "rocks-treesitter.nvim" = "1.3.1"
-"rocks.nvim" = "2.47.4"
+"rocks.nvim" = "2.47.5"
 "smart-splits.nvim" = "2.0.5"
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
@@ -92,3 +92,7 @@ rev = "351f8070dd517659dfd5360fef872966f7cf764c"
 [plugins.noirblaze-vim]
 git = "n1ghtmare/noirblaze-vim"
 rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
+
+[plugins."mfd.nvim"]
+git = "kungfusheep/mfd.nvim"
+rev = "5d6067159e1b1116a12f34827a353572dbf3bdb9"

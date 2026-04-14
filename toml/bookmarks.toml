@@ -18,6 +18,10 @@ url = "https://neovim.io"
 name = "Localhost"
 url = "http://localhost:8000"
 
+[aquarock]
+name = "Aquarock"
+url = "http://aquarock.xyz"
+
 [luarocks]
 name = "Luarocks"
 url = "https://luarocks.org"

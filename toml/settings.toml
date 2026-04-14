@@ -7,10 +7,10 @@ Purple = "moonfly"
 Blue = "bluloco"
 Olive = "mfd"
 Green = "mfd-hud"
-Amber = "mfd-amber"
-Teal = "mfd-gbl-light"
-Orange = "afterglow"
 Pink = "noirblaze"
+Cyan = "mfd-lumon"
+Orange = "mfd-nerv"
+Cream = "mfd-paper"
 
 [river_options]
 border-width = 2
