@@ -1,4 +1,4 @@
-local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys_tinytoml.lua")
+local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
 local script_path = os.getenv("HOME") .. "/.local/bin/crt.js"
 
 local function start()

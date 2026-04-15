@@ -16,7 +16,7 @@ while true do
 
 	if (tonumber(power_left) < threshold and not low_battery) then
 		low_battery = true
-		dofile(S.path .. "/scripts/util_notify.lua").send("LOW BATTERY")
+		dofile(S.path .. "/scripts/trigger/notify.lua").send("LOW BATTERY")
 	end
 
 	if (tonumber(power_left) >= threshold and low_battery) then

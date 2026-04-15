@@ -3,4 +3,4 @@
 2 = ["dunst"]
 4 = ["river-luatile"]
 5 = ["wlsunset"]
-6 = ["lua ~/.aquamoon/scripts/util_low_battery_warning.lua"]
+6 = ["lua ~/.aquamoon/scripts/daemon/low_battery_warning.lua"]

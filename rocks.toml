@@ -10,11 +10,10 @@ roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "sweetie"
+colorscheme = "mfd-paper"
 
 [config.options]
 autochdir = true
-background = "dark" # TODO create keybind and lua script to control this
 clipboard = "unnamedplus"
 cmdheight = 0
 laststatus = 1
@@ -58,9 +57,9 @@ neogit = "3.0.0"
 tree-sitter-markdown = "0.0.51"
 # "bamboo.nvim" = "scm"
 # "nightfox.nvim" = "3.10.0"
+# catppuccin = "0.1.0"
 lgi = "0.9.2"
 "cling.nvim"= "0.4.0"
-# catppuccin = "0.1.0"
 "markview.nvim" = "28.1.0"
 
 [plugins.tv]
@@ -96,3 +95,7 @@ rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
 [plugins."mfd.nvim"]
 git = "kungfusheep/mfd.nvim"
 rev = "5d6067159e1b1116a12f34827a353572dbf3bdb9"
+
+[plugins.blue-moon]
+git = "kyazdani42/blue-moon"
+rev = "ed4ed60abeb8491d02090cea6ae2dd80046c28fc"

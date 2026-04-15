@@ -9,7 +9,7 @@ os.execute("pamixer --decrease " .. amount)
 local curr_volume = io.popen("pamixer --get-volume")
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-dofile(S.path .. "/scripts/util_notify.lua").bar(curr_volume:read("*a"), "Volume")
+dofile(S.path .. "/scripts/trigger/notify.lua").bar(curr_volume:read("*a"), "Volume")
 curr_volume:close()
 
 return M

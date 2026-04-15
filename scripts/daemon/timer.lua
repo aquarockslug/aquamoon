@@ -21,6 +21,6 @@ if not message then
 end
 
 os.execute("sleep " .. wait_time)
-dofile(S.path .. "/scripts/util_notify.lua").send(message)
+dofile(S.path .. "/scripts/trigger/notify.lua").send(message)
 
 return M

@@ -11,7 +11,7 @@ local date = date_cmd:read("*a")
 local battery_cmd = io.popen("cat /sys/class/power_supply/BAT0/capacity")
 local battery = battery_cmd:read("*a")
 
-local menu = dofile(S.path .. "/scripts/sys_tofi.lua").opener
+local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener
 menu = menu.options(S.theme.tofi)
 
 local cmd = menu.choices({
@@ -19,7 +19,7 @@ local cmd = menu.choices({
 	"\nbattery: " .. battery ..
 	"\ntheme: " .. S.theme.name ..
 	"\nfont: " .. (S.theme.active_font.name:match("^([^:]+)") or S.theme.active_font.name) ..
-	"\nlua ~/.aquamoon/scripts/theme_screensaver.lua " ..
+	"\nlua ~/.aquamoon/scripts/daemon/screensaver.lua " ..
 	"\ngtklock " ..
 	"\nriverctl exit"
 }).open()

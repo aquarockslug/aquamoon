@@ -39,7 +39,7 @@ function handle_layout(args)
 
 	if args.output ~= "eDP-1" then return retval end
 
-	dofile(os.getenv("HOME") .. "/.aquamoon/scripts/util_notify.lua").tally(args.tags)
+	dofile(os.getenv("HOME") .. "/.aquamoon/scripts/trigger/notify.lua").tally(args.tags)
 
 	return retval
 end

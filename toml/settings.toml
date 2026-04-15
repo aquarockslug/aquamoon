@@ -11,6 +11,7 @@ Pink = "noirblaze"
 Cyan = "mfd-lumon"
 Orange = "mfd-nerv"
 Cream = "mfd-paper"
+Lavender = "blue-moon"
 
 [river_options]
 border-width = 2
@@ -21,7 +22,6 @@ default-layout = "luatile"
 output-layout = "luatile"
 
 [nvim]
-godot_executable = "/bin/godot3"
 flag = "󰈿"
 
 [nvim.lazygit]
@@ -64,6 +64,7 @@ padding = [0, 5]
 14 = "splitjoin"
 15 = "trailspace"
 16 = "visits"
+17 = "jump2d"
 
 [nvim.plugins.tv.channels]
 files = { keybinding = "<leader>f" }
@@ -77,7 +78,7 @@ navigate = { open_vsplit = "e", open_split = "E" }
 [nvim.plugins.cling.wrappers]
 1 = { command = "Lg", binary = "lazygit", close_on_exit = true }
 2 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
-3 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme_theme_picker.lua" }
+3 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme/picker.lua" }
 4 = { command = "Deploy", binary = "lua ./deploy.lua" }
 5 = { command = "Far", binary = "scooter", close_on_exit = true }
 6 = { command = "AI", binary = "opencode", close_on_exit = true }

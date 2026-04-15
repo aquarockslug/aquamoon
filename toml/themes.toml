@@ -160,3 +160,21 @@ crt = false
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
 path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
 size = 14
+
+# BLUE-MOON dark blue-purple colorscheme
+[blue_moon]
+text_primary = "a6accd"
+text_secondary = "8796b0"
+background = "1b1e2b"
+background_alt = "959dcb"
+accent = "89ddff"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "chcech"
+crt = false
+
+[blue_moon.active_font]
+name = "Lilex Nerd Font:16"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 16

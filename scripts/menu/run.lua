@@ -4,7 +4,7 @@
 local M = {}
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-local tofi = dofile(S.path .. "/scripts/sys_tofi.lua")
+local tofi = dofile(S.path .. "/scripts/sys/tofi.lua")
 tofi.opener.options(S.theme.tofi).open()
 
 return M

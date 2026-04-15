@@ -3,7 +3,7 @@
 
 local M = {}
 
-local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys_tinytoml.lua")
+local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
 
 local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
 
@@ -216,7 +216,7 @@ local function update_crt(theme_name)
 	end
 
 	local crt_enabled = theme.crt
-	local crt_script = os.getenv("HOME") .. "/.aquamoon/scripts/theme_crt.lua"
+	local crt_script = os.getenv("HOME") .. "/.aquamoon/scripts/theme/crt.lua"
 
 	os.execute("cd " .. os.getenv("HOME") .. "/.aquamoon && lua " .. crt_script .. (crt_enabled and " start" or " stop") .. " 2>/dev/null")
 

@@ -22,57 +22,57 @@ M.map = {
 		{
 			mod = { "Super" },
 			key = "S",
-			command = lua_script("ui_browse"),
+			command = lua_script("menu/browse"),
 		},
 		{
 			mod = { "Super" },
 			key = "A",
-			command = lua_script("ui_bookmarks"),
+			command = lua_script("menu/bookmarks"),
 		},
 		{
 			mod = { "Super" },
 			key = "D",
-			command = lua_script("ui_run"),
+			command = lua_script("menu/run"),
 		},
 		{
 			mod = { "Super" },
 			key = "Z",
-			command = lua_script("ui_system_menu"),
+			command = lua_script("menu/system_menu"),
 		},
 		{
 			mod = { "Super" },
 			key = "W",
-			command = lua_script("ui_networkmanager"),
+			command = lua_script("menu/networkmanager"),
 		},
 		{
 			mod = { "Super" },
 			key = "T",
-			command = lua_script("theme_picker"),
+			command = lua_script("theme/picker"),
 		},
 		{
 			mod = { "Super" },
 			key = "V",
-			command = lua_script("media_lower_brightness"),
+			command = lua_script("trigger/lower_brightness"),
 		},
 		{
 			mod = { "Super" },
 			key = "M",
-			command = lua_script("media_raise_brightness"),
+			command = lua_script("trigger/raise_brightness"),
 		},
 		{
 			mod = { "Super" },
 			key = "B",
-			command = lua_script("media_lower_volume"),
+			command = lua_script("trigger/lower_volume"),
 		},
 		{
 			mod = { "Super" },
 			key = "N",
-			command = lua_script("media_raise_volume"),
+			command = lua_script("trigger/raise_volume"),
 		},
 		{
 			mod = { "Super", "Shift" },
 			key = "S",
-			command = lua_script("util_screenshot"),
+			command = lua_script("trigger/screenshot"),
 		},
 		{
 			mod = "Super",
