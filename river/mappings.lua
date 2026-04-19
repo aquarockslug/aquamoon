@@ -52,27 +52,27 @@ M.map = {
 		{
 			mod = { "Super" },
 			key = "V",
-			command = lua_script("trigger/lower_brightness"),
+			command = lua_script("sys/lower_brightness"),
 		},
 		{
 			mod = { "Super" },
 			key = "M",
-			command = lua_script("trigger/raise_brightness"),
+			command = lua_script("sys/raise_brightness"),
 		},
 		{
 			mod = { "Super" },
 			key = "B",
-			command = lua_script("trigger/lower_volume"),
+			command = lua_script("sys/lower_volume"),
 		},
 		{
 			mod = { "Super" },
 			key = "N",
-			command = lua_script("trigger/raise_volume"),
+			command = lua_script("sys/raise_volume"),
 		},
 		{
 			mod = { "Super", "Shift" },
 			key = "S",
-			command = lua_script("trigger/screenshot"),
+			command = lua_script("sys/screenshot"),
 		},
 		{
 			mod = "Super",
@@ -105,7 +105,7 @@ M.map = {
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(-1)" ]] },
 		},
 		{
-			mod = { "Super", "Shift" },
+			mod = { "Super", "Shift"},
 			key = "L",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
 		},

@@ -10,7 +10,7 @@ local curr = io.popen("brightnessctl get"):read("*a")
 local max = io.popen("brightnessctl max"):read("*a")
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
-dofile(S.path .. "/scripts/trigger/notify.lua").bar(curr / max * 100, "Brightness")
+dofile(S.path .. "/scripts/sys/notify.lua").bar(curr / max * 100, "Brightness")
 curr:close()
 
 return M

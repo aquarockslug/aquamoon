@@ -32,7 +32,7 @@ write_configs.update_all(new_theme)
 
 os.execute "killall river-luatile"
 
-local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/trigger/notify.lua")
+local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/notify.lua")
 notify.send("Theme switched to: " .. new_theme)
 
 dofile(S.path .. "/river/init.lua")

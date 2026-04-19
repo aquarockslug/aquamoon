@@ -10,7 +10,7 @@ roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "mfd-paper"
+colorscheme = "mfd-lumon"
 
 [config.options]
 autochdir = true
@@ -40,7 +40,7 @@ visualbell = true
 "rocks-git.nvim" = "2.5.10"
 "rocks-treesitter.nvim" = "1.3.1"
 "rocks.nvim" = "2.47.5"
-"smart-splits.nvim" = "2.0.5"
+"smart-splits.nvim" = "2.1.0"
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
 nvim-lspconfig = "2.8.0"

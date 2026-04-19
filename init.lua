@@ -67,7 +67,7 @@ vim.cmd.aqua_save = function()
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
 		MiniTrailspace.trim()
 		vim.lsp.buf.format()
-		require("scripts/trigger/notify").send(require('lsp-status').status())
+		require("scripts/sys/notify").send(require('lsp-status').status())
 	end
 
 	vim.cmd "silent write"
@@ -166,17 +166,17 @@ end
 
 function M.show_cursor_position()
 	local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
-	require("scripts/trigger/notify").send(
-		"Row: " .. tostring(cursor_row) .. ", " ..
-		"Col: " .. tostring(cursor_col)
-	)
+require("scripts/sys/notify").send(
+			"Row: " .. tostring(cursor_row) .. ", " ..
+			"Col: " .. tostring(cursor_col)
+		)
 end
 
 function M.show_file_status()
 	local file_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~')
 	local modified = vim.bo.modified and ' [modified]' or ''
 	local msg = file_path .. modified
-	require("scripts/trigger/notify").send(msg)
+	require("scripts/sys/notify").send(msg)
 end
 
 function M.adjust_neovide_scale(delta)
