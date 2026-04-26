@@ -10,7 +10,7 @@ roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "mfd-lumon"
+colorscheme = "bluloco"
 
 [config.options]
 autochdir = true
@@ -84,18 +84,29 @@ rev = "v1.4.0"
 git = "bluz71/vim-moonfly-colors"
 rev = "d11b3d04cc1cb71a778d67a4df73283a5a6d66f4"
 
-[plugins.mfd]
-git = "kungfusheep/mfd.nvim"
-rev = "351f8070dd517659dfd5360fef872966f7cf764c"
-
 [plugins.noirblaze-vim]
 git = "n1ghtmare/noirblaze-vim"
 rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
 
 [plugins."mfd.nvim"]
 git = "kungfusheep/mfd.nvim"
-rev = "5d6067159e1b1116a12f34827a353572dbf3bdb9"
 
 [plugins.blue-moon]
 git = "kyazdani42/blue-moon"
 rev = "ed4ed60abeb8491d02090cea6ae2dd80046c28fc"
+
+[plugins.vim-colors-paramount]
+git = "owickstrom/vim-colors-paramount"
+rev = "a5601d36fb6932e8d1a6f8b37b179a99b1456798"
+
+[plugins.sunfly]
+git = "bry-guy/sunfly"
+rev = "v0.1.0"
+
+[plugins."paint.nvim"]
+git = "loukis-13/paint.nvim"
+rev = "0b0e58daf79b4f32a63aa5efe8efb9a2dbc6b14f"
+
+[plugins.abstract-cs]
+git = "abstract-ide/abstract-cs"
+rev = "94e77787c0380fed9944e6f57c3db00e79d69fdb"

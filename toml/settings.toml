@@ -12,6 +12,7 @@ Cyan = "mfd-lumon"
 Orange = "mfd-nerv"
 Cream = "mfd-paper"
 Lavender = "blue-moon"
+Paramount = "paramount"
 
 [river_options]
 border-width = 2
