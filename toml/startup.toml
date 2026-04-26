@@ -1,6 +1,7 @@
 0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
 1 = ["swayidle", "timeout", "1800", "gtklock"]
 2 = ["dunst"]
+3 = ["lua ~/.aquamoon/scripts/daemon/clipboard.lua"]
 4 = ["river-luatile"]
 5 = ["wlsunset"]
 6 = ["lua ~/.aquamoon/scripts/daemon/low_battery_warning.lua"]

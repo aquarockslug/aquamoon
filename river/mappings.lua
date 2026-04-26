@@ -70,6 +70,11 @@ M.map = {
 			command = lua_script("sys/raise_volume"),
 		},
 		{
+			mod = { "Super" },
+			key = "C",
+			command = lua_script("menu/clipboard"),
+		},
+		{
 			mod = { "Super", "Shift" },
 			key = "S",
 			command = lua_script("sys/screenshot"),
@@ -85,9 +90,14 @@ M.map = {
 			command = "zoom",
 		},
 		{
-			mod = "Super",
+			mod = { "Super", "Shift" },
 			key = "F",
 			command = "toggle-fullscreen",
+		},
+		{
+			mod = "Super",
+			key = "F",
+			command = { "spawn", [[ "neovide +'Tv channels'" ]] },
 		},
 		{
 			mod = "Super",
@@ -105,7 +115,7 @@ M.map = {
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(-1)" ]] },
 		},
 		{
-			mod = { "Super", "Shift"},
+			mod = { "Super", "Shift" },
 			key = "L",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
 		},
