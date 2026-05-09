@@ -243,7 +243,7 @@ for key, func in pairs(split_keymaps) do
 end
 
 local leader_keymaps = {
-	e = vim.cmd.Oil,
+	e = vim.cmd.Canola,
 	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua --") end,
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,

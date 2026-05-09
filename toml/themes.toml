@@ -116,7 +116,7 @@ background_alt = "a0f0ff"
 accent = "a0f0ff"
 background_image = "~/.aquamoon/wallpapers/nerv_grey.jpg"
 border_width = 4
-opacity = 0.8
+opacity = 1.0
 ddgr_colors = "chcech"
 crt = false
 
@@ -134,7 +134,7 @@ background_alt = "ffaa44"
 accent = "ffaa44"
 background_image = "~/.aquamoon/wallpapers/nerv_red.jpg"
 border_width = 3
-opacity = 0.9
+opacity = 1.0
 ddgr_colors = "chchch"
 crt = false
 

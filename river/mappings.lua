@@ -126,8 +126,18 @@ M.map = {
 		},
 		{
 			mod = { "Super" },
-			key = "L",
+			key = "J",
 			command = { "set-focused-tags", "2" },
+		},
+		{
+			mod = { "Super" },
+			key = "K",
+			command = { "set-focused-tags", "3" },
+		},
+		{
+			mod = { "Super" },
+			key = "L",
+			command = { "set-focused-tags", "4" },
 		},
 	},
 }
