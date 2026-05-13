@@ -110,6 +110,16 @@ M.map = {
 			command = { "focus-view", "next" },
 		},
 		{
+			mod = { "Super" },
+			key = "H",
+			command = { "set-focused-tags", "1" },
+		},
+		{
+			mod = { "Super" },
+			key = "L",
+			command = { "set-focused-tags", "2" },
+		},
+		{
 			mod = { "Super", "Shift" },
 			key = "H",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(-1)" ]] },
@@ -118,26 +128,6 @@ M.map = {
 			mod = { "Super", "Shift" },
 			key = "L",
 			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
-		},
-		{
-			mod = { "Super" },
-			key = "H",
-			command = { "set-focused-tags", "1" },
-		},
-		{
-			mod = { "Super" },
-			key = "J",
-			command = { "set-focused-tags", "2" },
-		},
-		{
-			mod = { "Super" },
-			key = "K",
-			command = { "set-focused-tags", "3" },
-		},
-		{
-			mod = { "Super" },
-			key = "L",
-			command = { "set-focused-tags", "4" },
 		},
 	},
 }

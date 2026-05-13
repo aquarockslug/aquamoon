@@ -10,7 +10,7 @@ roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "paramount"
+colorscheme = "moonfly"
 
 [config.options]
 autochdir = true

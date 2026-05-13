@@ -166,10 +166,10 @@ end
 
 function M.show_cursor_position()
 	local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
-require("scripts/sys/notify").send(
-			"Row: " .. tostring(cursor_row) .. ", " ..
-			"Col: " .. tostring(cursor_col)
-		)
+	require("scripts/sys/notify").send(
+		"Row: " .. tostring(cursor_row) .. ", " ..
+		"Col: " .. tostring(cursor_col)
+	)
 end
 
 function M.show_file_status()
@@ -243,7 +243,7 @@ for key, func in pairs(split_keymaps) do
 end
 
 local leader_keymaps = {
-	e = vim.cmd.Canola,
+	e = vim.cmd.Oil, -- TODO use vim.cmd.Canola instead
 	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua --") end,
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,
@@ -278,7 +278,7 @@ for cmd, func in pairs(function_keymaps) do
 end
 
 require("mini.hipatterns").setup({
-	highlighters = S.nvim.plugins.hipatterns,
+	highlighters = S.nvim.plugins.hipatterns, -- WARN not working?
 })
 
 local starter = require('mini.starter')
