@@ -4,7 +4,9 @@
 local M = {}
 
 local file_name = "screenshot" .. os.date("_at_%I_%M%p")
-local path = "~/Pictures/Screenshots/" .. file_name .. ".jpg"
+local dir = os.getenv("HOME") .. "/Pictures/Screenshots"
+os.execute("mkdir -p " .. dir)
+local path = dir .. "/" .. file_name .. ".jpg"
 
 local selection = io.popen("slurp")
 os.execute("grim -g '" .. selection:read("*a"):match("^%s*(.-)%s*$") .. "' " .. path)

@@ -1,10 +1,13 @@
--- Volume control for Aquamoon
--- Increases system volume and shows notification
-
 local M = {}
 
+local direction = arg[1]
 local amount = 5
-os.execute("pamixer --increase " .. amount)
+
+if direction == "increase" then
+    os.execute("pamixer --increase " .. amount)
+elseif direction == "decrease" then
+    os.execute("pamixer --decrease " .. amount)
+end
 
 local curr_volume = io.popen("pamixer --get-volume")
 

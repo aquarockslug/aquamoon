@@ -3,9 +3,10 @@
 
 local M = {}
 
-local function lua_script(script_name)
+local function lua_script(script_name, ...)
+	local args = table.concat({...}, " ")
 	local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
-	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua"']] }
+	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua ]] .. args .. [["']] }
 end
 
 local function terminal_app(app)
@@ -47,27 +48,27 @@ M.map = {
 		{
 			mod = { "Super" },
 			key = "T",
-			command = lua_script("theme/picker"),
+			command = lua_script("theme/theme_picker"),
 		},
 		{
 			mod = { "Super" },
 			key = "V",
-			command = lua_script("sys/lower_brightness"),
+			command = lua_script("sys/brightness", "decrease"),
 		},
 		{
 			mod = { "Super" },
 			key = "M",
-			command = lua_script("sys/raise_brightness"),
+			command = lua_script("sys/brightness", "increase"),
 		},
 		{
 			mod = { "Super" },
 			key = "B",
-			command = lua_script("sys/lower_volume"),
+			command = lua_script("sys/volume", "decrease"),
 		},
 		{
 			mod = { "Super" },
 			key = "N",
-			command = lua_script("sys/raise_volume"),
+			command = lua_script("sys/volume", "increase"),
 		},
 		{
 			mod = { "Super" },

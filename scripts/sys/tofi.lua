@@ -27,25 +27,31 @@ local function execute_tofi(choices, options)
 end
 
 local opener
-local function create_opener(choi, opts)
+local function create_opener(choices, opts)
 	return {
 		open = function()
-			return execute_tofi(choi, opts)
+			-- TODO only pass a list of choice.name to tofi
+			local selection_name = execute_tofi(choice_names, opts)
+
+			-- TODO look up the value of the choice using its name
+			local selection_value = selection_name
+
+			return selection_value
 		end,
 		info = function()
-			return { choices = choi, options = opts }
+			return { choices = choices, options = opts }
 		end,
-		choices = function(new_choi)
-			return create_opener(new_choi, opts)
+		choices = function(new_choices)
+			-- TODO choice: { name = "Option On Screen", value = "value returned by code" }
+
+			return create_opener(new_choices, opts)
 		end,
 		options = function(new_opts)
-			return create_opener(choi, new_opts)
+			return create_opener(choices, new_opts)
 		end,
 	}
 end
-
 opener = create_opener(nil, nil)
-
 M.opener = opener
-
 return M
+

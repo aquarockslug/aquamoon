@@ -19,8 +19,15 @@ local cmd = menu.choices({
 	"\nbattery: " .. battery ..
 	"\ntheme: " .. S.theme.name ..
 	"\nfont: " .. (S.theme.active_font.name:match("^([^:]+)") or S.theme.active_font.name) ..
+	"\nlua ~/.aquamoon/scripts/sys/screenshot.lua " ..
+	"\nlua ~/.aquamoon/scripts/sys/pick_color.lua " ..
+	"\nlua ~/.aquamoon/scripts/menu/clipboard.lua " ..
+	"\nlua ~/.aquamoon/scripts/menu/display_scale_menu.lua " ..
+	"\nlua ~/.aquamoon/scripts/theme/theme_picker.lua " ..
 	"\nlua ~/.aquamoon/scripts/daemon/screensaver.lua " ..
-	"\ngtklock " ..
+	"\nsystemctl suspend " ..
+	"\nsystemctl reboot " ..
+	"\nsystemctl poweroff " ..
 	"\nriverctl exit"
 }).open()
 
