@@ -9,7 +9,6 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 4
 opacity = 0.8
 ddgr_colors = "hcegch"
-crt = false
 
 [moonfly.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -27,7 +26,6 @@ background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
 opacity = 0.66
 ddgr_colors = "gcedge"
-crt = false
 
 [sweetie.active_font]
 name = "Lilex Nerd Font:14"
@@ -46,7 +44,6 @@ background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 2
 opacity = 0.8
 ddgr_colors = "gedegd"
-crt = false
 
 [bluloco.active_font]
 name = "Agave Nerd Font:h16"
@@ -64,7 +61,6 @@ background_image = "~/.aquamoon/wallpapers/puma.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
-crt = false
 
 [mfd.active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
@@ -82,7 +78,6 @@ background_image = "~/.aquamoon/wallpapers/puma.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
-crt = true
 
 [mfd_hud.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -100,7 +95,6 @@ background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
 opacity = 0.66
 ddgr_colors = "chchch"
-crt = false
 
 [noirblaze.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
@@ -118,7 +112,6 @@ background_image = "~/.aquamoon/wallpapers/nerv_grey.jpg"
 border_width = 4
 opacity = 1.0
 ddgr_colors = "chcech"
-crt = false
 
 [mfd_lumon.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -136,7 +129,6 @@ background_image = "~/.aquamoon/wallpapers/nerv_red.jpg"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "chchch"
-crt = false
 
 [mfd_nerv.active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"
@@ -154,7 +146,6 @@ background_image = "~/.aquamoon/wallpapers/puma.png"
 border_width = 2
 opacity = 1.0
 ddgr_colors = "gedggd"
-crt = false
 
 [mfd_paper.active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
@@ -172,27 +163,25 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 2
 opacity = 0.8
 ddgr_colors = "chchch"
-crt = false
 
 [paramount.active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"
 path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
 size = 14
 
-# BLUE-MOON dark blue-purple colorscheme
-[blue_moon]
-text_primary = "a6accd"
-text_secondary = "8796b0"
-background = "1b1e2b"
-background_alt = "959dcb"
-accent = "89ddff"
-background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+# ABSTRACT-CS https://github.com/abstract-ide/abstract-cs
+[abscs]
+text_primary = "FFFADE"
+text_secondary = "B3B3B3"
+background = "060606"
+background_alt = "FFFADE"
+accent = "1D918B"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
-opacity = 1.0
-ddgr_colors = "chcech"
-crt = false
+opacity = 0.5
+ddgr_colors = "chchch"
 
-[blue_moon.active_font]
+[abscs.active_font]
 name = "Lilex Nerd Font:16"
 path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
 size = 16

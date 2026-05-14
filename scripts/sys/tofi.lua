@@ -1,49 +1,61 @@
--- Tofi launcher API for Aquamoon
--- Provides a Lua wrapper for the Tofi application launcher
-
 local M = {}
+
+local function choice_name(choice)
+	return type(choice) == "table" and choice.name or choice
+end
+
+local function choice_value(choices, name)
+	for _, c in ipairs(choices) do
+		if choice_name(c) == name then
+			if type(c) == "table" then
+				return c.value ~= nil and c.value or c.name
+			end
+			return c
+		end
+	end
+	return name
+end
 
 local function execute_tofi(choices, options)
 	local cmd = ""
 	if choices then
 		cmd = "echo '"
-		for i, choice in ipairs(choices) do
-			cmd = cmd .. choice .. "\n"
+		for _, choice in ipairs(choices) do
+			cmd = cmd .. choice_name(choice) .. "\n"
 		end
 		cmd = cmd .. "' | tofi "
 	else
 		cmd = "tofi-drun "
 	end
-	for option, value in pairs(options) do
-		local arg = "--" .. option .. "=" .. value
-		cmd = cmd .. " " .. arg
+	for k, v in pairs(options or {}) do
+		cmd = cmd .. " --" .. k .. "=" .. v
 	end
 
 	local handle = io.popen(cmd)
 	local retval = ""
-	if handle then retval = handle:read("*a") end
-	handle:close()
-	return retval
+	if handle then
+		retval = handle:read("*a")
+		handle:close()
+	end
+	return retval:gsub("%s+$", "")
 end
 
-local opener
 local function create_opener(choices, opts)
 	return {
 		open = function()
-			-- TODO only pass a list of choice.name to tofi
-			local selection_name = execute_tofi(choice_names, opts)
-
-			-- TODO look up the value of the choice using its name
-			local selection_value = selection_name
-
-			return selection_value
+			local selection = execute_tofi(choices, opts)
+			if selection == "" then
+				return nil
+			end
+			if choices then
+				return choice_value(choices, selection)
+			end
+			return selection
 		end,
 		info = function()
 			return { choices = choices, options = opts }
 		end,
 		choices = function(new_choices)
-			-- TODO choice: { name = "Option On Screen", value = "value returned by code" }
-
 			return create_opener(new_choices, opts)
 		end,
 		options = function(new_opts)
@@ -51,7 +63,7 @@ local function create_opener(choices, opts)
 		end,
 	}
 end
-opener = create_opener(nil, nil)
-M.opener = opener
+
+M.opener = create_opener(nil, nil)
 return M
 

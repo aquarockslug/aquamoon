@@ -10,7 +10,7 @@ roda = "1.14.0"
 
 # CONFIG
 [config]
-colorscheme = "paramount"
+colorscheme = "abscs"
 
 [config.options]
 autochdir = true
@@ -47,10 +47,6 @@ visualbell = true
 "snipe.nvim" = "scm"
 "sweetie.nvim" = "3.2.0"
 "unnest.nvim" = "0.1.1"
-# "bamboo.nvim" = "scm"
-# "nightfox.nvim" = "3.10.0"
-# catppuccin = "0.1.0"
-#"feed.nvim" = "2.19.0"
 lgi = "0.9.2"
 luafilesystem = "1.9.0"
 neogit = "3.0.0"
@@ -75,9 +71,9 @@ rev = "8303242ad5dda0c7840d128c52afe69e3fc97e8b"
 git = "NickvanDyke/opencode.nvim"
 rev = "v0.7.0"
 
-[plugins."paint.nvim"]
-git = "loukis-13/paint.nvim"
-rev = "0b0e58daf79b4f32a63aa5efe8efb9a2dbc6b14f"
+[plugins."oxicord.nvim"]
+git = "kaminzhi/oxicord.nvim"
+rev = "3ee9c8ddea07353705a0fda5ed2222071351ca38"
 
 # THEMES
 
@@ -96,17 +92,9 @@ rev = "03132e01915d261ce5a8812ec633ff63d84718a1"
 [plugins."mfd.nvim"]
 git = "kungfusheep/mfd.nvim"
 
-[plugins.blue-moon]
-git = "kyazdani42/blue-moon"
-rev = "ed4ed60abeb8491d02090cea6ae2dd80046c28fc"
-
 [plugins.vim-colors-paramount]
 git = "owickstrom/vim-colors-paramount"
 rev = "a5601d36fb6932e8d1a6f8b37b179a99b1456798"
-
-[plugins.sunfly]
-git = "bry-guy/sunfly"
-rev = "v0.1.0"
 
 [plugins.abstract-cs]
 git = "abstract-ide/abstract-cs"
