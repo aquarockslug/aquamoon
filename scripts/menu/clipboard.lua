@@ -12,8 +12,11 @@ local function read_history()
 	local entries = {}
 	local file = io.open(history_path, "r")
 	if file then
+		local count = 0
 		for line in file:lines() do
 			table.insert(entries, line)
+			count = count + 1
+			if count > 100 then break end
 		end
 		file:close()
 	end
@@ -53,7 +56,7 @@ local function open_clipboard_menu()
 		width = "33%",
 		height = "50%",
 		["outline-width"] = 0,
-		-- ["prompt-text"] = "󰍌 Clipboard",
+		["prompt-text"] = "Copy: ",
 		["selection-color"] = S.theme.text_secondary,
 		["border-width"] = S.theme.border_width,
 		["text-color"] = S.theme.text_primary,

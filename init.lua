@@ -50,6 +50,9 @@ local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
 package.path = package.path .. ";" .. S.path .. "/?.lua"
 package.path = package.path .. ";" .. S.path .. "/?/init.lua"
 
+vim.o.shell = "hilbish -C " .. S.path .. "/terminal.lua"
+-- WARNING: Setting shell to Hilbish instead of bash may break plugins
+-- revert this line and override keymaps individually to fix them.
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor
 vim.g.lazygit_floating_window_border_chars = S.nvim.lazygit.border_chars
@@ -183,8 +186,27 @@ function M.adjust_neovide_scale(delta)
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + delta
 end
 
-function M.open_terminal(command)
-	vim.cmd("terminal " .. command)
+local hilbish_buf = nil
+local hilbish_win = nil
+
+local function toggle_hilbish()
+	if hilbish_win and vim.api.nvim_win_is_valid(hilbish_win) then
+		vim.api.nvim_win_close(hilbish_win, true)
+		hilbish_win = nil
+		return
+	end
+
+	if hilbish_buf and vim.api.nvim_buf_is_valid(hilbish_buf) then
+		vim.cmd("sbuffer " .. hilbish_buf)
+		hilbish_win = vim.api.nvim_get_current_win()
+		vim.cmd("startinsert")
+		return
+	end
+
+	vim.cmd("terminal")
+	vim.cmd("startinsert")
+	hilbish_buf = vim.api.nvim_get_current_buf()
+	hilbish_win = vim.api.nvim_get_current_win()
 end
 
 function M.oil_files_to_quickfix()
@@ -244,7 +266,7 @@ end
 
 local leader_keymaps = {
 	e = vim.cmd.Oil, -- TODO use vim.cmd.Canola instead
-	w = function() M.open_terminal("hilbish -C ~/.aquamoon/terminal.lua --") end,
+	w = toggle_hilbish,
 	q = vim.cmd.bd,
 	d = M.toggle_diagnostics,
 	c = M.show_cursor_position,

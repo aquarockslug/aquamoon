@@ -25,6 +25,4 @@ fuzzy = true
 notifyJobFinish = true
 
 [prompt]
-cyan = "{cyan}"
-red = "{red}"
-flag = "󰈿 "
+symbol = "󰈿 "
