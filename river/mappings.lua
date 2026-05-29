@@ -1,151 +1,40 @@
 -- River window manager key mappings for Aquamoon
--- Defines keyboard and mouse bindings for launching apps and window management
+-- Loads keyboard and mouse bindings from TOML configuration
 
 local M = {}
 
-local function lua_script(script_name, ...)
-	local args = table.concat({...}, " ")
-	local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
-	return { "spawn", [['sh -c "lua ]] .. script_path .. script_name .. [[.lua ]] .. args .. [["']] }
+local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
+
+local function expand_command(cmd)
+  if cmd[1] == "lua-script" then
+    local script_name = cmd[2]
+    local args_table = {}
+    for i = 3, #cmd do args_table[#args_table + 1] = cmd[i] end
+    local args = table.concat(args_table, " ")
+    local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
+    return { "spawn", "'sh -c \"lua " .. script_path .. script_name .. ".lua " .. args .. "\"'" }
+  elseif cmd[1] == "terminal-app" then
+    local app = cmd[2]
+    return { "spawn", "'neovide term://\"" .. app .. "\"'" }
+  end
+  return cmd
 end
 
-local function terminal_app(app)
-	return { "spawn", [['neovide term://"]] .. app .. [["']] }
+local raw = tinytoml.parse(os.getenv("HOME") .. "/.aquamoon/toml/mappings.toml")
+
+for _, map_type in pairs(raw) do
+  for mode, tbl in pairs(map_type) do
+    local bindings = tbl.bindings
+    for _, binding in ipairs(bindings) do
+      if binding.command then
+        binding.command = expand_command(binding.command)
+      end
+    end
+    map_type[mode] = bindings
+  end
 end
 
-M.map = {
-	normal = {
-		{
-			mod = { "Super" },
-			key = "Return",
-			command = { "spawn", [[ "neovide --no-tabs" ]] },
-		},
-		{
-			mod = { "Super" },
-			key = "S",
-			command = lua_script("menu/browse"),
-		},
-		{
-			mod = { "Super" },
-			key = "A",
-			command = lua_script("menu/bookmarks"),
-		},
-		{
-			mod = { "Super" },
-			key = "D",
-			command = lua_script("menu/run"),
-		},
-		{
-			mod = { "Super" },
-			key = "Z",
-			command = lua_script("menu/system_menu"),
-		},
-		{
-			mod = { "Super" },
-			key = "W",
-			command = lua_script("menu/networkmanager"),
-		},
-		{
-			mod = { "Super" },
-			key = "T",
-			command = lua_script("theme/theme_picker"),
-		},
-		{
-			mod = { "Super" },
-			key = "V",
-			command = lua_script("sys/brightness", "decrease"),
-		},
-		{
-			mod = { "Super" },
-			key = "M",
-			command = lua_script("sys/brightness", "increase"),
-		},
-		{
-			mod = { "Super" },
-			key = "B",
-			command = lua_script("sys/volume", "decrease"),
-		},
-		{
-			mod = { "Super" },
-			key = "N",
-			command = lua_script("sys/volume", "increase"),
-		},
-		{
-			mod = { "Super" },
-			key = "C",
-			command = lua_script("menu/clipboard"),
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "S",
-			command = lua_script("sys/screenshot"),
-		},
-		{
-			mod = "Super",
-			key = "Q",
-			command = "close",
-		},
-		{
-			mod = "Super",
-			key = "E",
-			command = "zoom",
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "F",
-			command = "toggle-fullscreen",
-		},
-		{
-			mod = "Super",
-			key = "F",
-			command = { "spawn", [[ "neovide +'Tv channels'" ]] },
-		},
-		{
-			mod = "Super",
-			key = "J",
-			command = { "focus-view", "previous" },
-		},
-		{
-			mod = "Super",
-			key = "K",
-			command = { "focus-view", "next" },
-		},
-		{
-			mod = { "Super" },
-			key = "H",
-			command = { "set-focused-tags", "1" },
-		},
-		{
-			mod = { "Super" },
-			key = "L",
-			command = { "set-focused-tags", "2" },
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "H",
-			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(-1)" ]] },
-		},
-		{
-			mod = { "Super", "Shift" },
-			key = "L",
-			command = { "send-layout-cmd", "luatile", [[ "modify_main_ratio(1)" ]] },
-		},
-	},
-}
-
-M["map-pointer"] = {
-	normal = {
-		{
-			mod = "Super",
-			key = "BTN_LEFT",
-			command = "move-view",
-		},
-		{
-			mod = "Super",
-			key = "BTN_RIGHT",
-			command = "resize-view",
-		},
-	},
-}
+M.map = raw.map
+M["map-pointer"] = raw["map-pointer"]
 
 return M

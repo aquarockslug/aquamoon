@@ -1,31 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 local tinytoml = {}
-
-
-
-
-
-
-
 
 local TOML_VERSION = "1.1.0"
 tinytoml._VERSION = "tinytoml 1.0.0"
@@ -33,126 +6,6 @@ tinytoml._TOML_VERSION = TOML_VERSION
 tinytoml._DESCRIPTION = "a single-file pure Lua TOML parser"
 tinytoml._URL = "https://github.com/FourierTransformer/tinytoml"
 tinytoml._LICENSE = "MIT"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 local sbyte = string.byte
 local chars = {
@@ -168,7 +21,6 @@ local chars = {
    LF = sbyte("\n"),
 }
 
-
 local function replace_control_chars(s)
    return string.gsub(s, "[%z\001-\008\011-\031\127]", function(c)
       return string.format("\\x%02x", string.byte(c))
@@ -177,8 +29,6 @@ end
 
 local function _error(sm, message, anchor)
    local error_message = {}
-
-
 
    if sm.filename then
       error_message = { "\n\nIn '", sm.filename, "', line ", sm.line_number, ":\n\n  " }

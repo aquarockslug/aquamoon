@@ -1,0 +1,126 @@
+[map.normal]
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "Return"
+command = ["spawn", "\"neovide --no-tabs\""]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "S"
+command = ["lua-script", "menu/browse"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "A"
+command = ["lua-script", "menu/bookmarks"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "D"
+command = ["lua-script", "menu/run"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "Z"
+command = ["lua-script", "menu/system_menu"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "W"
+command = ["lua-script", "menu/networkmanager"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "T"
+command = ["lua-script", "theme/theme_picker"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "V"
+command = ["lua-script", "sys/brightness", "decrease"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "M"
+command = ["lua-script", "sys/brightness", "increase"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "B"
+command = ["lua-script", "sys/volume", "decrease"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "N"
+command = ["lua-script", "sys/volume", "increase"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "C"
+command = ["lua-script", "menu/clipboard"]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "S"
+command = ["lua-script", "sys/screenshot"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "Q"
+command = ["close"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "E"
+command = ["zoom"]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "F"
+command = ["toggle-fullscreen"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "F"
+command = ["spawn", "\"neovide +'Tv channels'\""]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "J"
+command = ["focus-view", "previous"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "K"
+command = ["focus-view", "next"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "H"
+command = ["set-focused-tags", "1"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "L"
+command = ["set-focused-tags", "2"]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "H"
+command = ["send-layout-cmd", "luatile", "\"modify_main_ratio(-1)\""]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "L"
+command = ["send-layout-cmd", "luatile", "\"modify_main_ratio(1)\""]
+
+[map-pointer.normal]
+[[map-pointer.normal.bindings]]
+mod = ["Super"]
+key = "BTN_LEFT"
+command = ["move-view"]
+
+[[map-pointer.normal.bindings]]
+mod = ["Super"]
+key = "BTN_RIGHT"
+command = ["resize-view"]
