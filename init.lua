@@ -45,7 +45,7 @@ local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 package.path = package.path .. ";" .. S.path .. "/?.lua"
 package.path = package.path .. ";" .. S.path .. "/?/init.lua"
 
-vim.o.shell = "hilbish -C " .. S.path .. "/terminal.lua"
+vim.o.shell = "hilbish -C " .. S.path .. "/scripts/sys/terminal.lua"
 -- WARNING: Setting shell to Hilbish instead of bash may break plugins
 -- revert this line and override keymaps individually to fix them.
 vim.g.godot_executable = S.nvim.godot_executable

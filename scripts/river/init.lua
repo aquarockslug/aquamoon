@@ -9,7 +9,7 @@ os.execute(
 	"riverctl input pointer-1118-64-Microsoft_Microsoft_3-Button_Mouse_with_IntelliEye\\(TM\\) pointer-accel 3 pointer-accel 4")
 
 local home = os.getenv("HOME")
-local R = dofile(home .. "/.aquamoon/river/river.lua")
+local R = dofile(home .. "/.aquamoon/scripts/river/river.lua")
 local S = dofile(home .. "/.aquamoon/scripts/sys/settings.lua")
 
 R.apply_settings(S)

@@ -7,7 +7,7 @@ local username = "aqua"
 local userdir = "/home/" .. username
 local aquamoondir = userdir .. "/.aquamoon"
 
-local init_lua = aquamoondir .. "/river/init.lua"
+local init_lua = aquamoondir .. "/scripts/river/init.lua"
 
 local f = io.open(init_lua, "r")
 if f then

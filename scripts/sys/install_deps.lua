@@ -54,7 +54,7 @@ end
 local init_path = home .. "/.config/river/init"
 local f = io.open(init_path, "w")
 if f then
-  f:write("#!/bin/bash\nlua " .. aq .. "/river/init.lua\n")
+  f:write("#!/bin/bash\nlua " .. aq .. "/scripts/river/init.lua\n")
   f:close()
   os.execute("chmod +x " .. init_path)
   print("  wrote " .. init_path)
@@ -66,4 +66,4 @@ if ok then
 end
 
 print()
-print("Done. Start with: river -init " .. aq .. "/river/init.lua")
+print("Done. Start with: river -init " .. aq .. "/scripts/river/init.lua")
