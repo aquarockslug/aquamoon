@@ -45,7 +45,7 @@ local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/startup.to
 local input_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/inputs.toml")
 
 M.path = os.getenv("HOME") .. "/.aquamoon"
-M.mappings = dofile(os.getenv("HOME") .. "/.aquamoon/river/mappings.lua")
+M.mappings = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/mappings.lua")
 M.theme_name = theme.name
 M.theme = theme
 M.theme_list = config.theme_list

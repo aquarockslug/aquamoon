@@ -1,7 +1,7 @@
 -- Random theme changer for Aquamoon
 -- Randomly selects and applies a desktop theme
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local TT = dofile(S.path .. "/scripts/sys/tinytoml.lua")
 
 local themes_toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")

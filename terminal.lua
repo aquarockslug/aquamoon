@@ -5,7 +5,7 @@ local M = {}
 
 local lunacolors = require 'lunacolors'
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
 
 DDGR_COLORS = S.theme.ddgr_colors

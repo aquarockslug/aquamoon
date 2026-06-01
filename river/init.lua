@@ -10,7 +10,7 @@ os.execute(
 
 local home = os.getenv("HOME")
 local R = dofile(home .. "/.aquamoon/river/river.lua")
-local S = dofile(home .. "/.aquamoon/settings.lua")
+local S = dofile(home .. "/.aquamoon/scripts/sys/settings.lua")
 
 R.apply_settings(S)
 os.execute("swaybg --image " .. S.theme.background_image)

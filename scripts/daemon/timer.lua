@@ -5,7 +5,7 @@
 
 local M = {}
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 
 local wait_time = arg[1]
 local message = arg[2]

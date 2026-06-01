@@ -1,0 +1,238 @@
+# Neovim keybindings for Aquamoon
+# Loaded by mappings.lua via tinytoml
+
+[oil]
+[[oil.bindings]]
+lhs = "H"
+action = "actions.parent"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "L"
+action = "actions.select"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "e"
+action = "actions.select"
+mode = "n"
+opts = { close = false, vertical = true }
+
+[[oil.bindings]]
+lhs = "E"
+action = "actions.select"
+mode = "n"
+opts = { close = false, horizontal = true }
+
+[[oil.bindings]]
+lhs = "<Tab>"
+action = "actions.preview"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "<C-q>"
+handler = "oil_files_to_quickfix"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "zo"
+action = "actions.open_external"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "zy"
+action = "actions.yank_entry"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "zz"
+action = "actions.open_terminal"
+mode = "n"
+
+[[oil.bindings]]
+lhs = "zh"
+action = "actions.toggle_hidden"
+mode = "n"
+
+[misc]
+[[misc.bindings]]
+lhs = "U"
+rhs = "<c-r>"
+modes = ["n"]
+
+[[misc.bindings]]
+lhs = "<Esc>"
+rhs = "<C-\\><C-n>"
+modes = ["t"]
+noremap = true
+
+[split]
+[[split.bindings]]
+lhs = "<A-Left>"
+plugin = "smart-splits"
+func = "resize_left"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<A-Down>"
+plugin = "smart-splits"
+func = "resize_down"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<A-Up>"
+plugin = "smart-splits"
+func = "resize_up"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<A-Right>"
+plugin = "smart-splits"
+func = "resize_right"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<Left>"
+plugin = "smart-splits"
+func = "move_cursor_left"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<Down>"
+plugin = "smart-splits"
+func = "move_cursor_down"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<Up>"
+plugin = "smart-splits"
+func = "move_cursor_up"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<Right>"
+plugin = "smart-splits"
+func = "move_cursor_right"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<C-\\>"
+plugin = "smart-splits"
+func = "move_cursor_previous"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<leader><Left>"
+plugin = "smart-splits"
+func = "swap_buf_left"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<leader><Down>"
+plugin = "smart-splits"
+func = "swap_buf_down"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<leader><Up>"
+plugin = "smart-splits"
+func = "swap_buf_up"
+modes = ["n"]
+
+[[split.bindings]]
+lhs = "<leader><Right>"
+plugin = "smart-splits"
+func = "swap_buf_right"
+modes = ["n"]
+
+[leader]
+modes_default = ["n", "x", "o"]
+
+[[leader.bindings]]
+lhs = "e"
+cmd = "Oil"
+
+[[leader.bindings]]
+lhs = "w"
+handler = "toggle_hilbish"
+
+[[leader.bindings]]
+lhs = "q"
+cmd = "bd"
+
+[[leader.bindings]]
+lhs = "d"
+handler = "toggle_diagnostics"
+
+[[leader.bindings]]
+lhs = "c"
+handler = "show_cursor_position"
+
+[[leader.bindings]]
+lhs = "v"
+handler = "show_file_status"
+
+[[leader.bindings]]
+lhs = "i"
+lua = "vim.lsp.buf.hover()"
+
+[[leader.bindings]]
+lhs = "h"
+cmd = "LazyGitFilterCurrentFile"
+
+[[leader.bindings]]
+lhs = "j"
+handler = "adjust_neovide_scale"
+args = [-0.1]
+
+[[leader.bindings]]
+lhs = "k"
+handler = "adjust_neovide_scale"
+args = [0.1]
+
+[[leader.bindings]]
+lhs = "l"
+lua = 'require("chainsaw").variableLog()'
+
+[[leader.bindings]]
+lhs = "L"
+lua = 'require("chainsaw").removeLogs()'
+
+[[leader.bindings]]
+lhs = "/"
+cmd = "noh"
+
+[function]
+modes_default = ["n", "i"]
+
+[[function.bindings]]
+key = 1
+cmd = "LazyGit"
+
+[[function.bindings]]
+key = 2
+handler = "aqua_save"
+
+[[function.bindings]]
+key = 3
+lua = 'vim.cmd.split "./"'
+
+[[function.bindings]]
+key = 4
+lua = 'vim.cmd.vsplit "./"'
+
+[[function.bindings]]
+key = 5
+rhs = "<Plug>(CybuPrev)"
+
+[[function.bindings]]
+key = 6
+rhs = "<Plug>(CybuNext)"
+
+[[function.bindings]]
+key = 7
+lua = 'require("snipe").open_buffer_menu()'
+
+[[function.bindings]]
+key = 8
+handler = "aqua_run"

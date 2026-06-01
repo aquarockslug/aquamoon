@@ -5,7 +5,7 @@ local M = {}
 
 local home = os.getenv("HOME")
 local history_path = home .. "/.aquamoon/clipboard_history"
-local S = dofile(home .. "/.aquamoon/settings.lua")
+local S = dofile(home .. "/.aquamoon/scripts/sys/settings.lua")
 local tofi = dofile(S.path .. "/scripts/sys/tofi.lua")
 
 local function read_history()

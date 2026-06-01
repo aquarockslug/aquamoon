@@ -11,7 +11,7 @@ local handle = io.popen(
 local color = handle:read("*l")
 handle:close()
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local notify = dofile(S.path .. "/scripts/sys/notify.lua")
 
 if not color or color == "" then

@@ -11,7 +11,7 @@ end
 
 local curr_volume = io.popen("pamixer --get-volume")
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 dofile(S.path .. "/scripts/sys/notify.lua").bar(curr_volume:read("*a"), "Volume")
 curr_volume:close()
 

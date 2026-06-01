@@ -1,7 +1,7 @@
 -- System menu for Aquamoon
 -- Shows date, battery, and provides system actions
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
 
 local date = io.popen("date '+%I:%M%P on %A, %B %d'"):read("*a")

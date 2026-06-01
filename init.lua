@@ -10,7 +10,6 @@ local function bootstrap_rocks()
 	local rocks_config = {
 		rocks_path = vim.fs.normalize(install_location),
 	}
-
 	vim.g.rocks_nvim = rocks_config
 
 	local luarocks_path = {
@@ -24,29 +23,25 @@ local function bootstrap_rocks()
 		vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
 	}
 	package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
-
 	vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim",
 		"*"))
 
 	if not pcall(require, "rocks") then
 		local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache") --[[@as string]], "rocks.nvim")
-
 		if not vim.uv.fs_stat(rocks_location) then
 			local url = "https://github.com/lumen-oss/rocks.nvim"
 			vim.fn.system({ "git", "clone", "--filter=blob:none", url, rocks_location })
 			assert(vim.v.shell_error == 0,
 				"rocks.nvim installation failed. Try exiting and re-entering Neovim!")
 		end
-
 		vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
-
 		vim.fn.delete(rocks_location, "rf")
 	end
 end
 
 bootstrap_rocks()
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/settings.lua")
+local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 package.path = package.path .. ";" .. S.path .. "/?.lua"
 package.path = package.path .. ";" .. S.path .. "/?/init.lua"
 
@@ -227,76 +222,89 @@ function M.oil_files_to_quickfix()
 	return vim.cmd.copen()
 end
 
-M.oil_keymaps = {
-	["H"] = { "actions.parent", mode = "n" },
-	["L"] = { "actions.select", mode = "n" },
-	["e"] = { "actions.select", opts = { close = false, vertical = true }, mode = "n" },
-	["E"] = { "actions.select", opts = { close = false, horizontal = true }, mode = "n" },
-	["<Tab>"] = { "actions.preview", mode = "n" },
-	['<C-q>'] = M.oil_files_to_quickfix,
-	["zo"] = { "actions.open_external", mode = "n" },
-	["zy"] = { "actions.yank_entry", mode = "n" },
-	["zz"] = { "actions.open_terminal", mode = "n" },
-	["zh"] = { "actions.toggle_hidden", mode = "n" },
+-- Load keybindings from TOML via tinytoml
+local mappings = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/mappings.lua")
+
+local handlers = {
+	toggle_hilbish = toggle_hilbish,
+	toggle_diagnostics = M.toggle_diagnostics,
+	show_cursor_position = M.show_cursor_position,
+	show_file_status = M.show_file_status,
+	oil_files_to_quickfix = M.oil_files_to_quickfix,
+	aqua_save = vim.cmd.aqua_save,
+	aqua_run = vim.cmd.aqua_run,
+	adjust_neovide_scale = M.adjust_neovide_scale,
 }
 
-vim.keymap.set("n", "U", "<c-r>")
-vim.cmd.tnoremap("<Esc>", "<C-\\><C-n>")
-
-local smart_splits = require('smart-splits')
-local split_keymaps = {
-	['<A-Left>'] = smart_splits.resize_left,
-	['<A-Down>'] = smart_splits.resize_down,
-	['<A-Up>'] = smart_splits.resize_up,
-	['<A-Right>'] = smart_splits.resize_right,
-	['<Left>'] = smart_splits.move_cursor_left,
-	['<Down>'] = smart_splits.move_cursor_down,
-	['<Up>'] = smart_splits.move_cursor_up,
-	['<Right>'] = smart_splits.move_cursor_right,
-	['<C-\\>'] = smart_splits.move_cursor_previous,
-	['<leader><Left>'] = smart_splits.swap_buf_left,
-	['<leader><Down>'] = smart_splits.swap_buf_down,
-	['<leader><Up>'] = smart_splits.swap_buf_up,
-	['<leader><Right>'] = smart_splits.swap_buf_right,
-}
-
-for key, func in pairs(split_keymaps) do
-	vim.keymap.set('n', key, func)
+local function apply_modes(value)
+	if type(value) == "table" then
+		return value
+	end
+	return { value }
 end
 
-local leader_keymaps = {
-	e = vim.cmd.Oil, -- TODO use vim.cmd.Canola instead
-	w = toggle_hilbish,
-	q = vim.cmd.bd,
-	d = M.toggle_diagnostics,
-	c = M.show_cursor_position,
-	v = M.show_file_status,
-	i = vim.lsp.buf.hover,
-	h = function() vim.cmd "LazyGitFilterCurrentFile" end,
-	j = function() M.adjust_neovide_scale(-0.1) end,
-	k = function() M.adjust_neovide_scale(0.1) end,
-	l = function() require "chainsaw".variableLog() end,
-	L = function() require "chainsaw".removeLogs() end,
-	["/"] = vim.cmd.noh,
-}
-
-for key, func in pairs(leader_keymaps) do
-	vim.keymap.set({ "n", "x", "o" }, "<leader>" .. key, func)
+-- Build oil keymaps
+M.oil_keymaps = {}
+for _, b in ipairs(mappings.oil) do
+	local mode = b.mode or "n"
+	if b.handler then
+		M.oil_keymaps[b.lhs] = { handlers[b.handler], mode = mode }
+	else
+		local entry = { b.action, mode = mode }
+		if b.opts then
+			entry.opts = b.opts
+		end
+		M.oil_keymaps[b.lhs] = entry
+	end
 end
 
-local function_keymaps = {
-	[1] = function() vim.cmd "LazyGit" end,
-	[2] = vim.cmd.aqua_save,
-	[3] = function() vim.cmd.split "./" end,
-	[4] = function() vim.cmd.vsplit "./" end,
-	[5] = "<Plug>(CybuPrev)",
-	[6] = "<Plug>(CybuNext)",
-	[7] = function() require("snipe").open_buffer_menu() end,
-	[8] = vim.cmd.aqua_run,
-}
+-- Apply misc keymaps
+for _, b in ipairs(mappings.misc) do
+	local modes = apply_modes(b.modes)
+	local opts = {}
+	if b.noremap then opts.noremap = true end
+	vim.keymap.set(modes, b.lhs, b.rhs, opts)
+end
 
-for cmd, func in pairs(function_keymaps) do
-	vim.keymap.set({ "n", "i" }, "<F" .. cmd .. ">", func)
+-- Apply split keymaps (smart-splits)
+for _, b in ipairs(mappings.split) do
+	local plugin = require(b.plugin)
+	local modes = apply_modes(b.modes)
+	vim.keymap.set(modes, b.lhs, plugin[b.func])
+end
+
+-- Apply leader keymaps
+local leader_modes = mappings.leader.modes_default or { "n", "x", "o" }
+for _, b in ipairs(mappings.leader.bindings) do
+	local fn
+	if b.cmd then
+		fn = vim.cmd[b.cmd]
+	elseif b.handler then
+		if b.args then
+			fn = function() handlers[b.handler](unpack(b.args)) end
+		else
+			fn = handlers[b.handler]
+		end
+	elseif b.lua then
+		fn = loadstring(b.lua)
+	end
+	vim.keymap.set(leader_modes, "<leader>" .. b.lhs, fn)
+end
+
+-- Apply function keymaps
+local fn_modes = mappings["function"].modes_default or { "n", "i" }
+for _, b in ipairs(mappings["function"].bindings) do
+	local fn
+	if b.cmd then
+		fn = vim.cmd[b.cmd]
+	elseif b.handler then
+		fn = handlers[b.handler]
+	elseif b.lua then
+		fn = loadstring(b.lua)
+	elseif b.rhs then
+		fn = b.rhs
+	end
+	vim.keymap.set(fn_modes, "<F" .. b.key .. ">", fn)
 end
 
 require("mini.hipatterns").setup({
@@ -354,12 +362,51 @@ require "cybu".setup()
 require "bluloco".setup({ transparent = true, italics = true })
 require "mfd".setup({ accessibility_contrast = 5 })
 
-require "tv".setup({
-	channels = S.nvim.plugins.tv.channels,
+-- configure tv channel actions
+local tv_h = require("tv").handlers
+local tv_channels = {}
+for name, config in pairs(S.nvim.plugins.tv.channels) do
+	tv_channels[name] = { keybinding = config.keybinding }
+	if name == "files" then
+		tv_channels[name].handlers = {
+			["<CR>"] = tv_h.open_as_files,
+			["<C-s>"] = tv_h.open_in_split,
+			["<C-v>"] = tv_h.open_in_vsplit,
+			["<C-y>"] = tv_h.copy_to_clipboard,
+		}
+	elseif name == "text" then
+		tv_channels[name].handlers = {
+			["<CR>"] = tv_h.open_at_line,
+			["<C-s>"] = tv_h.open_in_split,
+			["<C-v>"] = tv_h.open_in_vsplit,
+			["<C-y>"] = tv_h.copy_to_clipboard,
+			["<C-q>"] = tv_h.send_to_quickfix,
+		}
+	elseif name == "git-repos" then
+		tv_channels[name].handlers = {
+			["<CR>"] = function(entries)
+				if #entries > 0 then
+					vim.api.nvim_set_current_dir(entries[1])
+				end
+			end,
+			["<C-y>"] = tv_h.copy_to_clipboard,
+		}
+	elseif name == "procs" then
+		tv_channels[name].handlers = {
+			["<CR>"] = tv_h.execute_shell_command("kill {}"),
+			["<C-y>"] = tv_h.copy_to_clipboard,
+		}
+	end
+end
+
+require("tv").setup({
+	channels = tv_channels,
 	window = {
 		width = 1,
 		height = 1,
-	}
+		border = "rounded",
+		title = " TV ",
+	},
 })
 
 require "snipe".setup({

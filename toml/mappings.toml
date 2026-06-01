@@ -81,8 +81,18 @@ command = ["toggle-fullscreen"]
 
 [[map.normal.bindings]]
 mod = ["Super"]
-key = "F"
+key = "G"
 command = ["spawn", "\"neovide +'Tv channels'\""]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "F"
+command = ["spawn", "\"neovide +'Tv git-repos'\""]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "P"
+command = ["spawn", "\"neovide +'Tv procs'\""]
 
 [[map.normal.bindings]]
 mod = ["Super"]
