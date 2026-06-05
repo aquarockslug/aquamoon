@@ -10,7 +10,7 @@ roda = "1.16.9"
 
 # CONFIG
 [config]
-colorscheme = "abscs"
+colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
@@ -69,7 +69,7 @@ rev = "8303242ad5dda0c7840d128c52afe69e3fc97e8b"
 
 [plugins.opencode]
 git = "NickvanDyke/opencode.nvim"
-rev = "v0.10.1"
+rev = "v0.10.2"
 
 [plugins."oxicord.nvim"]
 git = "kaminzhi/oxicord.nvim"

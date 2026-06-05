@@ -311,6 +311,7 @@ require("mini.hipatterns").setup({
 	highlighters = S.nvim.plugins.hipatterns, -- WARN not working?
 })
 
+-- TODO customize this more
 local starter = require('mini.starter')
 require("mini.starter").setup({
 	header = "",
