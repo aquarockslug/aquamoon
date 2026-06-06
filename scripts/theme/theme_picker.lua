@@ -36,7 +36,7 @@ choice = choice:match("^%s*(.-)%s*$")
 local actual_theme = value_map[choice] or choice
 
 if actual_theme == "random" then
-	local random_theme = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/theme/random.lua")
+	local random_theme = dofile(S.path .. "/scripts/theme/random.lua")
 	return M
 end
 

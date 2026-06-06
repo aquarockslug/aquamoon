@@ -2,18 +2,21 @@
 home = "~/.aquamoon"
 
 [theme_list]
+
+# combine multiple neovim themes into one aquamoon theme?
+
+# blue theme
 Grey = "sweetie"
-Purple = "moonfly"
-Blue = "bluloco"
-# Olive = "mfd"
-# Green = "mfd-hud"
-Pink = "noirblaze"
 Cyan = "abscs"
-# Cyan = "mfd-lumon"
-# Orange = "mfd-nerv"
+Blue = "bluloco"
+
+# minimal color theme
+Pink = "noirblaze"
 Cream = "mfd-paper"
-# Lavender = "blue-moon"
+
+# purple theme
 Paramount = "paramount"
+Purple = "moonfly"
 
 [river_options]
 border-width = 2
@@ -22,71 +25,6 @@ focus-follows-cursor = "normal"
 attach-mode = "right"
 default-layout = "luatile"
 output-layout = "luatile"
-
-[nvim]
-flag = "󰈿"
-
-[nvim.lazygit]
-scaling_factor = 1
-border_chars = ["", "", "", "", "", "", "", ""]
-
-[nvim.diagnostics]
-signs = false
-virtual_lines = true
-enable = false
-
-[nvim.leader]
-key = ","
-mapleader = ","
-maplocalleader = ","
-
-[nvim.plugins.hipatterns]
-WARN = "%f[%w]()WARN()%f[%W]"
-HACK = "%f[%w]()HACK()%f[%W]"
-TODO = "%f[%w]()TODO()%f[%W]"
-
-[nvim.plugins.starter]
-recent_files_count = 20
-padding = [0, 5]
-
-[nvim.plugins.unconfigured_mini]
-0 = "ai"
-1 = "align"
-2 = "basics"
-3 = "bracketed"
-4 = "comment"
-5 = "diff"
-6 = "icons"
-7 = "jump"
-8 = "keymap"
-9 = "move"
-10 = "pairs"
-11 = "sessions"
-13 = "surround"
-14 = "splitjoin"
-15 = "trailspace"
-16 = "visits"
-17 = "jump2d"
-
-[nvim.plugins.tv.channels]
-files = { keybinding = "<leader>f" }
-text = { keybinding = "<leader>g" }
-"git-repos" = { keybinding = "<leader>gr" }
-procs = { keybinding = "<leader>p" }
-
-[nvim.plugins.snipe]
-position = "center"
-text_align = "file-first"
-navigate = { open_vsplit = "e", open_split = "E" }
-
-[nvim.plugins.cling.wrappers]
-1 = { command = "Lg", binary = "lazygit", close_on_exit = true }
-2 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
-3 = { command = "Theme", binary = "lua ~/.aquamoon/scripts/theme/theme_picker.lua" }
-4 = { command = "Deploy", binary = "lua ./deploy.lua" }
-5 = { command = "Far", binary = "scooter", close_on_exit = true }
-6 = { command = "AI", binary = "opencode", close_on_exit = true }
-7 = { command = "DDGR", binary = "ddgr", close_on_exit = true }
 
 [window_rules.ssd]
 0 = "firefox"

@@ -93,7 +93,7 @@ background_alt = "ff0088"
 accent = "ff0088"
 background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
-opacity = 0.66
+opacity = 1.0
 ddgr_colors = "chchch"
 
 [noirblaze.active_font]

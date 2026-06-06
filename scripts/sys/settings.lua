@@ -40,6 +40,7 @@ current_theme_name = string.gsub(current_theme_name, "-", "_") -- nvim uses "-" 
 local theme = get_theme(current_theme_name or "sweetie")
 
 local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")
+local nvim_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/nvim_settings.toml")
 local terminal_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/terminal.toml")
 local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/startup.toml")
 local input_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/inputs.toml")
@@ -57,7 +58,7 @@ M.river_options = river_opts
 M.startup_commands = startup_config
 M.window_rules = config.window_rules
 M.terminal = terminal_config
-M.nvim = config.nvim
+M.nvim = nvim_config.nvim
 M.inputs = input_config
 
 return M
