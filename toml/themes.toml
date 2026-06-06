@@ -1,3 +1,5 @@
+# TODO add a theme directory with a font toml file and a different file for each theme
+
 # MOONFLY https://github.com/bluz71/vim-moonfly-colors
 [moonfly]
 text_primary = "ae81ff"
@@ -93,7 +95,7 @@ background_alt = "ff0088"
 accent = "ff0088"
 background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
-opacity = 1.0
+opacity = 0.66
 ddgr_colors = "chchch"
 
 [noirblaze.active_font]
@@ -142,7 +144,7 @@ text_secondary = "a5b2a2"
 background = "bbc5b7"
 background_alt = "002611"
 accent = "002611"
-background_image = "~/.aquamoon/wallpapers/puma.png"
+background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 2
 opacity = 1.0
 ddgr_colors = "gedggd"

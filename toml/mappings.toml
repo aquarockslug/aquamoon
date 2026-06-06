@@ -6,13 +6,8 @@ command = ["spawn", "\"neovide --no-tabs\""]
 
 [[map.normal.bindings]]
 mod = ["Super"]
-key = "S"
-command = ["lua-script", "menu/browse"]
-
-[[map.normal.bindings]]
-mod = ["Super"]
-key = "A"
-command = ["lua-script", "menu/bookmarks"]
+key = "F"
+command = ["lua-script", "menu/master"]
 
 [[map.normal.bindings]]
 mod = ["Super"]
@@ -21,19 +16,35 @@ command = ["lua-script", "menu/run"]
 
 [[map.normal.bindings]]
 mod = ["Super"]
-key = "Z"
-command = ["lua-script", "menu/system_menu"]
-
-[[map.normal.bindings]]
-mod = ["Super"]
-key = "W"
-command = ["lua-script", "menu/networkmanager"]
-
-[[map.normal.bindings]]
-mod = ["Super"]
 key = "T"
 command = ["lua-script", "theme/theme_picker"]
 
+# Volume/brightness via media keys (HW test)
+[[map.normal.bindings]]
+key = "XF86AudioLowerVolume"
+opt = "repeat"
+command = ["lua-script", "sys/volume", "decrease"]
+
+[[map.normal.bindings]]
+key = "XF86AudioRaiseVolume"
+opt = "repeat"
+command = ["lua-script", "sys/volume", "increase"]
+
+[[map.normal.bindings]]
+key = "XF86AudioMute"
+command = ["spawn", "\"pamixer --toggle-mute\""]
+
+[[map.normal.bindings]]
+key = "XF86MonBrightnessDown"
+opt = "repeat"
+command = ["lua-script", "sys/brightness", "decrease"]
+
+[[map.normal.bindings]]
+key = "XF86MonBrightnessUp"
+opt = "repeat"
+command = ["lua-script", "sys/brightness", "increase"]
+
+# Fallback Super+letter bindings
 [[map.normal.bindings]]
 mod = ["Super"]
 key = "V"
@@ -53,11 +64,6 @@ command = ["lua-script", "sys/volume", "decrease"]
 mod = ["Super"]
 key = "N"
 command = ["lua-script", "sys/volume", "increase"]
-
-[[map.normal.bindings]]
-mod = ["Super"]
-key = "C"
-command = ["lua-script", "menu/clipboard"]
 
 [[map.normal.bindings]]
 mod = ["Super", "Shift"]
@@ -81,12 +87,12 @@ command = ["toggle-fullscreen"]
 
 [[map.normal.bindings]]
 mod = ["Super"]
-key = "G"
+key = "A"
 command = ["spawn", "\"neovide +'Tv channels'\""]
 
 [[map.normal.bindings]]
 mod = ["Super"]
-key = "F"
+key = "S"
 command = ["spawn", "\"neovide +'Tv git-repos'\""]
 
 [[map.normal.bindings]]
