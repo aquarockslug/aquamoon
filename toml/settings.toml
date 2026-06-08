@@ -2,6 +2,7 @@
 home = "~/.aquamoon"
 
 # combine multiple neovim themes into one aquamoon theme?
+# TODO try carvion and poimandres
 [theme_list]
 GrayLight = "noirblaze"
 GrayDark = "sweetie"
@@ -9,8 +10,8 @@ GrayDark = "sweetie"
 GlowLight = "mfd-paper"
 GlowDark = "bluloco"
 
-VoidLight = "moonfly"
-VoidDark = "paramount"
+VoidLight = "paramount"
+VoidDark = "moonfly"
 
 [river_options]
 border-width = 2
