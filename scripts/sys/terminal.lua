@@ -9,6 +9,8 @@ local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
 
 DDGR_COLORS = S.theme.ddgr_colors
+TERM = "neovide"
+SHELL = "/bin/hilbish"
 
 hilbish.opts = S.terminal.hilbish_opts
 hilbish.appendPath(os.getenv("HOME") .. "/.aquamoon/scripts/")

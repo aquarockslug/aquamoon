@@ -5,17 +5,13 @@ local M = {}
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local TT = dofile(S.path .. "/scripts/sys/tinytoml.lua")
-
-local tofi_style = S.theme.tofi
-local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(tofi_style)
-
-local theme_list = S.theme_list
+local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
 
 local display_list = {}
 local value_map = {}
 table.insert(display_list, "Random")
 value_map["Random"] = "random"
-for _, entry in pairs(theme_list) do
+for _, entry in pairs(S.theme_list) do
 	local display_name, value
 	if type(entry) == "table" then
 		display_name = entry.d or entry[1]
