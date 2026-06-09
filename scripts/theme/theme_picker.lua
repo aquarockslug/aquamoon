@@ -51,6 +51,7 @@ os.execute "killall river-luatile"
 local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/notify.lua")
 notify.send("Theme switched to: " .. actual_theme)
 
+AQUAMOON_SKIP_RANDOM = true
 dofile(S.path .. "/scripts/river/init.lua")
 
 return M

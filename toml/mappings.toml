@@ -15,12 +15,6 @@ key = "D"
 command = ["lua-script", "menu/run"]
 
 [[map.normal.bindings]]
-mod = ["Super"]
-key = "T"
-command = ["lua-script", "theme/theme_picker"]
-
-# Volume/brightness via media keys (HW test)
-[[map.normal.bindings]]
 key = "XF86AudioLowerVolume"
 opt = "repeat"
 command = ["lua-script", "sys/volume", "decrease"]
@@ -44,7 +38,6 @@ key = "XF86MonBrightnessUp"
 opt = "repeat"
 command = ["lua-script", "sys/brightness", "increase"]
 
-# Fallback Super+letter bindings
 [[map.normal.bindings]]
 mod = ["Super"]
 key = "V"
