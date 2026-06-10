@@ -1,0 +1,15 @@
+# MOONFLY https://github.com/bluz71/vim-moonfly-colors
+text_primary = "ae81ff"
+text_secondary = "bdbdbd"
+background = "080808"
+background_alt = "ae81ff"
+accent = "cf87e8"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 4
+opacity = 0.8
+ddgr_colors = "hcegch"
+
+[active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14

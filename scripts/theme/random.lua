@@ -4,13 +4,16 @@
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local TT = dofile(S.path .. "/scripts/sys/tinytoml.lua")
 
--- TODO choose from the list of themes in settings.toml instead of reading the themes file
-local themes_toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")
 local available_themes = {}
-for name, _ in pairs(themes_toml) do
-	if name ~= "active_font" then
-		table.insert(available_themes, name)
+local handle = io.popen("ls " .. os.getenv("HOME") .. "/.aquamoon/toml/themes/*.toml 2>/dev/null")
+if handle then
+	for file in handle:lines() do
+		local name = file:match("([^/]+)%.toml$")
+		if name then
+			table.insert(available_themes, name)
+		end
 	end
+	handle:close()
 end
 
 math.randomseed(os.time())

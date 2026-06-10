@@ -10,12 +10,16 @@ local M = {}
 
 if not AQUAMOON_SKIP_RANDOM then
 	local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
-	local themes = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")
 	local theme_names = {}
-	for name, _ in pairs(themes) do
-		if name ~= "active_font" then
-			table.insert(theme_names, name)
+	local handle = io.popen("ls " .. os.getenv("HOME") .. "/.aquamoon/toml/themes/*.toml 2>/dev/null")
+	if handle then
+		for file in handle:lines() do
+			local name = file:match("([^/]+)%.toml$")
+			if name then
+				table.insert(theme_names, name)
+			end
 		end
+		handle:close()
 	end
 	math.randomseed(os.time())
 	local new_theme = theme_names[math.random(#theme_names)]

@@ -1,0 +1,15 @@
+# NOIRBLAZE https://github.com/aquamoon/noirblaze-vim
+text_primary = "b4b4b4"
+text_secondary = "737373"
+background = "121212"
+background_alt = "ff0088"
+accent = "ff0088"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 2
+opacity = 0.66
+ddgr_colors = "chchch"
+
+[active_font]
+name = "FairiesevkaTerm Nerd Font Mono:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
+size = 14

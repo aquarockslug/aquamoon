@@ -5,7 +5,9 @@ local M = {}
 
 local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
 
-local themes_path = os.getenv("HOME") .. "/.aquamoon/toml/themes.toml"
+local function theme_path(name)
+	return os.getenv("HOME") .. "/.aquamoon/toml/themes/" .. name .. ".toml"
+end
 
 local settings = tinytoml.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")
 local function expand_path(path)
@@ -97,11 +99,10 @@ local function generate_toml(data)
 end
 
 local function update_dunst(theme_name)
-	local themes_data = tinytoml.parse(themes_path)
-	local theme = themes_data[theme_name]
+	local theme = tinytoml.parse(theme_path(theme_name))
 
 	if not theme then
-		return false, "Theme '" .. theme_name .. "' not found in themes.toml"
+		return false, "Theme '" .. theme_name .. "' not found"
 	end
 
 	local dunstrc_content, err = read_dunstrc()
@@ -126,11 +127,10 @@ local function update_dunst(theme_name)
 end
 
 local function update_television(theme_name)
-	local themes_data = tinytoml.parse(themes_path)
-	local theme = themes_data[theme_name]
+	local theme = tinytoml.parse(theme_path(theme_name))
 
 	if not theme then
-		return false, "Theme '" .. theme_name .. "' not found in themes.toml"
+		return false, "Theme '" .. theme_name .. "' not found"
 	end
 
 	local television_data = tinytoml.parse(television_path)
@@ -170,11 +170,10 @@ local function update_television(theme_name)
 end
 
 local function update_lazygit(theme_name)
-	local themes_data = tinytoml.parse(themes_path)
-	local theme = themes_data[theme_name]
+	local theme = tinytoml.parse(theme_path(theme_name))
 
 	if not theme then
-		return false, "Theme '" .. theme_name .. "' not found in themes.toml"
+		return false, "Theme '" .. theme_name .. "' not found"
 	end
 
 	local yaml = ""
@@ -208,11 +207,10 @@ local function update_lazygit(theme_name)
 end
 
 local function update_crt(theme_name)
-	local themes_data = tinytoml.parse(themes_path)
-	local theme = themes_data[theme_name]
+	local theme = tinytoml.parse(theme_path(theme_name))
 
 	if not theme then
-		return false, "Theme '" .. theme_name .. "' not found in themes.toml"
+		return false, "Theme '" .. theme_name .. "' not found"
 	end
 
 	local crt_enabled = theme.crt
@@ -267,15 +265,17 @@ M.update_crt = function(theme_name)
 end
 
 M.get_available_themes = function()
-	local themes_data = tinytoml.parse(themes_path)
 	local themes = {}
-
-	for name, _ in pairs(themes_data) do
-		if name ~= "active_font" then
-			table.insert(themes, name)
+	local handle = io.popen("ls " .. os.getenv("HOME") .. "/.aquamoon/toml/themes/*.toml 2>/dev/null")
+	if handle then
+		for file in handle:lines() do
+			local name = file:match("([^/]+)%.toml$")
+			if name then
+				table.insert(themes, name)
+			end
 		end
+		handle:close()
 	end
-
 	return themes
 end
 

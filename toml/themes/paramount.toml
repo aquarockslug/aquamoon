@@ -1,0 +1,15 @@
+# PARAMOUNT https://github.com/owickstrom/paramount.vim
+text_primary = "c6c6c6"
+text_secondary = "767676"
+background = "000000"
+background_alt = "4e4e4e"
+accent = "a790d5"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "chchch"
+
+[active_font]
+name = "FairiesevkaTerm Nerd Font Mono:h14"
+path = "'/usr/share/fonts/fairiesevka/FairiesevkaNerdFont-Regular.ttf'"
+size = 14

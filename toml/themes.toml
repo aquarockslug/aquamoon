@@ -120,23 +120,6 @@ name = "BigBlueTermPlus Nerd Font Propo:h14"
 path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
 size = 14
 
-# MFD-NERV warm fire orange colorscheme
-[mfd_nerv]
-text_primary = "ee8822"
-text_secondary = "2a1208"
-background = "1a0a02"
-background_alt = "ffaa44"
-accent = "ffaa44"
-background_image = "~/.aquamoon/wallpapers/nerv_red.jpg"
-border_width = 3
-opacity = 1.0
-ddgr_colors = "chchch"
-
-[mfd_nerv.active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
-
 # MFD-PAPER cream/green-gray colorscheme
 [mfd_paper]
 text_primary = "002611"

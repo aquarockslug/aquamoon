@@ -1,0 +1,15 @@
+# MFD https://github.com/cursorinsight/mfd.nvim
+text_primary = "1e2d1e"
+text_secondary = "5a6b49"
+background = "7a8b69"
+background_alt = "0d1d0d"
+accent = "0d1d0d"
+background_image = "~/.aquamoon/wallpapers/puma.png"
+border_width = 3
+opacity = 1.0
+ddgr_colors = "cegceg"
+
+[active_font]
+name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
+path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
+size = 14

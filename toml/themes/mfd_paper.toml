@@ -1,0 +1,15 @@
+# MFD-PAPER cream/green-gray colorscheme
+text_primary = "002611"
+text_secondary = "a5b2a2"
+background = "bbc5b7"
+background_alt = "002611"
+accent = "002611"
+background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
+border_width = 2
+opacity = 1.0
+ddgr_colors = "gedggd"
+
+[active_font]
+name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
+path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
+size = 14

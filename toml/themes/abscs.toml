@@ -1,0 +1,15 @@
+# ABSTRACT-CS https://github.com/abstract-ide/abstract-cs
+text_primary = "FFFADE"
+text_secondary = "B3B3B3"
+background = "060606"
+background_alt = "FFFADE"
+accent = "1D918B"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 2
+opacity = 0.5
+ddgr_colors = "chchch"
+
+[active_font]
+name = "Lilex Nerd Font:16"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 16

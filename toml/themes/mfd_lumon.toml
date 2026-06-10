@@ -1,0 +1,15 @@
+# MFD-LUMON cold cyan CRT colorscheme
+text_primary = "5ac8d8"
+text_secondary = "122838"
+background = "0a1520"
+background_alt = "a0f0ff"
+accent = "a0f0ff"
+background_image = "~/.aquamoon/wallpapers/nerv_grey.jpg"
+border_width = 4
+opacity = 1.0
+ddgr_colors = "chcech"
+
+[active_font]
+name = "BigBlueTermPlus Nerd Font Propo:h14"
+path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
+size = 14

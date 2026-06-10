@@ -9,8 +9,7 @@ package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/r
 local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
 
 local function get_theme(name)
-	local toml = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes.toml")
-	local theme = toml[name]
+	local theme = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes/" .. name .. ".toml")
 	theme.name = name
 	theme.tofi = {
 		font = theme.active_font.path,
@@ -36,7 +35,7 @@ end
 local nvim_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local current_theme_name = nvim_settings.config.colorscheme
 
-current_theme_name = string.gsub(current_theme_name, "-", "_") -- nvim uses "-" but themes.toml uses "_"
+current_theme_name = string.gsub(current_theme_name, "-", "_") -- nvim uses "-" but theme files use "_"
 local theme = get_theme(current_theme_name or "sweetie")
 
 local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")

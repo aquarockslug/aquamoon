@@ -1,0 +1,15 @@
+# SWEETIE https://github.com/NTBBloodbath/sweetie.nvim
+text_primary = "92d3c5"
+text_secondary = "d3d7de"
+background = "2a2a3a"
+background_alt = "92d3c5"
+accent = "b094e2"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 2
+opacity = 0.66
+ddgr_colors = "gcedge"
+
+[active_font]
+name = "Lilex Nerd Font:14"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 14

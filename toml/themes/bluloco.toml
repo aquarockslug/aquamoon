@@ -1,0 +1,16 @@
+# BLULOCO https://github.com/uloco/bluloco.nvim
+text_primary = "10b0fe"
+# text_primary = "abb2bf"
+text_secondary = "cdd3e0"
+background = "282c34"
+background_alt = "10b0fe"
+accent = "3691ff"
+background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "gedegd"
+
+[active_font]
+name = "Agave Nerd Font:h16"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 16
