@@ -4,12 +4,12 @@ text_secondary = "2a4a2a"
 background = "0a140a"
 background_alt = "80c080"
 accent = "80c080"
-background_image = "~/.aquamoon/wallpapers/puma.png"
+background_image = "~/.aquamoon/wallpapers/panther.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
 
 [active_font]
-name = "BigBlueTermPlus Nerd Font Propo:h14"
-path = "'/usr/share/fonts/TTF/BigBlueTermPlusNerdFontPropo-Regular.ttf'"
-size = 14
+name = "Agave Nerd Font:h16"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 16

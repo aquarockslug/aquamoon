@@ -2,8 +2,10 @@
 home = "~/.aquamoon"
 
 # combine multiple neovim themes into one aquamoon theme?
-# TODO try carvion and poimandres
+# TODO try carvion, poimandres and oldworld
 [theme_list]
+OrangeLight = "carvion"
+
 GrayLight = "noirblaze"
 GrayDark = "sweetie"
 

@@ -1,0 +1,15 @@
+# Carvion colorscheme (https://github.com/zitrocode/carvion.nvim)
+text_primary = "7ec8e3"
+text_secondary = "d4d8e4"
+background = "0e121b"
+background_alt = "7ec8e3"
+accent = "8fd8a3"
+background_image = "~/.aquamoon/wallpapers/panther.png"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "chcech"
+
+[active_font]
+name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"
+path = "'/usr/share/fonts/ttf/ttf-ioskeley-mono-unhinted/IoskeleyMono-SemiBold.ttf'"
+size = 14
