@@ -1,16 +1,19 @@
 [path]
 home = "~/.aquamoon"
 
-# combine multiple neovim themes into one aquamoon theme?
-# TODO try carvion, poimandres and oldworld
+# TODO combine multiple neovim themes into one aquamoon theme?
 [theme_list]
-OrangeLight = "carvion"
+OrangeLight = "oldworld"
+OrangeDark = "carvion"
 
 GrayLight = "noirblaze"
 GrayDark = "sweetie"
 
-GlowLight = "mfd-paper"
-GlowDark = "bluloco"
+GlowLight = "bluloco"
+GlowNight = "abscs"
+
+MonoLight = "mfd-paper"
+MonoDark = "mfd-lumon"
 
 VoidLight = "paramount"
 VoidDark = "moonfly"

@@ -1,0 +1,15 @@
+# OLDWORLD https://github.com/oredev/oldworld
+text_primary = "d4be98"
+text_secondary = "928374"
+background = "141617"
+background_alt = "e78a4e"
+accent = "d3869b"
+background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+border_width = 2
+opacity = 0.66
+ddgr_colors = "gcedge"
+
+[active_font]
+name = "Lilex Nerd Font:14"
+path = "'/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf'"
+size = 14

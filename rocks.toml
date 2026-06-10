@@ -10,7 +10,7 @@ roda = "1.16.9"
 
 # CONFIG
 [config]
-colorscheme = "carvion"
+colorscheme = "sweetie"
 
 [config.options]
 autochdir = true
@@ -69,7 +69,7 @@ rev = "8303242ad5dda0c7840d128c52afe69e3fc97e8b"
 
 [plugins.opencode]
 git = "NickvanDyke/opencode.nvim"
-rev = "v0.10.2"
+rev = "v0.11.0"
 
 # THEMES
 
@@ -92,10 +92,6 @@ rev = "5d6067159e1b1116a12f34827a353572dbf3bdb9"
 [plugins.vim-colors-paramount]
 git = "owickstrom/vim-colors-paramount"
 rev = "a5601d36fb6932e8d1a6f8b37b179a99b1456798"
-
-[plugins."poimandres.nvim"]
-git = "olivercederborg/poimandres.nvim"
-rev = "v0.6.0"
 
 [plugins."oldworld.nvim"]
 git = "dgox16/oldworld.nvim"
