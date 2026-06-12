@@ -8,6 +8,7 @@ background_image = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
 border_width = 2
 opacity = 0.66
 ddgr_colors = "gcedge"
+colorscheme = "oldworld"
 
 [active_font]
 name = "Lilex Nerd Font:14"

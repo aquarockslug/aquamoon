@@ -8,6 +8,7 @@ background_image = "~/.aquamoon/wallpapers/panther.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
+colorscheme = "mfd"
 
 [active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"

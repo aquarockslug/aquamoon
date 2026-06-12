@@ -9,6 +9,7 @@ background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 2
 opacity = 0.8
 ddgr_colors = "gedegd"
+colorscheme = "bluloco"
 
 [active_font]
 name = "Agave Nerd Font:h16"

@@ -8,6 +8,7 @@ background_image = "~/.aquamoon/wallpapers/glowtime_light.jpg"
 border_width = 2
 opacity = 1.0
 ddgr_colors = "gedggd"
+colorscheme = "mfd"
 
 [active_font]
 name = "Ioskeley Mono Semibold:style=Semibold,Regular:h14"

@@ -8,6 +8,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 2
 opacity = 0.8
 ddgr_colors = "chchch"
+colorscheme = "paramount"
 
 [active_font]
 name = "FairiesevkaTerm Nerd Font Mono:h14"

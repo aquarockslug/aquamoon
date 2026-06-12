@@ -8,6 +8,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 4
 opacity = 0.8
 ddgr_colors = "hcegch"
+colorscheme = "moonfly"
 
 [active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"

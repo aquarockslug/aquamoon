@@ -45,6 +45,15 @@ local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 package.path = package.path .. ";" .. S.path .. "/?.lua"
 package.path = package.path .. ";" .. S.path .. "/?/init.lua"
 
+if vim.g.neovide then
+	vim.fn.serverstart("/tmp/neovide-" .. vim.fn.getpid() .. ".sock")
+	vim.api.nvim_create_autocmd("VimLeave", {
+		callback = function()
+			os.remove("/tmp/neovide-" .. vim.fn.getpid() .. ".sock")
+		end,
+	})
+end
+
 vim.o.shell = "hilbish -C " .. S.path .. "/scripts/sys/terminal.lua"
 -- WARNING: Setting shell to Hilbish instead of bash may break plugins
 -- revert this line and override keymaps individually to fix them.
@@ -120,40 +129,53 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	end
 })
 
-local theme = S.theme
-local highlights = {
-	LineNr = { bg = theme.background, fg = theme.text_primary },
-	LineNrAbove = { fg = theme.text_primary },
-	LineNrBelow = { fg = theme.text_primary },
-	CursorLineNr = { fg = theme.text_primary },
-	OilDir = { fg = theme.text_primary },
-	LazyGitBorder = { fg = theme.text_primary },
-	MiniStarterSection = { fg = theme.text_primary },
-	MiniStarterItemPrefix = { fg = theme.accent },
-	MiniStarterQuery = { fg = theme.accent },
-	Cursor = { bg = theme.text_primary, fg = theme.background },
-	lCursor = { bg = theme.text_primary, fg = theme.background },
-	CursorIM = { bg = theme.accent, fg = theme.background },
-}
+function M.apply_theme(theme)
+	local highlights = {
+		LineNr = { bg = theme.background, fg = theme.text_primary },
+		LineNrAbove = { fg = theme.text_primary },
+		LineNrBelow = { fg = theme.text_primary },
+		CursorLineNr = { fg = theme.text_primary },
+		OilDir = { fg = theme.text_primary },
+		LazyGitBorder = { fg = theme.text_primary },
+		MiniStarterSection = { fg = theme.text_primary },
+		MiniStarterItemPrefix = { fg = theme.accent },
+		MiniStarterQuery = { fg = theme.accent },
+		Cursor = { bg = theme.text_primary, fg = theme.background },
+		lCursor = { bg = theme.text_primary, fg = theme.background },
+		CursorIM = { bg = theme.accent, fg = theme.background },
+	}
+	for group, colors in pairs(highlights) do
+		local attrs = {}
+		if colors.bg then table.insert(attrs, "guibg=#" .. colors.bg) end
+		if colors.fg then table.insert(attrs, "guifg=#" .. colors.fg) end
+		vim.cmd.highlight(group .. " " .. table.concat(attrs, " "))
+	end
 
-for group, colors in pairs(highlights) do
-	local attrs = {}
-	if colors.bg then table.insert(attrs, "guibg=#" .. colors.bg) end
-	if colors.fg then table.insert(attrs, "guifg=#" .. colors.fg) end
-	vim.cmd.highlight(group .. " " .. table.concat(attrs, " "))
+	if vim.g.neovide then
+		vim.g.neovide_opacity = theme.opacity
+		vim.o.guifont = theme.active_font.name
+		vim.g.neovide_text_gamma = 0.8
+		vim.g.neovide_text_contrast = 0.1
+		vim.g.neovide_padding_left = 10
+		vim.g.neovide_padding_top = 10
+		vim.opt.linespace = 3
+	end
 end
 
-if vim.g.neovide then
-	vim.g.neovide_opacity = S.theme.opacity
-	vim.o.guifont = S.theme.active_font.name
-	vim.g.neovide_text_gamma = 0.8
-	vim.g.neovide_text_contrast = 0.1
-	vim.g.neovide_padding_left = 10
-	vim.g.neovide_padding_top = 10
-	vim.opt.linespace = 3
-	-- 	vim.g.neovide_cursor_vfx_mode = "torpedo"
-	-- 	vim.g.neovide_cursor_vfx_mode = "pixiedust"
+function M.reload_theme()
+	local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
+	local rocks = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
+	local theme_name = rocks.config.colorscheme:gsub("-", "_")
+	local theme = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes/" .. theme_name .. ".toml")
+	if theme.colorscheme then
+		vim.cmd("colorscheme " .. theme.colorscheme)
+	end
+	M.apply_theme(theme)
 end
+
+vim.api.nvim_create_user_command("AquaReloadTheme", M.reload_theme, {})
+
+M.apply_theme(S.theme)
 
 vim.g.mapleader = S.nvim.leader.mapleader
 vim.g.maplocalleader = S.nvim.leader.maplocalleader
@@ -338,6 +360,10 @@ require "chainsaw".setup()
 require "cybu".setup()
 require "bluloco".setup({ transparent = true, italics = true })
 require "mfd".setup({ accessibility_contrast = 5 })
+
+if S.theme.colorscheme then
+	vim.cmd("colorscheme " .. S.theme.colorscheme)
+end
 
 -- configure tv channel actions
 local tv_h = require("tv").handlers
