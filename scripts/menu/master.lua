@@ -32,7 +32,7 @@ local items = {
 	{ name = "Suspend",     value = "systemctl suspend" },
 	{ name = "Reboot",      value = "systemctl reboot" },
 	{ name = "Poweroff",    value = "systemctl poweroff" },
-	{ name = "Exit River",  value = "riverctl exit" },
+	{ name = "Logout",  value = "riverctl exit" },
 }
 
 local selection = tofi.choices(items).open()

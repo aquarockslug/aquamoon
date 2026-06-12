@@ -1,7 +1,7 @@
 # for clapboard
 
 launcher = [ "tofi", "--fuzzy-match=true", "--prompt-text=Clipboard 󰈿" ]
-history_size = 50
+history_size = 250
 
 [favorites]
 # You can add your favorite clipboard pastes here like this:

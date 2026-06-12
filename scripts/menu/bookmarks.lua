@@ -1,8 +1,6 @@
 -- Bookmark manager for Aquamoon
 -- Reads bookmarks from TOML and opens selected URL in browser
 
-local M = {}
-
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local tofi = dofile(S.path .. "/scripts/sys/tofi.lua").opener
 
@@ -88,5 +86,3 @@ local function main()
 end
 
 main()
-
-return M

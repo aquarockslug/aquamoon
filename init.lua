@@ -181,29 +181,6 @@ function M.adjust_neovide_scale(delta)
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + delta
 end
 
-local hilbish_buf = nil
-local hilbish_win = nil
-
-local function toggle_hilbish()
-	if hilbish_win and vim.api.nvim_win_is_valid(hilbish_win) then
-		vim.api.nvim_win_close(hilbish_win, true)
-		hilbish_win = nil
-		return
-	end
-
-	if hilbish_buf and vim.api.nvim_buf_is_valid(hilbish_buf) then
-		vim.cmd("sbuffer " .. hilbish_buf)
-		hilbish_win = vim.api.nvim_get_current_win()
-		vim.cmd("startinsert")
-		return
-	end
-
-	vim.cmd("terminal")
-	vim.cmd("startinsert")
-	hilbish_buf = vim.api.nvim_get_current_buf()
-	hilbish_win = vim.api.nvim_get_current_win()
-end
-
 function M.oil_files_to_quickfix()
 	if vim.bo.filetype ~= 'oil' then return end
 	local oil = require 'oil'
@@ -226,7 +203,6 @@ end
 local mappings = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/mappings.lua")
 
 local handlers = {
-	toggle_hilbish = toggle_hilbish,
 	toggle_diagnostics = M.toggle_diagnostics,
 	show_cursor_position = M.show_cursor_position,
 	show_file_status = M.show_file_status,

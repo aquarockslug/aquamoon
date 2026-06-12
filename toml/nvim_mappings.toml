@@ -149,16 +149,16 @@ modes = ["n"]
 modes_default = ["n", "x", "o"]
 
 [[leader.bindings]]
-lhs = "e"
-cmd = "Oil"
-
-[[leader.bindings]]
-lhs = "w"
-handler = "toggle_hilbish"
-
-[[leader.bindings]]
 lhs = "q"
 cmd = "bd"
+
+[[leader.bindings]]
+lhs = "a"
+cmd = "term"
+
+[[leader.bindings]]
+lhs = "s"
+cmd = "Oil"
 
 [[leader.bindings]]
 lhs = "d"

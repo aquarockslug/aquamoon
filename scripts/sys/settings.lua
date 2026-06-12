@@ -15,7 +15,7 @@ local function get_theme(name)
 		font = theme.active_font.path,
 		["font-size"] = theme.active_font.size,
 		width = "33%",
-		height = "33%",
+		height = "66%",
 		["drun-launch"] = "true",
 		["outline-width"] = 0,
 		["prompt-text"] = "󰈿_",
@@ -61,4 +61,3 @@ M.nvim = nvim_config.nvim
 M.inputs = input_config
 
 return M
-
