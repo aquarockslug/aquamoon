@@ -1,8 +1,6 @@
 -- Theme picker for Aquamoon
 -- Opens a menu to select and apply desktop themes
 
-local M = {}
-
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
 local TT = dofile(S.path .. "/scripts/sys/tinytoml.lua")
 local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
@@ -51,7 +49,15 @@ os.execute "killall river-luatile"
 local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/notify.lua")
 notify.send("Theme switched to: " .. actual_theme)
 
+local function reload_neovim_themes()
+	local handle = io.popen(
+		'for sock in /run/user/1000/nvim.*.0; do '
+		.. 'nvim --server "$sock" --remote-send ":AquaReloadTheme<CR>" 2>/dev/null || true; '
+		.. 'done'
+	)
+	if handle then handle:close() end
+end
+reload_neovim_themes()
+
 AQUAMOON_SKIP_RANDOM = true
 dofile(S.path .. "/scripts/river/init.lua")
-
-return M
