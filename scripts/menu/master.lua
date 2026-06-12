@@ -15,8 +15,8 @@ end
 local items = {
 	date,
 	"Battery: " .. battery,
-	"Theme: " .. S.theme.name,
-	"Font: " .. font,
+	{ name = "Theme: " .. S.theme.name, value = script("theme/theme_picker") },
+	{ name = "Font: " .. font,          value = script("theme/theme_picker") },
 	"--------------------------------------",
 	{ name = "Web Search",  value = script("menu/browse") },
 	{ name = "Bookmarks",   value = script("menu/bookmarks") },
@@ -25,14 +25,13 @@ local items = {
 	{ name = "Networks",    value = script("menu/networkmanager") },
 	{ name = "Screenshot",  value = script("sys/screenshot") },
 	{ name = "Eyedropper",  value = script("sys/pick_color") },
-	{ name = "Themes",      value = script("theme/theme_picker") },
 	{ name = "Screensaver", value = script("daemon/screensaver") },
 	{ name = "Bluetooth",   value = "riverctl spawn 'neovide term://bluetui'" },
 	{ name = "Git",         value = "riverctl spawn 'neovide +LazyGit'" },
 	{ name = "Suspend",     value = "systemctl suspend" },
 	{ name = "Reboot",      value = "systemctl reboot" },
 	{ name = "Poweroff",    value = "systemctl poweroff" },
-	{ name = "Logout",  value = "riverctl exit" },
+	{ name = "Logout",      value = "riverctl exit" },
 }
 
 local selection = tofi.choices(items).open()
