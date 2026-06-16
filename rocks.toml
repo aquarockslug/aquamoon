@@ -10,7 +10,7 @@ roda = "1.16.9"
 
 # CONFIG
 [config]
-colorscheme = "sweetie"
+colorscheme = "bluloco"
 
 [config.options]
 autochdir = true

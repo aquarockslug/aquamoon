@@ -12,7 +12,7 @@ GrayDark = "sweetie"
 GlowLight = "bluloco"
 GlowNight = "abscs"
 
-MonoLight = "mfd-paper"
+# MonoLight = "mfd-paper"
 MonoDark = "mfd-lumon"
 
 VoidLight = "paramount"
