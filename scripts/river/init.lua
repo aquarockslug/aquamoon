@@ -7,6 +7,7 @@
 --   -> settings.lua reads theme -> apply river settings & wallpaper -> write app configs
 
 local M = {}
+local home = os.getenv("HOME")
 
 if not AQUAMOON_SKIP_RANDOM then
 	local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
@@ -28,6 +29,7 @@ if not AQUAMOON_SKIP_RANDOM then
 	local cmd = [[sed -i 's/"]] .. rocks.config.colorscheme ..
 		[["/"]] .. rocks_theme ..
 		[["/g' ~/.aquamoon/rocks.toml]]
+	dofile(home .. "/.aquamoon/scripts/sys/write_configs.lua")
 	os.execute(string.gsub(cmd, "\n", ""))
 end
 
@@ -36,7 +38,6 @@ os.execute("riverctl input pointer-2362-8203-PIXA200B:00_093A:200B_Touchpad poin
 os.execute(
 	"riverctl input pointer-1118-64-Microsoft_Microsoft_3-Button_Mouse_with_IntelliEye\\(TM\\) pointer-accel 3 pointer-accel 4")
 
-local home = os.getenv("HOME")
 local R = dofile(home .. "/.aquamoon/scripts/river/river.lua")
 local S = dofile(home .. "/.aquamoon/scripts/sys/settings.lua")
 
