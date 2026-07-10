@@ -113,6 +113,7 @@ mod = ["Super"]
 key = "L"
 command = ["set-focused-tags", "2"]
 
+# WARN modify main ratio not working?
 [[map.normal.bindings]]
 mod = ["Super", "Shift"]
 key = "H"

@@ -1,5 +1,7 @@
 -- List windows via lswt and send a notification
 
+-- TODO use tofi to pick a window to jump to
+
 local M = {}
 
 local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
