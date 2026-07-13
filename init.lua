@@ -56,7 +56,6 @@ end
 
 vim.o.shell = "hilbish -C " .. S.path .. "/scripts/sys/terminal.lua"
 -- WARNING: Setting shell to Hilbish instead of bash may break plugins
--- revert this line and override keymaps individually to fix them.
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor
 vim.g.lazygit_floating_window_border_chars = S.nvim.lazygit.border_chars
@@ -110,6 +109,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*/" },
 	callback = function()
 		vim.b.minicompletion_disable = true
+		-- modify this line so that it doesn't make a CWD notification
 		require("oil.actions").cd.callback()
 	end
 })
@@ -306,7 +306,7 @@ for _, b in ipairs(mappings["function"].bindings) do
 end
 
 require("mini.hipatterns").setup({
-	highlighters = S.nvim.plugins.hipatterns, -- WARN not working?
+	highlighters = S.nvim.plugins.hipatterns, -- WARNING: not working?
 })
 
 -- TODO customize this more
@@ -355,12 +355,13 @@ if S.theme_name == "moonfly" then
 	}
 end
 
+require('vim._core.ui2').enable()
 require "oil".setup(oil_config)
 require "chainsaw".setup()
 require "cybu".setup()
+
 require "bluloco".setup({ transparent = true, italics = true })
 require "mfd".setup({ accessibility_contrast = 5 })
-
 if S.theme.colorscheme then
 	vim.cmd("colorscheme " .. S.theme.colorscheme)
 end

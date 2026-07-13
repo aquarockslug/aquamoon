@@ -11,6 +11,7 @@ local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.to
 DDGR_COLORS = S.theme.ddgr_colors
 TERM = "neovide"
 SHELL = "/bin/hilbish"
+PAGER = "page -WfC -q 90000 -z 90000"
 
 hilbish.opts = S.terminal.hilbish_opts
 hilbish.appendPath(os.getenv("HOME") .. "/.aquamoon/scripts/")

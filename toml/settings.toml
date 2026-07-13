@@ -18,6 +18,8 @@ MonoDark = "mfd-lumon"
 VoidLight = "paramount"
 VoidDark = "moonfly"
 
+FlumeDark = "flume"
+
 [river_options]
 border-width = 2
 set-repeat = [50, 300]

@@ -27,8 +27,9 @@ if not AQUAMOON_SKIP_RANDOM then
 	local rocks_theme = new_theme:gsub("_", "-")
 	local rocks = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 	local cmd = [[sed -i 's/"]] .. rocks.config.colorscheme ..
-		[["/"]] .. rocks_theme ..
-		[["/g' ~/.aquamoon/rocks.toml]]
+	    [["/"]] .. rocks_theme ..
+	    [["/g' ~/.aquamoon/rocks.toml]]
+	-- TODO: tv colors not updating with the new random theme on boot?
 	dofile(home .. "/.aquamoon/scripts/sys/write_configs.lua")
 	os.execute(string.gsub(cmd, "\n", ""))
 end
@@ -47,4 +48,3 @@ os.execute("swaybg --image " .. S.theme.background_image)
 dofile(home .. "/.aquamoon/scripts/sys/write_configs.lua").update_all(S.theme_name)
 
 return M
-

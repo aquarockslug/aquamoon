@@ -15,6 +15,7 @@ chmodx = "sudo chmod u+x"
 ddgr = "ddgr --reverse"
 hist = "cat ~/.local/share/hilbish/.hilbish-history"
 serve = "simple-http-server --nocache --threads 6"
+page = "$PAGER"
 
 [hilbish_opts]
 autocd = true

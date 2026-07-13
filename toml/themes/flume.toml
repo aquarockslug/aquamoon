@@ -1,0 +1,16 @@
+# FLUME https://github.com/mitander/flume.nvim
+text_primary = "d6d2e8"
+text_secondary = "b391d6"
+background = "232136"
+background_alt = "b391d6"
+accent = "ea9f8c"
+background_image = "~/.aquamoon/wallpapers/aurora.jpg"
+border_width = 2
+opacity = 0.8
+ddgr_colors = "geccg"
+colorscheme = "flume"
+
+[active_font]
+name = "Agave Nerd Font:h16"
+path = "'/usr/share/fonts/TTF/AgaveNerdFont-Regular.ttf'"
+size = 16
