@@ -10,7 +10,6 @@
 # ---------
 # There is a list of predefined colors. These include:
 # - black
-# - white
 # - (dark) gray
 # - (light) red
 # - (light) blue
@@ -18,12 +17,12 @@
 # - (light) magenta
 # - (light) cyan
 # - (light) yellow
-# - orange
+# - magenta
 #
 # You can also utilize custom colors with hex color codes.
 # "#87CEEB" will create a Sky Blue color.
 #
-# Note: If the color wasn't recognized, it will default to white.
+# Note: If the color wasn't recognized, it will default to magenta.
 # ---------
 #
 # Modifiers:
@@ -88,14 +87,14 @@ focus_behaviour = "default"
 [background]
 
 # Control whether to render background widget or not
-show_background = false
+show_background = true
 
 [background.style]
 # Allow to set the default background color for the login shell
 color = "black"
 # Settings for the background block's borders
 show_border = true
-border_color = "white"
+border_color = "magenta"
 
 [power_controls]
 # The margin between hints
@@ -123,33 +122,35 @@ entries = []
 # If you want to remove the base_entries
 # base_entries = []
 
-# Shutdown option
-[[power_controls.base_entries]]
-# The text in the top-left to display how to shutdown.
-hint = "Shutdown"
+# TODO: command that changes the theme?
 
-# The color and modifiers of the hint in the top-left corner
-hint_color = "dark gray"
-hint_modifiers = ""
-
-# The key used to shutdown. Possibilities are F1 to F12.
-key = "F1"
-# The command that is executed when the key is pressed
-cmd = "systemctl poweroff -l"
-
-# Reboot option
-[[power_controls.base_entries]]
-# The text in the top-left to display how to reboot.
-hint = "Reboot"
-
-# The color and modifiers of the hint in the top-left corner
-hint_color = "dark gray"
-hint_modifiers = ""
-
-# The key used to reboot. Possibilities are F1 to F12.
-key = "F2"
-# The command that is executed when the key is pressed
-cmd = "systemctl reboot -l"
+# # Shutdown option
+# [[power_controls.base_entries]]
+# # The text in the top-left to display how to shutdown.
+# hint = "Shutdown"
+#
+# # The color and modifiers of the hint in the top-left corner
+# hint_color = "dark gray"
+# hint_modifiers = ""
+#
+# # The key used to shutdown. Possibilities are F1 to F12.
+# key = "F1"
+# # The command that is executed when the key is pressed
+# cmd = "systemctl poweroff -l"
+#
+# # Reboot option
+# [[power_controls.base_entries]]
+# # The text in the top-left to display how to reboot.
+# hint = "Reboot"
+#
+# # The color and modifiers of the hint in the top-left corner
+# hint_color = "dark gray"
+# hint_modifiers = ""
+#
+# # The key used to reboot. Possibilities are F1 to F12.
+# key = "F2"
+# # The command that is executed when the key is pressed
+# cmd = "systemctl reboot -l"
 
 # Setting for the selector of the desktop environment you are using.
 [environment_switcher]
@@ -170,14 +171,14 @@ cmd = "systemctl reboot -l"
 #           |                    |
 #       neighbour            neighbour
 # ---------
-#
+
 
 # Control the visiblity of the switcher
 # Options:
 # - "visible" - Always show the switcher [default]
 # - "hidden"  - Always hide the switcher
 # - [key]     - F1-F12 to be able to toggle the visiblity
-switcher_visibility = "visible"
+switcher_visibility = "F3"
 
 # The text in the top-left to display how to toggle the switcher. The text
 # '%key%' will be replaced with the switcher_visibility key. This is not shown
@@ -204,7 +205,7 @@ mover_color = "dark gray"
 mover_modifiers = ""
 
 # Mover's color and modifiers whilst the selector is focused
-mover_color_focused = "orange"
+mover_color_focused = "magenta"
 mover_modifiers_focused = "bold"
 
 # The characters used to display the movers. Suggestions are:
@@ -238,7 +239,7 @@ selected_color = "gray"
 selected_modifiers = "underlined"
 
 # Selected's color and modifiers whilst the selector is focused
-selected_color_focused = "white"
+selected_color_focused = "magenta"
 selected_modifiers_focused = "bold"
 
 # The length of the name of the desktop environment which is displayed.
@@ -249,7 +250,7 @@ no_envs_text = "No environments..."
 
 # The color and modifiers of the 'no desktop environments available text'
 # whilst the selector is unfocused
-no_envs_color = "white"
+no_envs_color = "magenta"
 no_envs_modifiers = ""
 
 # The color and modifiers of the 'no desktop environments available text'
@@ -269,19 +270,19 @@ show_title = true
 title = "Login"
 
 # The title's color and modifiers whilst the username field is unfocused
-title_color = "white"
-content_color = "white"
+title_color = "dark gray"
+content_color = "dark gray"
 
 # The title's color and modifiers whilst the username field is focused
-title_color_focused = "orange"
-content_color_focused = "orange"
+title_color_focused = "magenta"
+content_color_focused = "magenta"
 
 # Enables showing the borders
 show_border = true
 # The borders' color and modifiers whilst the username field is unfocused
-border_color = "white"
+border_color = "dark gray"
 # The borders' color and modifiers whilst the username field is focused
-border_color_focused = "orange"
+border_color_focused = "magenta"
 
 # Constrain the width of the username field
 use_max_width = true
@@ -297,24 +298,24 @@ content_replacement_character = "*"
 
 [password_field.style]
 # Enables showing a title
-show_title = true
+show_title = false
 # The text used within the title
 title = "Password"
 
 # The title's color and modifiers whilst the password field is unfocused
-title_color = "white"
-content_color = "white"
+title_color = "dark gray"
+content_color = "dark gray"
 
 # The title's color and modifiers whilst the password field is focused
-title_color_focused = "orange"
-content_color_focused = "orange"
+title_color_focused = "magenta"
+content_color_focused = "magenta"
 
 # Enables showing the borders
 show_border = true
 # The borders' color and modifiers whilst the password field is unfocused
-border_color = "white"
+border_color = "dark gray"
 # The borders' color and modifiers whilst the password field is focused
-border_color_focused = "orange"
+border_color_focused = "magenta"
 
 # Constrain the width of the password field
 use_max_width = true
