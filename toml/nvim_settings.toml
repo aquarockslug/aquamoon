@@ -62,3 +62,4 @@ navigate = { open_vsplit = "e", open_split = "E" }
 5 = { command = "Far", binary = "scooter", close_on_exit = true }
 6 = { command = "AI", binary = "opencode", close_on_exit = true }
 7 = { command = "DDGR", binary = "ddgr", close_on_exit = true }
+8 = { command = "WEB", binary = "cd ~/Documents/reference/web && tv text", close_on_exit = true }
