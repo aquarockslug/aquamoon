@@ -3,7 +3,7 @@
 
 local M = {}
 
-local tinytoml = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
+local tinytoml = require("scripts/sys/tinytoml")
 
 -- River WM mappings -----------------------------------------------------------
 

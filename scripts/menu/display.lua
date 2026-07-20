@@ -1,7 +1,8 @@
 -- Display menu for Aquamoon
 -- Allows selecting display scaling via wlr-randr and color temperature via gammastep
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
 
 local app = "wlr-randr"
 local output = "eDP-1" -- TODO add a output  setting/selection
@@ -9,8 +10,7 @@ local temp = function(t)
 	return "killall gammastep 2>/dev/null; gammastep -O " .. t
 end
 
-local tofi_style = S.theme.tofi
-local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(tofi_style)
+local menu = require("scripts/sys/tofi").opener.options(S.theme.tofi)
 local choices = menu.choices({
 	{ name = "125%", value = app .. " --output " .. output .. " --scale 1.25" },
 	{ name = "115%", value = app .. " --output " .. output .. " --scale 1.15" },

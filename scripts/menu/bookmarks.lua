@@ -1,51 +1,19 @@
 -- Bookmark manager for Aquamoon
 -- Reads bookmarks from TOML and opens selected URL in browser
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local tofi = dofile(S.path .. "/scripts/sys/tofi.lua").opener
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
+local tofi = require("scripts/sys/tofi").opener
+local TT = require("scripts/sys/tinytoml")
 
 local function get_bookmarks_path()
 	local home = os.getenv("HOME") or os.getenv("USERPROFILE")
 	return home .. "/.aquamoon/toml/bookmarks.toml"
 end
 
-local function read_toml(file_path)
-	local data = {}
-	local current_section = nil
-	local file = io.open(file_path, "r")
-
-	if not file then
-		print("Error: Could not open " .. file_path)
-		return data
-	end
-
-	for line in file:lines() do
-		if line:match("^%s*#") or line:match("^%s*$") then
-			goto continue
-		end
-
-		local section = line:match("^%[([^%]]+)%]$")
-		if section then
-			current_section = section
-			data[current_section] = {}
-			goto continue
-		end
-
-		local key, value = line:match("^%s*(%w+)%s*=%s*\"?([^\"]*)\"?%s*$")
-		if key and value and current_section then
-			data[current_section][key] = value:gsub("^\"+\",\"+$", ""):gsub("^\"+\",\"+$", "")
-		end
-
-		::continue::
-	end
-
-	file:close()
-	return data
-end
-
 local function main()
 	local bookmarks_path = get_bookmarks_path()
-	local bookmarks = read_toml(bookmarks_path)
+	local bookmarks = TT.parse(bookmarks_path)
 
 	if not bookmarks or next(bookmarks) == nil then
 		print("No bookmarks found in " .. bookmarks_path)

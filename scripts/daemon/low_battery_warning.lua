@@ -1,9 +1,8 @@
 -- Low battery warning daemon for Aquamoon
 -- Periodically checks battery level and warns when below threshold
 
-local M = {}
-
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local notify = require("scripts/sys/notify")
 
 local threshold = 10
 local frequency = 2
@@ -16,7 +15,7 @@ while true do
 
 	if (tonumber(power_left) < threshold and not low_battery) then
 		low_battery = true
-		dofile(S.path .. "/scripts/sys/notify.lua").send("LOW BATTERY")
+		notify.send("LOW BATTERY")
 	end
 
 	if (tonumber(power_left) >= threshold and low_battery) then
@@ -25,5 +24,3 @@ while true do
 
 	os.execute("sleep " .. 60 / frequency)
 end
-
-return M

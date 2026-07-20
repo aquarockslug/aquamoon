@@ -1,8 +1,6 @@
 -- River init script creator for Aquamoon
 -- Generates a bash wrapper script to launch River with the Lua init file
 
-local M = {}
-
 local username = "aqua"
 local userdir = "/home/" .. username
 local aquamoondir = userdir .. "/.aquamoon"
@@ -28,5 +26,3 @@ else
     io.stderr:write("Error: " .. init_lua .. " not found\n")
     os.exit(1)
 end
-
-return M

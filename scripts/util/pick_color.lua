@@ -1,8 +1,6 @@
 -- Color picker tool for Aquamoon
 -- Copies the hex code of the color under the cursor
 
-local M = {}
-
 local handle = io.popen(
   "grim -g \"$(slurp -b '#00000000' -p)\" -t ppm - | "
   .. "magick - -format '%[pixel:p{0,0}]' txt:- | "
@@ -11,8 +9,8 @@ local handle = io.popen(
 local color = handle:read("*l")
 handle:close()
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local notify = dofile(S.path .. "/scripts/sys/notify.lua")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local notify = require("scripts/sys/notify")
 
 if not color or color == "" then
   notify.send("No color selected.")
@@ -24,5 +22,3 @@ clip:write(color)
 clip:close()
 
 notify.send("Color: " .. color)
-
-return M

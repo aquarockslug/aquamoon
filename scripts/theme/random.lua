@@ -1,8 +1,9 @@
 -- Random theme changer for Aquamoon
 -- Randomly selects and applies a desktop theme
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local TT = dofile(S.path .. "/scripts/sys/tinytoml.lua")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
+local TT = require("scripts/sys/tinytoml")
 
 local available_themes = {}
 local handle = io.popen("ls " .. os.getenv("HOME") .. "/.aquamoon/toml/themes/*.toml 2>/dev/null")
@@ -30,13 +31,11 @@ local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/g' ~/.aquamoon/rocks.toml]]
 os.execute(string.gsub(cmd, "\n", ""))
 
-local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/write_configs.lua")
-write_configs.update_all(new_theme)
+require("scripts/sys/write_configs").update_all(new_theme)
 
 os.execute "killall river-luatile"
 
-local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/notify.lua")
-notify.send("Theme switched to: " .. new_theme)
+require("scripts/sys/notify").send("Theme switched to: " .. new_theme)
 
 local function reload_neovim_themes()
 	local handle = io.popen(

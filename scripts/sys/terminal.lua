@@ -1,12 +1,11 @@
 -- Hilbish terminal emulator configuration for Aquamoon
 -- Sets up prompt, aliases, and command bindings
 
-local M = {}
-
 local lunacolors = require 'lunacolors'
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
+local menu = require("scripts/sys/tofi").opener.options(S.theme.tofi)
 
 DDGR_COLORS = S.theme.ddgr_colors
 TERM = "neovide"
@@ -40,5 +39,3 @@ os.execute(ls .. hilbish.cwd())
 for i, v in pairs(S.terminal.aliases) do
 	hilbish.aliases.add(i, v)
 end
-
-return M

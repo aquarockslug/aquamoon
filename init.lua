@@ -1,7 +1,6 @@
 -- Main Neovim configuration for Aquamoon desktop environment
 -- Handles plugin bootstrapping, settings, keymaps, and UI configuration
 
-local M = {}
 local vim = vim
 
 local function bootstrap_rocks()
@@ -41,9 +40,10 @@ end
 
 bootstrap_rocks()
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-package.path = package.path .. ";" .. S.path .. "/?.lua"
-package.path = package.path .. ";" .. S.path .. "/?/init.lua"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?/init.lua"
+
+local S = require("scripts/sys/settings")
 
 if vim.g.neovide then
 	vim.fn.serverstart("/tmp/neovide-" .. vim.fn.getpid() .. ".sock")
@@ -55,7 +55,6 @@ if vim.g.neovide then
 end
 
 vim.o.shell = "hilbish -C " .. S.path .. "/scripts/sys/terminal.lua"
--- WARNING: Setting shell to Hilbish instead of bash may break plugins
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor
 vim.g.lazygit_floating_window_border_chars = S.nvim.lazygit.border_chars
@@ -68,6 +67,8 @@ vim.diagnostic.config({
 	virtual_lines = S.nvim.diagnostics.virtual_lines
 })
 vim.diagnostic.enable(S.nvim.diagnostics.enable)
+
+local apply_theme = require("scripts/sys/apply_theme")
 
 vim.cmd.aqua_save = function()
 	if vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "ministarter" then
@@ -109,7 +110,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*/" },
 	callback = function()
 		vim.b.minicompletion_disable = true
-		-- modify this line so that it doesn't make a CWD notification
 		require("oil.actions").cd.callback()
 	end
 })
@@ -129,62 +129,18 @@ vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	end
 })
 
-function M.apply_theme(theme)
-	local highlights = {
-		LineNr = { bg = theme.background, fg = theme.text_primary },
-		LineNrAbove = { fg = theme.text_primary },
-		LineNrBelow = { fg = theme.text_primary },
-		CursorLineNr = { fg = theme.text_primary },
-		OilDir = { fg = theme.text_primary },
-		LazyGitBorder = { fg = theme.text_primary },
-		MiniStarterSection = { fg = theme.text_primary },
-		MiniStarterItemPrefix = { fg = theme.accent },
-		MiniStarterQuery = { fg = theme.accent },
-		Cursor = { bg = theme.text_primary, fg = theme.background },
-		lCursor = { bg = theme.text_primary, fg = theme.background },
-		CursorIM = { bg = theme.accent, fg = theme.background },
-	}
-	for group, colors in pairs(highlights) do
-		local attrs = {}
-		if colors.bg then table.insert(attrs, "guibg=#" .. colors.bg) end
-		if colors.fg then table.insert(attrs, "guifg=#" .. colors.fg) end
-		vim.cmd.highlight(group .. " " .. table.concat(attrs, " "))
-	end
+vim.api.nvim_create_user_command("AquaReloadTheme", apply_theme.reload_theme, {})
 
-	if vim.g.neovide then
-		vim.g.neovide_opacity = theme.opacity
-		vim.o.guifont = theme.active_font.name
-		vim.g.neovide_text_gamma = 0.8
-		vim.g.neovide_text_contrast = 0.1
-		vim.g.neovide_padding_left = 10
-		vim.g.neovide_padding_top = 10
-		vim.opt.linespace = 3
-	end
-end
-
-function M.reload_theme()
-	local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
-	local rocks = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
-	local theme_name = rocks.config.colorscheme:gsub("-", "_")
-	local theme = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes/" .. theme_name .. ".toml")
-	if theme.colorscheme then
-		vim.cmd("colorscheme " .. theme.colorscheme)
-	end
-	M.apply_theme(theme)
-end
-
-vim.api.nvim_create_user_command("AquaReloadTheme", M.reload_theme, {})
-
-M.apply_theme(S.theme)
+apply_theme.apply_theme(S.theme)
 
 vim.g.mapleader = S.nvim.leader.mapleader
 vim.g.maplocalleader = S.nvim.leader.maplocalleader
 
-function M.toggle_diagnostics()
+local function toggle_diagnostics()
 	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end
 
-function M.show_cursor_position()
+local function show_cursor_position()
 	local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(0))
 	require("scripts/sys/notify").send(
 		"Row: " .. tostring(cursor_row) .. ", " ..
@@ -192,18 +148,18 @@ function M.show_cursor_position()
 	)
 end
 
-function M.show_file_status()
+local function show_file_status()
 	local file_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':~')
 	local modified = vim.bo.modified and ' [modified]' or ''
 	local msg = file_path .. modified
 	require("scripts/sys/notify").send(msg)
 end
 
-function M.adjust_neovide_scale(delta)
+local function adjust_neovide_scale(delta)
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + delta
 end
 
-function M.oil_files_to_quickfix()
+local function oil_files_to_quickfix()
 	if vim.bo.filetype ~= 'oil' then return end
 	local oil = require 'oil'
 	local dir = oil.get_current_dir()
@@ -221,17 +177,16 @@ function M.oil_files_to_quickfix()
 	return vim.cmd.copen()
 end
 
--- Load keybindings from TOML via tinytoml
-local mappings = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/mappings.lua")
+local mappings = require("scripts/sys/mappings")
 
 local handlers = {
-	toggle_diagnostics = M.toggle_diagnostics,
-	show_cursor_position = M.show_cursor_position,
-	show_file_status = M.show_file_status,
-	oil_files_to_quickfix = M.oil_files_to_quickfix,
+	toggle_diagnostics = toggle_diagnostics,
+	show_cursor_position = show_cursor_position,
+	show_file_status = show_file_status,
+	oil_files_to_quickfix = oil_files_to_quickfix,
 	aqua_save = vim.cmd.aqua_save,
 	aqua_run = vim.cmd.aqua_run,
-	adjust_neovide_scale = M.adjust_neovide_scale,
+	adjust_neovide_scale = adjust_neovide_scale,
 }
 
 local function apply_modes(value)
@@ -241,22 +196,20 @@ local function apply_modes(value)
 	return { value }
 end
 
--- Build oil keymaps
-M.oil_keymaps = {}
+local oil_keymaps = {}
 for _, b in ipairs(mappings.oil) do
 	local mode = b.mode or "n"
 	if b.handler then
-		M.oil_keymaps[b.lhs] = { handlers[b.handler], mode = mode }
+		oil_keymaps[b.lhs] = { handlers[b.handler], mode = mode }
 	else
 		local entry = { b.action, mode = mode }
 		if b.opts then
 			entry.opts = b.opts
 		end
-		M.oil_keymaps[b.lhs] = entry
+		oil_keymaps[b.lhs] = entry
 	end
 end
 
--- Apply misc keymaps
 for _, b in ipairs(mappings.misc) do
 	local modes = apply_modes(b.modes)
 	local opts = {}
@@ -264,14 +217,12 @@ for _, b in ipairs(mappings.misc) do
 	vim.keymap.set(modes, b.lhs, b.rhs, opts)
 end
 
--- Apply split keymaps (smart-splits)
 for _, b in ipairs(mappings.split) do
 	local plugin = require(b.plugin)
 	local modes = apply_modes(b.modes)
 	vim.keymap.set(modes, b.lhs, plugin[b.func])
 end
 
--- Apply leader keymaps
 local leader_modes = mappings.leader.modes_default or { "n", "x", "o" }
 for _, b in ipairs(mappings.leader.bindings) do
 	local fn
@@ -289,7 +240,6 @@ for _, b in ipairs(mappings.leader.bindings) do
 	vim.keymap.set(leader_modes, "<leader>" .. b.lhs, fn)
 end
 
--- Apply function keymaps
 local fn_modes = mappings["function"].modes_default or { "n", "i" }
 for _, b in ipairs(mappings["function"].bindings) do
 	local fn
@@ -306,10 +256,9 @@ for _, b in ipairs(mappings["function"].bindings) do
 end
 
 require("mini.hipatterns").setup({
-	highlighters = S.nvim.plugins.hipatterns, -- WARNING: not working?
+	highlighters = S.nvim.plugins.hipatterns,
 })
 
--- TODO customize this more
 local starter = require('mini.starter')
 require("mini.starter").setup({
 	header = "",
@@ -342,7 +291,7 @@ end
 local oil_config = {
 	watch_for_changes = true,
 	use_default_keymaps = false,
-	keymaps = M.oil_keymaps,
+	keymaps = oil_keymaps,
 	columns = {
 		"icon",
 		"size"
@@ -366,7 +315,6 @@ if S.theme.colorscheme then
 	vim.cmd("colorscheme " .. S.theme.colorscheme)
 end
 
--- configure tv channel actions
 local tv_h = require("tv").handlers
 local tv_channels = {}
 for name, config in pairs(S.nvim.plugins.tv.channels) do
@@ -433,5 +381,3 @@ for i = 1, 20 do
 	end
 end
 require("cling").setup({ wrappers = wrappers_list })
-
-return M

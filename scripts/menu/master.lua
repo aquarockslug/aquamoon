@@ -1,24 +1,22 @@
 -- Master menu hub for Aquamoon
 -- Combines all menu functionality into one
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local tofi = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
+local tofi = require("scripts/sys/tofi").opener.options(S.theme.tofi)
 
 local date = io.popen("date '+%I:%M%P on %A, %B %d'"):read("*a")
 local battery = io.popen("cat /sys/class/power_supply/BAT0/capacity"):read("*a")
 local font = (S.theme.active_font.name:match("^([^:]+)") or S.theme.active_font.name)
 
--- Run a lua script from the scripts directory
-local script = function(script_path)
+local function script(script_path)
 	return "lua " .. S.path .. "/scripts/" .. script_path .. ".lua"
 end
 
--- Open a new neovide window and run the given nvim command
-local neovide = function(cmd)
+local function neovide(cmd)
 	return [[riverctl spawn "neovide +']] .. cmd .. [['"]]
 end
 
--- TODO configure this in a toml script?
 local items = {
 	date,
 	"Battery: " .. battery,
@@ -35,10 +33,10 @@ local items = {
 	{ name = "System Status", value = script("river/status") },
 	{ name = "Screensaver",   value = script("daemon/screensaver") },
 	{ name = "Bluetooth",     value = neovide("Term bluetui") },
-	{ name = "Packages",      value = neovide("Tv pacman-packages") }, -- run tv picker
+	{ name = "Packages",      value = neovide("Tv pacman-packages") },
 	{ name = "Git",           value = neovide("LazyGit") },
-	{ name = "OpenCode",      value = neovide("tab AI") },      -- run scripts defined by cling.nvim
-	{ name = "Audio",         value = "pavucontrol" },          -- TODO replace audio settings interface
+	{ name = "OpenCode",      value = neovide("tab AI") },
+	{ name = "Audio",         value = "pavucontrol" },
 	{ name = "Suspend",       value = "systemctl suspend" },
 	{ name = "Reboot",        value = "systemctl reboot" },
 	{ name = "Poweroff",      value = "systemctl poweroff" },

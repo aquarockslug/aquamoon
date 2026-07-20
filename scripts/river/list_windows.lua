@@ -2,10 +2,8 @@
 
 -- TODO use tofi to pick a window to jump to
 
-local M = {}
-
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local notify = dofile(S.path .. "/scripts/sys/notify.lua")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local notify = require("scripts/sys/notify")
 
 local handle = io.popen("lswt")
 local windows = {}
@@ -28,5 +26,3 @@ else
 	local msg = table.concat(windows, "\n")
 	notify.send(msg)
 end
-
-return M

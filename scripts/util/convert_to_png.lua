@@ -1,7 +1,5 @@
 -- Convert all images to PNG, resize to 1080p, and remove originals
 
-local M = {}
-
 local dir = arg[1] or os.getenv("PWD") or "."
 
 local function convert_and_remove(ext)
@@ -18,5 +16,3 @@ end
 convert_and_remove("jpg")
 convert_and_remove("jpeg")
 convert_and_remove("webp")
-
-return M

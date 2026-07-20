@@ -1,11 +1,18 @@
--- Notification module for Aquamoon
--- Sends dunst notifications for tag changes, messages, and progress bars
+local S = require("scripts/sys/settings")
 
-local M = {}
+local function dunstify(extra, message)
+	os.execute("dunstify" ..
+		" -h string:bgcolor:#" .. S.theme.background ..
+		" -h string:fgcolor:#" .. S.theme.text_primary ..
+		" -h string:frcolor:#" .. S.theme.text_primary ..
+		" -h string:hlcolor:#" .. S.theme.text_primary ..
+		" " .. extra ..
+		" '" .. message .. "'")
+end
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
+local current_tag
 
-M.tally = function(t)
+local function tally(t)
 	if current_tag ~= t then
 		current_tag = t
 
@@ -19,35 +26,20 @@ M.tally = function(t)
 			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string
 		end
 
-		os.execute("dunstify --timeout=1000" ..
-			" --icon=''" ..
-			" -h string:bgcolor:#" .. S.theme.background ..
-			" -h string:fgcolor:#" .. S.theme.text_primary ..
-			" -h string:frcolor:#" .. S.theme.text_primary ..
-			" -h string:hlcolor:#" .. S.theme.text_primary ..
-			" -h int:width:300" ..
-			" --replace=9 '" .. flag_string .. "'")
+		dunstify("--timeout=1000 --icon='' -h int:width:300 --replace=9", flag_string)
 	end
 end
 
-M.send = function(message)
-	os.execute("dunstify --timeout=1000" ..
-		" --icon=''" ..
-		" -h string:bgcolor:#" .. S.theme.background ..
-		" -h string:fgcolor:#" .. S.theme.text_primary ..
-		" -h string:frcolor:#" .. S.theme.text_primary ..
-		" -h string:hlcolor:#" .. S.theme.text_primary ..
-		" -h int:width:600" ..
-		" --replace=9 '" .. message .. "'")
+local function send(message)
+	dunstify("--timeout=1000 --icon='' -h int:width:600 --replace=9", message)
 end
 
-M.bar = function(value, message)
-	os.execute("dunstify --timeout=500 " ..
-		" -h string:bgcolor:#" .. S.theme.background ..
-		" -h string:fgcolor:#" .. S.theme.text_primary ..
-		" -h string:frcolor:#" .. S.theme.text_primary ..
-		" -h string:hlcolor:#" .. S.theme.text_primary ..
-		" -h 'int:value:" .. value .. "' " .. message)
+local function bar(value, message)
+	dunstify("--timeout=500 -h 'int:value:" .. value .. "'", message)
 end
 
-return M
+return {
+	tally = tally,
+	send = send,
+	bar = bar,
+}

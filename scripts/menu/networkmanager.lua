@@ -1,7 +1,8 @@
 -- NetworkManager launcher for Aquamoon
 -- Opens networkmanager_dmenu for WiFi/Ethernet management
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
 local tofi_style = S.theme.tofi
 
 local cmd = "networkmanager_dmenu"

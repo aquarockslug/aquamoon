@@ -1,5 +1,3 @@
-local M = {}
-
 local direction = arg[1]
 local amount = 5
 
@@ -11,8 +9,6 @@ end
 
 local curr_volume = io.popen("pamixer --get-volume")
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-dofile(S.path .. "/scripts/sys/notify.lua").bar(curr_volume:read("*a"), "Volume")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+require("scripts/sys/notify").bar(curr_volume:read("*a"), "Volume")
 curr_volume:close()
-
-return M

@@ -1,9 +1,10 @@
 -- Theme picker for Aquamoon
 -- Opens a menu to select and apply desktop themes
 
-local S = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/settings.lua")
-local TT = dofile(S.path .. "/scripts/sys/tinytoml.lua")
-local menu = dofile(S.path .. "/scripts/sys/tofi.lua").opener.options(S.theme.tofi)
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local S = require("scripts/sys/settings")
+local TT = require("scripts/sys/tinytoml")
+local menu = require("scripts/sys/tofi").opener.options(S.theme.tofi)
 
 local display_list = {}
 local value_map = {}
@@ -24,14 +25,14 @@ end
 
 local choice = menu.choices(display_list).open()
 if not choice or choice == "" then
-	return M
+	return
 end
 choice = choice:match("^%s*(.-)%s*$")
 local actual_theme = value_map[choice] or choice
 
 if actual_theme == "random" then
-	local random_theme = dofile(S.path .. "/scripts/theme/random.lua")
-	return M
+	dofile(S.path .. "/scripts/theme/random.lua")
+	return
 end
 
 local toml_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
@@ -40,14 +41,13 @@ local cmd = [[sed -i 's/"]] .. toml_settings.config.colorscheme ..
     [["/g' ~/.aquamoon/rocks.toml]]
 os.execute(string.gsub(cmd, "\n", ""))
 
-local write_configs = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/write_configs.lua")
+local write_configs = require("scripts/sys/write_configs")
 actual_theme = actual_theme:gsub("-", "_")
 write_configs.update_all(actual_theme)
 
 os.execute "killall river-luatile"
 
-local notify = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/notify.lua")
-notify.send("Theme switched to: " .. actual_theme)
+require("scripts/sys/notify").send("Theme switched to: " .. actual_theme)
 
 local function reload_neovim_themes()
 	local handle = io.popen(

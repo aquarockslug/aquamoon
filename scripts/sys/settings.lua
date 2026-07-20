@@ -1,12 +1,10 @@
--- Central settings module for Aquamoon
--- Loads and parses TOML configuration files, manages themes
-
 local M = {}
 
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua"
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/init.lua"
 
-local TT = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/tinytoml.lua")
+local TT = require("scripts/sys/tinytoml")
 
 local function get_theme(name)
 	local theme = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/themes/" .. name .. ".toml")
@@ -35,7 +33,7 @@ end
 local nvim_settings = TT.parse(os.getenv("HOME") .. "/.aquamoon/rocks.toml")
 local current_theme_name = nvim_settings.config.colorscheme
 
-current_theme_name = string.gsub(current_theme_name, "-", "_") -- nvim uses "-" but theme files use "_"
+current_theme_name = string.gsub(current_theme_name, "-", "_")
 local theme = get_theme(current_theme_name or "sweetie")
 
 local config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/settings.toml")
@@ -45,7 +43,7 @@ local startup_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/startup.to
 local input_config = TT.parse(os.getenv("HOME") .. "/.aquamoon/toml/inputs.toml")
 
 M.path = os.getenv("HOME") .. "/.aquamoon"
-M.mappings = dofile(os.getenv("HOME") .. "/.aquamoon/scripts/sys/mappings.lua")
+M.mappings = require("scripts/sys/mappings")
 M.theme_name = theme.name
 M.theme = theme
 M.theme_list = config.theme_list
