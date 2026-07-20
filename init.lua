@@ -101,9 +101,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.js", "*.gd", "*.lua", "*.md" },
-	callback = function()
-		vim.treesitter.start()
-	end
+	callback = function() vim.treesitter.start() end
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.md" },
+	callback = function() vim.opt.wrap = true end
 })
 vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Sync nvim with oil's current directory",
@@ -118,15 +120,11 @@ vim.api.nvim_create_autocmd("VimResized", {
 	callback = function() vim.cmd("tabdo wincmd =") end
 })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
-	callback = function()
-		vim.wo[0][0].scrolloff = 0
-	end
+	callback = function() vim.wo[0][0].scrolloff = 0 end
 })
 vim.api.nvim_create_autocmd({ "TermClose", "TermLeave" }, {
 	desc = "check for file changes when leaving the terminal",
-	callback = function()
-		vim.cmd.checktime()
-	end
+	callback = function() vim.cmd.checktime() end
 })
 
 vim.api.nvim_create_user_command("AquaReloadTheme", apply_theme.reload_theme, {})
