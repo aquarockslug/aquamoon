@@ -63,3 +63,4 @@ navigate = { open_vsplit = "e", open_split = "E" }
 6 = { command = "AI", binary = "opencode", close_on_exit = true }
 7 = { command = "DDGR", binary = "ddgr", close_on_exit = true }
 8 = { command = "WEB", binary = "cd ~/Documents/reference/web && tv text", close_on_exit = true }
+# TODO 8 = { command = "WGET", binary = , close_on_exit = true }
