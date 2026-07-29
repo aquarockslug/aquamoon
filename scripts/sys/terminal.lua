@@ -5,7 +5,11 @@ local lunacolors = require 'lunacolors'
 
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 local S = require("scripts/sys/settings")
-local menu = require("scripts/sys/tofi").opener.options(S.theme.tofi)
+-- local menu = require("scripts/sys/tofi").opener.options(S.theme.tofi)
+
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?.lua"
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.local/share/nvim/rocks/share/lua/5.1/?/?.lua"
+LUA_PATH = package.path
 
 DDGR_COLORS = S.theme.ddgr_colors
 TERM = "neovide"
