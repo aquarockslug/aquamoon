@@ -95,6 +95,11 @@ command = ["spawn", "\"neovide +'Tv procs'\""]
 
 [[map.normal.bindings]]
 mod = ["Super"]
+key = "W"
+command = ["lua-script", "river/switch_windows"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
 key = "J"
 command = ["focus-view", "previous"]
 
@@ -102,6 +107,11 @@ command = ["focus-view", "previous"]
 mod = ["Super"]
 key = "K"
 command = ["focus-view", "next"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "O"
+command = ["lua-script", "river/layout_menu"]
 
 [[map.normal.bindings]]
 mod = ["Super"]

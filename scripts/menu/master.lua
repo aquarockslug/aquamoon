@@ -27,6 +27,7 @@ local items = {
 	{ name = "Bookmarks",     value = script("menu/bookmarks") },
 	{ name = "Clipboard",     value = script("menu/clipboard") },
 	{ name = "Display",       value = script("menu/display") },
+	{ name = "Layout",        value = script("river/layout_menu") },
 	{ name = "Network",       value = script("menu/networkmanager") },
 	{ name = "Screenshot",    value = script("util/screenshot") },
 	{ name = "Eyedropper",    value = script("util/pick_color") },

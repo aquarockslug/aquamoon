@@ -1,16 +1,26 @@
--- River layout handler for Aquamoon
--- Implements custom window tiling layout and tag notifications
-
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 
 local main_ratio = 2 / 3
 local gaps = 0
 local smart_gaps = true
 local offset = 0
-local last_view_count = 0
+local gaps_alt = 8
+
+-- The argument is a table with:
+--  * Focused tags (`args.tags`)
+--  * Window count (`args.count`)
+--  * Output width (`args.width`)
+--  * Output height (`args.height`)
+--  * Output name (`args.output`)
+--
+-- The return value must be a table with exactly `count` entries. Each entry is a table with four
+-- numbers:
+--  * X coordinate
+--  * Y coordinate
+--  * Window width
+--  * Window height
 
 function handle_layout(args)
-	last_view_count = args.count
 	local retval = {}
 	if args.count == 1 then
 		if smart_gaps then
@@ -39,18 +49,44 @@ function handle_layout(args)
 		end
 	end
 
-	if args.output ~= "eDP-1" then return retval end
-
-	require("scripts/sys/notify").tally(args.tags)
-
 	return retval
 end
 
 function handle_metadata()
-	return { name = "river_rotate" }
+	return { name = "river_luatile" }
 end
 
 function modify_main_ratio(amount)
-	main_ratio = main_ratio + amount * 0.01
+	main_ratio = math.max(0.1, math.min(0.9, main_ratio + amount * 0.01))
 end
 
+function set_main_ratio(n)
+	main_ratio = math.max(0.1, math.min(0.9, tonumber(n) or 0.5))
+end
+
+function set_gaps(n)
+	gaps = tonumber(n) or 0
+	smart_gaps = false
+end
+
+function toggle_smart_gaps()
+	smart_gaps = not smart_gaps
+end
+
+function set_offset(n)
+	offset = tonumber(n) or 0
+end
+
+function toggle_gaps()
+	local tmp = gaps
+	gaps = gaps_alt
+	gaps_alt = tmp
+end
+
+function reset_layout()
+	main_ratio = 2 / 3
+	gaps = 0
+	smart_gaps = true
+	offset = 0
+	gaps_alt = 8
+end
