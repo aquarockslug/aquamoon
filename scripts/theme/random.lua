@@ -40,7 +40,7 @@ require("scripts/sys/notify").send("Theme switched to: " .. new_theme)
 local function reload_neovim_themes()
 	local handle = io.popen(
 		'for sock in /run/user/1000/nvim.*.0; do '
-		.. 'nvim --server "$sock" --remote-send ":AquaReloadTheme<CR>" 2>/dev/null || true; '
+		.. 'nvim --server "$sock" --remote-send "<C-o>:AquaReloadTheme<CR>" 2>/dev/null || true; '
 		.. 'done'
 	)
 	if handle then handle:close() end

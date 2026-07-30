@@ -1,5 +1,6 @@
 # for clapboard
 
+# TODO update this from write_configs.lua
 launcher = [ "tofi", "--fuzzy-match=true", "--prompt-text=Clipboard 󰈿" ]
 history_size = 250
 
