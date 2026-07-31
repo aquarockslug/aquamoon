@@ -8,7 +8,7 @@ background_image = "~/.aquamoon/wallpapers/aurora.jpg"
 border_width = 2
 opacity = 0.8
 ddgr_colors = "geccgc"
-colorscheme = "flume"
+colorscheme = "flume-dusk"
 
 [active_font]
 name = "Agave Nerd Font:h16"

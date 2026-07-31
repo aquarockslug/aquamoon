@@ -16,3 +16,8 @@
 
 ## MFD - several monotone colorschemes
 - TODO use the same toml file for all versions of MFD?
+
+
+# carvion
+##
+- orange borders around tofi instead of blue
