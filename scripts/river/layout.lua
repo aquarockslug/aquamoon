@@ -1,4 +1,5 @@
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+local notify = require("scripts/sys/notify")
 
 local main_ratio = 2 / 3
 local gaps = 0
@@ -48,6 +49,8 @@ function handle_layout(args)
 			})
 		end
 	end
+
+	notify.tally(args.tags)
 
 	return retval
 end

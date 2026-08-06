@@ -36,9 +36,9 @@ end
 
 local choices = tofi.choices({
 	{ name = "Main Ratio...", value = "sub_ratio" },
-	{ name = "Gaps...", value = "sub_gaps" },
-	{ name = "Smart Gaps", value = cmd("toggle_smart_gaps()") },
-	{ name = "Offset...", value = "sub_offset" },
+	{ name = "Gaps...",       value = "sub_gaps" },
+	{ name = "Smart Gaps",    value = cmd("toggle_smart_gaps()") },
+	{ name = "Offset...",     value = "sub_offset" },
 	"--------------------------------------",
 	{ name = "Reset defaults", value = cmd("reset_layout()") },
 })
@@ -47,12 +47,12 @@ local sel = choices.open()
 
 if sel == "sub_ratio" then
 	local choices2 = tofi.choices({
-		{ name = "+5%",    value = cmd("modify_main_ratio(5)") },
-		{ name = "-5%",    value = cmd("modify_main_ratio(-5)") },
-		{ name = "50%",    value = cmd("set_main_ratio(0.5)") },
-		{ name = "60%",    value = cmd("set_main_ratio(0.6)") },
-		{ name = "66%",    value = cmd("set_main_ratio(0.66)") },
-		{ name = "75%",    value = cmd("set_main_ratio(0.75)") },
+		{ name = "+5%",           value = cmd("modify_main_ratio(5)") },
+		{ name = "-5%",           value = cmd("modify_main_ratio(-5)") },
+		{ name = "50%",           value = cmd("set_main_ratio(0.5)") },
+		{ name = "60%",           value = cmd("set_main_ratio(0.6)") },
+		{ name = "66%",           value = cmd("set_main_ratio(0.66)") },
+		{ name = "75%",           value = cmd("set_main_ratio(0.75)") },
 		{ name = "Set custom...", value = "prompt_ratio" },
 	})
 	local sel2 = choices2.open()
@@ -65,12 +65,11 @@ if sel == "sub_ratio" then
 	elseif sel2 and sel2 ~= "" then
 		os.execute(sel2)
 	end
-
 elseif sel == "sub_gaps" then
 	local choices2 = tofi.choices({
 		{ name = "Toggle gaps (0 ↔ 8)", value = cmd("toggle_gaps()") },
-		{ name = "Gaps: 0 (smart)",     value = cmd("set_gaps(0); toggle_smart_gaps()") },
-		{ name = "Gaps: 5",  value = cmd("set_gaps(5)") },
+		{ name = "Gaps: 0 (smart)", value = cmd("set_gaps(0); toggle_smart_gaps()") },
+		{ name = "Gaps: 5", value = cmd("set_gaps(5)") },
 		{ name = "Gaps: 10", value = cmd("set_gaps(10)") },
 		{ name = "Gaps: 15", value = cmd("set_gaps(15)") },
 		{ name = "Set custom...", value = "prompt_gaps" },
@@ -85,14 +84,12 @@ elseif sel == "sub_gaps" then
 	elseif sel2 and sel2 ~= "" then
 		os.execute(sel2)
 	end
-
 elseif sel == "sub_offset" then
 	local val = prompt("Offset (px)")
 	if val ~= "" then
 		os.execute(cmd("set_offset(" .. val .. ")"))
 		notify.send("Offset: " .. val .. "px")
 	end
-
 elseif sel and sel ~= "" then
 	os.execute(sel)
 end
