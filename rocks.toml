@@ -2,9 +2,10 @@
 
 # CONFIG
 [config]
-colorscheme = "noirblaze"
+colorscheme = "paramount"
 
 [config.options]
+background = "dark"
 autochdir = true
 clipboard = "unnamedplus"
 cmdheight = 0
@@ -54,6 +55,11 @@ tree-sitter-toml = "0.0.31"
 vim-moonfly-colors= "scm"
 vim-nightfly-colors = "scm"
 microlight = "1.0"
+pegasus = "1.1.0"
+luasocket = "3.1.0"
+lzlib = "0.4.1.53"
+lua-zlib = "1.4"
+lua-ffi-zlib = "0.6"
 
 # TODO replace oil with "canola.nvim" = "0.1.0"
 # TODO make oxocarbon aquamoon theme
