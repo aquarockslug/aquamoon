@@ -1,7 +1,8 @@
 [path]
 home = "~/.aquamoon"
 
-# TODO combine multiple neovim themes into one aquamoon theme?
+# TODO pair the neovim themes into one aquamoon theme
+# TODO Use the descriptive names below as the names of the aquamoon themes
 [theme_list]
 OrangeLight = "oldworld"
 OrangeDark = "carvion"
@@ -10,7 +11,6 @@ GrayLight = "noirblaze"
 GrayDark = "sweetie"
 
 GlowLight = "bluloco"
-GlowNight = "abscs"
 
 MonoLight = "mfd-paper"
 MonoDark = "mfd-lumon"
@@ -18,7 +18,8 @@ MonoDark = "mfd-lumon"
 VoidLight = "paramount"
 VoidDark = "moonfly"
 
-FlumeDark = "flume"
+FlumeLight = "flume-mesa"
+FlumeDark = "flume-dusk"
 
 [river_options]
 border-width = 2
