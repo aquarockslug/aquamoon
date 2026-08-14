@@ -8,7 +8,7 @@ background_image = "~/.aquamoon/wallpapers/nerv_grey.jpg"
 border_width = 4
 opacity = 1.0
 ddgr_colors = "chcech"
-colorscheme = "mfd"
+colorscheme = "mfd-lumon"
 
 [active_font]
 name = "BigBlueTermPlus Nerd Font Propo:h14"

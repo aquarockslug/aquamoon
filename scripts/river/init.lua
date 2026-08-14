@@ -39,6 +39,12 @@ os.execute(
 	"riverctl input pointer-1118-64-Microsoft_Microsoft_3-Button_Mouse_with_IntelliEye\\(TM\\) pointer-accel 3 pointer-accel 4")
 
 local R = require("scripts/river/river")
+
+-- Invalidate the settings module so the theme just written to rocks.toml is
+-- re-parsed. When invoked from theme_picker/random (via dofile) the module is
+-- already cached from before the sed, which would leave river, the wallpaper,
+-- and the lazygit/television/dunst configs one theme behind.
+package.loaded["scripts/sys/settings"] = nil
 local S = require("scripts/sys/settings")
 
 R.apply_settings(S)

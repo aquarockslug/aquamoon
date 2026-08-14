@@ -8,7 +8,7 @@ background_image = "~/.aquamoon/wallpapers/panther.png"
 border_width = 3
 opacity = 1.0
 ddgr_colors = "cegceg"
-colorscheme = "mfd"
+colorscheme = "mfd-hud"
 
 [active_font]
 name = "Agave Nerd Font:h16"
