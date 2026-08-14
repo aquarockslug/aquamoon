@@ -47,3 +47,7 @@ url = "https://wiki.archlinux.org"
 [cpanel]
 name = "cPanel"
 url = "https://ap.www.namecheap.com/domains/hosting/package/cpanellogin/4150875"
+
+[lichess]
+name = "Lichess"
+url = "https://lichess.org"
