@@ -54,6 +54,7 @@ position = "center"
 text_align = "file-first"
 navigate = { open_vsplit = "e", open_split = "E" }
 
+# TODO commands are not being defined
 [nvim.plugins.cling.wrappers]
 1 = { command = "LG", binary = "lazygit", close_on_exit = true }
 2 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
