@@ -2,7 +2,7 @@
 
 # CONFIG
 [config]
-colorscheme = "flume-mesa"
+colorscheme = "noirblaze"
 
 [config.options]
 background = "dark"
@@ -27,7 +27,7 @@ visualbell = true
 "cybu.nvim" = "1.0"
 "lazygit.nvim" = "scm"
 "lsp-status.nvim" = "scm"
-# "lush.nvim" = "scm"
+"lush.nvim" = "scm"
 "markview.nvim" = "28.3.0"
 "mini.nvim" = "0.18.0"
 "plenary.nvim" = "scm"

@@ -4,7 +4,6 @@ home = "~/.aquamoon"
 # TODO pair the neovim themes into one aquamoon theme
 # TODO Use the descriptive names below as the names of the aquamoon themes
 [theme_list]
-OrangeLight = "oldworld"
 OrangeDark = "carvion"
 
 GrayLight = "noirblaze"
