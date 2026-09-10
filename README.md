@@ -1,4 +1,4 @@
-# AQUAMOON CONFIGURATION
+# AQUAMOON
 ## An Arch Linux desktop environment configured with Lua
 
 # SOFTWARE
