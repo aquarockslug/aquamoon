@@ -111,14 +111,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Sync nvim with oil's current directory",
 	pattern = { "*/" },
 	callback = function()
-		vim.b.minicompletion_disable = true
+		-- vim.b.minicompletion_disable = true
 		require("oil.actions").cd.callback()
 	end
 })
-vim.api.nvim_create_autocmd("VimResized", {
-	desc = "resize windows to be equal",
-	callback = function() vim.cmd("tabdo wincmd =") end
-})
+-- vim.api.nvim_create_autocmd("VimResized", {
+-- 	desc = "resize windows to be equal",
+-- 	callback = function() vim.cmd("tabdo wincmd =") end
+-- })
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	callback = function() vim.wo[0][0].scrolloff = 0 end
 })

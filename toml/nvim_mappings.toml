@@ -61,10 +61,14 @@ rhs = "<c-r>"
 modes = ["n"]
 
 [[misc.bindings]]
+lhs = "<Space>"
+rhs = ':lua require("snipe").open_buffer_menu()<CR>'
+modes = ["n"]
+
+[[misc.bindings]]
 lhs = "<Esc>"
 rhs = "<C-\\><C-n>"
 modes = ["t"]
-noremap = true
 
 [split]
 [[split.bindings]]

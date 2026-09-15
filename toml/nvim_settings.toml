@@ -42,6 +42,8 @@ padding = [0, 5]
 15 = "trailspace"
 16 = "visits"
 17 = "jump2d"
+18 = "completion"
+# 19 = "statuscolumn"
 
 [nvim.plugins.tv.channels]
 files = { keybinding = "<leader>f" }
@@ -54,12 +56,11 @@ position = "center"
 text_align = "file-first"
 navigate = { open_vsplit = "e", open_split = "E" }
 
-# TODO commands are not being defined
 [nvim.plugins.cling.wrappers]
 1 = { command = "LG", binary = "lazygit", close_on_exit = true }
 2 = { command = "Serve", binary = "simple-http-server", close_on_exit = true }
 3 = { command = "Deploy", binary = "lua ./deploy.lua" }
-4 = { command = "WEB", binary = "cd ~/Documents/reference/web && tv text", close_on_exit = true }
+4 = { command = "REF", binary = "cd ~/Documents/reference && tv text", close_on_exit = true }
 5 = { command = "FAR", binary = "scooter", close_on_exit = true }
 6 = { command = "AI", binary = "opencode", close_on_exit = true }
 7 = { command = "DDGR", binary = "ddgr", close_on_exit = true }
