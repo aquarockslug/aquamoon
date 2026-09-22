@@ -64,7 +64,7 @@ end
 -- KEYBINDS
 vim.keymap.set("n", "<leader>/", ":noh<CR>")
 vim.keymap.set("n", "<leader>l", ":Chainsaw variableLog<CR>")
-
+vim.keymap.set("t", "<leader><esc>", [[<C-\><C-n>]], {silent=true, noremap=true})
 -- Open oil in a split
 vim.keymap.set("n", "<leader>l", function()
 	vim.cmd.split()
