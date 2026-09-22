@@ -1,0 +1,27 @@
+
+"project-path" = "/home/aqua/Projects"
+
+[tofi]
+width = "50%"
+height = "50%"
+"font-size" = 64
+
+[options]
+background = "dark"
+autochdir = true
+clipboard = "unnamedplus"
+cmdheight = 0
+laststatus = 1
+number = true
+numberwidth = 3
+relativenumber = true
+scrolloff = 10000
+showtabline = 0
+signcolumn = "no"
+termguicolors = true
+smoothscroll = true
+winborder = "rounded"
+visualbell = true
+leader = ","
+
+
