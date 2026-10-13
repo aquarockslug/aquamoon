@@ -7,6 +7,7 @@ vim.pack.add({
 	'https://forge.barrettruth.com/barrettruth/canola.nvim',
 	'https://github.com/leath-dub/snipe.nvim.git',
 	'https://github.com/chrisgrieser/nvim-chainsaw.git',
+	'https://github.com/alexpasmantier/tv.nvim',
 	-- colorschemes
 	'https://github.com/NTBBloodbath/sweetie.nvim.git',
 	'https://github.com/bluz71/vim-moonfly-colors.git',
@@ -63,8 +64,7 @@ end
 
 -- KEYBINDS
 vim.keymap.set("n", "<leader>/", ":noh<CR>")
-vim.keymap.set("n", "<leader>l", ":Chainsaw variableLog<CR>")
-vim.keymap.set("t", "<leader><esc>", [[<C-\><C-n>]], {silent=true, noremap=true})
+vim.keymap.set("n", "<leader>j", ":Chainsaw variableLog<CR>")
 -- Open oil in a split
 vim.keymap.set("n", "<leader>l", function()
 	vim.cmd.split()
@@ -83,6 +83,40 @@ vim.keymap.set("n", "<Right>", "<C-w>l")
 
 -- Redo on U (instead of the default "undo line" command)
 vim.keymap.set("n", "U", "<C-r>")
+
+local h = require('tv').handlers
+
+-- Handler keys are passed to `tv --expect`, so they must be *single* terminal keys
+-- that tv can parse. Neovim chords like `<leader>q` / `<leader>;` have no tv
+-- equivalent: the plugin strips `<leader>` and hands tv `leaderq` / `leader;`,
+-- which makes tv abort with "Invalid key in expect bindings" and exit 1.
+-- Note `<leader>` is also used as the `;` separator when the plugin joins the
+-- expect list, so a key containing `;` corrupts the list even before parsing.
+-- `<CR>` (confirm), `<C-q>`, `<C-s>` and `<C-v>` are all valid tv keys.
+require('tv').setup({
+	channels = {
+		files = {
+			keybinding = '<leader>f',
+			handlers = {
+				['<CR>'] = h.open_as_files,
+				['<C-q>'] = h.send_to_quickfix,
+				['<C-s>'] = h.open_in_split,
+				['<C-v>'] = h.open_in_vsplit,
+			},
+		},
+		text = {
+			keybinding = '<leader>g',
+			handlers = {
+				-- text entries are `file:line:col`, so opening them as plain
+				-- files silently does nothing; jump to the match instead.
+				['<CR>'] = h.open_at_line,
+				['<C-q>'] = h.send_to_quickfix,
+				['<C-s>'] = h.open_in_split,
+				['<C-v>'] = h.open_in_vsplit,
+			},
+		},
+	}
+})
 
 -- MINI PLUGINS
 local mini_setup = {

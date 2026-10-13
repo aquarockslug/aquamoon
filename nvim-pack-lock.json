@@ -36,6 +36,14 @@
       "rev": "d4b3d94b57ffcd0229f567e050850248be2b1dad",
       "src": "https://github.com/NTBBloodbath/sweetie.nvim.git"
     },
+    "telescope.nvim": {
+      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tv.nvim": {
+      "rev": "4b156a22c89b50d922a916cc0453762854ac082f",
+      "src": "https://github.com/alexpasmantier/tv.nvim"
+    },
     "vim-moonfly-colors": {
       "rev": "2c883835f5b7b380a0a9e80695c420f7efebdfe4",
       "src": "https://github.com/bluz71/vim-moonfly-colors.git"
