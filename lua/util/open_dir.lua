@@ -5,7 +5,7 @@
 --
 -- Run it from anywhere:
 --
---   lua ~/.aquamoon/scripts/util/open_dir.lua
+--   lua ~/.aquamoon/lua/util/open_dir.lua
 
 local source = debug.getinfo(1, "S").source:sub(2) -- strip the leading "@"
 local script_dir = source:match("^(.*)[/\\][^/\\]*$") or "."

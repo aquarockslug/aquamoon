@@ -1,7 +1,7 @@
 -- Notifications for the aquamoon2-river branch
 -- Colours are taken from the [notify] section of toml/settings.toml
 
-local S = require("scripts/sys/settings")
+local S = require("lua/sys/settings")
 
 local function quote(message)
 	return "'" .. tostring(message):gsub("'", "'\\''") .. "'"

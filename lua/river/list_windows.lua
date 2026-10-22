@@ -3,7 +3,7 @@
 -- TODO use tofi to pick a window to jump to
 
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
-local notify = require("scripts/sys/notify")
+local notify = require("lua/sys/notify")
 
 local handle = io.popen("lswt")
 local windows = {}

@@ -10,7 +10,7 @@ local M = {}
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 
 -- The luarocks modules (tinytoml) live in lua_modules/.
-require("scripts/util/paths")
+require("lua/util/paths")
 
 local TT = require("tinytoml")
 
@@ -31,7 +31,7 @@ for key, value in pairs(config.notify or {}) do
 end
 
 M.path = os.getenv("HOME") .. "/.aquamoon"
-M.mappings = require("scripts/sys/mappings")
+M.mappings = require("lua/sys/mappings")
 M.river_options = config.river_options or {}
 M.window_rules = config.window_rules or {}
 M.tofi = config.tofi or {}

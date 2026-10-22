@@ -1,7 +1,7 @@
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
-local S = require("scripts/sys/settings")
-local tofi = require("scripts/sys/tofi").opener.options(S.tofi)
-local notify = require("scripts/sys/notify")
+local S = require("lua/sys/settings")
+local tofi = require("lua/sys/tofi").opener.options(S.tofi)
+local notify = require("lua/sys/notify")
 
 local function cmd(s)
 	return 'riverctl send-layout-cmd luatile "' .. s .. '"'

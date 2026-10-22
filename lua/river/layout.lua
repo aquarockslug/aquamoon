@@ -1,5 +1,5 @@
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
-local notify = require("scripts/sys/notify")
+local notify = require("lua/sys/notify")
 
 local main_ratio = 2 / 3
 local gaps = 0

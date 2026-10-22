@@ -9,8 +9,8 @@
 
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 
-local R = require("scripts/river/river")
-local S = require("scripts/sys/settings")
+local R = require("lua/river/river")
+local S = require("lua/sys/settings")
 
 R.apply_settings(S)
 

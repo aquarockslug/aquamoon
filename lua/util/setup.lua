@@ -1,8 +1,8 @@
 -- Setup helper for the aquamoon2-river branch
 --
 -- Creates the two things river needs to pick up this repository:
---   ~/.config/river/init          -> bash wrapper that runs scripts/river/init.lua
---   ~/.config/river-luatile       -> symlink to scripts/river (river-luatile
+--   ~/.config/river/init          -> bash wrapper that runs lua/river/init.lua
+--   ~/.config/river-luatile       -> symlink to lua/river (river-luatile
 --                                    reads <dir>/layout.lua from there)
 --
 -- It also reports missing dependencies: the system commands and the Lua
@@ -74,7 +74,7 @@ local init_path = home .. "/.config/river/init"
 os.execute("mkdir -p " .. home .. "/.config/river")
 local f = io.open(init_path, "w")
 if f then
-	f:write("#!/bin/bash\nlua " .. repo .. "/scripts/river/init.lua\n")
+	f:write("#!/bin/bash\nlua " .. repo .. "/lua/river/init.lua\n")
 	f:close()
 	os.execute("chmod +x " .. init_path)
 	print("  wrote " .. init_path)
@@ -92,8 +92,8 @@ if existing then
 else
 	os.execute("mkdir -p " .. current)
 	os.execute("rm -rf " .. link)
-	os.execute("ln -s " .. repo .. "/scripts/river " .. link)
-	print("  linked " .. link .. " -> " .. repo .. "/scripts/river")
+	os.execute("ln -s " .. repo .. "/lua/river " .. link)
+	print("  linked " .. link .. " -> " .. repo .. "/lua/river")
 end
 
 print("== Neovim config ==")

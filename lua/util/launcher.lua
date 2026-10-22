@@ -9,7 +9,7 @@
 
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 
-local S = require("scripts/sys/settings")
-local tofi = require("scripts/sys/tofi").opener.options(S.tofi)
+local S = require("lua/sys/settings")
+local tofi = require("lua/sys/tofi").opener.options(S.tofi)
 
 tofi.open()

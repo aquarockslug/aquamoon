@@ -9,7 +9,7 @@ local M = {}
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 
 -- The luarocks modules (tinytoml) live in lua_modules/.
-require("scripts/util/paths")
+require("lua/util/paths")
 
 local tinytoml = require("tinytoml")
 
@@ -19,7 +19,7 @@ local function expand_command(cmd)
 		local args_table = {}
 		for i = 3, #cmd do args_table[#args_table + 1] = cmd[i] end
 		local args = table.concat(args_table, " ")
-		local script_path = os.getenv("HOME") .. "/.aquamoon/scripts/"
+		local script_path = os.getenv("HOME") .. "/.aquamoon/lua/"
 		return { "spawn", "'sh -c \"lua " .. script_path .. script_name .. ".lua " .. args .. "\"'" }
 	end
 	return cmd

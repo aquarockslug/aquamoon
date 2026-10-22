@@ -1,8 +1,8 @@
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
-package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/scripts/sys/?.lua"
-local S = require("scripts/sys/settings")
-local tofi = require("scripts/sys/tofi").opener.options(S.tofi)
-local notify = require("scripts/sys/notify")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/lua/sys/?.lua"
+local S = require("lua/sys/settings")
+local tofi = require("lua/sys/tofi").opener.options(S.tofi)
+local notify = require("lua/sys/notify")
 
 local handle = io.popen("lswt -c \"ita\"")
 local windows = {}

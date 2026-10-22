@@ -10,5 +10,5 @@ end
 local curr_volume = io.popen("pamixer --get-volume")
 
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
-require("scripts/sys/notify").bar(curr_volume:read("*a"), "Volume")
+require("lua/sys/notify").bar(curr_volume:read("*a"), "Volume")
 curr_volume:close()

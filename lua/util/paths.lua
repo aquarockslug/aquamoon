@@ -4,7 +4,7 @@
 -- (see the README), which is not part of the default Lua search path. Load
 -- this module before requiring them:
 --
---   require("scripts/util/paths")
+--   require("lua/util/paths")
 --
 -- The paths are absolute, so the scripts work from any directory.
 

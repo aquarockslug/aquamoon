@@ -28,11 +28,11 @@ require('vim._core.ui2').enable()
 -- Settings from settings.toml, parsed with the tinytoml rock, a pure Lua TOML
 -- parser living in the luarocks tree of the repository (lua_modules/).
 --
--- scripts/util/paths.lua adds that tree to the Lua search path; the parser
+-- lua/util/paths.lua adds that tree to the Lua search path; the parser
 -- works with nvim's LuaJIT (5.1) as well as with the system Lua (5.5) of
 -- the scripts.
 local config_dir = vim.fn.stdpath("config")
-dofile(config_dir .. "/scripts/util/paths.lua")
+dofile(config_dir .. "/lua/util/paths.lua")
 
 local settings = {}
 local parsed, result = pcall(function()

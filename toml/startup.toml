@@ -1,7 +1,7 @@
 # Commands spawned when the river session starts.
 #
 # river-luatile is the layout generator river uses for the "luatile" layout
-# (see toml/settings.toml and scripts/river/layout.lua).
+# (see toml/settings.toml and lua/river/layout.lua).
 
 0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
 1 = ["dunst"]
