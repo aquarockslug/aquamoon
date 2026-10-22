@@ -36,7 +36,7 @@ dofile(config_dir .. "/lua/util/paths.lua")
 
 local settings = {}
 local parsed, result = pcall(function()
-	return require("tinytoml").parse(config_dir .. "/settings.toml")
+	return require("tinytoml").parse(config_dir .. "/toml/settings.toml")
 end)
 if parsed then
 	settings = result

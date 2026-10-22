@@ -1,6 +1,12 @@
-# Noctalia configuration: all settings at their defaults.
-# Copy to ~/.config/noctalia/config.toml and edit what you need.
-# Most changes are hot-reloaded via inotify; startup-only settings are noted inline.
+# Noctalia configuration for aquamoon2-river.
+#
+# This file is symlinked from ~/.config/noctalia/config.toml (lua/util/setup.lua
+# creates the link). Most changes are hot-reloaded via inotify; startup-only
+# settings are noted inline.
+#
+# Noctalia's bar is disabled on purpose: this desktop opens every Noctalia
+# surface with the river keybindings in toml/mappings.toml. Because there is no
+# bar to attach to, all panels are configured as floating panels below.
 
 # ── Shell ─────────────────────────────────────────────────────────────────────
 
@@ -17,7 +23,7 @@ offline_mode          = false        # block all outgoing HTTP when true
 # panel_anchor_bar   = "main"        # bar panels attach to without a source bar; omit = first enabled bar
 telemetry_enabled     = false        # send an anonymous startup ping
 niri_overview_type_to_launch_enabled = false # opt in to type-to-launch from niri overview
-polkit_agent          = false
+polkit_agent          = true         # Noctalia registers a polkit authentication agent (no other agent in the session)
 password_style        = "default"    # default | random
 readline_shortcuts    = false        # readline-style shortcuts in every text field (Ctrl+A = line start)
 settings_show_advanced = true        # show advanced settings by default in Settings
@@ -68,11 +74,14 @@ border_width          = 1.0         # floating panel outline width in px, 0 hide
 shadow                = true        # cast the global [shell.shadow] from panel surfaces
 launcher_placement       = "floating" # attached | floating
 clipboard_placement      = "floating" # attached | floating
-control_center_placement = "attached" # attached | floating
-wallpaper_placement      = "attached" # attached | floating
-session_placement        = "attached" # attached | floating
+control_center_placement = "floating" # attached | floating
+wallpaper_placement      = "floating" # attached | floating
+session_placement        = "floating" # attached | floating
 launcher_position        = "center"   # auto | center | top_left | … (floating only)
 clipboard_position       = "center"   # auto | center | top_left | … (floating only)
+control_center_position  = "center"   # auto | center | top_left | … (floating only)
+wallpaper_position       = "center"   # auto | center | top_left | … (floating only)
+session_position         = "center"   # auto | center | top_left | … (floating only)
 open_near_click_control_center = false # for attached/floating placement, follow the bar click instead of bar-center
 open_near_click_launcher       = false # for attached/floating placement, follow the bar click instead of bar-center
 open_near_click_clipboard      = false # for attached/floating placement, follow the bar click instead of bar-center
@@ -329,6 +338,13 @@ enable_ddcutil = false
 # ignore_mmids = []                 # skip these monitors from ddcutil; run: ddcutil --verbose detect
 # minimum_brightness = 0.0          # never let brightness drop below this floor (0.0 to 1.0)
 
+# The laptop panel is the only output with a backlight on this machine. Pinning
+# it also makes the Control Center → Monitor slider work when an external
+# monitor has focus.
+[brightness.monitor.eDP-1]
+backend = "backlight"
+backlight_device = "intel_backlight"
+
 # Per-monitor backend override:
 # [brightness.monitor.eDP-1]
 # backend = "backlight"             # auto | none | backlight | ddcutil
@@ -391,50 +407,15 @@ delete   = ["del"]
 
 # ── Bar ───────────────────────────────────────────────────────────────────────
 
+# Noctalia's bar is disabled on this desktop. The shell still provides the
+# panels, notifications, OSD, wallpaper and lock screen; they are opened from
+# the river keybindings in toml/mappings.toml.
+#
+# To bring the bar back, set enabled = true and switch the panel placements
+# above from "floating" back to "attached".
+
 [bar.main]
-position           = "top"          # top | bottom | left | right
-thickness          = 34
-background_opacity = 1.0
-compositor_blur    = true          # false stops compositor blur for this bar
-radius             = 12
-margin_ends        = 180
-margin_edge        = 10
-padding            = 14
-widget_spacing     = 6
-scale              = 1.0
-font_scale         = 1.0            # text-only scale multiplier across widgets
-shadow             = true
-auto_hide          = false
-# auto_hide_delay_ms = 0           # delay hiding after pointer leaves, 0 to 600000 ms (On mode only)
-# smart_auto_hide    = false       # show when the active workspace is empty; hide when it has windows
-# show_on_workspace_switch = true   # with auto_hide: briefly reveal when the active workspace changes
-reserve_space      = true
-capsule            = false
-# capsule_fill     = "surface_variant"
-# capsule_radius   = 8.0            # omit/blank in Settings for automatic pill radius; 0.0 = square
-# capsule_opacity  = 1.0
-# capsule_border   = "outline"      # uncomment for a border on all widgets
-# capsule_border_width = 1.0        # outline thickness in pixels (0-8); needs capsule_border
-
-start  = ["launcher", "wallpaper", "workspaces"]
-center = ["clock"]
-end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
-
-# Commands for the bar margin outside widget sections (dead zone):
-# [bar.main.dead_zone.actions]
-# left = "panel-toggle launcher"
-# right = "panel-toggle control-center"
-# middle = "none"
-# scroll_up = "none"
-# scroll_down = "none"
-
-# Per-monitor override example; only the fields you list are overridden:
-# [bar.main.monitor.dp1]
-# match           = "DP-1"
-# thickness       = 44
-# compositor_blur = false
-# [bar.main.monitor.dp1.dead_zone.actions]
-# left = "panel-toggle launcher"
+enabled = false
 
 # ── Dock ──────────────────────────────────────────────────────────────────────
 

@@ -12,8 +12,8 @@ local home = os.getenv("HOME")
 local repo = home .. "/.aquamoon"
 
 local DEPS = {
-	"river", "river-luatile", "riverctl", "tofi", "dunst", "neovide", "lswt",
-	"pamixer", "brightnessctl", "grim", "slurp", "wl-copy",
+	"river", "river-luatile", "riverctl", "tofi", "noctalia", "neovide", "lswt",
+	"grim", "slurp", "wl-copy", "loupe",
 }
 
 local function has(cmd)
@@ -94,6 +94,29 @@ else
 	os.execute("rm -rf " .. link)
 	os.execute("ln -s " .. repo .. "/lua/river " .. link)
 	print("  linked " .. link .. " -> " .. repo .. "/lua/river")
+end
+
+print("== Noctalia ==")
+local noctalia_dir = current .. "/noctalia"
+local noctalia_link = noctalia_dir .. "/config.toml"
+local noctalia_target = repo .. "/toml/noctalia.toml"
+os.execute("mkdir -p " .. noctalia_dir)
+local noctalia_handle = io.popen("readlink -f " .. noctalia_link .. " 2>/dev/null")
+local noctalia_current = noctalia_handle and noctalia_handle:read("*a") or ""
+if noctalia_handle then noctalia_handle:close() end
+noctalia_current = noctalia_current:gsub("%s+$", "")
+if noctalia_current == noctalia_target then
+	print("  " .. noctalia_link .. " -> " .. noctalia_target .. " (ok)")
+else
+	local existing_noctalia = io.open(noctalia_link, "r")
+	if existing_noctalia then
+		existing_noctalia:close()
+		print("  " .. noctalia_link .. " already exists and is not this repository's config")
+		print("  move it away, then: ln -s " .. noctalia_target .. " " .. noctalia_link)
+	else
+		os.execute("ln -s " .. noctalia_target .. " " .. noctalia_link)
+		print("  linked " .. noctalia_link .. " -> " .. noctalia_target)
+	end
 end
 
 print("== Neovim config ==")

@@ -14,4 +14,5 @@ local S = require("lua/sys/settings")
 
 R.apply_settings(S)
 
-os.execute("noctalia")
+-- noctalia is started by toml/startup.toml (riverctl spawn), so it can run in
+-- daemon mode without blocking the rest of the session setup.

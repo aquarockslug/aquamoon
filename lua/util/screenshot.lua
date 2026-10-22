@@ -14,4 +14,5 @@ os.execute("cat " .. path .. " | wl-copy")
 
 os.execute("riverctl spawn 'loupe " .. path .. "'")
 
-os.execute("dunstify --timeout 1000 '󰈿 Screenshot Taken'")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+require("lua/sys/notify").send("󰈿 Screenshot taken")

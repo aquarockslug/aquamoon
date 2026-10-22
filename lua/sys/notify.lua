@@ -1,20 +1,16 @@
 -- Notifications for the aquamoon2-river branch
--- Colours are taken from the [notify] section of toml/settings.toml
+--
+-- Noctalia owns org.freedesktop.Notifications (see toml/startup.toml), so the
+-- helpers below talk to the running shell instead of spawning dunstify. The
+-- colours come from the active Noctalia theme.
 
-local S = require("lua/sys/settings")
-
-local function quote(message)
-	return "'" .. tostring(message):gsub("'", "'\\''") .. "'"
+local function quote(value)
+	return "'" .. tostring(value):gsub("'", "'\\''") .. "'"
 end
 
-local function dunstify(extra, message)
-	os.execute("dunstify" ..
-		" -h string:bgcolor:#" .. S.notify.background ..
-		" -h string:fgcolor:#" .. S.notify.foreground ..
-		" -h string:frcolor:#" .. S.notify.foreground ..
-		" -h string:hlcolor:#" .. S.notify.foreground ..
-		" " .. extra ..
-		" " .. quote(message))
+local function show(summary, body)
+	os.execute("noctalia msg notification-show " .. quote(summary) .. " " .. quote(body)
+		.. " >/dev/null 2>&1")
 end
 
 local current_tag
@@ -33,16 +29,16 @@ local function tally(t)
 			flag_string = tostring(string.len(flag_string) / 5) .. " " .. flag_string
 		end
 
-		dunstify("--timeout=1000 --icon='' -h int:width:300 --replace=9", flag_string)
+		show("Workspaces", flag_string)
 	end
 end
 
 local function send(message)
-	dunstify("--timeout=1000 --icon='' -h int:width:600 --replace=9", message)
+	show("aquamoon2", message)
 end
 
 local function bar(value, message)
-	dunstify("--timeout=500 -h 'int:value:" .. value .. "'", message)
+	show(message, string.format("%d%%", value))
 end
 
 return {

@@ -22,7 +22,8 @@ border-color-unfocused = "0x92d3c5"
 4 = "qutebrowser"
 5 = "loupe"
 
-# Tofi menus (window switcher, layout menu, application launcher).
+# Tofi menus (luatile layout menu and the project picker). The application
+# launcher and the window switcher are Noctalia panels now (toml/mappings.toml).
 [tofi]
 font = "/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf"
 font-size = 14
@@ -38,12 +39,9 @@ outline-width = 0
 text-cursor = "true"
 result-spacing = 9
 anchor = "center"
-# tofi-drun only prints the Exec line of the selected entry to stdout, which
-# river discards: drun-launch makes it start the application itself.
+# Used by the legacy tofi launcher helper (lua/util/launcher.lua); the desktop
+# launcher itself is the Noctalia launcher.
 drun-launch = "true"
 
-# Dunst notifications.
-[notify]
-background = "2a2a3a"
-foreground = "92d3c5"
-accent = "b094e2"
+# Notifications and OSD are provided by Noctalia and follow its theme
+# (toml/noctalia.toml); there are no dunst colours to configure here.
