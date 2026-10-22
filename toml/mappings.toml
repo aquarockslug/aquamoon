@@ -1,0 +1,137 @@
+# River keybindings for the aquamoon2-river branch
+#
+# NVIM_APPNAME is set explicitly so that the neovim configuration of this
+# repository (~/.config/nvim -> ~/.aquamoon) is used instead of whatever
+# NVIM_APPNAME the session inherited.
+
+[map.normal]
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "Return"
+command = ["spawn", "\"env NVIM_APPNAME=nvim neovide --no-tabs\""]
+
+[[map.normal.bindings]]
+key = "XF86AudioLowerVolume"
+opt = "repeat"
+command = ["lua-script", "sys/volume", "decrease"]
+
+[[map.normal.bindings]]
+key = "XF86AudioRaiseVolume"
+opt = "repeat"
+command = ["lua-script", "sys/volume", "increase"]
+
+[[map.normal.bindings]]
+key = "XF86AudioMute"
+command = ["spawn", "\"pamixer --toggle-mute\""]
+
+[[map.normal.bindings]]
+key = "XF86MonBrightnessDown"
+opt = "repeat"
+command = ["lua-script", "sys/brightness", "decrease"]
+
+[[map.normal.bindings]]
+key = "XF86MonBrightnessUp"
+opt = "repeat"
+command = ["lua-script", "sys/brightness", "increase"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "V"
+command = ["lua-script", "sys/brightness", "decrease"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "M"
+command = ["lua-script", "sys/brightness", "increase"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "B"
+command = ["lua-script", "sys/volume", "decrease"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "N"
+command = ["lua-script", "sys/volume", "increase"]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "S"
+command = ["lua-script", "util/screenshot"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "Q"
+command = ["close"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "E"
+command = ["zoom"]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "F"
+command = ["toggle-fullscreen"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "A"
+command = ["spawn", "\"env NVIM_APPNAME=nvim neovide --no-tabs +'Tv files'\""]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "S"
+command = ["spawn", "\"env NVIM_APPNAME=nvim neovide --no-tabs +'Tv text'\""]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "W"
+command = ["lua-script", "river/switch_windows"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "J"
+command = ["focus-view", "previous"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "K"
+command = ["focus-view", "next"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "O"
+command = ["lua-script", "river/layout_menu"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "H"
+command = ["set-focused-tags", "1"]
+
+[[map.normal.bindings]]
+mod = ["Super"]
+key = "L"
+command = ["set-focused-tags", "2"]
+
+# WARN modify main ratio not working?
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "H"
+command = ["send-layout-cmd", "luatile", "\"modify_main_ratio(-1)\""]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "L"
+command = ["send-layout-cmd", "luatile", "\"modify_main_ratio(1)\""]
+
+[map-pointer.normal]
+[[map-pointer.normal.bindings]]
+mod = ["Super"]
+key = "BTN_LEFT"
+command = ["move-view"]
+
+[[map-pointer.normal.bindings]]
+mod = ["Super"]
+key = "BTN_RIGHT"
+command = ["resize-view"]

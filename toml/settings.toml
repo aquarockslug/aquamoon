@@ -1,0 +1,46 @@
+# River and luatile settings for the aquamoon2-river branch
+#
+# The colours follow the "sweetie" colorscheme used by the aquamoon2 neovim
+# configuration (see init.lua).
+
+[river_options]
+border-width = 2
+set-repeat = [50, 300]
+focus-follows-cursor = "normal"
+default-attach-mode = "bottom"
+default-layout = "luatile"
+output-layout = "luatile"
+border-color-focused = "0xb094e2"
+border-color-unfocused = "0x92d3c5"
+
+# Single server decoration for these applications.
+[window_rules.ssd]
+0 = "firefox"
+1 = "gimp"
+2 = "neovide"
+3 = "mpv"
+4 = "qutebrowser"
+5 = "loupe"
+
+# Tofi menus (window switcher, layout menu).
+[tofi]
+font = "/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf"
+font-size = 14
+width = "50%"
+height = "50%"
+prompt-text = "󰈿_"
+background-color = "2a2a3a"
+text-color = "92d3c5"
+border-color = "92d3c5"
+selection-color = "b094e2"
+border-width = 2
+outline-width = 0
+text-cursor = "true"
+result-spacing = 9
+anchor = "center"
+
+# Dunst notifications.
+[notify]
+background = "2a2a3a"
+foreground = "92d3c5"
+accent = "b094e2"
