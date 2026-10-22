@@ -44,6 +44,10 @@
       "rev": "4b156a22c89b50d922a916cc0453762854ac082f",
       "src": "https://github.com/alexpasmantier/tv.nvim"
     },
+    "vim-archery": {
+      "rev": "0084b5d1199deb5c671e0e6017e9a0224f66f236",
+      "src": "https://github.com/Badacadabra/vim-archery.git"
+    },
     "vim-moonfly-colors": {
       "rev": "2c883835f5b7b380a0a9e80695c420f7efebdfe4",
       "src": "https://github.com/bluz71/vim-moonfly-colors.git"

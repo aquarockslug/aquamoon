@@ -13,6 +13,7 @@ vim.pack.add({
 	'https://github.com/bluz71/vim-moonfly-colors.git',
 	'https://github.com/mitander/flume.nvim.git',
 	'https://github.com/uloco/bluloco.nvim.git',
+	'https://github.com/Badacadabra/vim-archery.git',
 })
 
 require "oil".setup({})
