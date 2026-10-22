@@ -7,12 +7,17 @@ command = ["spawn", "\"neovide --no-tabs\""]
 [[map.normal.bindings]]
 mod = ["Super"]
 key = "F"
-command = ["lua-script", "menu/master"]
+command = ["spawn", "\"cosmic-files\""]
 
 [[map.normal.bindings]]
 mod = ["Super"]
 key = "D"
 command = ["lua-script", "menu/run"]
+
+[[map.normal.bindings]]
+mod = ["Super", "Shift"]
+key = "slash"
+command = ["lua-script", "menu/master"]
 
 [[map.normal.bindings]]
 key = "XF86AudioLowerVolume"
@@ -46,7 +51,7 @@ command = ["lua-script", "sys/brightness", "decrease"]
 [[map.normal.bindings]]
 mod = ["Super"]
 key = "M"
-command = ["lua-script", "sys/brightness", "increase"]
+command = ["maximize"]
 
 [[map.normal.bindings]]
 mod = ["Super"]
@@ -112,27 +117,6 @@ command = ["focus-view", "next"]
 mod = ["Super"]
 key = "O"
 command = ["lua-script", "river/layout_menu"]
-
-[[map.normal.bindings]]
-mod = ["Super"]
-key = "H"
-command = ["set-focused-tags", "1"]
-
-[[map.normal.bindings]]
-mod = ["Super"]
-key = "L"
-command = ["set-focused-tags", "2"]
-
-# WARN modify main ratio not working?
-[[map.normal.bindings]]
-mod = ["Super", "Shift"]
-key = "H"
-command = ["send-layout-cmd", "luatile", "\"modify_main_ratio(-1)\""]
-
-[[map.normal.bindings]]
-mod = ["Super", "Shift"]
-key = "L"
-command = ["send-layout-cmd", "luatile", "\"modify_main_ratio(1)\""]
 
 [map-pointer.normal]
 [[map-pointer.normal.bindings]]

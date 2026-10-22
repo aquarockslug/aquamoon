@@ -54,6 +54,23 @@ if vim.g.neovide then
 	})
 end
 
+-- Editor options
+vim.opt.background = "dark"
+vim.opt.autochdir = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.cmdheight = 0
+vim.opt.laststatus = 1
+vim.opt.number = true
+vim.opt.numberwidth = 3
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 10000
+vim.opt.showtabline = 0
+vim.opt.signcolumn = "no"
+vim.opt.termguicolors = true
+vim.opt.smoothscroll = true
+vim.opt.winborder = "rounded"
+vim.opt.visualbell = true
+
 vim.o.shell = "hilbish -C " .. S.path .. "/scripts/sys/terminal.lua"
 vim.g.godot_executable = S.nvim.godot_executable
 vim.g.lazygit_floating_window_scaling_factor = S.nvim.lazygit.scaling_factor

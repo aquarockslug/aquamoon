@@ -2,7 +2,7 @@
 
 # CONFIG
 [config]
-colorscheme = "mfd-lumon"
+colorscheme = "noirblaze"
 
 [config.options]
 background = "dark"
