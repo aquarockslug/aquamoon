@@ -70,6 +70,11 @@ key = "E"
 command = ["zoom"]
 
 [[map.normal.bindings]]
+mod = ["Super"]
+key = "D"
+command = ["lua-script", "util/launcher"]
+
+[[map.normal.bindings]]
 mod = ["Super", "Shift"]
 key = "F"
 command = ["toggle-fullscreen"]

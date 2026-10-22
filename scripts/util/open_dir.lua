@@ -1,9 +1,23 @@
-require("ml").import()
-local lfs = require("lfs")
-local toml = require("toml_edit")
+-- Project picker for the aquamoon2 configuration.
+--
+-- Lists the directories of the project path (projects.toml) in a tofi window
+-- and opens the selected one in neovide.
+--
+-- Run it from anywhere:
+--
+--   lua ~/.aquamoon/scripts/util/open_dir.lua
 
-local settings_file = io.open("settings.toml", "rb"):read("*a")
-local settings = toml.parse_as_tbl(settings_file)
+local source = debug.getinfo(1, "S").source:sub(2) -- strip the leading "@"
+local script_dir = source:match("^(.*)[/\\][^/\\]*$") or "."
+local repo = script_dir .. "/../.."
+
+-- The repository modules and the luarocks modules (lfs, tofi, tinytoml) live
+-- in the repository.
+package.path = package.path .. ";" .. repo .. "/?.lua"
+require("scripts.util.paths")
+
+local lfs = require("lfs")
+local settings = require("tinytoml").parse(repo .. "/projects.toml")
 local tofi = require("tofi").options(settings.tofi)
 
 local path = settings["project-path"]

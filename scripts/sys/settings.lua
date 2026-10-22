@@ -2,14 +2,17 @@
 --
 -- Reads the river/luatile side of the configuration from toml/*.toml.
 -- The neovim side of the configuration is the aquamoon2 one and lives in the
--- repository root (init.lua, lua/settings.lua, settings.toml); it is read by
--- neovim itself and is not touched from here.
+-- repository root (init.lua, settings.toml); it is read by neovim itself
+-- (with the tinytoml rock below) and is not touched from here.
 
 local M = {}
 
 package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
 
-local TT = require("scripts/sys/tinytoml")
+-- The luarocks modules (tinytoml) live in lua_modules/.
+require("scripts/util/paths")
+
+local TT = require("tinytoml")
 
 local function load(path)
 	return TT.parse(os.getenv("HOME") .. "/.aquamoon/" .. path)

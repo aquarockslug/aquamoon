@@ -6,7 +6,12 @@
 
 local M = {}
 
-local tinytoml = require("scripts/sys/tinytoml")
+package.path = package.path .. ";" .. os.getenv("HOME") .. "/.aquamoon/?.lua"
+
+-- The luarocks modules (tinytoml) live in lua_modules/.
+require("scripts/util/paths")
+
+local tinytoml = require("tinytoml")
 
 local function expand_command(cmd)
 	if cmd[1] == "lua-script" then

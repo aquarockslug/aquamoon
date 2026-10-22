@@ -13,3 +13,5 @@ local R = require("scripts/river/river")
 local S = require("scripts/sys/settings")
 
 R.apply_settings(S)
+
+os.execute("noctalia")

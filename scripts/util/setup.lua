@@ -5,7 +5,8 @@
 --   ~/.config/river-luatile       -> symlink to scripts/river (river-luatile
 --                                    reads <dir>/layout.lua from there)
 --
--- It also reports missing dependencies.
+-- It also reports missing dependencies: the system commands and the Lua
+-- modules of lua_modules/ (the README explains how to install the rocks).
 
 local home = os.getenv("HOME")
 local repo = home .. "/.aquamoon"
@@ -34,6 +35,40 @@ if #missing > 0 then
 	print("  install with: sudo pacman -S " .. table.concat(missing, " "))
 end
 
+-- The Lua modules are luarocks rocks, installed in lua_modules/ (see README).
+local function has_module(name)
+	local handle = io.popen(
+		"find " .. repo .. "/lua_modules/share " .. repo .. "/lua_modules/lib "
+			.. "-name '" .. name .. ".lua' -o -name '" .. name .. ".so' 2>/dev/null"
+	)
+	if not handle then
+		return false
+	end
+	local found = handle:read("*l") ~= nil
+	handle:close()
+	return found
+end
+
+print("== Lua modules ==")
+local ROCKS = {
+	{ module = "tinytoml", rock = "tinytoml" },
+	{ module = "lfs", rock = "luafilesystem" },
+	{ module = "tofi", rock = "tofi-lua" },
+}
+local missing_rocks = {}
+for _, r in ipairs(ROCKS) do
+	if has_module(r.module) then
+		print("  " .. r.rock .. ": ok")
+	else
+		table.insert(missing_rocks, r.rock)
+		print("  " .. r.rock .. ": MISSING")
+	end
+end
+if #missing_rocks > 0 then
+	print("  install with: luarocks --tree " .. repo .. "/lua_modules install "
+		.. table.concat(missing_rocks, " "))
+end
+
 print("== River init ==")
 local init_path = home .. "/.config/river/init"
 os.execute("mkdir -p " .. home .. "/.config/river")
@@ -59,6 +94,19 @@ else
 	os.execute("rm -rf " .. link)
 	os.execute("ln -s " .. repo .. "/scripts/river " .. link)
 	print("  linked " .. link .. " -> " .. repo .. "/scripts/river")
+end
+
+print("== Neovim config ==")
+local nvim_path = home .. "/.config/nvim"
+local handle = io.popen("readlink -f " .. nvim_path .. " 2>/dev/null")
+local target = handle and handle:read("*a") or ""
+if handle then handle:close() end
+target = target:gsub("%s+$", "")
+if target == repo then
+	print("  " .. nvim_path .. " -> " .. target .. " (ok)")
+else
+	print("  " .. nvim_path .. " does not point at " .. repo)
+	print("  ln -s " .. repo .. " " .. nvim_path)
 end
 
 print()

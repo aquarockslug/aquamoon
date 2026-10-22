@@ -1,10 +1,9 @@
-
-"project-path" = "/home/aqua/Projects"
-
-[tofi]
-width = "50%"
-height = "50%"
-"font-size" = 64
+# Neovim options for the aquamoon2 configuration.
+#
+# Read by init.lua, which parses this file with the tinytoml rock (installed
+# in lua_modules/, see the README) and applies every entry of the [options]
+# table with vim.o[option] = value.
+# The "leader" entry is applied as vim.g.mapleader instead.
 
 [options]
 background = "dark"
@@ -23,5 +22,3 @@ smoothscroll = true
 winborder = "rounded"
 visualbell = true
 leader = ","
-
-

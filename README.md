@@ -18,21 +18,25 @@ generator.
 ## Repository layout
 
 The neovim configuration lives at the repository root, exactly like in
-`aquamoon2`, so that `~/.config/nvim -> ~/.aquamoon` keeps pointing at it:
+`aquamoon2`, so that `~/.config/nvim -> ~/.aquamoon` keeps pointing at it.
+Everything else is grouped by topic:
 
 ```
-init.lua               aquamoon2 neovim configuration
-lua/settings.lua       aquamoon2 TOML parser for the neovim settings
+init.lua               aquamoon2 neovim configuration (the entry point)
 settings.toml          neovim options (read by init.lua)
-open_dir.lua           project picker (tofi + neovide)
-paths.lua              lua_modules search path for open_dir.lua
+projects.toml          project picker settings (read by open_dir.lua)
 nvim-pack-lock.json    pinned plugin versions
 
 scripts/river/         river session, riverctl bindings, luatile layout
-scripts/sys/           settings loader, TOML parser, tofi/dunst helpers
-scripts/util/          setup helper, screenshot
+scripts/sys/           settings loader, tofi/dunst helpers
+scripts/util/          setup helper, paths, screenshot, launcher, picker
 toml/                  river options, keybindings, startup commands, inputs
 ```
+
+There is no `lua/` directory: `init.lua` sits in the repository root and reads
+`settings.toml` with the `tinytoml` rock installed in `lua_modules/` (see
+[Lua modules](#lua-modules)); `scripts/util/paths.lua` adds that tree to the
+Lua search path, for neovim and for the scripts alike.
 
 ## How it fits together
 
@@ -60,8 +64,8 @@ commands used by the layout menu (`Super+O`) and by `Super+Shift+H`/`Super+Shift
 lua ~/.aquamoon/scripts/util/setup.lua
 ```
 
-The helper checks the dependencies (`river`, `river-luatile`, `tofi`, `dunst`,
-`neovide`, ...) and creates:
+The helper checks the dependencies (the system commands and the Lua modules
+listed below) and creates:
 
 | Path | Purpose |
 |:-----|:--------|
@@ -80,15 +84,40 @@ ln -s ~/.aquamoon ~/.config/nvim
 > explicitly, so neovide started from river always uses this repository.
 > In a plain shell, run `NVIM_APPNAME=nvim nvim` (or unset the variable).
 
-### open_dir.lua
+### Lua modules
 
-`open_dir.lua` needs the luarocks modules `microlight`, `luafilesystem`,
-`toml-edit` and `tofi-lua`. They are installed in `lua_modules/` (git
-ignored):
+The Lua modules the configuration needs are luarocks rocks, installed in the
+git ignored `lua_modules/` directory of the repository:
+
+| Rock | Used by |
+|:-----|:--------|
+| `tinytoml` | every TOML file of the configuration |
+| `luafilesystem` | `scripts/util/open_dir.lua` (directory listing) |
+| `tofi-lua` | `scripts/util/open_dir.lua` (the project picker) |
 
 ```sh
-luarocks --tree ~/.aquamoon/lua_modules install microlight luafilesystem toml-edit tofi-lua
+luarocks --tree ~/.aquamoon/lua_modules install tinytoml
+luarocks --tree ~/.aquamoon/lua_modules install luafilesystem
+luarocks --tree ~/.aquamoon/lua_modules install tofi-lua
 ```
+
+`scripts/util/paths.lua` adds the tree to the Lua search path and every script
+loads it itself, so they can be run from anywhere. neovim runs LuaJIT (5.1)
+while the scripts run the system Lua (5.5); `tinytoml` is pure Lua, so the one
+install serves both, while the C modules (`luafilesystem`, `tofi-lua`) are
+built for the system Lua and only used by the scripts.
+
+### Project picker
+
+`scripts/util/open_dir.lua` lists the directories of `projects.toml` in a
+tofi window and opens the selected one in neovide:
+
+```sh
+lua ~/.aquamoon/scripts/util/open_dir.lua
+```
+
+It needs the `luafilesystem`, `tofi-lua` and `tinytoml` rocks (see
+[Lua modules](#lua-modules)).
 
 ## Keybindings
 
@@ -96,6 +125,7 @@ luarocks --tree ~/.aquamoon/lua_modules install microlight luafilesystem toml-ed
 |:----|:-------|
 | `Super+Return` | neovide with the aquamoon2 configuration |
 | `Super+A` / `Super+S` | neovide with the `tv` file/text channel |
+| `Super+D` | application launcher (tofi-drun) |
 | `Super+W` | window switcher (tofi) |
 | `Super+O` | luatile layout menu (tofi) |
 | `Super+H` / `Super+L` | focus tag 1 / 2 |
@@ -110,12 +140,24 @@ luarocks --tree ~/.aquamoon/lua_modules install microlight luafilesystem toml-ed
 | `XF86Audio*` / `XF86MonBrightness*` | volume and brightness keys |
 | `Super+BTN_LEFT` / `Super+BTN_RIGHT` | move / resize view |
 
+> **Note**
+> The keys of `toml/mappings.toml` are XKB keysym names, so the uppercase
+> letters are the lowercase ones: `Super+D` is `Super+d`. `Shift` is a
+> modifier of its own, `Super+S` and `Super+Shift+S` are different bindings.
+>
+> A river mapping runs a *riverctl* command, not a shell command: the
+> launcher is bound to `lua-script util/launcher`, which river spawns.
+
 ## Differences from the aquamoon `main` branch
 
 * the neovim configuration is the aquamoon2 one (`vim.pack`, `sweetie`, tv,
   oil/canola, ...) instead of the rocks.nvim based one
 * no theme system: the river colours and the tofi/dunst colours are the
   `sweetie` ones and live in `toml/settings.toml`
-* no menus, daemons, wallpaper, screen locker or weather widgets
+* no menu hub, daemons, wallpaper, screen locker or weather widgets; the
+  application launcher (`Super+D`) is the only tofi-drun menu
 * `attach-mode` was replaced by `default-attach-mode` (river 0.3.x)
 * bindings without modifiers use river's `None` modifier
+* the neovim files stay in the repository root instead of `lua/`: the
+  aquamoon2 layout has no `lua/` directory, so `init.lua` reads `settings.toml`
+  with the `tinytoml` rock of `lua_modules/` instead of a vendored parser

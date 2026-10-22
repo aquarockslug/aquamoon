@@ -25,22 +25,23 @@ vim.keymap.set("n", "<Space>", snipe.open_buffer_menu)
 require("chainsaw").setup()
 require('vim._core.ui2').enable()
 
--- Settings from settings.toml (same file open_dir.lua reads). open_dir.lua uses
--- the toml_edit rock, a Lua 5.5 C module nvim's LuaJIT cannot load, so we parse
--- it here with the built-in lua/settings.lua parser.
-local settings_fh = io.open(vim.fn.stdpath("config") .. "/settings.toml", "rb")
+-- Settings from settings.toml, parsed with the tinytoml rock, a pure Lua TOML
+-- parser living in the luarocks tree of the repository (lua_modules/).
+--
+-- scripts/util/paths.lua adds that tree to the Lua search path; the parser
+-- works with nvim's LuaJIT (5.1) as well as with the system Lua (5.5) of
+-- the scripts.
+local config_dir = vim.fn.stdpath("config")
+dofile(config_dir .. "/scripts/util/paths.lua")
+
 local settings = {}
-if settings_fh then
-	local ok, res = pcall(function()
-		local src = settings_fh:read("*a")
-		settings_fh:close()
-		return require("settings").parse(src)
-	end)
-	if ok then
-		settings = res
-	else
-		vim.notify("settings.toml: " .. tostring(res), vim.log.levels.WARN)
-	end
+local parsed, result = pcall(function()
+	return require("tinytoml").parse(config_dir .. "/settings.toml")
+end)
+if parsed then
+	settings = result
+else
+	vim.notify("settings.toml: " .. tostring(result), vim.log.levels.WARN)
 end
 
 for opt, value in pairs(settings.options or {}) do
@@ -169,7 +170,17 @@ vim.lsp.config("lua_ls", {
 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 			runtime = {
 				version = "LuaJIT",
-				path = { "lua/?.lua", "lua/?/init.lua", vim.fn.stdpath("config") .. "/lua_modules/share/lua/5.1/?.lua" },
+				path = {
+					-- the layout of this repository: there is no lua/ directory,
+					-- the modules are the luarocks rocks of lua_modules/, which
+					-- the tree holds for the system Lua version (5.5); the rocks
+					-- used here are pure Lua, so neovim finds them too
+					"?.lua",
+					"lua/?.lua",
+					"lua/?/init.lua",
+					vim.fn.stdpath("config") .. "/lua_modules/share/lua/5.5/?.lua",
+					vim.fn.stdpath("config") .. "/lua_modules/share/lua/5.1/?.lua",
+				},
 			},
 			workspace = {
 				library = {

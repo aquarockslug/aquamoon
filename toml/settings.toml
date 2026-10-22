@@ -22,7 +22,7 @@ border-color-unfocused = "0x92d3c5"
 4 = "qutebrowser"
 5 = "loupe"
 
-# Tofi menus (window switcher, layout menu).
+# Tofi menus (window switcher, layout menu, application launcher).
 [tofi]
 font = "/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf"
 font-size = 14
@@ -38,6 +38,9 @@ outline-width = 0
 text-cursor = "true"
 result-spacing = 9
 anchor = "center"
+# tofi-drun only prints the Exec line of the selected entry to stdout, which
+# river discards: drun-launch makes it start the application itself.
+drun-launch = "true"
 
 # Dunst notifications.
 [notify]
