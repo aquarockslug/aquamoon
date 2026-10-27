@@ -1,5 +1,3 @@
--- data at ~/.local/share/mini
-
 vim.pack.add({
 	'https://github.com/nvim-mini/mini.nvim',
 	'https://github.com/neovim/nvim-lspconfig',
@@ -16,27 +14,9 @@ vim.pack.add({
 	'https://github.com/Badacadabra/vim-archery.git',
 })
 
-require "oil".setup({})
-
-local snipe = require("snipe")
-snipe.setup()
-vim.keymap.set("n", "<Space>", snipe.open_buffer_menu)
-
-require("chainsaw").setup()
-require('vim._core.ui2').enable()
-
--- Settings from settings.toml, parsed with the tinytoml rock, a pure Lua TOML
--- parser living in the luarocks tree of the repository (lua_modules/).
---
--- lua/util/paths.lua adds that tree to the Lua search path; the parser
--- works with nvim's LuaJIT (5.1) as well as with the system Lua (5.5) of
--- the scripts.
-local config_dir = vim.fn.stdpath("config")
-dofile(config_dir .. "/lua/util/paths.lua")
-
 local settings = {}
 local parsed, result = pcall(function()
-	return require("tinytoml").parse(config_dir .. "/toml/settings.toml")
+	return require("tinytoml").parse(vim.fn.stdpath("config") .. "/toml/settings.toml")
 end)
 if parsed then
 	settings = result
@@ -44,7 +24,10 @@ else
 	vim.notify("settings.toml: " .. tostring(result), vim.log.levels.WARN)
 end
 
-for opt, value in pairs(settings.options or {}) do
+-- TODO parse the noctalia.toml file to get the colorscheme
+vim.cmd("colorscheme sweetie")
+
+for opt, value in pairs(settings.neovim_options or {}) do
 	if opt == "leader" then
 		vim.g.mapleader = value
 	else
@@ -58,10 +41,10 @@ for opt, value in pairs(settings.options or {}) do
 	end
 end
 
-vim.cmd("colorscheme sweetie")
 if vim.g.neovide then
 	vim.g.neovide_opacity = 0.9
-	vim.o.guifont = "Fairiesevka Nerd Font:h14"
+	-- TODO set font based on noctalia.toml 
+	vim.o.guifont = "FairiesevkaTerm Nerd Font Mono:h14"
 end
 
 -- KEYBINDS
@@ -86,15 +69,18 @@ vim.keymap.set("n", "<Right>", "<C-w>l")
 -- Redo on U (instead of the default "undo line" command)
 vim.keymap.set("n", "U", "<C-r>")
 
+
+-- PLUGINS
+require "oil".setup({})
+
+local snipe = require("snipe")
+snipe.setup()
+vim.keymap.set("n", "<Space>", snipe.open_buffer_menu)
+
+require("chainsaw").setup()
+require('vim._core.ui2').enable()
 local h = require('tv').handlers
 
--- Handler keys are passed to `tv --expect`, so they must be *single* terminal keys
--- that tv can parse. Neovim chords like `<leader>q` / `<leader>;` have no tv
--- equivalent: the plugin strips `<leader>` and hands tv `leaderq` / `leader;`,
--- which makes tv abort with "Invalid key in expect bindings" and exit 1.
--- Note `<leader>` is also used as the `;` separator when the plugin joins the
--- expect list, so a key containing `;` corrupts the list even before parsing.
--- `<CR>` (confirm), `<C-q>`, `<C-s>` and `<C-v>` are all valid tv keys.
 require('tv').setup({
 	channels = {
 		files = {
@@ -109,8 +95,6 @@ require('tv').setup({
 		text = {
 			keybinding = '<leader>g',
 			handlers = {
-				-- text entries are `file:line:col`, so opening them as plain
-				-- files silently does nothing; jump to the match instead.
 				['<CR>'] = h.open_at_line,
 				['<C-q>'] = h.send_to_quickfix,
 				['<C-s>'] = h.open_in_split,
@@ -171,10 +155,6 @@ vim.lsp.config("lua_ls", {
 			runtime = {
 				version = "LuaJIT",
 				path = {
-					-- the layout of this repository: there is no lua/ directory,
-					-- the modules are the luarocks rocks of lua_modules/, which
-					-- the tree holds for the system Lua version (5.5); the rocks
-					-- used here are pure Lua, so neovim finds them too
 					"?.lua",
 					"lua/?.lua",
 					"lua/?/init.lua",
@@ -202,8 +182,6 @@ if vim.fn.executable("biome") == 0 then
 	)
 else
 	vim.lsp.config("biome", {
-		-- Attach to JS/TS files even without a biome.json, unlike the
-		-- nvim-lspconfig default which requires a biome config in the project.
 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "jsonc" },
 		workspace_required = false,
 		root_dir = function(bufnr, on_dir)
@@ -236,10 +214,8 @@ vim.keymap.set("n", "<leader>j", function()
 end)
 
 -- Start treesitter highlighting in buffers that have a parser available.
--- On nvim 0.13 (and earlier), vim.treesitter.start() errors for buffers
--- without a parser (empty buffers, oil dirs, mini.starter, ...).
--- Those are common at startup when launching from neovide, so guard it.
 local function ts_start(buf, lang)
+	-- On nvim 0.13 (and earlier), vim.treesitter.start() errors for buffers without a parser
 	if lang then
 		pcall(vim.treesitter.start, buf, lang)
 	end

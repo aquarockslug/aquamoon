@@ -1,7 +1,5 @@
-# River and luatile settings for the aquamoon2-river branch
-#
-# The colours follow the "sweetie" colorscheme used by the aquamoon2 neovim
-# configuration (see init.lua).
+[neovim_options]
+leader = ","
 
 [river_options]
 border-width = 2
