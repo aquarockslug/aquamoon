@@ -1,0 +1,95 @@
+[river_options]
+border-width = 2
+set-repeat = [50, 300]
+focus-follows-cursor = "normal"
+default-attach-mode = "bottom"
+default-layout = "luatile"
+output-layout = "luatile"
+border-color-focused = "0xb094e2"
+border-color-unfocused = "0x92d3c5"
+
+[window_rules.ssd]
+0 = "firefox"
+1 = "gimp"
+2 = "neovide"
+3 = "mpv"
+4 = "qutebrowser"
+5 = "loupe"
+
+[tofi]
+font = "/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf"
+font-size = 14
+width = "50%"
+height = "50%"
+prompt-text = "󰈿_"
+background-color = "2a2a3a"
+text-color = "92d3c5"
+border-color = "92d3c5"
+selection-color = "b094e2"
+border-width = 2
+outline-width = 0
+text-cursor = "true"
+result-spacing = 9
+anchor = "center"
+
+[startup]
+0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
+1 = ["noctalia", "--daemon"]
+2 = ["river-luatile"]
+
+[inputs.Kensington_Eagle_Trackball]
+device = "pointer-1149-8264-Kensington_Eagle_Trackball"
+pointer-accel = 4
+
+[inputs.PIXA200B_Touchpad]
+device = "pointer-2362-8203-PIXA200B:00_093A:200B_Touchpad"
+pointer-accel = 0.65
+tap = "enabled"
+
+[inputs.PIXA200B_Mouse]
+device = "pointer-2362-8203-PIXA200B:00_093A:200B_Mouse"
+pointer-accel = 2
+
+[map.normal]
+bindings = [
+  { mod = "Super", key = "Return", command = ['spawn', '"env NVIM_APPNAME=nvim neovide --no-tabs"'] },
+  { opt = "repeat", key = "XF86AudioLowerVolume", command = ['spawn', '"noctalia msg volume-down"'] },
+  { opt = "repeat", key = "XF86AudioRaiseVolume", command = ['spawn', '"noctalia msg volume-up"'] },
+  { key = "XF86AudioMute", command = ['spawn', '"noctalia msg volume-mute"'] },
+  { key = "XF86AudioMicMute", command = ['spawn', '"noctalia msg mic-mute"'] },
+  { opt = "repeat", key = "XF86MonBrightnessDown", command = ['spawn', '"noctalia msg brightness-down eDP-1"'] },
+  { opt = "repeat", key = "XF86MonBrightnessUp", command = ['spawn', '"noctalia msg brightness-up eDP-1"'] },
+  { mod = "Super", key = "V", command = ['spawn', '"noctalia msg brightness-down eDP-1"'] },
+  { mod = "Super", key = "M", command = ['spawn', '"noctalia msg brightness-up eDP-1"'] },
+  { mod = "Super", key = "B", command = ['spawn', '"noctalia msg volume-down"'] },
+  { mod = "Super", key = "N", command = ['spawn', '"noctalia msg volume-up"'] },
+  { mod = "Super+Shift", key = "S", command = ['spawn', '"noctalia msg screenshot-region"'] },
+  { mod = "Super", key = "Q", command = ['close'] },
+  { mod = "Super", key = "E", command = ['zoom'] },
+  { mod = "Super", key = "D", command = ['spawn', '"noctalia msg panel-toggle launcher"'] },
+  { mod = "Super+Shift", key = "F", command = ['toggle-fullscreen'] },
+  { mod = "Super", key = "F", command = ['spawn', 'cosmic-files'] },
+  { mod = "Super", key = "A", command = ['spawn', "\"env NVIM_APPNAME=nvim neovide --no-tabs +'Tv files'\""] },
+  { mod = "Super", key = "S", command = ['spawn', "\"env NVIM_APPNAME=nvim neovide --no-tabs +'Tv text'\""] },
+  { mod = "Super", key = "W", command = ['spawn', '"noctalia msg window-switcher"'] },
+  { mod = "Super", key = "C", command = ['spawn', '"noctalia msg panel-toggle control-center"'] },
+  { mod = "Super+Shift", key = "C", command = ['spawn', '"noctalia msg panel-toggle control-center notifications"'] },
+  { mod = "Super", key = "comma", command = ['spawn', '"noctalia msg settings-toggle"'] },
+  { mod = "Super+Shift", key = "V", command = ['spawn', '"noctalia msg panel-toggle clipboard"'] },
+  { mod = "Super+Shift", key = "W", command = ['spawn', '"noctalia msg panel-toggle wallpaper"'] },
+  { mod = "Super", key = "Escape", command = ['spawn', '"noctalia msg panel-toggle session"'] },
+  { mod = "Super+Alt", key = "L", command = ['spawn', '"noctalia msg session lock"'] },
+  { mod = "Super", key = "J", command = ['focus-view', 'previous'] },
+  { mod = "Super", key = "K", command = ['focus-view', 'next'] },
+  { mod = "Super", key = "O", command = ['spawn', '"lua $HOME/.aquamoon/lua/aquamoon.lua menu"'] },
+  { mod = "Super", key = "H", command = ['set-focused-tags', '1'] },
+  { mod = "Super", key = "L", command = ['set-focused-tags', '2'] },
+  { mod = "Super+Shift", key = "H", command = ['send-layout-cmd', 'luatile', '"modify_main_ratio(-1)"'] },
+  { mod = "Super+Shift", key = "L", command = ['send-layout-cmd', 'luatile', '"modify_main_ratio(1)"'] },
+]
+
+[map-pointer.normal]
+bindings = [
+  { mod = "Super", key = "BTN_LEFT", command = ['move-view'] },
+  { mod = "Super", key = "BTN_RIGHT", command = ['resize-view'] },
+]
