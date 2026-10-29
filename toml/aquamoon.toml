@@ -1,10 +1,7 @@
 [river_options]
 border-width = 2
-set-repeat = [50, 300]
 focus-follows-cursor = "normal"
 default-attach-mode = "bottom"
-default-layout = "luatile"
-output-layout = "luatile"
 border-color-focused = "0xb094e2"
 border-color-unfocused = "0x92d3c5"
 
@@ -35,8 +32,9 @@ anchor = "center"
 [startup]
 0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
 1 = ["noctalia", "--daemon"]
-2 = ["river-luatile"]
 
+# tinyrwm does not implement the river input protocols yet, so these libinput
+# settings are kept for a future window manager but are currently ignored.
 [inputs.Kensington_Eagle_Trackball]
 device = "pointer-1149-8264-Kensington_Eagle_Trackball"
 pointer-accel = 4
@@ -52,40 +50,79 @@ pointer-accel = 2
 
 [map.normal]
 bindings = [
-  { mod = "Super", key = "Return", command = ['spawn', '"env NVIM_APPNAME=nvim neovide --no-tabs"'] },
-  { opt = "repeat", key = "XF86AudioLowerVolume", command = ['spawn', '"noctalia msg volume-down"'] },
-  { opt = "repeat", key = "XF86AudioRaiseVolume", command = ['spawn', '"noctalia msg volume-up"'] },
-  { key = "XF86AudioMute", command = ['spawn', '"noctalia msg volume-mute"'] },
-  { key = "XF86AudioMicMute", command = ['spawn', '"noctalia msg mic-mute"'] },
-  { opt = "repeat", key = "XF86MonBrightnessDown", command = ['spawn', '"noctalia msg brightness-down eDP-1"'] },
-  { opt = "repeat", key = "XF86MonBrightnessUp", command = ['spawn', '"noctalia msg brightness-up eDP-1"'] },
-  { mod = "Super", key = "V", command = ['spawn', '"noctalia msg brightness-down eDP-1"'] },
-  { mod = "Super", key = "M", command = ['spawn', '"noctalia msg brightness-up eDP-1"'] },
-  { mod = "Super", key = "B", command = ['spawn', '"noctalia msg volume-down"'] },
-  { mod = "Super", key = "N", command = ['spawn', '"noctalia msg volume-up"'] },
-  { mod = "Super+Shift", key = "S", command = ['spawn', '"noctalia msg screenshot-region"'] },
+  { mod = "Super", key = "Return", command = ['spawn', 'env NVIM_APPNAME=nvim neovide --no-tabs'] },
+  { opt = "repeat", key = "XF86AudioLowerVolume", command = ['spawn', 'noctalia msg volume-down'] },
+  { opt = "repeat", key = "XF86AudioRaiseVolume", command = ['spawn', 'noctalia msg volume-up'] },
+  { key = "XF86AudioMute", command = ['spawn', 'noctalia msg volume-mute'] },
+  { key = "XF86AudioMicMute", command = ['spawn', 'noctalia msg mic-mute'] },
+  { opt = "repeat", key = "XF86MonBrightnessDown", command = ['spawn', 'noctalia msg brightness-down eDP-1'] },
+  { opt = "repeat", key = "XF86MonBrightnessUp", command = ['spawn', 'noctalia msg brightness-up eDP-1'] },
+  { mod = "Super", key = "V", command = ['spawn', 'noctalia msg brightness-down eDP-1'] },
+  { mod = "Super", key = "M", command = ['spawn', 'noctalia msg brightness-up eDP-1'] },
+  { mod = "Super", key = "B", command = ['spawn', 'noctalia msg volume-down'] },
+  { mod = "Super", key = "N", command = ['spawn', 'noctalia msg volume-up'] },
+  { mod = "Super+Shift", key = "S", command = ['spawn', 'noctalia msg screenshot-region'] },
   { mod = "Super", key = "Q", command = ['close'] },
-  { mod = "Super", key = "E", command = ['zoom'] },
-  { mod = "Super", key = "D", command = ['spawn', '"noctalia msg panel-toggle launcher"'] },
+  { mod = "Super", key = "D", command = ['spawn', 'noctalia msg panel-toggle launcher'] },
   { mod = "Super+Shift", key = "F", command = ['toggle-fullscreen'] },
   { mod = "Super", key = "F", command = ['spawn', 'cosmic-files'] },
-  { mod = "Super", key = "A", command = ['spawn', "\"env NVIM_APPNAME=nvim neovide --no-tabs +'Tv files'\""] },
-  { mod = "Super", key = "S", command = ['spawn', "\"env NVIM_APPNAME=nvim neovide --no-tabs +'Tv text'\""] },
-  { mod = "Super", key = "W", command = ['spawn', '"noctalia msg window-switcher"'] },
-  { mod = "Super", key = "C", command = ['spawn', '"noctalia msg panel-toggle control-center"'] },
-  { mod = "Super+Shift", key = "C", command = ['spawn', '"noctalia msg panel-toggle control-center notifications"'] },
-  { mod = "Super", key = "comma", command = ['spawn', '"noctalia msg settings-toggle"'] },
-  { mod = "Super+Shift", key = "V", command = ['spawn', '"noctalia msg panel-toggle clipboard"'] },
-  { mod = "Super+Shift", key = "W", command = ['spawn', '"noctalia msg panel-toggle wallpaper"'] },
-  { mod = "Super", key = "Escape", command = ['spawn', '"noctalia msg panel-toggle session"'] },
-  { mod = "Super+Alt", key = "L", command = ['spawn', '"noctalia msg session lock"'] },
+  { mod = "Super", key = "A", command = ['spawn', "env NVIM_APPNAME=nvim neovide --no-tabs +'Tv files'"] },
+  { mod = "Super", key = "S", command = ['spawn', "env NVIM_APPNAME=nvim neovide --no-tabs +'Tv text'"] },
+  { mod = "Super", key = "W", command = ['spawn', 'noctalia msg window-switcher'] },
+  { mod = "Super", key = "C", command = ['spawn', 'noctalia msg panel-toggle control-center'] },
+  { mod = "Super+Shift", key = "C", command = ['spawn', 'noctalia msg panel-toggle control-center notifications'] },
+  { mod = "Super", key = "comma", command = ['spawn', 'noctalia msg settings-toggle'] },
+  { mod = "Super+Shift", key = "V", command = ['spawn', 'noctalia msg panel-toggle clipboard'] },
+  { mod = "Super+Shift", key = "W", command = ['spawn', 'noctalia msg panel-toggle wallpaper'] },
+  { mod = "Super", key = "Escape", command = ['spawn', 'noctalia msg panel-toggle session'] },
+  { mod = "Super+Alt", key = "L", command = ['spawn', 'noctalia msg session lock'] },
   { mod = "Super", key = "J", command = ['focus-view', 'previous'] },
   { mod = "Super", key = "K", command = ['focus-view', 'next'] },
-  { mod = "Super", key = "O", command = ['spawn', '"lua $HOME/.aquamoon/lua/aquamoon.lua menu"'] },
   { mod = "Super", key = "H", command = ['set-focused-tags', '1'] },
   { mod = "Super", key = "L", command = ['set-focused-tags', '2'] },
-  { mod = "Super+Shift", key = "H", command = ['send-layout-cmd', 'luatile', '"modify_main_ratio(-1)"'] },
-  { mod = "Super+Shift", key = "L", command = ['send-layout-cmd', 'luatile', '"modify_main_ratio(1)"'] },
+
+  { mod = "Super", key = "1", command = ['set-focused-tags', '1'] },
+  { mod = "Super", key = "2", command = ['set-focused-tags', '2'] },
+  { mod = "Super", key = "3", command = ['set-focused-tags', '4'] },
+  { mod = "Super", key = "4", command = ['set-focused-tags', '8'] },
+  { mod = "Super", key = "5", command = ['set-focused-tags', '16'] },
+  { mod = "Super", key = "6", command = ['set-focused-tags', '32'] },
+  { mod = "Super", key = "7", command = ['set-focused-tags', '64'] },
+  { mod = "Super", key = "8", command = ['set-focused-tags', '128'] },
+  { mod = "Super", key = "9", command = ['set-focused-tags', '256'] },
+
+  { mod = "Super+Shift", key = "1", command = ['set-view-tags', '1'] },
+  { mod = "Super+Shift", key = "2", command = ['set-view-tags', '2'] },
+  { mod = "Super+Shift", key = "3", command = ['set-view-tags', '4'] },
+  { mod = "Super+Shift", key = "4", command = ['set-view-tags', '8'] },
+  { mod = "Super+Shift", key = "5", command = ['set-view-tags', '16'] },
+  { mod = "Super+Shift", key = "6", command = ['set-view-tags', '32'] },
+  { mod = "Super+Shift", key = "7", command = ['set-view-tags', '64'] },
+  { mod = "Super+Shift", key = "8", command = ['set-view-tags', '128'] },
+  { mod = "Super+Shift", key = "9", command = ['set-view-tags', '256'] },
+
+  { mod = "Super+Control", key = "1", command = ['toggle-focused-tags', '1'] },
+  { mod = "Super+Control", key = "2", command = ['toggle-focused-tags', '2'] },
+  { mod = "Super+Control", key = "3", command = ['toggle-focused-tags', '4'] },
+  { mod = "Super+Control", key = "4", command = ['toggle-focused-tags', '8'] },
+  { mod = "Super+Control", key = "5", command = ['toggle-focused-tags', '16'] },
+  { mod = "Super+Control", key = "6", command = ['toggle-focused-tags', '32'] },
+  { mod = "Super+Control", key = "7", command = ['toggle-focused-tags', '64'] },
+  { mod = "Super+Control", key = "8", command = ['toggle-focused-tags', '128'] },
+  { mod = "Super+Control", key = "9", command = ['toggle-focused-tags', '256'] },
+
+  { mod = "Super+Alt", key = "1", command = ['toggle-view-tags', '1'] },
+  { mod = "Super+Alt", key = "2", command = ['toggle-view-tags', '2'] },
+  { mod = "Super+Alt", key = "3", command = ['toggle-view-tags', '4'] },
+  { mod = "Super+Alt", key = "4", command = ['toggle-view-tags', '8'] },
+  { mod = "Super+Alt", key = "5", command = ['toggle-view-tags', '16'] },
+  { mod = "Super+Alt", key = "6", command = ['toggle-view-tags', '32'] },
+  { mod = "Super+Alt", key = "7", command = ['toggle-view-tags', '64'] },
+  { mod = "Super+Alt", key = "8", command = ['toggle-view-tags', '128'] },
+  { mod = "Super+Alt", key = "9", command = ['toggle-view-tags', '256'] },
+
+  { mod = "Super", key = "0", command = ['set-focused-tags', '4294967295'] },
+  { mod = "Super+Shift", key = "0", command = ['set-view-tags', '4294967295'] },
 ]
 
 [map-pointer.normal]

@@ -114,13 +114,13 @@ order                      = "random"
 recursive                  = true
 [theme]
 mode   = "dark"
-source = "community"
+source = "builtin"
 builtin = "Eldritch"
 community_palette = "Catppuccin Frappe Mauve"
 # community_palette = "Cherry Blossom"
 # community_palette = "Cream"
 # community_palette = "Tokyo Night Storm"
-pure_black_dark = true
+pure_black_dark = false
 [theme.templates]
 enable_builtin_templates            = true
 builtin_ids                = ["gtk3", "gtk4", "qt"]
