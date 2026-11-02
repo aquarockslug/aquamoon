@@ -28,24 +28,6 @@ hide_logo = true
 power_buttons_position = "bottom-right"
 scheme_selector_position = "top-right"
 
-[appearance.palette]
-primary = "#b094e2"
-on_primary = "#1a1a24"
-secondary = "#92d3c5"
-on_secondary = "#1a1a24"
-tertiary = "#8ab4f8"
-on_tertiary = "#1a1a24"
-error = "#f28b82"
-on_error = "#1a1a24"
-surface = "#2a2a3a"
-on_surface = "#e6e1f5"
-surface_variant = "#1f1f2b"
-on_surface_variant = "#a9a3c2"
-outline = "#4a4660"
-shadow = "#0f0f16"
-hover = "#92d3c5"
-on_hover = "#1a1a24"
-
 [appearance.wallpaper]
 # Copied from wallpapers/macos_tiger_grey.png by setup.
 path = "/var/lib/noctalia-greeter/wallpaper.png"
