@@ -15,9 +15,14 @@ vim.pack.add({
 	"https://github.com/Badacadabra/vim-archery.git",
 })
 
--- TODO:
--- set the location of the terminal shell config file
-vim.fn.setenv('STARSHIP_CONFIG', '~/.aquamoon/toml/starship.toml')
+vim.fn.setenv("STARSHIP_CONFIG", vim.fn.expand("~/.aquamoon/toml/starship.toml"))
+
+-- Starship is a prompt, not a shell. Use bash for :terminal and :!, and let
+-- ~/.bashrc run `starship init bash` for interactive shells.
+local bash = vim.fn.exepath("bash")
+if bash ~= "" then
+	vim.opt.shell = bash
+end
 
 local function load(file)
 	local ok, result = pcall(require("tinytoml").parse, vim.fn.stdpath("config") .. "/toml/" .. file)
@@ -98,10 +103,11 @@ tv.setup({
 
 for _, plugin in ipairs({
 	"ai", "basics", "bracketed", "comment", "diff", "icons", "jump", "move",
-	"pairs", "surround", "trailspace", "visits", "jump2d", "completion", "starter",
+	"pairs", "surround", "trailspace", "visits", "jump2d", "completion",
 }) do
 	require("mini." .. plugin).setup()
 end
+require("aquamoon.starter").setup()
 
 local has_treesitter, treesitter = pcall(require, "nvim-treesitter")
 if has_treesitter then

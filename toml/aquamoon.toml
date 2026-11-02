@@ -83,6 +83,12 @@ bindings = [
   { mod = "Super", key = "K", command = ['focus-view', 'next'] },
   { mod = "Super", key = "H", command = ['set-focused-tags', '1'] },
   { mod = "Super", key = "L", command = ['set-focused-tags', '2'] },
+  # Tiling layout
+  { mod = "Super", key = "space", command = ['toggle-floating'] },
+  { mod = "Super+Shift", key = "space", command = ['toggle-tiling'] },
+  { mod = "Super", key = "equal", command = ['increase-main-ratio'] },
+  { mod = "Super", key = "minus", command = ['decrease-main-ratio'] },
+  { mod = "Super", key = "g", command = ['toggle-smart-gaps'] },
 
   { mod = "Super", key = "1", command = ['set-focused-tags', '1'] },
   { mod = "Super", key = "2", command = ['set-focused-tags', '2'] },

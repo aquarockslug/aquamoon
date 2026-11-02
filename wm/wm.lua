@@ -156,6 +156,13 @@ if #xkb_bindings == 0 then
         { key = "space", mods = Mods.MOD4, command = { "spawn", "foot" } },
         { key = "q", mods = Mods.MOD4, command = { "close" } },
         { key = "n", mods = Mods.MOD4, command = { "focus-next" } },
+        { key = "t", mods = Mods.MOD4, command = { "toggle-tiling" } },
+        { key = "space", mods = Mods.MOD4 | Mods.SHIFT,
+          command = { "toggle-floating" } },
+        { key = "equal", mods = Mods.MOD4,
+          command = { "increase-main-ratio" } },
+        { key = "minus", mods = Mods.MOD4,
+          command = { "decrease-main-ratio" } },
         { key = "Escape", mods = Mods.MOD4, command = { "exit" } },
     }
 end
@@ -295,6 +302,11 @@ local wm = {
     view_tags = 1,
     -- Output used for layer surfaces that do not request one explicitly.
     default_output = nil,
+    -- Automatically arrange visible windows in the tiling layout.
+    tiling = true,
+    -- Monotonic insertion order, used to keep the tiled layout stable while
+    -- focus (and therefore the stacking order) changes.
+    next_window_seq = 0,
 }
 
 local function table_index_of(tbl, sought)
@@ -323,7 +335,13 @@ local Output = { mt = {}, listener = {} }
 Output.mt.__index = Output
 
 function Output.create(obj)
-    local output = { obj = obj }
+    local output = {
+        obj = obj,
+        x = 0,
+        y = 0,
+        width = 0,
+        height = 0,
+    }
     setmetatable(output, Output.mt)
     obj:set_user_data(output)
     obj:add_listener(Output.listener)
@@ -346,6 +364,23 @@ function Output.create(obj)
     return output
 end
 
+-- Logical area available for windows.  Prefer the area left over by layer
+-- surfaces (panels/bars) when the compositor provides it.
+function Output:area()
+    local area = self.non_exclusive_area
+    if area ~= nil and area.width > 0 and area.height > 0 then
+        return area
+    end
+    if self.width > 0 and self.height > 0 then
+        return {
+            x = self.x,
+            y = self.y,
+            width = self.width,
+            height = self.height,
+        }
+    end
+end
+
 function Output:maybe_destroy()
     if self.removed then
         if self.layer_shell ~= nil then
@@ -360,6 +395,16 @@ end
 function Output.listener:removed()
     self:get_user_data().removed = true
 end
+function Output.listener:position(x, y)
+    local output = self:get_user_data()
+    output.x = x
+    output.y = y
+end
+function Output.listener:dimensions(width, height)
+    local output = self:get_user_data()
+    output.width = width
+    output.height = height
+end
 
 
 ---- Window ---------------------------
@@ -367,12 +412,14 @@ local Window = { mt = {}, listener = {} }
 Window.mt.__index = Window
 
 function Window.create(obj)
+    wm.next_window_seq = wm.next_window_seq + 1
     local window = {
         obj = obj,
         node = obj:get_node(),
         new = true,
         visible = false,
         tags = wm.view_tags,
+        seq = wm.next_window_seq,
     }
     setmetatable(window, Window.mt)
     obj:set_user_data(window)
@@ -418,8 +465,10 @@ function Window:manage()
         if self.ssd then
             self.obj:use_ssd()
         end
-        self:set_position(0, 0)
-        self.obj:propose_dimensions(0, 0)
+        if not wm.tiling then
+            self:set_position(0, 0)
+            self.obj:propose_dimensions(0, 0)
+        end
         self:update_visibility()
         self:set_borders(false)
     end
@@ -441,6 +490,24 @@ function Window:set_position(x, y)
     self.node:set_position(x, y)
     self.x = x
     self.y = y
+end
+
+-- Apply a geometry chosen by the tiling layout.  Requests are only sent when
+-- something actually changed so a quiet manage cycle does not spam clients.
+function Window:set_geometry(x, y, width, height)
+    if self.fullscreen then
+        return
+    end
+
+    if self.x ~= x or self.y ~= y then
+        self:set_position(x, y)
+    end
+
+    if self.tile_width ~= width or self.tile_height ~= height then
+        self.tile_width = width
+        self.tile_height = height
+        self.obj:propose_dimensions(width, height)
+    end
 end
 
 function Window.listener:closed()
@@ -474,6 +541,131 @@ function Window.listener:pointer_resize_requested(seat, edges)
             bottom = (edges & Edges.BOTTOM) ~= 0,
         },
     }
+end
+
+
+---- Layout -----------------------------
+-- A deliberately small master/stack layout: the first window takes the left
+-- portion of the output and the remaining windows are stacked on the right.
+-- Optional tuning lives in the [layout] section of the TOML configuration.
+local layout_config = type(config.layout) == "table" and config.layout or {}
+local layout_main_ratio = math.max(
+    0.1, math.min(0.9, tonumber(layout_config["main-ratio"]) or 2 / 3))
+local layout_gaps = math.max(
+    0, math.floor(tonumber(layout_config.gaps) or 0))
+local layout_smart_gaps = layout_config["smart-gaps"] ~= false
+wm.tiling = layout_config.tiled ~= false
+
+local function window_output(window)
+    local x = window.x or 0
+    local y = window.y or 0
+    local width = window.width or 0
+    local height = window.height or 0
+    local cx = x + width / 2
+    local cy = y + height / 2
+
+    for _, output in ipairs(wm.outputs) do
+        local area = output:area()
+        if area ~= nil and
+           cx >= area.x and cx < area.x + area.width and
+           cy >= area.y and cy < area.y + area.height then
+            return output
+        end
+    end
+
+    -- Keep the old output if it is still around, otherwise fall back to the
+    -- default/first output.  This keeps a window from jumping between outputs
+    -- when it is temporarily moved outside every output area.
+    if window.output ~= nil and not window.output.removed then
+        return window.output
+    end
+    return wm.default_output or wm.outputs[1]
+end
+
+local function tile_output(output, windows)
+    local area = output:area()
+    if area == nil or #windows == 0 then
+        return
+    end
+
+    table.sort(windows, function (a, b) return a.seq < b.seq end)
+
+    local gaps = layout_gaps
+    if #windows == 1 and layout_smart_gaps then
+        gaps = 0
+    end
+
+    local available_width = math.max(1, area.width - gaps * 3)
+    local available_height = math.max(1, area.height - gaps * 2)
+
+    if #windows == 1 then
+        windows[1]:set_geometry(
+            area.x + gaps, area.y + gaps,
+            math.max(1, area.width - gaps * 2),
+            math.max(1, area.height - gaps * 2))
+        return
+    end
+
+    local main_width = math.max(
+        1, math.floor(available_width * layout_main_ratio))
+    local side_width = math.max(1, available_width - main_width)
+    local main_height = available_height
+    local side_height = math.max(
+        1, math.floor(
+            (available_height - gaps * (#windows - 2)) / (#windows - 1)))
+
+    windows[1]:set_geometry(
+        area.x + gaps, area.y + gaps, main_width, main_height)
+
+    local side_x = area.x + main_width + gaps * 2
+    for i = 2, #windows do
+        windows[i]:set_geometry(
+            side_x,
+            area.y + gaps + (i - 2) * (side_height + gaps),
+            side_width, side_height)
+    end
+end
+
+function wm.tile()
+    if not wm.tiling then
+        return
+    end
+
+    local by_output = {}
+    for _, output in ipairs(wm.outputs) do
+        by_output[output] = {}
+    end
+
+    for _, window in ipairs(wm.windows) do
+        if window.visible and not window.closed and
+           not window.floating and not window.fullscreen then
+            local output = window_output(window)
+            if output ~= nil then
+                window.output = output
+                local windows = by_output[output]
+                if windows == nil then
+                    windows = {}
+                    by_output[output] = windows
+                end
+                windows[#windows + 1] = window
+            end
+        end
+    end
+
+    for output, windows in pairs(by_output) do
+        if #windows > 0 then
+            tile_output(output, windows)
+        end
+    end
+end
+
+-- Force the next manage cycle to send fresh geometry, then schedule it.
+local function invalidate_layout()
+    for _, window in ipairs(wm.windows) do
+        window.tile_width = nil
+        window.tile_height = nil
+    end
+    wm.refresh()
 end
 
 
@@ -779,7 +971,10 @@ function Seat:toggle_fullscreen(window)
             window.obj:propose_dimensions(geometry.width, geometry.height)
         end
     else
-        local output = wm.outputs[1]
+        local output = window.output
+        if output == nil or output.removed then
+            output = window_output(window)
+        end
         if output == nil then
             return
         end
@@ -796,6 +991,9 @@ end
 
 function Seat:pointer_move(window)
     if self.op == nil then
+        if wm.tiling then
+            window.floating = true
+        end
         self:focus(window)
         self.obj:op_start_pointer()
         self.op = {
@@ -810,6 +1008,9 @@ end
 
 function Seat:pointer_resize(window, edges)
     if self.op == nil then
+        if wm.tiling then
+            window.floating = true
+        end
         self:focus(window)
         window.obj:inform_resize_start()
         self.obj:op_start_pointer()
@@ -883,6 +1084,38 @@ function Seat:action(command)
         if self.hovered ~= nil then
             self:pointer_resize(self.hovered, { bottom = true, right = true })
         end
+    elseif action == "toggle-floating" then
+        if self.focused ~= nil then
+            self.focused.floating = not self.focused.floating
+            invalidate_layout()
+        end
+    elseif action == "float" then
+        if self.focused ~= nil then
+            self.focused.floating = true
+            invalidate_layout()
+        end
+    elseif action == "tile" then
+        wm.tiling = true
+        if self.focused ~= nil then
+            self.focused.floating = false
+        end
+        invalidate_layout()
+    elseif action == "toggle-tiling" then
+        wm.tiling = not wm.tiling
+        invalidate_layout()
+    elseif action == "increase-main-ratio" then
+        layout_main_ratio = math.max(0.1, math.min(0.9, layout_main_ratio + 0.05))
+        invalidate_layout()
+    elseif action == "decrease-main-ratio" then
+        layout_main_ratio = math.max(0.1, math.min(0.9, layout_main_ratio - 0.05))
+        invalidate_layout()
+    elseif action == "set-gaps" then
+        layout_gaps = math.max(0, number(command[2]))
+        layout_smart_gaps = false
+        invalidate_layout()
+    elseif action == "toggle-smart-gaps" then
+        layout_smart_gaps = not layout_smart_gaps
+        invalidate_layout()
     elseif action == "exit" then
         globals["river_window_manager_v1"]:exit_session()
     else
@@ -1133,6 +1366,8 @@ local function wm_manage()
     for _, seat in ipairs(wm.seats) do
         seat:manage()
     end
+
+    wm.tile()
 
     globals["river_window_manager_v1"]:manage_finish()
 end

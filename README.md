@@ -144,3 +144,7 @@ the implementation.
 ## Theme
 
 Noctalia generates the Neovim palette from the active theme (`toml/nvim-template.lua`), and `init.lua` applies it with `mini.base16`. The shell palette and font are configured in `toml/noctalia.toml`.
+
+## Starter
+
+Neovim opens a custom `mini.starter` page defined in `lua/aquamoon/starter.lua`. It provides file/text search, shortcuts to the Aquamoon configuration files, recent files, and the builtin Neovim actions. Items, header, footer, content hooks, and query settings live in that module. Reopen it with `:lua MiniStarter.open()`.
