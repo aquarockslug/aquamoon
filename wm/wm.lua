@@ -1,35 +1,41 @@
-#! /usr/bin/env lua
+#! /usr/bin/env lua5.4
 -- SPDX-FileCopyrightText: © 2026 FireFly
 -- SPDX-License-Identifier: 0BSD
 
+local ffi = require("cffi")
 local wau = require("wau")
-local xkbcommon = require("tinyrwm.xkbcommon")
+local xkbcommon = require("wm.xkbcommon")
 local posix = require("posix")
+local raw = require("wau.core.raw")
 
-wau:require("tinyrwm.protocol.river-window-management-v1")
-wau:require("tinyrwm.protocol.river-xkb-bindings-v1")
-wau:require("tinyrwm.protocol.river-layer-shell-v1")
+wau:require("wm.protocol.river-window-management-v1")
+wau:require("wm.protocol.river-xkb-bindings-v1")
+wau:require("wm.protocol.river-layer-shell-v1")
+wau:require("wm.protocol.river-input-management-v1")
+wau:require("wm.protocol.river-libinput-config-v1")
 
 local globals = {}
 local required_globals = {
     ["river_window_manager_v1"] = 4,
-    ["river_xkb_bindings_v1"] = 1,
+    ["river_xkb_bindings_v1"] = 2,
 }
 local optional_globals = {
     ["river_layer_shell_v1"] = 1,
+    ["river_input_manager_v1"] = 2,
+    ["river_libinput_config_v1"] = 2,
 }
 
 local Mods = wau.river_seat_v1.Modifiers
 
 ---- Configuration -------------------
 -- The aquamoon TOML file is the source of truth for bindings, startup
--- commands, borders and rules.  It is optional: without it tinyrwm falls back
+-- commands, borders and rules.  It is optional: without it wm falls back
 -- to the upstream tiny feature set.
 local repo = os.getenv("AQUAMOON_DIR") or ((os.getenv("HOME") or "") .. "/.aquamoon")
 local config_path = os.getenv("AQUAMOON_CONFIG") or (repo .. "/toml/aquamoon.toml")
 
 local function warn(message)
-    io.stderr:write("tinyrwm: " .. message .. "\n")
+    io.stderr:write("wm: " .. message .. "\n")
 end
 
 local config = {}
@@ -54,6 +60,11 @@ end
 
 local function number(value)
     return math.tointeger(tonumber(value)) or 0
+end
+
+local function monotonic_ms()
+    local time = posix.time.clock_gettime(posix.time.CLOCK_MONOTONIC)
+    return time.tv_sec * 1000 + time.tv_nsec / 1000000
 end
 
 local MODIFIERS = {
@@ -120,6 +131,7 @@ do
                 mods = modifiers(binding.mod),
                 command = command(binding.command),
                 on_release = binding.opt == "release",
+                is_repeat = binding.opt == "repeat",
             }
         end
     end
@@ -179,6 +191,60 @@ local focus_follows_cursor = river_options["focus-follows-cursor"]
 focus_follows_cursor = focus_follows_cursor ~= nil and focus_follows_cursor ~= "disabled"
 
 local attach_bottom = river_options["default-attach-mode"] == "bottom"
+
+-- Keyboard repeat defaults match riverctl's historical defaults.  The value
+-- in the TOML file is { rate, delay } in repeats per second and milliseconds.
+local repeat_rate, repeat_delay = 25, 600
+do
+    local value = river_options["set-repeat"]
+    if type(value) == "table" and value[1] ~= nil and value[2] ~= nil then
+        repeat_rate = number(value[1])
+        repeat_delay = number(value[2])
+    elseif type(value) == "string" then
+        local rate, delay = value:match("^(%d+)%s+(%d+)$")
+        if rate ~= nil then
+            repeat_rate = number(rate)
+            repeat_delay = number(delay)
+        end
+    end
+    if repeat_rate < 0 or repeat_delay < 0 then
+        warn("invalid set-repeat; using 25 600")
+        repeat_rate, repeat_delay = 25, 600
+    end
+end
+
+local input_rules = {}
+do
+    for _, input in pairs(config.inputs or {}) do
+        if type(input) == "table" and input.device ~= nil then
+            input_rules[#input_rules + 1] = input
+        end
+    end
+    table.sort(input_rules, function (a, b)
+        return tostring(a.device) < tostring(b.device)
+    end)
+end
+
+-- river 0.5 reports the libinput name ("PIXA200B:00 093A:200B Touchpad")
+-- while river-classic used "pointer-vendor-product-name" identifiers.  Accept
+-- both forms so the existing configuration keeps working.
+local function normalize_device(name)
+    local value = tostring(name or ""):lower()
+    value = value:gsub("^[%a_]+%-%d+%-%d+%-", "")
+    value = value:gsub("[%s:%-]+", "_")
+    value = value:gsub("_+", "_")
+    return value
+end
+
+local function input_rule_for(name)
+    local normalized = normalize_device(name)
+    for _, rule in ipairs(input_rules) do
+        local device = tostring(rule.device)
+        if device == name or normalize_device(device) == normalized then
+            return rule
+        end
+    end
+end
 
 local ssd_apps = {}
 for _, app_id in pairs((config.window_rules or {}).ssd or {}) do
@@ -408,6 +474,178 @@ function Window.listener:pointer_resize_requested(seat, edges)
             bottom = (edges & Edges.BOTTOM) ~= 0,
         },
     }
+end
+
+
+---- Input devices --------------------
+local input_devices = {}
+local libinput_devices = {}
+local libinput_by_input_id = {}
+
+local InputDevice = { mt = {}, listener = {} }
+InputDevice.mt.__index = InputDevice
+
+function InputDevice.create(obj)
+    local device = {
+        obj = obj,
+        repeat_applied = false,
+        libinput_applied = false,
+    }
+    setmetatable(device, InputDevice.mt)
+    obj:set_user_data(device)
+
+    local libinput = libinput_by_input_id[obj:get_id()]
+    if libinput ~= nil then
+        device.libinput = libinput
+        libinput.input = device
+    end
+
+    obj:add_listener(InputDevice.listener)
+    table.insert(input_devices, device)
+    return device
+end
+
+function InputDevice:apply()
+    if self.done and self.type == 0 and not self.repeat_applied then
+        self.repeat_applied = true
+        self.obj:set_repeat_info(repeat_rate, repeat_delay)
+    end
+
+    if self.libinput_applied or self.libinput == nil or
+       not self.libinput.done or self.name == nil then
+        return
+    end
+    self.libinput_applied = true
+
+    local rule = input_rule_for(self.name)
+    if rule ~= nil then
+        self.libinput:apply(rule)
+    end
+end
+
+function InputDevice:maybe_destroy()
+    if self.removed then
+        self.obj:destroy()
+    else
+        return self
+    end
+end
+
+function InputDevice.listener:removed()
+    self:get_user_data().removed = true
+end
+function InputDevice.listener:type(kind)
+    local device = self:get_user_data()
+    device.type = kind
+    device:apply()
+end
+function InputDevice.listener:name(name)
+    local device = self:get_user_data()
+    device.name = name
+    device:apply()
+end
+function InputDevice.listener:done()
+    local device = self:get_user_data()
+    device.done = true
+    device:apply()
+end
+
+
+local LibinputDevice = { mt = {}, listener = {} }
+LibinputDevice.mt.__index = LibinputDevice
+
+function LibinputDevice.create(obj)
+    local device = {
+        obj = obj,
+        done = false,
+        tap_fingers = 0,
+    }
+    setmetatable(device, LibinputDevice.mt)
+    obj:set_user_data(device)
+    obj:add_listener(LibinputDevice.listener)
+    table.insert(libinput_devices, device)
+    return device
+end
+
+local function state(value)
+    if value == true or value == "enabled" or value == "true" then
+        return 1
+    elseif value == false or value == "disabled" or value == "false" then
+        return 0
+    end
+end
+
+function LibinputDevice:set(description, result)
+    local name = self.input ~= nil and self.input.name or "device"
+    result:add_listener {
+        ["success"] = function () end,
+        ["unsupported"] = function ()
+            warn(("%s is not supported by %s"):format(description, name))
+        end,
+        ["invalid"] = function ()
+            warn(("%s is invalid for %s"):format(description, name))
+        end,
+    }
+end
+
+function LibinputDevice:apply(rule)
+    if self.applied then
+        return
+    end
+    self.applied = true
+
+    local tap = state(rule.tap)
+    if tap ~= nil then
+        if self.tap_fingers > 0 then
+            self:set("tap", self.obj:set_tap(tap))
+        else
+            warn(("tap is not supported by %s"):format(
+                self.input ~= nil and self.input.name or "device"))
+        end
+    end
+
+    local accel = tonumber(rule["pointer-accel"])
+    if accel ~= nil then
+        local speed = math.max(-1, math.min(1, accel))
+        if speed ~= accel then
+            warn(("pointer-accel for %s clamped to %.2f"):format(
+                self.input ~= nil and self.input.name or "device", speed))
+        end
+        self:set("pointer-accel",
+            self.obj:set_accel_speed(wau.wl_array.from({ speed }, "f64")))
+    end
+end
+
+function LibinputDevice:maybe_destroy()
+    if self.removed then
+        self.obj:destroy()
+    else
+        return self
+    end
+end
+
+function LibinputDevice.listener:removed()
+    self:get_user_data().removed = true
+end
+function LibinputDevice.listener:input_device(obj)
+    local device = self:get_user_data()
+    libinput_by_input_id[obj:get_id()] = device
+    local input = obj:get_user_data()
+    if input ~= nil then
+        device.input = input
+        input.libinput = device
+        input:apply()
+    end
+end
+function LibinputDevice.listener:tap_support(fingers)
+    self:get_user_data().tap_fingers = fingers
+end
+function LibinputDevice.listener:done()
+    local device = self:get_user_data()
+    device.done = true
+    if device.input ~= nil then
+        device.input:apply()
+    end
 end
 
 
@@ -652,6 +890,27 @@ function Seat:action(command)
     end
 end
 
+local repeat_state = nil
+
+function Seat:start_repeat(binding, command)
+    if repeat_rate <= 0 then
+        return
+    end
+    repeat_state = {
+        seat = self,
+        binding = binding,
+        command = command,
+        interval = 1000 / repeat_rate,
+        next = monotonic_ms() + repeat_delay,
+    }
+end
+
+function Seat:stop_repeat(binding)
+    if repeat_state ~= nil and repeat_state.binding == binding then
+        repeat_state = nil
+    end
+end
+
 function Seat:add_pointer_binding(button, mods, command)
     local obj = self.obj:get_pointer_binding(button, mods)
     local binding = { obj = obj }
@@ -665,7 +924,7 @@ function Seat:add_pointer_binding(button, mods, command)
     table.insert(self.pointer_bindings, binding)
 end
 
-function Seat:add_xkb_binding(key, mods, command, on_release)
+function Seat:add_xkb_binding(key, mods, command, on_release, is_repeat)
     local keysym = xkbcommon.keysym(key)
     local obj = globals["river_xkb_bindings_v1"]:get_xkb_binding(
                     self.obj, keysym, mods)
@@ -675,11 +934,22 @@ function Seat:add_xkb_binding(key, mods, command, on_release)
         ["pressed"] = function (_)
             if not on_release then
                 self.pending_action = command
+                if is_repeat then
+                    self:start_repeat(binding, command)
+                end
             end
         end,
         ["released"] = function (_)
             if on_release then
                 self.pending_action = command
+            end
+            if is_repeat then
+                self:stop_repeat(binding)
+            end
+        end,
+        ["stop_repeat"] = function (_)
+            if is_repeat then
+                self:stop_repeat(binding)
             end
         end,
     }
@@ -693,7 +963,8 @@ function Seat:manage()
 
         for _, binding in ipairs(xkb_bindings) do
             self:add_xkb_binding(
-                binding.key, binding.mods, binding.command, binding.on_release)
+                binding.key, binding.mods, binding.command,
+                binding.on_release, binding.is_repeat)
         end
 
         for _, binding in ipairs(pointer_bindings) do
@@ -791,6 +1062,9 @@ end
 
 function Seat:maybe_destroy()
     if self.removed then
+        if repeat_state ~= nil and repeat_state.seat == self then
+            repeat_state = nil
+        end
         for _, binding in ipairs(self.xkb_bindings) do
             binding.obj:destroy()
         end
@@ -838,6 +1112,8 @@ local function wm_manage()
     table_filter_inplace(wm.outputs, Output.maybe_destroy)
     table_filter_inplace(wm.windows, Window.maybe_destroy)
     table_filter_inplace(wm.seats, Seat.maybe_destroy)
+    table_filter_inplace(input_devices, InputDevice.maybe_destroy)
+    table_filter_inplace(libinput_devices, LibinputDevice.maybe_destroy)
 
     if wm.default_output ~= nil and wm.default_output.removed then
         wm.default_output = nil
@@ -929,6 +1205,23 @@ registry:add_listener {
             globals[iface] = self:bind(name, wau[iface],
                 math.min(optional_version, version))
         end
+
+        local global = globals[iface]
+        if global ~= nil then
+            if iface == "river_input_manager_v1" then
+                global:add_listener {
+                    ["input_device"] = function (_, obj)
+                        InputDevice.create(obj)
+                    end,
+                }
+            elseif iface == "river_libinput_config_v1" then
+                global:add_listener {
+                    ["libinput_device"] = function (_, obj)
+                        LibinputDevice.create(obj)
+                    end,
+                }
+            end
+        end
     end,
 }
 
@@ -940,6 +1233,73 @@ end
 
 globals["river_window_manager_v1"]:add_listener(wm_handlers)
 
+-- Fire the next queued repeat, if any is due.  The action is handed to the
+-- seat through pending_action so it runs inside the normal manage cycle.
+local function repeat_tick()
+    if repeat_state == nil then
+        return
+    end
+    local now = monotonic_ms()
+    if now < repeat_state.next then
+        return
+    end
+
+    local seat = repeat_state.seat
+    if seat.removed then
+        repeat_state = nil
+        return
+    end
+
+    repeat_state.next = now + repeat_state.interval
+    seat.pending_action = repeat_state.command
+    globals["river_window_manager_v1"]:manage_dirty()
+end
+
+-- Time until the next repeat, or -1 to wait for wayland events forever.
+local function repeat_timeout()
+    if repeat_state == nil then
+        return -1
+    end
+    local remaining = repeat_state.next - monotonic_ms()
+    if remaining <= 0 then
+        return 0
+    end
+    return math.ceil(remaining)
+end
+
+-- Wayland event loop with a poll timeout so held keys can repeat without
+-- blocking on the compositor file descriptor.
+local function event_loop()
+    local pointer = ffi.cast("struct wl_display*", display)
+    local fd = raw.wl_display_get_fd(pointer)
+    local fds = { [fd] = { events = { IN = true } } }
+
+    while true do
+        display:flush()
+        fds[fd].revents = nil
+
+        local ready, message = posix.poll(fds, repeat_timeout())
+        if ready == nil then
+            io.stderr:write("wm: poll: " .. tostring(message) .. "\n")
+            os.exit(1)
+        end
+
+        local revents = fds[fd].revents or {}
+        if revents.IN then
+            if not display:dispatch() then
+                break
+            end
+        elseif revents.ERR or revents.HUP then
+            break
+        else
+            -- Timed out for a key repeat; process anything already queued.
+            raw.wl_display_dispatch_pending(pointer)
+        end
+
+        repeat_tick()
+    end
+end
+
 start()
 
-while display:dispatch() do end
+event_loop()

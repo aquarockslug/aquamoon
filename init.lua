@@ -15,6 +15,10 @@ vim.pack.add({
 	"https://github.com/Badacadabra/vim-archery.git",
 })
 
+-- TODO:
+-- set the location of the terminal shell config file
+vim.fn.setenv('STARSHIP_CONFIG', '~/.aquamoon/toml/starship.toml')
+
 local function load(file)
 	local ok, result = pcall(require("tinytoml").parse, vim.fn.stdpath("config") .. "/toml/" .. file)
 	if not ok then

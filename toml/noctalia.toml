@@ -114,9 +114,9 @@ order                      = "random"
 recursive                  = true
 [theme]
 mode   = "dark"
-source = "builtin"
-builtin = "Eldritch"
-community_palette = "Catppuccin Frappe Mauve"
+source = "community"
+# builtin = "Eldritch"
+# community_palette = "Catppuccin Frappe Mauve"
 # community_palette = "Cherry Blossom"
 # community_palette = "Cream"
 # community_palette = "Tokyo Night Storm"

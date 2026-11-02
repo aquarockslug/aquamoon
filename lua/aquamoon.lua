@@ -31,9 +31,57 @@ local function link(target, path)
 	run("ln -s " .. quote(target) .. " " .. quote(path))
 end
 
+local function greeter_user()
+	local user = os.getenv("GREETER_USER")
+	if user ~= nil and user ~= "" then
+		return user
+	end
+	local handle = io.popen(
+		"noctalia-greeter-apply-appearance --print-greeter-user 2>/dev/null")
+	if handle then
+		local value = handle:read("*l")
+		handle:close()
+		if value ~= nil and value ~= "" then
+			return value
+		end
+	end
+	return "greeter"
+end
+
+-- The greeter runs as the greetd session user, which cannot read ~/.aquamoon
+-- (the home directory is private).  Install the declarative config and the
+-- wallpaper into its state directory instead of symlinking the repository.
+local function install_greeter()
+	local user = greeter_user()
+	local dir = "/var/lib/noctalia-greeter"
+	local config = repo .. "/toml/noctalia-greeter.toml"
+	local wallpaper = repo .. "/wallpapers/macos_tiger_grey.png"
+	local files = {
+		dir .. "/greeter.toml",
+		dir .. "/wallpaper.png",
+	}
+	local commands = {
+		"install -d -m750 -o " .. quote(user) .. " -g " .. quote(user)
+			.. " " .. quote(dir),
+		"install -Dm644 " .. quote(config) .. " " .. quote(files[1]),
+		"install -Dm644 " .. quote(wallpaper) .. " " .. quote(files[2]),
+		"chown " .. quote(user .. ":" .. user) .. " " .. quote(dir)
+			.. " " .. quote(files[1]) .. " " .. quote(files[2]),
+	}
+	local command = table.concat(commands, " && ")
+	local ok = run("sudo sh -c " .. quote(command))
+	if ok ~= true and ok ~= 0 then
+		print("could not install the greeter configuration; run:")
+		print("  sudo sh -c " .. quote(command))
+		return false
+	end
+	return true
+end
+
 local function setup()
 	local missing = {}
-	for _, dep in ipairs({ "lua5.4", "luarocks", "river", "tofi", "noctalia", "neovide" }) do
+	for _, dep in ipairs({ "lua5.4", "luarocks", "river", "tofi", "noctalia",
+		"noctalia-greeter", "greetd", "neovide" }) do
 		local ok = os.execute("command -v " .. dep .. " >/dev/null 2>&1")
 		if ok ~= true and ok ~= 0 then
 			missing[#missing + 1] = dep
@@ -43,14 +91,20 @@ local function setup()
 		print("missing: " .. table.concat(missing, " "))
 	end
 
-	local tinyrwm = repo .. "/tinyrwm"
-	local ok = run("cd " .. quote(tinyrwm)
+	-- Generate the wau protocol bindings in the vendored source tree.  The
+	-- session runs wm straight from the repository, so no install step is
+	-- needed and edits to wm/wm.lua are picked up on restart.
+	local wm_dir = repo .. "/wm"
+	local ok = run("cd " .. quote(wm_dir)
 		.. " && eval $(luarocks --lua-version=5.4 path)"
-		.. " && luarocks --lua-version=5.4 --local make")
+		.. " && set -e"
+		.. " && for f in protocol/*.xml; do"
+		.. " wau-scanner < \"$f\" > \"${f%%.xml}.lua\"; done")
 	if ok ~= true and ok ~= 0 then
-		print("failed to build tinyrwm")
+		print("failed to generate wm protocol bindings")
 		return
 	end
+	run("chmod +x " .. quote(repo .. "/bin/wm"))
 
 	local config_dir = os.getenv("XDG_CONFIG_HOME")
 	if not config_dir or config_dir == "" then
@@ -60,10 +114,21 @@ local function setup()
 		.. quote(config_dir .. "/noctalia"))
 
 	local init = assert(io.open(config_dir .. "/river/init", "w"))
-	init:write("#!/bin/sh\nexec \"$HOME/.luarocks/bin/tinyrwm\"\n")
+	init:write("#!/bin/sh\nexec " .. quote(repo .. "/bin/wm") .. "\n")
 	init:close()
 	run("chmod +x " .. quote(config_dir .. "/river/init"))
 	link(repo .. "/toml/noctalia.toml", config_dir .. "/noctalia/config.toml")
+
+	local greeter = os.execute(
+		"command -v noctalia-greeter >/dev/null 2>&1")
+	if greeter == true or greeter == 0 then
+		if install_greeter() then
+			print("greeter configured; restart greetd to apply: "
+				.. "sudo systemctl restart greetd")
+		end
+	else
+		print("skip greeter configuration: noctalia-greeter is not installed")
+	end
 
 	if readlink(config_dir .. "/nvim") ~= repo then
 		print("link Neovim config: ln -s " .. quote(repo) .. " " .. quote(config_dir .. "/nvim"))

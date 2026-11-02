@@ -1,0 +1,76 @@
+# Noctalia Greeter configuration for Aquamoon.
+#
+# `lua lua/aquamoon.lua setup` installs this file as
+# /var/lib/noctalia-greeter/greeter.toml and copies the wallpaper next to it,
+# because the greeter runs as the unprivileged greetd user and cannot read
+# ~/.aquamoon.  Restart greetd after changing startup, output, input or idle
+# settings:  sudo systemctl restart greetd
+#
+# Docs: https://docs.noctalia.dev/greeter/configuration/
+
+[session]
+# Picker label or .desktop filename; see `noctalia-greeter sessions`.
+default = "River"
+
+[user]
+# Open directly on this account's password step.  Remove to show the picker.
+default = "aqua"
+
+[appearance]
+# "Synced" uses the declarative palette below; a builtin name such as
+# "Noctalia" is also accepted.
+scheme = "Synced"
+theme_mode = "dark"
+font_family = "FairiesevkaTerm Nerd Font Mono"
+corner_radius_scale = 1.0
+password_style = "default"
+hide_logo = true
+power_buttons_position = "bottom-right"
+scheme_selector_position = "top-right"
+
+[appearance.palette]
+primary = "#b094e2"
+on_primary = "#1a1a24"
+secondary = "#92d3c5"
+on_secondary = "#1a1a24"
+tertiary = "#8ab4f8"
+on_tertiary = "#1a1a24"
+error = "#f28b82"
+on_error = "#1a1a24"
+surface = "#2a2a3a"
+on_surface = "#e6e1f5"
+surface_variant = "#1f1f2b"
+on_surface_variant = "#a9a3c2"
+outline = "#4a4660"
+shadow = "#0f0f16"
+hover = "#92d3c5"
+on_hover = "#1a1a24"
+
+[appearance.wallpaper]
+# Copied from wallpapers/macos_tiger_grey.png by setup.
+path = "/var/lib/noctalia-greeter/wallpaper.png"
+fill_mode = "crop"
+
+[clock]
+enabled = true
+position = "above-panel"
+time_format = "{:%H:%M}"
+date_format = "%A, %x"
+time_font_size = 48
+date_font_size = 14
+
+[output]
+use_synced_settings = true
+
+[cursor]
+theme = "Adwaita"
+size = 24
+
+[keyboard]
+layout = "us"
+options = "terminate:ctrl_alt_bksp"
+numlock = true
+
+[auth]
+allow_empty_password = false
+request_timeout = 60

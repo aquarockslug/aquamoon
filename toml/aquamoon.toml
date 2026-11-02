@@ -4,6 +4,8 @@ focus-follows-cursor = "normal"
 default-attach-mode = "bottom"
 border-color-focused = "0xb094e2"
 border-color-unfocused = "0x92d3c5"
+# Key repeat: { rate (repeats/second), delay (ms) }.
+set-repeat = [50, 300]
 
 [window_rules.ssd]
 0 = "firefox"
@@ -33,11 +35,12 @@ anchor = "center"
 0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
 1 = ["noctalia", "--daemon"]
 
-# tinyrwm does not implement the river input protocols yet, so these libinput
-# settings are kept for a future window manager but are currently ignored.
+# Libinput settings are applied by wm through the river input protocols.
+# The device name may be either the libinput name or the river-classic
+# "pointer-vendor-product-name" identifier.
 [inputs.Kensington_Eagle_Trackball]
 device = "pointer-1149-8264-Kensington_Eagle_Trackball"
-pointer-accel = 4
+pointer-accel = 1
 
 [inputs.PIXA200B_Touchpad]
 device = "pointer-2362-8203-PIXA200B:00_093A:200B_Touchpad"
@@ -46,7 +49,7 @@ tap = "enabled"
 
 [inputs.PIXA200B_Mouse]
 device = "pointer-2362-8203-PIXA200B:00_093A:200B_Mouse"
-pointer-accel = 2
+pointer-accel = 1
 
 [map.normal]
 bindings = [
