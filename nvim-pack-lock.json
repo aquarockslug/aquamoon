@@ -8,9 +8,17 @@
       "rev": "8173bc716f29797ce0ad94359565a20e17a0b88c",
       "src": "https://forge.barrettruth.com/barrettruth/canola.nvim"
     },
+    "copilot.lua": {
+      "rev": "1d674b416df08e5c54e442503b7703a0df462acf",
+      "src": "https://github.com/zbirenbaum/copilot.lua.git"
+    },
     "flume.nvim": {
       "rev": "2ed1aa0c003063fccf1b3c680870589d78ca12d4",
       "src": "https://github.com/mitander/flume.nvim.git"
+    },
+    "lush.nvim": {
+      "rev": "9c60ec2279d62487d942ce095e49006af28eed6e",
+      "src": "https://github.com/rktjmp/lush.nvim.git"
     },
     "mini.nvim": {
       "rev": "561751e839b99a4baca36b9d963166b66d2536a6",
@@ -27,6 +35,10 @@
     "nvim-treesitter": {
       "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "sidekick.nvim": {
+      "rev": "3d80a47e6375f6d647c9695d3afea6fa1b3275df",
+      "src": "https://github.com/folke/sidekick.nvim.git"
     },
     "snipe.nvim": {
       "rev": "d2d196c335919767803f905d573ce66340e33ee6",

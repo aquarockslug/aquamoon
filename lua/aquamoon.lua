@@ -117,7 +117,12 @@ local function setup()
 	init:write("#!/bin/sh\nexec " .. quote(repo .. "/bin/wm") .. "\n")
 	init:close()
 	run("chmod +x " .. quote(config_dir .. "/river/init"))
-	link(repo .. "/toml/noctalia.toml", config_dir .. "/noctalia/config.toml")
+	-- When the repository itself is symlinked as the Noctalia config
+	-- directory, its config.toml includes toml/noctalia.toml already and no
+	-- extra link is needed.
+	if readlink(config_dir .. "/noctalia") ~= repo then
+		link(repo .. "/toml/noctalia.toml", config_dir .. "/noctalia/config.toml")
+	end
 
 	local greeter = os.execute(
 		"command -v noctalia-greeter >/dev/null 2>&1")

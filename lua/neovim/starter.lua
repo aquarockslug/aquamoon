@@ -50,17 +50,37 @@ local function items()
 		{
 			{
 				name = "Aquamoon keybindings",
+				action = edit("toml/bindings.toml"),
+				section = "Aquamoon",
+			},
+			{
+				name = "Aquamoon options & rules",
 				action = edit("toml/aquamoon.toml"),
 				section = "Aquamoon",
 			},
 			{
 				name = "Aquamoon theme",
+				action = edit("toml/theme.toml"),
+				section = "Aquamoon",
+			},
+			{
+				name = "Aquamoon bar",
+				action = edit("toml/bar.toml"),
+				section = "Aquamoon",
+			},
+			{
+				name = "Noctalia shell",
 				action = edit("toml/noctalia.toml"),
 				section = "Aquamoon",
 			},
 			{
 				name = "Window manager",
 				action = edit("wm/wm.lua"),
+				section = "Aquamoon",
+			},
+			{
+				name = "Neovim plugins",
+				action = edit("lua/neovim/plugins.lua"),
 				section = "Aquamoon",
 			},
 			{

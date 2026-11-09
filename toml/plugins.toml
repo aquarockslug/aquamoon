@@ -1,0 +1,26 @@
+# Plugins: https://docs.noctalia.dev/noctalia/plugins/
+# The theme switcher widget is placed on the bar; the other plugins
+# provide launcher providers, panels, services and optional widgets.
+[plugins]
+auto_update = "all"
+enabled = [
+  "noctalia/kaomoji",
+  "noctalia/notes",
+  "noctalia/timer",
+  "noctalia/translator",
+  "noctalia/wallhaven",
+  "noctalia/world_clock",
+  "theblackdon/theme-switcher",
+]
+
+[[plugins.source]]
+name     = "official"
+kind     = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+enabled  = true
+
+[[plugins.source]]
+name     = "community"
+kind     = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+enabled  = true

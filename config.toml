@@ -1,0 +1,4 @@
+# Noctalia entrypoint used when this repository is symlinked as the Noctalia
+# TODO write this text into a file at .config/noctalia
+[include]
+files = ["toml/noctalia.toml"]

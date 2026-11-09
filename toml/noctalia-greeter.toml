@@ -36,7 +36,7 @@ fill_mode = "crop"
 [clock]
 enabled = true
 position = "above-panel"
-time_format = "{:%H:%M}"
+time_format = "{:%I:%M %p}"
 date_format = "%A, %x"
 time_font_size = 48
 date_font_size = 14

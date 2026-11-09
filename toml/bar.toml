@@ -1,0 +1,24 @@
+# Solid bar with palette-coloured widget capsules and an accent outline.
+# Noctalia paints the bar background with the theme surface role, so the
+# primary/primary-container roles provide the color.
+[bar.main]
+position             = "bottom"
+auto_hide            = true
+reserve_space        = false
+background_opacity   = 1.0
+border               = "primary"
+border_width         = 1.0
+capsule              = true
+capsule_fill         = "primary_container"
+capsule_foreground   = "on_primary_container"
+capsule_opacity      = 0.9
+capsule_border       = "primary"
+capsule_border_width = 1.0
+start  = ["launcher", "wallpaper", "theblackdon/theme-switcher:theme-switcher", "workspaces"]
+center = ["clock"]
+end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
+
+[widget.clock]
+format             = "{:%I:%M %p}"
+capsule_fill       = "primary"
+capsule_foreground = "on_primary"

@@ -44,16 +44,16 @@ do
     if file then
         file:close()
         package.path = repo .. "/lua/?.lua;" .. package.path
-        local ok, tinytoml = pcall(require, "tinytoml")
+        local ok, toml = pcall(require, "neovim.toml")
         if ok then
-            local parsed, value = pcall(tinytoml.parse, config_path)
+            local parsed, value = pcall(toml.parse, config_path)
             if parsed and type(value) == "table" then
                 config = value
             else
                 warn("unable to parse " .. config_path .. ": " .. tostring(value))
             end
         else
-            warn("unable to load tinytoml: " .. tostring(tinytoml))
+            warn("unable to load neovim.toml parser: " .. tostring(toml))
         end
     end
 end

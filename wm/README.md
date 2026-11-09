@@ -59,7 +59,7 @@ Layout actions usable in key/mouse bindings:
 | `set-gaps N` | set gaps and disable smart gaps |
 | `toggle-smart-gaps` | toggle smart gaps |
 
-The shipped `toml/aquamoon.toml` binds these to:
+The shipped `toml/bindings.toml` binds these to:
 
 | Key | Action |
 |:----|:-------|

@@ -1,0 +1,19 @@
+[wallpaper]
+directory = "~/.aquamoon/wallpapers"
+
+[wallpaper.default]
+path = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+
+[theme]
+mode           = "dark"
+source         = "custom"
+custom_palette = "Rose Pine Moon"
+
+[theme.templates]
+builtin_ids   = ["gtk3", "gtk4", "qt"]
+community_ids = ["cosmic", "steam", "bat", "lazygit", "whitesur-icons", "pywalfox"]
+
+[theme.templates.user.nvim]
+input_path  = "~/.aquamoon/lua/nvim-template.lua"
+output_path = "$XDG_CACHE_HOME/nvim/noctalia.lua"
+post_hook   = "pkill -SIGUSR1 -f '[n]vim --embed' || true"

@@ -1,0 +1,16 @@
+# Libinput settings are applied by wm through the river input protocols.
+# The device name may be either the libinput name or the river-classic
+# "pointer-vendor-product-name" identifier.
+
+[inputs.Kensington_Eagle_Trackball]
+device = "pointer-1149-8264-Kensington_Eagle_Trackball"
+pointer-accel = 1
+
+[inputs.PIXA200B_Touchpad]
+device = "pointer-2362-8203-PIXA200B:00_093A:200B_Touchpad"
+pointer-accel = 0.55
+tap = "enabled"
+
+[inputs.PIXA200B_Mouse]
+device = "pointer-2362-8203-PIXA200B:00_093A:200B_Mouse"
+pointer-accel = 1
