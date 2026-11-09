@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: © 2026 FireFly
 # SPDX-License-Identifier: 0BSD
 
-# Build artifacts
-lua-5.4.7/
-cffi-lua/
-wau/
+# Ignore everything created by setup except vendored files
+*
+!.gitignore
+!cffi.so
