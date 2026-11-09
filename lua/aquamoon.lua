@@ -18,13 +18,17 @@ local function readlink(path)
 	return target
 end
 
+local function exists(path)
+	local ok = os.execute("test -e " .. quote(path) .. " -o -L " .. quote(path))
+	return ok == true or ok == 0
+end
+
 local function link(target, path)
-	if readlink(path) == target then
+	local resolved_target = readlink(target)
+	if resolved_target ~= "" and readlink(path) == resolved_target then
 		return
 	end
-	local existing = io.open(path, "r")
-	if existing then
-		existing:close()
+	if exists(path) then
 		print("exists: " .. path .. " (expected " .. target .. ")")
 		return
 	end
@@ -104,25 +108,33 @@ local function setup()
 		print("failed to generate wm protocol bindings")
 		return
 	end
-	run("chmod +x " .. quote(repo .. "/bin/wm"))
+	run("chmod +x " .. quote(repo .. "/bin/wm") .. " " .. quote(repo .. "/bin/haal"))
 
 	local config_dir = os.getenv("XDG_CONFIG_HOME")
 	if not config_dir or config_dir == "" then
 		config_dir = home .. "/.config"
 	end
 	run("mkdir -p " .. quote(config_dir .. "/river") .. " "
-		.. quote(config_dir .. "/noctalia"))
+		.. quote(config_dir .. "/haal"))
 
 	local init = assert(io.open(config_dir .. "/river/init", "w"))
 	init:write("#!/bin/sh\nexec " .. quote(repo .. "/bin/wm") .. "\n")
 	init:close()
 	run("chmod +x " .. quote(config_dir .. "/river/init"))
+
 	-- When the repository itself is symlinked as the Noctalia config
-	-- directory, its config.toml includes toml/noctalia.toml already and no
-	-- extra link is needed.
-	if readlink(config_dir .. "/noctalia") ~= repo then
+	-- directory, its config.toml includes toml/noctalia.toml and exposes
+	-- palettes/ directly. Otherwise, link config.toml and palettes/ inside
+	-- ~/.config/noctalia.
+	if readlink(config_dir .. "/noctalia") ~= readlink(repo) then
+		run("mkdir -p " .. quote(config_dir .. "/noctalia"))
 		link(repo .. "/toml/noctalia.toml", config_dir .. "/noctalia/config.toml")
+		link(repo .. "/palettes", config_dir .. "/noctalia/palettes")
 	end
+
+	link(repo, config_dir .. "/nvim")
+	link(repo .. "/toml/starship.toml", config_dir .. "/starship.toml")
+	link(repo .. "/lua/haal-fetch.lua", config_dir .. "/haal/init.lua")
 
 	local greeter = os.execute(
 		"command -v noctalia-greeter >/dev/null 2>&1")
@@ -135,9 +147,6 @@ local function setup()
 		print("skip greeter configuration: noctalia-greeter is not installed")
 	end
 
-	if readlink(config_dir .. "/nvim") ~= repo then
-		print("link Neovim config: ln -s " .. quote(repo) .. " " .. quote(config_dir .. "/nvim"))
-	end
 	print("configured; start the session with: river")
 end
 

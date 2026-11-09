@@ -5,9 +5,9 @@
 
 [include]
 files = [
-  "theme.toml",
-  "bar.toml",
-  "plugins.toml",
+  "~/.aquamoon/toml/theme.toml",
+  "~/.aquamoon/toml/bar.toml",
+  "~/.aquamoon/toml/plugins.toml",
 ]
 
 [shell]

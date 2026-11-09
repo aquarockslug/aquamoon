@@ -15,6 +15,42 @@ local palette_colorschemes = {
 	["Archery"] = { "archery", "dark" },
 }
 
+-- Neovide font per colorscheme. Entries without ":h<size>" default to ":h16".
+-- Unlisted colorschemes fall back to the shell font_family in toml/noctalia.toml.
+local default_font_size = 16
+local colorscheme_fonts = {
+	["sweetie"] = "FairiesevkaTerm Nerd Font Mono",
+	["bluloco-dark"] = "FairiesevkaTerm Nerd Font Mono",
+	["bluloco-light"] = "FairiesevkaTerm Nerd Font Mono",
+	["flume-dusk"] = "FairiesevkaTerm Nerd Font Mono",
+	["flume-mesa"] = "FairiesevkaTerm Nerd Font Mono",
+	["flume-mira"] = "BigBlueTermPlus Nerd Font Mono",
+	["flume-opal"] = "BigBlueTermPlus Nerd Font Mono",
+	["moonfly"] = "BigBlueTermPlus Nerd Font Mono",
+	["archery"] = "BigBlueTermPlus Nerd Font Mono",
+}
+
+local function format_guifont(font)
+	if font:find(":h%d+") then
+		return font
+	end
+	return string.format("%s:h%d", font, default_font_size)
+end
+
+local function default_font()
+	local noctalia = require("neovim.toml").load("noctalia.toml")
+	return (noctalia.shell or {}).font_family or "FairiesevkaTerm Nerd Font Mono"
+end
+
+function M.apply_font(colorscheme)
+	if not vim.g.neovide then
+		return
+	end
+	local name = colorscheme or vim.g.colors_name or fallback_colorscheme
+	local font = colorscheme_fonts[name] or default_font()
+	vim.o.guifont = format_guifont(font)
+end
+
 local function read_theme(path, theme)
 	local ok, lines = pcall(vim.fn.readfile, path)
 	if not ok then
@@ -62,6 +98,7 @@ function M.apply()
 			vim.cmd.colorscheme(entry[1])
 		end)
 		if ok then
+			M.apply_font(entry[1])
 			return
 		end
 	end
@@ -73,19 +110,23 @@ function M.apply()
 			vim.cmd.colorscheme(fallback_colorscheme)
 		end)
 	end
+	M.apply_font(vim.g.colors_name)
 end
 
 function M.setup()
+	if vim.g.neovide then
+		vim.g.neovide_opacity = 0.9
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			group = vim.api.nvim_create_augroup("aquamoon_neovide_font", { clear = true }),
+			callback = function(event)
+				M.apply_font(event.match)
+			end,
+		})
+	end
+
 	M.apply()
 	_G.noctalia_theme_signal = vim.uv.new_signal()
 	_G.noctalia_theme_signal:start("sigusr1", vim.schedule_wrap(M.apply))
-
-	if vim.g.neovide then
-		vim.g.neovide_opacity = 0.9
-		local noctalia = require("neovim.toml").load("noctalia.toml")
-		local font = (noctalia.shell or {}).font_family or "FairiesevkaTerm Nerd Font Mono"
-		vim.o.guifont = font .. ":h16"
-	end
 end
 
 return M
