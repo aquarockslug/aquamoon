@@ -7,7 +7,6 @@
 
 local repo = env.cwd()
 local lib_dir = path.join(repo, "lib")
-local build_dir = path.join(repo, "build")
 
 -- Helpers ----------------------------------------------------------------
 
@@ -93,15 +92,15 @@ end
 -- Lua 5.4 headers --------------------------------------------------------
 
 local function ensure_lua_headers()
-    local lua_src_dir = path.join(build_dir, "lua-5.4.7")
+    local lua_src_dir = path.join(lib_dir, "lua-5.4.7")
     if fs.is_dir(lua_src_dir) then
         print("lua headers already present")
         return lua_src_dir
     end
     
-    local tarball = path.join(build_dir, "lua-5.4.7.tar.gz")
+    local tarball = path.join(lib_dir, "lua-5.4.7.tar.gz")
     download("https://www.lua.org/ftp/lua-5.4.7.tar.gz", tarball)
-    extract(tarball, build_dir)
+    extract(tarball, lib_dir)
     
     print("building lua headers...")
     env.cd(lua_src_dir)
@@ -126,10 +125,10 @@ local function ensure_cffi_lua()
         return false
     end
     
-    ensure_dir(build_dir)
+    ensure_dir(lib_dir)
     ensure_lua_headers()
     
-    local cffi_dir = path.join(build_dir, "cffi-lua")
+    local cffi_dir = path.join(lib_dir, "cffi-lua")
     ensure_dir(cffi_dir)
     
     -- Clone cffi-lua
@@ -185,20 +184,21 @@ local function install_wau()
     end
     
     print("cloning wau...")
-    if not run("git clone --depth 1 https://codeberg.org/firefly/wau.git " .. quote(path.join(build_dir, "wau-temp"))) then
+    local temp_dir = path.join(lib_dir, "wau-temp")
+    if not run("git clone --depth 1 https://codeberg.org/firefly/wau.git " .. quote(temp_dir)) then
         return false
     end
     
     -- Copy the wau Lua module
     ensure_dir(lib_dir)
-    run("cp -r " .. quote(path.join(build_dir, "wau-temp", "wau")) .. " " .. quote(lib_dir) .. "/")
+    run("cp -r " .. quote(path.join(temp_dir, "wau")) .. " " .. quote(lib_dir) .. "/")
     
     -- Copy the scanner
-    run("cp " .. quote(path.join(build_dir, "wau-temp", "wau-scanner.lua")) .. " " .. 
-        quote(path.join(build_dir, "wau-scanner.lua")))
+    run("cp " .. quote(path.join(temp_dir, "wau-scanner.lua")) .. " " .. 
+        quote(path.join(lib_dir, "wau-scanner.lua")))
     
     -- Clean up temp dir
-    run("rm -rf " .. quote(path.join(build_dir, "wau-temp")))
+    run("rm -rf " .. quote(temp_dir))
     
     if not fs.is_dir(wau_dir) then
         io.stderr:write("wau installation failed\n")
@@ -220,7 +220,7 @@ local function install_xml2lua()
     end
     
     print("cloning xml2lua...")
-    local temp_dir = path.join(build_dir, "xml2lua-temp")
+    local temp_dir = path.join(lib_dir, "xml2lua-temp")
     if not run("git clone --depth 1 https://github.com/ManoelCampos/xml2lua.git " .. 
                quote(temp_dir)) then
         return false
@@ -254,7 +254,7 @@ local function generate_protocol_bindings()
     local protocol_dir = path.join(wm_dir, "protocol")
     
     -- Use the wau-scanner we just installed
-    local wau_scanner = path.join(build_dir, "wau-scanner.lua")
+    local wau_scanner = path.join(lib_dir, "wau-scanner.lua")
     
     if not fs.exists(wau_scanner) then
         -- Fall back to system wau-scanner if available
@@ -305,7 +305,7 @@ local function generate_protocol_bindings()
                 quote(lib_dir),
                 quote(lib_dir),
                 quote(lush_bin),
-                quote(path.join(build_dir, "wau-scanner.lua")),
+                quote(path.join(lib_dir, "wau-scanner.lua")),
                 quote(path.join(protocol_dir, file)),
                 quote(path.join(protocol_dir, lua_file))
             )
@@ -441,8 +441,8 @@ local function main()
         return 1
     end
     
-    -- Prepare build directory
-    ensure_dir(build_dir)
+    -- Prepare lib directory
+    ensure_dir(lib_dir)
     
     -- Ensure cffi.so is present (vendored in lib/cffi.so, or built from source)
     if not ensure_cffi_lua() then
