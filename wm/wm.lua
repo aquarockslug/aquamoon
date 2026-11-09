@@ -5,8 +5,43 @@
 local ffi = require("cffi")
 local wau = require("wau")
 local xkbcommon = require("wm.xkbcommon")
-local posix = require("posix")
 local raw = require("wau.core.raw")
+
+ffi.cdef [[
+    typedef long time_t;
+    typedef int pid_t;
+    typedef unsigned long nfds_t;
+    typedef void (*sighandler_t)(int);
+
+    struct timespec {
+        time_t tv_sec;
+        long tv_nsec;
+    };
+
+    struct pollfd {
+        int fd;
+        short events;
+        short revents;
+    };
+
+    int clock_gettime(int clk_id, struct timespec *tp);
+    pid_t fork(void);
+    int execl(const char *pathname, const char *arg, ...);
+    void _exit(int status);
+    int unsetenv(const char *name);
+    sighandler_t signal(int signum, sighandler_t handler);
+    int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+    int *__errno_location(void);
+    char *strerror(int errnum);
+]]
+
+local CLOCK_MONOTONIC = 1
+local EINTR = 4
+local SIGCHLD = 17
+local SIG_IGN = ffi.cast("sighandler_t", 1)
+local POLLIN = 0x0001
+local POLLERR = 0x0008
+local POLLHUP = 0x0010
 
 wau:require("wm.protocol.river-window-management-v1")
 wau:require("wm.protocol.river-xkb-bindings-v1")
@@ -62,9 +97,10 @@ local function number(value)
     return math.tointeger(tonumber(value)) or 0
 end
 
+local monotonic_ts = ffi.new("struct timespec")
 local function monotonic_ms()
-    local time = posix.time.clock_gettime(posix.time.CLOCK_MONOTONIC)
-    return time.tv_sec * 1000 + time.tv_nsec / 1000000
+    ffi.C.clock_gettime(CLOCK_MONOTONIC, monotonic_ts)
+    return tonumber(monotonic_ts.tv_sec) * 1000 + tonumber(monotonic_ts.tv_nsec) / 1000000
 end
 
 local MODIFIERS = {
@@ -259,9 +295,9 @@ for _, app_id in pairs((config.window_rules or {}).ssd or {}) do
 end
 
 local function spawn(shell_command)
-    if posix.unistd.fork() == 0 then
-        posix.unistd.execp("/bin/sh", { "-c", shell_command })
-        os.exit(127)
+    if ffi.C.fork() == 0 then
+        ffi.C.execl("/bin/sh", "sh", "-c", shell_command, ffi.nullptr)
+        ffi.C._exit(127)
     end
 end
 
@@ -1421,10 +1457,10 @@ end
 wau.wl_proxy.set_error_callback(handle_callback_error)
 
 -- Avoid passing WAYLAND_DEBUG to our children
-posix.stdlib.setenv("WAYLAND_DEBUG", nil)
+ffi.C.unsetenv("WAYLAND_DEBUG")
 
 -- Ensure children are automatically reaped
-posix.signal.signal(posix.signal.SIGCHLD, posix.signal.SIG_IGN)
+ffi.C.signal(SIGCHLD, SIG_IGN)
 
 local registry = display:get_registry()
 registry:add_listener {
@@ -1507,28 +1543,34 @@ end
 local function event_loop()
     local pointer = ffi.cast("struct wl_display*", display)
     local fd = raw.wl_display_get_fd(pointer)
-    local fds = { [fd] = { events = { IN = true } } }
+    local pfd = ffi.new("struct pollfd[1]")
+    pfd[0].fd = fd
+    pfd[0].events = POLLIN
 
     while true do
         display:flush()
-        fds[fd].revents = nil
+        pfd[0].revents = 0
 
-        local ready, message = posix.poll(fds, repeat_timeout())
-        if ready == nil then
-            io.stderr:write("wm: poll: " .. tostring(message) .. "\n")
-            os.exit(1)
-        end
-
-        local revents = fds[fd].revents or {}
-        if revents.IN then
-            if not display:dispatch() then
-                break
+        local ready = ffi.C.poll(pfd, 1, repeat_timeout())
+        if ready < 0 then
+            local err = ffi.C.__errno_location()[0]
+            if err ~= EINTR then
+                local msg = ffi.string(ffi.C.strerror(err))
+                io.stderr:write("wm: poll: " .. msg .. "\n")
+                os.exit(1)
             end
-        elseif revents.ERR or revents.HUP then
-            break
         else
-            -- Timed out for a key repeat; process anything already queued.
-            raw.wl_display_dispatch_pending(pointer)
+            local revents = tonumber(pfd[0].revents)
+            if (revents & POLLIN) ~= 0 then
+                if not display:dispatch() then
+                    break
+                end
+            elseif (revents & (POLLERR | POLLHUP)) ~= 0 then
+                break
+            else
+                -- Timed out for a key repeat; process anything already queued.
+                raw.wl_display_dispatch_pending(pointer)
+            end
         end
 
         repeat_tick()

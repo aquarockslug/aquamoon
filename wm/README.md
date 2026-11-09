@@ -17,8 +17,8 @@ System dependencies:
 - libwayland
 - libxkbcommon
 
-The lua-ecosystem dependencies are handled by luarocks:
-`cffi-lua`, `firefly/wau` and `luaposix`.
+The lua-ecosystem dependencies are `cffi-lua` (vendored at `lib/cffi.so`) and
+`firefly/wau`.
 
 ## Layout
 

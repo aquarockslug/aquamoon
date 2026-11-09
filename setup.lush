@@ -1,0 +1,481 @@
+#!/usr/bin/env lush
+-- SPDX-FileCopyrightText: © 2026 FireFly
+-- SPDX-License-Identifier: 0BSD
+--
+-- Bootstrap script for aquamoon. Compiles C modules from source and sets up
+-- the session. Run with: lush setup.lush
+
+local repo = env.cwd()
+local lib_dir = path.join(repo, "lib")
+local build_dir = path.join(repo, "build")
+
+-- Helpers ----------------------------------------------------------------
+
+local function quote(value)
+    return "'" .. tostring(value):gsub("'", "'\\''") .. "'"
+end
+
+local function run(cmd)
+    local ok = os.execute(cmd)
+    if ok ~= true and ok ~= 0 then
+        io.stderr:write("failed: " .. cmd .. "\n")
+        return false
+    end
+    return true
+end
+
+local function ensure_dir(dir)
+    if not fs.is_dir(dir) then
+        fs.mkdir(dir)
+    end
+end
+
+local function download(url, dest)
+    if fs.exists(dest) then
+        print("already downloaded: " .. dest)
+        return true
+    end
+    print("downloading: " .. url)
+    return net.wget(url, dest)
+end
+
+local function extract(archive, dest_dir)
+    print("extracting: " .. archive)
+    return run("tar -xf " .. quote(archive) .. " -C " .. quote(dest_dir))
+end
+
+local function readlink(path)
+    local handle = io.popen("readlink -f " .. quote(path) .. " 2>/dev/null")
+    local target = handle and handle:read("*l") or ""
+    if handle then
+        handle:close()
+    end
+    return target
+end
+
+-- Dependency checks ------------------------------------------------------
+
+local function check_command(cmd)
+    local ok = os.execute("command -v " .. cmd .. " >/dev/null 2>&1")
+    return ok == true or ok == 0
+end
+
+local function check_build_tools()
+    local missing = {}
+    for _, tool in ipairs({ "gcc", "pkg-config", "meson", "ninja" }) do
+        if not check_command(tool) then
+            missing[#missing + 1] = tool
+        end
+    end
+    if #missing > 0 then
+        io.stderr:write("missing build tools: " .. table.concat(missing, ", ") .. "\n")
+        io.stderr:write("install with: sudo pacman -S base-devel meson ninja\n")
+        return false
+    end
+    return true
+end
+
+local function check_runtime_deps()
+    local missing = {}
+    for _, dep in ipairs({ "river", "tofi", "noctalia", "neovide" }) do
+        if not check_command(dep) then
+            missing[#missing + 1] = dep
+        end
+    end
+    if #missing > 0 then
+        print("missing runtime dependencies: " .. table.concat(missing, ", "))
+        print("install with: sudo pacman -S " .. table.concat(missing, " "))
+        return false
+    end
+    return true
+end
+
+-- Lua 5.4 headers --------------------------------------------------------
+
+local function ensure_lua_headers()
+    local lua_src_dir = path.join(build_dir, "lua-5.4.7")
+    if fs.is_dir(lua_src_dir) then
+        print("lua headers already present")
+        return lua_src_dir
+    end
+    
+    local tarball = path.join(build_dir, "lua-5.4.7.tar.gz")
+    download("https://www.lua.org/ftp/lua-5.4.7.tar.gz", tarball)
+    extract(tarball, build_dir)
+    
+    print("building lua headers...")
+    env.cd(lua_src_dir)
+    run("make linux CC=gcc CFLAGS='-O2 -Wall -Wextra -fPIC' > /dev/null 2>&1")
+    env.cd(repo)
+    
+    return lua_src_dir
+end
+
+-- cffi-lua ---------------------------------------------------------------
+-- lib/cffi.so is vendored in the repository; only build from source if missing.
+
+local function ensure_cffi_lua()
+    local cffi_so = path.join(lib_dir, "cffi.so")
+    
+    if fs.exists(cffi_so) then
+        print("cffi-lua present: lib/cffi.so")
+        return true
+    end
+    
+    if not check_build_tools() then
+        return false
+    end
+    
+    ensure_dir(build_dir)
+    ensure_lua_headers()
+    
+    local cffi_dir = path.join(build_dir, "cffi-lua")
+    ensure_dir(cffi_dir)
+    
+    -- Clone cffi-lua
+    if not fs.is_dir(path.join(cffi_dir, ".git")) then
+        print("cloning cffi-lua...")
+        if not run("git clone --depth 1 https://github.com/q66/cffi-lua.git " .. quote(cffi_dir)) then
+            return false
+        end
+    end
+    
+    print("building cffi-lua with meson...")
+    local build_subdir = path.join(cffi_dir, "build")
+    ensure_dir(build_subdir)
+    
+    env.cd(cffi_dir)
+    
+    -- Configure with meson, explicitly targeting lua 5.4
+    if not run("meson setup build -Dtests=false -Dlua_version=5.4 2>&1") then
+        env.cd(repo)
+        return false
+    end
+    
+    -- Build with ninja
+    if not run("ninja -C build 2>&1") then
+        env.cd(repo)
+        return false
+    end
+    
+    -- Copy the built library
+    ensure_dir(lib_dir)
+    local built_lib = path.join(build_subdir, "cffi.so")
+    if fs.exists(built_lib) then
+        fs.copy(built_lib, cffi_so)
+        print("built: lib/cffi.so")
+    else
+        io.stderr:write("cffi-lua build succeeded but cffi.so not found\n")
+        env.cd(repo)
+        return false
+    end
+    
+    env.cd(repo)
+    return true
+end
+
+-- wau (pure Lua Wayland bindings) ----------------------------------------
+
+local function install_wau()
+    local wau_dir = path.join(lib_dir, "wau")
+    
+    if fs.is_dir(wau_dir) then
+        print("wau already installed")
+        return true
+    end
+    
+    print("cloning wau...")
+    if not run("git clone --depth 1 https://codeberg.org/firefly/wau.git " .. quote(path.join(build_dir, "wau-temp"))) then
+        return false
+    end
+    
+    -- Copy the wau Lua module
+    ensure_dir(lib_dir)
+    run("cp -r " .. quote(path.join(build_dir, "wau-temp", "wau")) .. " " .. quote(lib_dir) .. "/")
+    
+    -- Copy the scanner
+    run("cp " .. quote(path.join(build_dir, "wau-temp", "wau-scanner.lua")) .. " " .. 
+        quote(path.join(build_dir, "wau-scanner.lua")))
+    
+    -- Clean up temp dir
+    run("rm -rf " .. quote(path.join(build_dir, "wau-temp")))
+    
+    if not fs.is_dir(wau_dir) then
+        io.stderr:write("wau installation failed\n")
+        return false
+    end
+    
+    print("installed: lib/wau/")
+    return true
+end
+
+-- xml2lua (dependency for wau) -------------------------------------------
+
+local function install_xml2lua()
+    local xml2lua_dir = path.join(lib_dir, "xmlhandler")
+    
+    if fs.exists(path.join(lib_dir, "xml2lua.lua")) then
+        print("xml2lua already installed")
+        return true
+    end
+    
+    print("cloning xml2lua...")
+    local temp_dir = path.join(build_dir, "xml2lua-temp")
+    if not run("git clone --depth 1 https://github.com/ManoelCampos/xml2lua.git " .. 
+               quote(temp_dir)) then
+        return false
+    end
+    
+    ensure_dir(lib_dir)
+    
+    -- Copy main xml2lua.lua
+    run("cp " .. quote(path.join(temp_dir, "xml2lua.lua")) .. " " .. quote(lib_dir) .. "/")
+    
+    -- Copy XmlParser.lua
+    run("cp " .. quote(path.join(temp_dir, "XmlParser.lua")) .. " " .. quote(lib_dir) .. "/")
+    
+    -- Copy xmlhandler directory
+    ensure_dir(xml2lua_dir)
+    run("cp -r " .. quote(path.join(temp_dir, "xmlhandler")) .. "/* " .. quote(xml2lua_dir) .. "/")
+    
+    -- Clean up
+    run("rm -rf " .. quote(temp_dir))
+    
+    print("installed: lib/xml2lua.lua, lib/XmlParser.lua, lib/xmlhandler/")
+    return true
+end
+
+-- Protocol bindings ------------------------------------------------------
+
+local function generate_protocol_bindings()
+    print("generating protocol bindings...")
+    
+    local wm_dir = path.join(repo, "wm")
+    local protocol_dir = path.join(wm_dir, "protocol")
+    
+    -- Use the wau-scanner we just installed
+    local wau_scanner = path.join(build_dir, "wau-scanner.lua")
+    
+    if not fs.exists(wau_scanner) then
+        -- Fall back to system wau-scanner if available
+        if check_command("wau-scanner") then
+            wau_scanner = "wau-scanner"
+        else
+            print("wau-scanner not found; using pre-generated bindings if available")
+            local xml_files = fs.ls(protocol_dir)
+            local has_bindings = false
+            for _, file in ipairs(xml_files or {}) do
+                if file:match("%.lua$") then
+                    has_bindings = true
+                    break
+                end
+            end
+            if has_bindings then
+                print("pre-generated bindings found")
+                return true
+            else
+                io.stderr:write("no protocol bindings found and wau-scanner unavailable\n")
+                return false
+            end
+        end
+    end
+    
+    -- Generate bindings using lush with proper module paths
+    env.cd(wm_dir)
+    
+    -- Set up environment for lush to find wau and xml2lua
+    local lush_bin = path.join(repo, "bin", "lush")
+    if not fs.exists(lush_bin) then
+        lush_bin = check_command("lush") and "lush" or nil
+    end
+    
+    if lush_bin == nil then
+        io.stderr:write("lush not found; cannot generate protocol bindings\n")
+        env.cd(repo)
+        return false
+    end
+    
+    local xml_files = fs.ls(protocol_dir)
+    for _, file in ipairs(xml_files or {}) do
+        if file:match("%.xml$") then
+            local lua_file = file:gsub("%.xml$", ".lua")
+            local cmd = string.format(
+                "LUA_CPATH='%s/?.so;;' LUA_PATH='%s/?.lua;%s/?/init.lua;;' %s %s < %s > %s 2>&1",
+                quote(lib_dir),
+                quote(lib_dir),
+                quote(lib_dir),
+                quote(lush_bin),
+                quote(path.join(build_dir, "wau-scanner.lua")),
+                quote(path.join(protocol_dir, file)),
+                quote(path.join(protocol_dir, lua_file))
+            )
+            if not run(cmd) then
+                env.cd(repo)
+                return false
+            end
+        end
+    end
+    env.cd(repo)
+    
+    print("protocol bindings generated")
+    return true
+end
+
+-- Session setup ----------------------------------------------------------
+
+local function setup_session()
+    print("setting up session...")
+    
+    local config_dir = env.get("XDG_CONFIG_HOME")
+    if not config_dir or config_dir == "" then
+        config_dir = path.join(env.get("HOME"), ".config")
+    end
+    
+    ensure_dir(path.join(config_dir, "river"))
+    ensure_dir(path.join(config_dir, "haal"))
+    
+    -- Create river init script
+    local init_path = path.join(config_dir, "river", "init")
+    local init_content = "#!/bin/sh\nexec " .. quote(path.join(repo, "bin", "wm")) .. "\n"
+    fs.write_file(init_path, init_content)
+    run("chmod +x " .. quote(init_path))
+    
+    -- Make binaries executable
+    run("chmod +x " .. quote(path.join(repo, "bin", "wm")))
+    run("chmod +x " .. quote(path.join(repo, "bin", "haal")))
+    
+    -- Noctalia config
+    local noctalia_dir = path.join(config_dir, "noctalia")
+    if readlink(noctalia_dir) ~= repo then
+        ensure_dir(noctalia_dir)
+        local target = path.join(repo, "toml", "noctalia.toml")
+        local link_path = path.join(noctalia_dir, "config.toml")
+        if not fs.exists(link_path) then
+            run("ln -s " .. quote(target) .. " " .. quote(link_path))
+        end
+        
+        target = path.join(repo, "palettes")
+        link_path = path.join(noctalia_dir, "palettes")
+        if not fs.exists(link_path) then
+            run("ln -s " .. quote(target) .. " " .. quote(link_path))
+        end
+    end
+    
+    -- Neovim config
+    local nvim_link = path.join(config_dir, "nvim")
+    if not fs.exists(nvim_link) then
+        run("ln -s " .. quote(repo) .. " " .. quote(nvim_link))
+    end
+    
+    -- Starship config
+    local starship_link = path.join(config_dir, "starship.toml")
+    if not fs.exists(starship_link) then
+        run("ln -s " .. quote(path.join(repo, "toml", "starship.toml")) .. 
+            " " .. quote(starship_link))
+    end
+    
+    -- Haal config
+    local haal_link = path.join(config_dir, "haal", "init.lua")
+    if not fs.exists(haal_link) then
+        run("ln -s " .. quote(path.join(repo, "lua", "haal-fetch.lua")) .. 
+            " " .. quote(haal_link))
+    end
+    
+    print("session configured")
+    return true
+end
+
+-- Greeter setup ----------------------------------------------------------
+
+local function setup_greeter()
+    if not check_command("noctalia-greeter") then
+        print("skipping greeter: noctalia-greeter not installed")
+        return true
+    end
+    
+    print("setting up greeter...")
+    
+    local user = env.get("GREETER_USER")
+    if not user or user == "" then
+        local handle = io.popen("noctalia-greeter-apply-appearance --print-greeter-user 2>/dev/null")
+        if handle then
+            user = handle:read("*l")
+            handle:close()
+        end
+        if not user or user == "" then
+            user = "greeter"
+        end
+    end
+    
+    local dir = "/var/lib/noctalia-greeter"
+    local config = path.join(repo, "toml", "noctalia-greeter.toml")
+    local wallpaper = path.join(repo, "wallpapers", "macos_tiger_grey.png")
+    
+    local commands = {
+        "install -d -m750 -o " .. quote(user) .. " -g " .. quote(user) .. " " .. quote(dir),
+        "install -Dm644 " .. quote(config) .. " " .. quote(path.join(dir, "greeter.toml")),
+        "install -Dm644 " .. quote(wallpaper) .. " " .. quote(path.join(dir, "wallpaper.png")),
+        "chown " .. quote(user .. ":" .. user) .. " " .. quote(dir) .. " " .. 
+            quote(path.join(dir, "greeter.toml")) .. " " .. quote(path.join(dir, "wallpaper.png")),
+    }
+    
+    local cmd = "sudo sh -c " .. quote(table.concat(commands, " && "))
+    if not run(cmd) then
+        io.stderr:write("greeter setup failed; run manually:\n")
+        io.stderr:write("  " .. cmd .. "\n")
+        return false
+    end
+    
+    print("greeter configured; restart with: sudo systemctl restart greetd")
+    return true
+end
+
+-- Main -------------------------------------------------------------------
+
+local function main()
+    print("aquamoon setup")
+    print("==============")
+    
+    -- Check runtime dependencies
+    if not check_runtime_deps() then
+        return 1
+    end
+    
+    -- Prepare build directory
+    ensure_dir(build_dir)
+    
+    -- Ensure cffi.so is present (vendored in lib/cffi.so, or built from source)
+    if not ensure_cffi_lua() then
+        return 1
+    end
+    
+    -- Install pure Lua modules
+    if not install_xml2lua() then
+        return 1
+    end
+    
+    if not install_wau() then
+        return 1
+    end
+    
+    -- Generate protocol bindings
+    if not generate_protocol_bindings() then
+        return 1
+    end
+    
+    -- Setup session
+    if not setup_session() then
+        return 1
+    end
+    
+    -- Setup greeter
+    setup_greeter()
+    
+    print("")
+    print("setup complete!")
+    print("start the session with: river")
+    
+    return 0
+end
+
+os.exit(main())
