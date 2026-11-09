@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: 0BSD
 #
 # Launch the window manager vendored in this repository.  Everything the
-# session needs lives under wm/ and lua/, so changes made here are used
+# session needs lives under wm/, lua/, and lib/, so changes made here are used
 # directly the next time river starts (no install step).
 
 set -eu
@@ -11,10 +11,22 @@ set -eu
 self=$(readlink -f -- "$0")
 repo=$(dirname -- "$(dirname -- "$self")")
 
-eval "$(luarocks --lua-version=5.4 path)"
-
 # Keep the configuration in sync with the checkout that owns this launcher.
 export AQUAMOON_DIR="$repo"
-export LUA_PATH="$repo/?.lua;$repo/?/init.lua;$repo/lua/?.lua;${LUA_PATH:-}"
 
+# Use the compiled C modules from lib/ if available, otherwise fall back to
+# system luarocks paths (for backwards compatibility during migration).
+if [ -d "$repo/lib" ]; then
+    export LUA_CPATH="$repo/lib/?.so;;"
+    export LUA_PATH="$repo/lib/?.lua;$repo/lib/?/init.lua;$repo/?.lua;$repo/?/init.lua;$repo/lua/?.lua;;"
+else
+    # Fallback to luarocks for systems that haven't run setup.lush yet
+    if command -v luarocks >/dev/null 2>&1; then
+        eval "$(luarocks --lua-version=5.4 path)"
+    fi
+    export LUA_PATH="$repo/?.lua;$repo/?/init.lua;$repo/lua/?.lua;${LUA_PATH:-}"
+fi
+
+# Use lua5.4 for the WM since it needs to load C modules (cffi-lua).
+# Lush runs in safe mode which prevents C module loading.
 exec lua5.4 "$repo/wm/wm.lua" "$@"

@@ -13,18 +13,38 @@ click-to-focus on top of the upstream tinyrwm implementation.
 ## Requirements
 
 ```sh
-sudo pacman -S river lua54 luarocks tofi noctalia neovide
+sudo pacman -S river base-devel wayland-protocols tofi noctalia neovide
 ```
 
-The window manager runs on Lua 5.4 and uses these LuaRocks modules:
-
-```sh
-luarocks --lua-version=5.4 --local install cffi-lua
-luarocks --lua-version=5.4 --local install luaposix
-luarocks --lua-version=5.4 --local install wau
-```
+No `luarocks` or manual Lua module installation is required. `lib/cffi.so` is
+vendored in the repository and POSIX calls use `cffi` directly.
 
 No `river-classic`, `riverctl` or `river-luatile` installation is required.
+
+## Installation
+
+Clone the repository and build the lush interpreter:
+
+```sh
+git clone https://github.com/thiagomg/lush ~/lush
+cd ~/lush
+cargo build --release
+cp target/release/lush ~/.aquamoon/bin/lush
+```
+
+Run the setup script:
+
+```sh
+cd ~/.aquamoon
+./bin/lush setup.lush
+```
+
+This will:
+- Install `wau` into `lib/` (using the vendored `lib/cffi.so`, or compiling it from source if missing)
+- Generate Wayland protocol bindings
+- Configure river, noctalia, neovim, and the greeter
+
+Start the session with `river`.
 
 ## Keybindings
 
