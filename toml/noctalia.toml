@@ -10,6 +10,12 @@ files = [
   "~/.aquamoon/toml/plugins.toml",
 ]
 
+# File-backed master key avoids probing org.freedesktop.secrets when no
+# Secret Service daemon (gnome-keyring/kwallet) is running in the session.
+[storage]
+key_source = "file"
+key_file   = "~/.local/state/noctalia/storage.key"
+
 [shell]
 font_family        = "FairiesevkaTerm Nerd Font Mono"
 time_format        = "{:%I:%M %p}" # 12-hour clock for shell-owned time displays
@@ -48,7 +54,11 @@ unit    = "imperial"
 [location]
 address = "Chicago, IL"
 
-# Internal panel backlight on the laptop display.
+# Internal panel backlight on the laptop display (DRM may number it eDP-1 or eDP-2).
 [brightness.monitor.eDP-1]
+backend          = "backlight"
+backlight_device = "intel_backlight"
+
+[brightness.monitor.eDP-2]
 backend          = "backlight"
 backlight_device = "intel_backlight"

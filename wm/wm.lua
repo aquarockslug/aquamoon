@@ -38,6 +38,7 @@ ffi.cdef [[
 local CLOCK_MONOTONIC = 1
 local EINTR = 4
 local SIGCHLD = 17
+local SIG_DFL = ffi.cast("sighandler_t", 0)
 local SIG_IGN = ffi.cast("sighandler_t", 1)
 local POLLIN = 0x0001
 local POLLERR = 0x0008
@@ -296,6 +297,7 @@ end
 
 local function spawn(shell_command)
     if ffi.C.fork() == 0 then
+        ffi.C.signal(SIGCHLD, SIG_DFL)
         ffi.C.execl("/bin/sh", "sh", "-c", shell_command, ffi.nullptr)
         ffi.C._exit(127)
     end

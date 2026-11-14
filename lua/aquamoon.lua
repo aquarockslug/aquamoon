@@ -91,6 +91,9 @@ local function setup()
 			missing[#missing + 1] = dep
 		end
 	end
+	if not exists("/usr/lib/upowerd") then
+		missing[#missing + 1] = "upower"
+	end
 	if #missing > 0 then
 		print("missing: " .. table.concat(missing, " "))
 	end
@@ -121,6 +124,17 @@ local function setup()
 	init:write("#!/bin/sh\nexec " .. quote(repo .. "/bin/wm") .. "\n")
 	init:close()
 	run("chmod +x " .. quote(config_dir .. "/river/init"))
+
+	local state_dir = os.getenv("XDG_STATE_HOME")
+	if not state_dir or state_dir == "" then
+		state_dir = home .. "/.local/state"
+	end
+	run("mkdir -p " .. quote(state_dir .. "/noctalia"))
+	local storage_key = state_dir .. "/noctalia/storage.key"
+	if not exists(storage_key) then
+		run("umask 077 && od -An -N32 -tx1 /dev/urandom | tr -d ' \\n' > "
+			.. quote(storage_key) .. " && echo >> " .. quote(storage_key))
+	end
 
 	-- When the repository itself is symlinked as the Noctalia config
 	-- directory, its config.toml includes toml/noctalia.toml and exposes

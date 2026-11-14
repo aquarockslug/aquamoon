@@ -14,7 +14,7 @@ capsule_foreground   = "on_primary_container"
 capsule_opacity      = 0.9
 capsule_border       = "primary"
 capsule_border_width = 1.0
-start  = ["launcher", "wallpaper", "theblackdon/theme-switcher:theme-switcher", "workspaces"]
+start  = ["launcher", "wallpaper", "theblackdon/theme-switcher:theme-switcher"]
 center = ["clock"]
 end    = ["media", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
 

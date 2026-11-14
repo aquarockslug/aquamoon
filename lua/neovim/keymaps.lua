@@ -15,6 +15,8 @@ function M.setup()
 		map("n", "<" .. key .. ">", command)
 	end
 	map("n", "U", "<C-r>")
+	-- Leave the :terminal shell and return to normal mode; the shell keeps running.
+	map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 end
 
 return M

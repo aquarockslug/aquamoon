@@ -1,3 +1,5 @@
+if vim.loader then vim.loader.enable() end
+
 require("neovim.options").setup()
 require("neovim.plugins").add()
 require("neovim.theme").setup()

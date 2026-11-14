@@ -39,7 +39,9 @@ result-spacing = 9
 anchor = "center"
 
 [startup]
-0 = ["dbus-update-activation-environment", "DISPLAY", "WAYLAND_DISPLAY", "XDG_SESSION_TYPE", "XDG_CURRENT_DESKTOP"]
+# Only update the session D-Bus activation environment on the primary display
+# so nested test compositors (wayland-2, etc.) do not clobber WAYLAND_DISPLAY.
+0 = ['[ "${WAYLAND_DISPLAY:-}" = "wayland-1" ] && dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP']
 # River spawns children with SIGCHLD ignored, which breaks every subprocess
 # Noctalia starts (plugins, hooks, checkupdates). Reset it before exec.
 1 = ["/usr/bin/env", "--default-signal=CHLD", "noctalia", "--daemon"]

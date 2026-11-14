@@ -81,6 +81,9 @@ local function check_runtime_deps()
             missing[#missing + 1] = dep
         end
     end
+    if not check_command("upower") and not fs.exists("/usr/lib/upowerd") then
+        missing[#missing + 1] = "upower"
+    end
     if #missing > 0 then
         print("missing runtime dependencies: " .. table.concat(missing, ", "))
         print("install with: sudo pacman -S " .. table.concat(missing, " "))
@@ -344,6 +347,19 @@ local function setup_session()
     run("chmod +x " .. quote(path.join(repo, "bin", "wm")))
     run("chmod +x " .. quote(path.join(repo, "bin", "haal")))
     
+    -- Noctalia storage master key (avoids requiring a Secret Service daemon)
+    local state_dir = env.get("XDG_STATE_HOME")
+    if not state_dir or state_dir == "" then
+        state_dir = path.join(env.get("HOME"), ".local", "state")
+    end
+    local noctalia_state_dir = path.join(state_dir, "noctalia")
+    ensure_dir(noctalia_state_dir)
+    local storage_key = path.join(noctalia_state_dir, "storage.key")
+    if not fs.exists(storage_key) then
+        run("umask 077 && od -An -N32 -tx1 /dev/urandom | tr -d ' \\n' > " ..
+            quote(storage_key) .. " && echo >> " .. quote(storage_key))
+    end
+
     -- Noctalia config
     local noctalia_dir = path.join(config_dir, "noctalia")
     if readlink(noctalia_dir) ~= repo then

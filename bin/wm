@@ -13,6 +13,8 @@ repo=$(dirname -- "$(dirname -- "$self")")
 
 # Keep the configuration in sync with the checkout that owns this launcher.
 export AQUAMOON_DIR="$repo"
+export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-river}"
+export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-wayland}"
 
 # Use the compiled C modules from lib/ if available, otherwise fall back to
 # system luarocks paths (for backwards compatibility during migration).

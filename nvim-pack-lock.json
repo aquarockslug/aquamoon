@@ -24,6 +24,10 @@
       "rev": "561751e839b99a4baca36b9d963166b66d2536a6",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
+    "neogit": {
+      "rev": "aa99b440b266bcf7e03399f149ed46f981555fa3",
+      "src": "https://github.com/NeogitOrg/neogit.git"
+    },
     "nvim-chainsaw": {
       "rev": "c38210b379d5a61b3e1bf918cf787212fa1eedd9",
       "src": "https://github.com/chrisgrieser/nvim-chainsaw.git"

@@ -10,6 +10,7 @@ local packages = {
 	"https://github.com/alexpasmantier/tv.nvim",
 	"https://github.com/zbirenbaum/copilot.lua.git",
 	"https://github.com/folke/sidekick.nvim.git",
+	"https://github.com/NeogitOrg/neogit.git",
 	-- colorschemes
 	"https://github.com/NTBBloodbath/sweetie.nvim.git",
 	"https://github.com/bluz71/vim-moonfly-colors.git",
@@ -17,7 +18,6 @@ local packages = {
 	"https://github.com/rktjmp/lush.nvim.git", -- bluloco dependency
 	"https://github.com/uloco/bluloco.nvim.git",
 	"https://github.com/Badacadabra/vim-archery.git",
-	"https://github.com/rktjmp/lush.nvim.git"
 }
 
 local mini_modules = {

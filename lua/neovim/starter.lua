@@ -44,58 +44,23 @@ local function items()
 	local s = starter()
 	return {
 		{
-			{ name = "Open file", action = tv_channel("files"), section = "Start" },
-			{ name = "Search text", action = tv_channel("text"), section = "Start" },
+			{ name = "Open file",   action = tv_channel("files"), section = "Start" },
+			{ name = "Search text", action = tv_channel("text"),  section = "Start" },
 		},
 		{
 			{
-				name = "Aquamoon keybindings",
+				name = "Keybindings",
 				action = edit("toml/bindings.toml"),
 				section = "Aquamoon",
 			},
 			{
-				name = "Aquamoon options & rules",
+				name = "Aquamoon options",
 				action = edit("toml/aquamoon.toml"),
 				section = "Aquamoon",
 			},
 			{
-				name = "Aquamoon theme",
-				action = edit("toml/theme.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Aquamoon bar",
-				action = edit("toml/bar.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Noctalia shell",
+				name = "Noctalia options",
 				action = edit("toml/noctalia.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Window manager",
-				action = edit("wm/wm.lua"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Neovim plugins",
-				action = edit("lua/neovim/plugins.lua"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Neovim config",
-				action = edit("init.lua"),
-				section = "Aquamoon",
-			},
-			{
-				name = "README",
-				action = edit("README.md"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Plugin lockfile",
-				action = edit("nvim-pack-lock.json"),
 				section = "Aquamoon",
 			},
 		},

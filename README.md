@@ -13,7 +13,7 @@ click-to-focus on top of the upstream tinyrwm implementation.
 ## Requirements
 
 ```sh
-sudo pacman -S river base-devel wayland-protocols tofi noctalia neovide
+sudo pacman -S river base-devel wayland-protocols tofi noctalia neovide upower
 ```
 
 No `luarocks` or manual Lua module installation is required. `lib/cffi.so` is
