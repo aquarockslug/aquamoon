@@ -82,10 +82,33 @@ local function install_greeter()
 	return true
 end
 
+local default_tv_theme = table.concat({
+	"# Noctalia theme for Television (Rose Pine Moon fallback).",
+	'border_fg = "#44415a"',
+	'text_fg = "#e0def4"',
+	'dimmed_text_fg = "#908caa"',
+	'input_text_fg = "#ea9a97"',
+	'result_count_fg = "#9ccfd8"',
+	'result_name_fg = "#ea9a97"',
+	'result_line_number_fg = "#32758f"',
+	'result_value_fg = "#e0def4"',
+	'selection_fg = "#ea9a97"',
+	'selection_bg = "#393552"',
+	'match_fg = "#9ccfd8"',
+	'preview_title_fg = "#9ccfd8"',
+	'channel_mode_fg = "#232136"',
+	'channel_mode_bg = "#ea9a97"',
+	'remote_control_mode_fg = "#232136"',
+	'remote_control_mode_bg = "#9ccfd8"',
+	'action_picker_mode_fg = "#d0cdee"',
+	'action_picker_mode_bg = "#32758f"',
+	"",
+}, "\n")
+
 local function setup()
 	local missing = {}
 	for _, dep in ipairs({ "lua5.4", "luarocks", "river", "tofi", "noctalia",
-		"noctalia-greeter", "greetd", "neovide" }) do
+		"noctalia-greeter", "greetd", "neovide", "tv" }) do
 		local ok = os.execute("command -v " .. dep .. " >/dev/null 2>&1")
 		if ok ~= true and ok ~= 0 then
 			missing[#missing + 1] = dep
@@ -118,7 +141,9 @@ local function setup()
 		config_dir = home .. "/.config"
 	end
 	run("mkdir -p " .. quote(config_dir .. "/river") .. " "
-		.. quote(config_dir .. "/haal"))
+		.. quote(config_dir .. "/haal") .. " "
+		.. quote(config_dir .. "/television/cable") .. " "
+		.. quote(config_dir .. "/television/themes"))
 
 	local init = assert(io.open(config_dir .. "/river/init", "w"))
 	init:write("#!/bin/sh\nexec " .. quote(repo .. "/bin/wm") .. "\n")
@@ -149,6 +174,18 @@ local function setup()
 	link(repo, config_dir .. "/nvim")
 	link(repo .. "/toml/starship.toml", config_dir .. "/starship.toml")
 	link(repo .. "/lua/haal-fetch.lua", config_dir .. "/haal/init.lua")
+
+	run("ln -sf " .. quote(repo .. "/toml/television.toml") .. " "
+		.. quote(config_dir .. "/television/config.toml"))
+	run("for f in " .. quote(repo .. "/cable") .. "/*.toml; do "
+		.. "[ -e \"$f\" ] && ln -sf \"$f\" "
+		.. quote(config_dir .. "/television/cable") .. "/; done")
+	local tv_theme_path = config_dir .. "/television/themes/noctalia.toml"
+	if not exists(tv_theme_path) then
+		local tv_theme = assert(io.open(tv_theme_path, "w"))
+		tv_theme:write(default_tv_theme)
+		tv_theme:close()
+	end
 
 	local greeter = os.execute(
 		"command -v noctalia-greeter >/dev/null 2>&1")

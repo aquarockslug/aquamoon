@@ -1,7 +1,4 @@
 # Noctalia shell configuration for Aquamoon.
-#
-# Only intentional, non-default settings are kept here; everything else uses
-# Noctalia's built-in defaults. Docs: https://docs.noctalia.dev/noctalia/
 
 [include]
 files = [

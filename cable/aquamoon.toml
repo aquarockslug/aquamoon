@@ -1,0 +1,17 @@
+[metadata]
+name = "aquamoon"
+description = "Browse and edit Aquamoon desktop configuration files"
+requirements = ["git", "bat"]
+
+[source]
+command = '''git -C "$HOME/.aquamoon" ls-files | awk -v root="$HOME/.aquamoon" '{print root "/" $0 "\t" $0}' '''
+display = "{split:\t:1}"
+output = "{split:\t:0}"
+
+[preview]
+command = "bat -n --color=always '{split:\t:0}'"
+
+[ui.preview_panel]
+size = 60
+header = "{split:\t:1}"
+border_type = "rounded"

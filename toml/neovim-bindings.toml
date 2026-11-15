@@ -1,0 +1,112 @@
+leader = ","
+
+[map]
+bindings = [
+  # Search & UI
+  { mode = "n", key = "<leader>/", action = ":noh<CR>", desc = "Clear search highlights" },
+  { mode = "n", key = "<leader>h", action = "mini:starter", desc = "Open starter screen" },
+
+  # File explorer (Oil)
+  { mode = "n", key = "-", action = "<CMD>Oil<CR>", desc = "Open parent directory" },
+  { mode = "n", key = "<leader>l", action = "oil:split", desc = "Oil in horizontal split" },
+  { mode = "n", key = "<leader>;", action = "oil:vsplit", desc = "Oil in vertical split" },
+
+  # Save & quit
+  { mode = "n", key = "<leader>w", action = "<CMD>write<CR>", desc = "Save file" },
+  { mode = "n", key = "<leader>q", action = "<CMD>quit<CR>", desc = "Quit window" },
+  { mode = "n", key = "<leader>Q", action = "<CMD>qa!<CR>", desc = "Force quit all" },
+
+  # Editing & navigation
+  { mode = "n", key = "U", action = "<C-r>", desc = "Redo" },
+  { mode = "n", key = "J", action = "mzJ`z", desc = "Join line without moving cursor" },
+  { mode = "n", key = "<C-d>", action = "<C-d>zz", desc = "Scroll down and center" },
+  { mode = "n", key = "<C-u>", action = "<C-u>zz", desc = "Scroll up and center" },
+  { mode = "n", key = "n", action = "nzzzv", desc = "Next search result centered" },
+  { mode = "n", key = "N", action = "Nzzzv", desc = "Previous search result centered" },
+  { mode = "x", key = "<", action = "<gv", desc = "Indent left and reselect" },
+  { mode = "x", key = ">", action = ">gv", desc = "Indent right and reselect" },
+  { mode = "x", key = "p", action = '"_dP', desc = "Paste without overwriting register" },
+  { mode = "n", key = "<leader>tw", action = "mini:trim_whitespace", desc = "Trim trailing whitespace" },
+
+  # Window navigation & management
+  { mode = "n", key = "<Left>", action = "<C-w>h", desc = "Move to left window" },
+  { mode = "n", key = "<Down>", action = "<C-w>j", desc = "Move to lower window" },
+  { mode = "n", key = "<Up>", action = "<C-w>k", desc = "Move to upper window" },
+  { mode = "n", key = "<Right>", action = "<C-w>l", desc = "Move to right window" },
+  { mode = "n", key = "<C-Up>", action = "<CMD>resize +2<CR>", desc = "Increase window height" },
+  { mode = "n", key = "<C-Down>", action = "<CMD>resize -2<CR>", desc = "Decrease window height" },
+  { mode = "n", key = "<C-Left>", action = "<CMD>vertical resize -2<CR>", desc = "Decrease window width" },
+  { mode = "n", key = "<C-Right>", action = "<CMD>vertical resize +2<CR>", desc = "Increase window width" },
+  { mode = "n", key = "<leader>=", action = "<C-w>=", desc = "Equalize split sizes" },
+  { mode = "n", key = "<leader>x", action = "<CMD>close<CR>", desc = "Close current split" },
+
+  # Buffers & tabs
+  { mode = "n", key = "<Space>", action = "snipe:menu", desc = "Snipe buffer menu" },
+  { mode = "n", key = "<S-h>", action = "<CMD>bprevious<CR>", desc = "Previous buffer" },
+  { mode = "n", key = "<S-l>", action = "<CMD>bnext<CR>", desc = "Next buffer" },
+  { mode = "n", key = "<leader>bd", action = "<CMD>bdelete<CR>", desc = "Delete buffer" },
+  { mode = "n", key = "<leader>tn", action = "<CMD>tabnew<CR>", desc = "New tab" },
+  { mode = "n", key = "<leader>tc", action = "<CMD>tabclose<CR>", desc = "Close tab" },
+
+  # Terminal
+  { mode = "t", key = "<Esc>", action = '<C-\><C-n>', desc = "Exit terminal mode" },
+  { mode = "t", key = "<C-h>", action = '<C-\><C-n><C-w>h', desc = "Move to window h" },
+  { mode = "t", key = "<C-j>", action = '<C-\><C-n><C-w>j', desc = "Move to window j" },
+  { mode = "t", key = "<C-k>", action = '<C-\><C-n><C-w>k', desc = "Move to window k" },
+  { mode = "t", key = "<C-l>", action = '<C-\><C-n><C-w>l', desc = "Move to window l" },
+  { mode = "t", key = "<Left>", action = '<C-\><C-n><C-w>h', desc = "Move to window h" },
+  { mode = "t", key = "<Down>", action = '<C-\><C-n><C-w>j', desc = "Move to window j" },
+  { mode = "t", key = "<Up>", action = '<C-\><C-n><C-w>k', desc = "Move to window k" },
+  { mode = "t", key = "<Right>", action = '<C-\><C-n><C-w>l', desc = "Move to window l" },
+  { mode = "n", key = "<leader>tt", action = "terminal:split", desc = "Open terminal in horizontal split" },
+  { mode = "n", key = "<leader>tv", action = "terminal:vsplit", desc = "Open terminal in vertical split" },
+  { mode = "n", key = "<leader>tf", action = "<CMD>terminal<CR>", desc = "Open terminal in current window" },
+
+  # Git (Neogit & MiniDiff)
+  { mode = "n", key = "<leader>gg", action = "neogit:open", desc = "Open Neogit" },
+  { mode = "n", key = "<leader>gc", action = "neogit:commit", desc = "Neogit commit" },
+  { mode = "n", key = "<leader>go", action = "mini:diff_overlay", desc = "Toggle git diff overlay" },
+
+  # Logging (Chainsaw)
+  { mode = "n", key = "<leader>lv", action = "chainsaw:variable", desc = "Log variable" },
+  { mode = "n", key = "<leader>lo", action = "chainsaw:object", desc = "Log object" },
+  { mode = "n", key = "<leader>lm", action = "chainsaw:message", desc = "Log message" },
+  { mode = "n", key = "<leader>lr", action = "chainsaw:remove", desc = "Remove logs" },
+
+  # AI (Sidekick)
+  { mode = "nx", key = "<leader>aa", action = "sidekick:toggle", desc = "Toggle Sidekick CLI" },
+  { mode = "n", key = "<leader>as", action = "sidekick:select", desc = "Select Sidekick CLI" },
+  { mode = "nx", key = "<leader>ap", action = "sidekick:prompt", desc = "Sidekick prompt" },
+
+  # LSP
+  { mode = "n", key = "gd", action = "lsp:definition", desc = "Go to definition" },
+  { mode = "n", key = "gr", action = "lsp:references", desc = "Find references" },
+  { mode = "n", key = "K", action = "lsp:hover", desc = "Hover documentation" },
+  { mode = "n", key = "<leader>rn", action = "lsp:rename", desc = "Rename symbol" },
+  { mode = "n", key = "<leader>ca", action = "lsp:code_action", desc = "Code action" },
+  { mode = "n", key = "[d", action = "lsp:diagnostic_prev", desc = "Previous diagnostic" },
+  { mode = "n", key = "]d", action = "lsp:diagnostic_next", desc = "Next diagnostic" },
+  { mode = "n", key = "<leader>d", action = "lsp:diagnostic_float", desc = "Show diagnostic float" },
+  { mode = "n", key = "<leader>j", action = "lsp:format_save", desc = "Format and save" },
+]
+
+[tv]
+channels = "<leader>p"
+files = "<leader>f"
+text = "<leader>g"
+aquamoon = "<leader>e"
+git_log = "<leader>gl"
+git_branch = "<leader>gb"
+git_diff = "<leader>gd"
+open = "<CR>"
+quickfix = "<C-q>"
+split = "<C-s>"
+vsplit = "<C-v>"
+yank = "<C-y>"
+
+[copilot]
+accept = "<M-l>"
+accept_word = "<M-k>"
+next = "<M-]>"
+prev = "<M-[>"
+dismiss = "<C-]>"

@@ -1,0 +1,17 @@
+[metadata]
+name = "palettes"
+description = "Browse and edit Aquamoon color palettes"
+requirements = ["bat"]
+
+[source]
+command = '''find "$HOME/.aquamoon/palettes" -maxdepth 1 -name '*.json' -printf '%p\t%f\n' | sed 's/\.json$//' | sort'''
+display = "{split:\t:1}"
+output = "{split:\t:0}"
+
+[preview]
+command = "bat --color=always '{split:\t:0}'"
+
+[ui.preview_panel]
+size = 60
+header = "{split:\t:1}"
+border_type = "rounded"

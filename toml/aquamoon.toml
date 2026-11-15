@@ -1,7 +1,7 @@
 [include]
 files = [
   "inputs.toml",
-  "bindings.toml",
+  "river-bindings.toml",
 ]
 
 [river_options]

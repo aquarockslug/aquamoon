@@ -17,3 +17,7 @@ community_ids = ["cosmic", "steam", "bat", "lazygit", "whitesur-icons", "pywalfo
 input_path  = "~/.aquamoon/lua/nvim-template.lua"
 output_path = "$XDG_CACHE_HOME/nvim/noctalia.lua"
 post_hook   = "pkill -SIGUSR1 -f '[n]vim --embed' || true"
+
+[theme.templates.user.television]
+input_path  = "~/.aquamoon/toml/television-theme.toml"
+output_path = "$XDG_CONFIG_HOME/television/themes/noctalia.toml"

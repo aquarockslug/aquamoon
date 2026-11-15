@@ -17,6 +17,7 @@ bindings = [
   { mod = "Super+Shift", key = "F", command = ['toggle-fullscreen'] },
   { mod = "Super", key = "F", command = ['spawn', 'cosmic-files'] },
   { mod = "Super", key = "A", command = ['spawn', "env NVIM_APPNAME=nvim neovide --no-tabs +'Tv files'"] },
+  { mod = "Super+Shift", key = "A", command = ['spawn', "env NVIM_APPNAME=nvim neovide --no-tabs +'Tv'"] },
   { mod = "Super", key = "S", command = ['spawn', "env NVIM_APPNAME=nvim neovide --no-tabs +'Tv text'"] },
   { mod = "Super", key = "W", command = ['spawn', 'noctalia msg window-switcher'] },
   { mod = "Super", key = "C", command = ['spawn', 'noctalia msg panel-toggle control-center'] },

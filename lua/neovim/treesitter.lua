@@ -23,7 +23,8 @@ function M.setup()
 		end, parsers)
 		if #missing > 0 then
 			vim.schedule(function()
-				vim.notify("Installing treesitter parsers: " .. table.concat(missing, ", "), vim.log.levels.INFO)
+				vim.notify("Installing treesitter parsers: " .. table.concat(missing, ", "),
+					vim.log.levels.INFO)
 				treesitter.install(missing)
 			end)
 		end

@@ -28,7 +28,7 @@ The window manager launcher now:
 Installation instructions now reflect the portable approach:
 ```sh
 # Install build dependencies
-sudo pacman -S river base-devel wayland-protocols tofi noctalia neovide
+sudo pacman -S river base-devel wayland-protocols tofi noctalia neovide television bat
 
 # Build lush (one-time)
 git clone https://github.com/thiagomg/lush ~/lush

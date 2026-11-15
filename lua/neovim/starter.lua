@@ -25,6 +25,17 @@ local function tv_channel(name)
 	end
 end
 
+local function tv_channels()
+	return function()
+		local ok, tv = pcall(require, "tv")
+		if not ok then
+			vim.notify("tv.nvim is not available", vim.log.levels.WARN)
+			return
+		end
+		tv.tv_channels()
+	end
+end
+
 local function header()
 	return table.concat({
 		"        ☾",
@@ -44,13 +55,20 @@ local function items()
 	local s = starter()
 	return {
 		{
-			{ name = "Open file",   action = tv_channel("files"), section = "Start" },
-			{ name = "Search text", action = tv_channel("text"),  section = "Start" },
+			{ name = "Open file",       action = tv_channel("files"),    section = "Start" },
+			{ name = "Search text",     action = tv_channel("text"),     section = "Start" },
+			{ name = "Aquamoon config", action = tv_channel("aquamoon"), section = "Start" },
+			{ name = "TV channels",     action = tv_channels(),          section = "Start" },
 		},
 		{
 			{
-				name = "Keybindings",
-				action = edit("toml/bindings.toml"),
+				name = "River keybindings",
+				action = edit("toml/river-bindings.toml"),
+				section = "Aquamoon",
+			},
+			{
+				name = "Neovim keybindings",
+				action = edit("toml/neovim-bindings.toml"),
 				section = "Aquamoon",
 			},
 			{
@@ -61,6 +79,11 @@ local function items()
 			{
 				name = "Noctalia options",
 				action = edit("toml/noctalia.toml"),
+				section = "Aquamoon",
+			},
+			{
+				name = "Television options",
+				action = edit("toml/television.toml"),
 				section = "Aquamoon",
 			},
 		},
