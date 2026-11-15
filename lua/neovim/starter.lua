@@ -1,104 +1,43 @@
 local M = {}
 
-local function starter()
-	return require("mini.starter")
-end
-
-local function config_root()
-	return vim.fn.stdpath("config")
-end
-
 local function edit(relative)
 	return function()
-		vim.cmd.edit(vim.fn.fnameescape(config_root() .. "/" .. relative))
+		vim.cmd.edit(vim.fn.fnameescape(vim.fn.stdpath("config") .. "/" .. relative))
 	end
 end
 
 local function tv_channel(name)
 	return function()
 		local ok, tv = pcall(require, "tv")
-		if not ok then
-			vim.notify("tv.nvim is not available", vim.log.levels.WARN)
-			return
+		if ok then
+			if name then tv.tv_channel(name) else tv.tv_channels() end
 		end
-		tv.tv_channel(name)
 	end
-end
-
-local function tv_channels()
-	return function()
-		local ok, tv = pcall(require, "tv")
-		if not ok then
-			vim.notify("tv.nvim is not available", vim.log.levels.WARN)
-			return
-		end
-		tv.tv_channels()
-	end
-end
-
-local function header()
-	return table.concat({
-		"        ☾",
-		"     AQUAMOON",
-		" river · lua · neovim",
-	}, "\n")
-end
-
-local function footer()
-	return table.concat({
-		"<CR> select   <C-c> close   <BS> erase   <Esc> reset",
-		"Up/Down or <C-n>/<C-p> move",
-	}, "\n")
-end
-
-local function items()
-	local s = starter()
-	return {
-		{
-			{ name = "Open file",       action = tv_channel("files"),    section = "Start" },
-			{ name = "Search text",     action = tv_channel("text"),     section = "Start" },
-			{ name = "Aquamoon config", action = tv_channel("aquamoon"), section = "Start" },
-			{ name = "TV channels",     action = tv_channels(),          section = "Start" },
-		},
-		{
-			{
-				name = "River keybindings",
-				action = edit("toml/river-bindings.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Neovim keybindings",
-				action = edit("toml/neovim-bindings.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Aquamoon options",
-				action = edit("toml/aquamoon.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Noctalia options",
-				action = edit("toml/noctalia.toml"),
-				section = "Aquamoon",
-			},
-			{
-				name = "Television options",
-				action = edit("toml/television.toml"),
-				section = "Aquamoon",
-			},
-		},
-		s.sections.recent_files(8, false),
-		s.sections.builtin_actions(),
-	}
 end
 
 function M.setup()
-	local s = starter()
+	local s = require("mini.starter")
 	s.setup({
 		autoopen = true,
-		items = items(),
-		header = header,
-		footer = footer,
+		header = "        ☾\n     AQUAMOON\n river · lua · neovim",
+		footer = "<CR> select   <C-c> close   <BS> erase   <Esc> reset\nUp/Down or <C-n>/<C-p> move",
+		items = {
+			{
+				{ name = "Open file",       action = tv_channel("files"),    section = "Start" },
+				{ name = "Search text",     action = tv_channel("text"),     section = "Start" },
+				{ name = "Aquamoon config", action = tv_channel("aquamoon"), section = "Start" },
+				{ name = "TV channels",     action = tv_channel(),           section = "Start" },
+			},
+			{
+				{ name = "River keybindings",  action = edit("toml/river-bindings.toml"),  section = "Aquamoon" },
+				{ name = "Neovim keybindings", action = edit("toml/neovim-bindings.toml"), section = "Aquamoon" },
+				{ name = "Aquamoon options",   action = edit("toml/aquamoon.toml"),        section = "Aquamoon" },
+				{ name = "Noctalia options",   action = edit("toml/noctalia.toml"),        section = "Aquamoon" },
+				{ name = "Television options", action = edit("toml/television.toml"),      section = "Aquamoon" },
+			},
+			s.sections.recent_files(8, false),
+			s.sections.builtin_actions(),
+		},
 		content_hooks = {
 			s.gen_hook.adding_bullet("▸ "),
 			s.gen_hook.indexing("all", { "Builtin actions" }),

@@ -1,16 +1,10 @@
-# Noctalia theme template for Television.
-# Rendered to $XDG_CONFIG_HOME/television/themes/noctalia.toml.
-
-# general
 border_fg = "{{ colors.outline.default.hex }}"
 text_fg = "{{ colors.on_surface.default.hex }}"
 dimmed_text_fg = "{{ colors.on_surface_variant.default.hex }}"
 
-# input
 input_text_fg = "{{ colors.primary.default.hex }}"
 result_count_fg = "{{ colors.secondary.default.hex }}"
 
-# results
 result_name_fg = "{{ colors.primary.default.hex }}"
 result_line_number_fg = "{{ colors.tertiary.default.hex }}"
 result_value_fg = "{{ colors.on_surface.default.hex }}"
@@ -18,10 +12,8 @@ selection_fg = "{{ colors.primary.default.hex }}"
 selection_bg = "{{ colors.surface_container_high.default.hex }}"
 match_fg = "{{ colors.secondary.default.hex }}"
 
-# preview
 preview_title_fg = "{{ colors.secondary.default.hex }}"
 
-# modes
 channel_mode_fg = "{{ colors.on_primary.default.hex }}"
 channel_mode_bg = "{{ colors.primary.default.hex }}"
 remote_control_mode_fg = "{{ colors.on_secondary.default.hex }}"

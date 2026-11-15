@@ -13,26 +13,23 @@ click-to-focus on top of the upstream tinyrwm implementation.
 ## Requirements
 
 ```sh
-sudo pacman -S river base-devel wayland-protocols tofi noctalia neovide television bat upower
+sudo pacman -S lua54 river base-devel wayland-protocols noctalia neovide television bat ripgrep git wl-clipboard tree-sitter-cli cosmic-files cosmic-player starship tombi upower
 ```
 
-No `luarocks` or manual Lua module installation is required. `lib/cffi.so` is
-vendored in the repository and POSIX calls use `cffi` directly.
+Optional packages:
+- `noctalia-greeter` and `greetd` (for the login greeter)
+- `tofi` (AUR, optional launcher)
+- `lua-language-server` (Lua LSP in Neovim)
+
+No `luarocks` or manual Lua module installation is required. `lib/cffi.so`,
+`bin/lush`, `bin/haal`, and the desktop fonts (`fonts/*.ttf`) are vendored in
+the repository, and POSIX calls use `cffi` directly.
 
 No `river-classic`, `riverctl` or `river-luatile` installation is required.
 
 ## Installation
 
-Clone the repository and build the lush interpreter:
-
-```sh
-git clone https://github.com/thiagomg/lush ~/lush
-cd ~/lush
-cargo build --release
-cp target/release/lush ~/.aquamoon/bin/lush
-```
-
-Run the setup script:
+Run the setup script from `~/.aquamoon`:
 
 ```sh
 cd ~/.aquamoon
@@ -40,9 +37,11 @@ cd ~/.aquamoon
 ```
 
 This will:
-- Install `wau` into `lib/` (using the vendored `lib/cffi.so`, or compiling it from source if missing)
+- Bootstrap `paru` from the AUR if not already installed
+- Install the bundled fonts (`fonts/*.ttf`) into `~/.local/share/fonts`
+- Install `wau` and `xml2lua` into `lib/` (using the vendored `lib/cffi.so`, or compiling it from source if missing)
 - Generate Wayland protocol bindings
-- Configure river, noctalia, neovim, and the greeter
+- Configure river, noctalia, neovim, television, starship, haal, and the greeter
 
 Start the session with `river`.
 
@@ -92,11 +91,11 @@ which includes `toml/inputs.toml` (libinput device rules) and
 `toml/aquamoon.toml` and its includes at startup via `lua/neovim/toml.lua`, so
 changes can be tested by restarting the session.
 
-Run `lua lua/aquamoon.lua setup` once to generate the protocol bindings and
+Run `./bin/lush setup.lush` once to generate the protocol bindings and
 install the session wrapper:
 
 ```sh
-lua lua/aquamoon.lua setup
+./bin/lush setup.lush
 river
 ```
 
@@ -128,11 +127,13 @@ an exclusive layer surface is open.
 Aquamoon palette and wallpaper, defaults to the `River` session and the `aqua`
 user, and uses the same font and clock formats as the shell.
 
-`lua lua/aquamoon.lua setup` installs it as
-`/var/lib/noctalia-greeter/greeter.toml` (via `sudo`), copies the wallpaper to
-`/var/lib/noctalia-greeter/wallpaper.png`, and prints the command to restart
-greetd. The greeter runs as the unprivileged greetd user, so the files are
-copied instead of symlinked into `~/.aquamoon`.
+`./bin/lush setup.lush` installs it as
+`/var/lib/noctalia-greeter/greeter.toml` (via `sudo`), sets the default login
+user to your current account, copies the wallpaper to
+`/var/lib/noctalia-greeter/wallpaper.png`, installs the bundled fonts to
+`/usr/local/share/fonts/aquamoon`, and prints the command to restart greetd.
+The greeter runs as the unprivileged greetd user, so the files are copied
+instead of symlinked into `~/.aquamoon`.
 
 ## Customising the window manager
 
@@ -158,12 +159,12 @@ the new code is in use.
 | `lua/neovim/toml.lua` | TOML loader with `[include]` support |
 | `lua/tinytoml.lua` | TOML parser used at startup |
 
-`lua lua/aquamoon.lua setup` regenerates the protocol bindings after the XML
+`./bin/lush setup.lush` regenerates the protocol bindings after the XML
 files change. To regenerate a single protocol by hand:
 
 ```sh
-eval "$(luarocks --lua-version=5.4 path)"
-wau-scanner < wm/protocol/river-window-management-v1.xml \
+LUA_CPATH="$PWD/lib/?.so;;" LUA_PATH="$PWD/lib/?.lua;$PWD/lib/?/init.lua;;" \
+    ./bin/lush ./lib/wau-scanner.lua < wm/protocol/river-window-management-v1.xml \
     > wm/protocol/river-window-management-v1.lua
 ```
 
@@ -175,11 +176,10 @@ personal keybindings do not need to touch the implementation.
 
 Noctalia regenerates `~/.cache/nvim/noctalia.lua` from the active theme (`lua/nvim-template.lua`) and signals running Neovim instances, and renders `~/.config/television/themes/noctalia.toml` (`toml/television-theme.toml`) for the `television` (`tv`) picker. `lua/neovim/theme.lua` maps the active shell palette to the matching installed colorscheme plugin (Sweetie, Moonfly, Flume, Bluloco, or Archery) and falls back to `sweetie` otherwise. The shell palette and wallpaper are configured in `toml/theme.toml`, bar and widget settings in `toml/bar.toml`, and general shell settings (including font) in `toml/noctalia.toml`.
 
-The repository also has a small `config.toml` entrypoint for Noctalia. When the
-repository is symlinked as `~/.config/noctalia`, that file includes
-`toml/noctalia.toml` (which in turn includes `toml/theme.toml`, `toml/bar.toml`
-and `toml/plugins.toml`); a conventional setup instead links
-`toml/noctalia.toml` directly to `~/.config/noctalia/config.toml`.
+During setup, `~/.config/noctalia/config.toml` is generated as a small
+entrypoint that includes `toml/noctalia.toml` (which in turn includes
+`toml/theme.toml`, `toml/bar.toml`, and `toml/plugins.toml`), and `palettes/` is
+symlinked as `~/.config/noctalia/palettes`.
 
 ## Plugins
 

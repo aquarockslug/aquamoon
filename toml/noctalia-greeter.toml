@@ -1,24 +1,10 @@
-# Noctalia Greeter configuration for Aquamoon.
-#
-# `lua lua/aquamoon.lua setup` installs this file as
-# /var/lib/noctalia-greeter/greeter.toml and copies the wallpaper next to it,
-# because the greeter runs as the unprivileged greetd user and cannot read
-# ~/.aquamoon.  Restart greetd after changing startup, output, input or idle
-# settings:  sudo systemctl restart greetd
-#
-# Docs: https://docs.noctalia.dev/greeter/configuration/
-
 [session]
-# Picker label or .desktop filename; see `noctalia-greeter sessions`.
 default = "River"
 
 [user]
-# Open directly on this account's password step.  Remove to show the picker.
 default = "aqua"
 
 [appearance]
-# "Synced" uses the declarative palette below; a builtin name such as
-# "Noctalia" is also accepted.
 scheme = "Synced"
 theme_mode = "dark"
 font_family = "FairiesevkaTerm Nerd Font Mono"
@@ -29,7 +15,6 @@ power_buttons_position = "bottom-right"
 scheme_selector_position = "top-right"
 
 [appearance.wallpaper]
-# Copied from wallpapers/macos_tiger_grey.png by setup.
 path = "/var/lib/noctalia-greeter/wallpaper.png"
 fill_mode = "crop"
 

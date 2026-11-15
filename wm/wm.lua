@@ -1,7 +1,3 @@
-#! /usr/bin/env lua5.4
--- SPDX-FileCopyrightText: © 2026 FireFly
--- SPDX-License-Identifier: 0BSD
-
 local ffi = require("cffi")
 local wau = require("wau")
 local xkbcommon = require("wm.xkbcommon")
@@ -63,10 +59,6 @@ local optional_globals = {
 
 local Mods = wau.river_seat_v1.Modifiers
 
----- Configuration -------------------
--- The aquamoon TOML file is the source of truth for bindings, startup
--- commands, borders and rules.  It is optional: without it wm falls back
--- to the upstream tiny feature set.
 local repo = os.getenv("AQUAMOON_DIR") or ((os.getenv("HOME") or "") .. "/.aquamoon")
 local config_path = os.getenv("AQUAMOON_CONFIG") or (repo .. "/toml/aquamoon.toml")
 
@@ -188,37 +180,14 @@ do
     end
 end
 
-if #xkb_bindings == 0 then
-    xkb_bindings = {
-        { key = "space", mods = Mods.MOD4, command = { "spawn", "foot" } },
-        { key = "q", mods = Mods.MOD4, command = { "close" } },
-        { key = "n", mods = Mods.MOD4, command = { "focus-next" } },
-        { key = "t", mods = Mods.MOD4, command = { "toggle-tiling" } },
-        { key = "space", mods = Mods.MOD4 | Mods.SHIFT,
-          command = { "toggle-floating" } },
-        { key = "equal", mods = Mods.MOD4,
-          command = { "increase-main-ratio" } },
-        { key = "minus", mods = Mods.MOD4,
-          command = { "decrease-main-ratio" } },
-        { key = "Escape", mods = Mods.MOD4, command = { "exit" } },
-    }
-end
-
-if #pointer_bindings == 0 then
-    pointer_bindings = {
-        { button = BUTTONS.BTN_LEFT, mods = Mods.MOD4, command = { "move-view" } },
-        { button = BUTTONS.BTN_RIGHT, mods = Mods.MOD4, command = { "resize-view" } },
-    }
-end
-
 local river_options = config.river_options or {}
 local border_width = number(river_options["border-width"])
 
 local function color(value)
     local hex = tostring(value or "0xffffff"):gsub("^0[xX]", "")
     local rgb = math.tointeger(tonumber(hex, 16)) or 0xffffff
-    local function component(value)
-        return math.floor(value * 0xffffffff / 0xff)
+    local function component(v)
+        return math.floor(v * 0xffffffff / 0xff)
     end
     return {
         component((rgb >> 16) & 0xff),
@@ -236,23 +205,14 @@ focus_follows_cursor = focus_follows_cursor ~= nil and focus_follows_cursor ~= "
 
 local attach_bottom = river_options["default-attach-mode"] == "bottom"
 
--- Keyboard repeat defaults match riverctl's historical defaults.  The value
--- in the TOML file is { rate, delay } in repeats per second and milliseconds.
 local repeat_rate, repeat_delay = 25, 600
 do
     local value = river_options["set-repeat"]
     if type(value) == "table" and value[1] ~= nil and value[2] ~= nil then
         repeat_rate = number(value[1])
         repeat_delay = number(value[2])
-    elseif type(value) == "string" then
-        local rate, delay = value:match("^(%d+)%s+(%d+)$")
-        if rate ~= nil then
-            repeat_rate = number(rate)
-            repeat_delay = number(delay)
-        end
     end
     if repeat_rate < 0 or repeat_delay < 0 then
-        warn("invalid set-repeat; using 25 600")
         repeat_rate, repeat_delay = 25, 600
     end
 end
@@ -269,9 +229,6 @@ do
     end)
 end
 
--- river 0.5 reports the libinput name ("PIXA200B:00 093A:200B Touchpad")
--- while river-classic used "pointer-vendor-product-name" identifiers.  Accept
--- both forms so the existing configuration keeps working.
 local function normalize_device(name)
     local value = tostring(name or ""):lower()
     value = value:gsub("^[%a_]+%-%d+%-%d+%-", "")
@@ -334,16 +291,10 @@ end
 local wm = {
     outputs = {},
     seats = {},
-    -- Windows are kept in rendering order; last window is topmost.
     windows = {},
-    -- Tags currently visible on the output.
     view_tags = 1,
-    -- Output used for layer surfaces that do not request one explicitly.
     default_output = nil,
-    -- Automatically arrange visible windows in the tiling layout.
     tiling = true,
-    -- Monotonic insertion order, used to keep the tiled layout stable while
-    -- focus (and therefore the stacking order) changes.
     next_window_seq = 0,
 }
 
@@ -402,8 +353,6 @@ function Output.create(obj)
     return output
 end
 
--- Logical area available for windows.  Prefer the area left over by layer
--- surfaces (panels/bars) when the compositor provides it.
 function Output:area()
     local area = self.non_exclusive_area
     if area ~= nil and area.width > 0 and area.height > 0 then
@@ -530,8 +479,6 @@ function Window:set_position(x, y)
     self.y = y
 end
 
--- Apply a geometry chosen by the tiling layout.  Requests are only sent when
--- something actually changed so a quiet manage cycle does not spam clients.
 function Window:set_geometry(x, y, width, height)
     if self.fullscreen then
         return
@@ -582,10 +529,6 @@ function Window.listener:pointer_resize_requested(seat, edges)
 end
 
 
----- Layout -----------------------------
--- A deliberately small master/stack layout: the first window takes the left
--- portion of the output and the remaining windows are stacked on the right.
--- Optional tuning lives in the [layout] section of the TOML configuration.
 local layout_config = type(config.layout) == "table" and config.layout or {}
 local layout_main_ratio = math.max(
     0.1, math.min(0.9, tonumber(layout_config["main-ratio"]) or 2 / 3))
@@ -611,9 +554,6 @@ local function window_output(window)
         end
     end
 
-    -- Keep the old output if it is still around, otherwise fall back to the
-    -- default/first output.  This keeps a window from jumping between outputs
-    -- when it is temporarily moved outside every output area.
     if window.output ~= nil and not window.output.removed then
         return window.output
     end
@@ -697,7 +637,6 @@ function wm.tile()
     end
 end
 
--- Force the next manage cycle to send fresh geometry, then schedule it.
 local function invalidate_layout()
     for _, window in ipairs(wm.windows) do
         window.tile_width = nil
@@ -1084,8 +1023,6 @@ function Seat:action(command)
         if self.focused ~= nil then
             self.focused.obj:close()
         end
-    elseif action == "focus-next" then
-        self:focus_relative("next")
     elseif action == "focus-view" then
         self:focus_relative(command[2] or "next")
     elseif action == "set-focused-tags" then
@@ -1114,11 +1051,11 @@ function Seat:action(command)
         end
     elseif action == "toggle-fullscreen" then
         self:toggle_fullscreen(self.focused)
-    elseif action == "move-view" or action == "move" then
+    elseif action == "move-view" then
         if self.hovered ~= nil then
             self:pointer_move(self.hovered)
         end
-    elseif action == "resize-view" or action == "resize" then
+    elseif action == "resize-view" then
         if self.hovered ~= nil then
             self:pointer_resize(self.hovered, { bottom = true, right = true })
         end
@@ -1127,17 +1064,6 @@ function Seat:action(command)
             self.focused.floating = not self.focused.floating
             invalidate_layout()
         end
-    elseif action == "float" then
-        if self.focused ~= nil then
-            self.focused.floating = true
-            invalidate_layout()
-        end
-    elseif action == "tile" then
-        wm.tiling = true
-        if self.focused ~= nil then
-            self.focused.floating = false
-        end
-        invalidate_layout()
     elseif action == "toggle-tiling" then
         wm.tiling = not wm.tiling
         invalidate_layout()
@@ -1147,17 +1073,11 @@ function Seat:action(command)
     elseif action == "decrease-main-ratio" then
         layout_main_ratio = math.max(0.1, math.min(0.9, layout_main_ratio - 0.05))
         invalidate_layout()
-    elseif action == "set-gaps" then
-        layout_gaps = math.max(0, number(command[2]))
-        layout_smart_gaps = false
-        invalidate_layout()
     elseif action == "toggle-smart-gaps" then
         layout_smart_gaps = not layout_smart_gaps
         invalidate_layout()
     elseif action == "exit" then
         globals["river_window_manager_v1"]:exit_session()
-    else
-        print("Seat:action: unimplemented", action)
     end
 end
 
@@ -1506,8 +1426,6 @@ end
 
 globals["river_window_manager_v1"]:add_listener(wm_handlers)
 
--- Fire the next queued repeat, if any is due.  The action is handed to the
--- seat through pending_action so it runs inside the normal manage cycle.
 local function repeat_tick()
     if repeat_state == nil then
         return
@@ -1528,7 +1446,6 @@ local function repeat_tick()
     globals["river_window_manager_v1"]:manage_dirty()
 end
 
--- Time until the next repeat, or -1 to wait for wayland events forever.
 local function repeat_timeout()
     if repeat_state == nil then
         return -1
@@ -1540,8 +1457,6 @@ local function repeat_timeout()
     return math.ceil(remaining)
 end
 
--- Wayland event loop with a poll timeout so held keys can repeat without
--- blocking on the compositor file descriptor.
 local function event_loop()
     local pointer = ffi.cast("struct wl_display*", display)
     local fd = raw.wl_display_get_fd(pointer)

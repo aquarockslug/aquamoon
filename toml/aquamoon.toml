@@ -8,10 +8,8 @@ files = [
 border-width = 2
 focus-follows-cursor = "normal"
 default-attach-mode = "bottom"
-# TODO: sync border colors with noctalia colorscheme
 border-color-focused = "0xb094e2"
 border-color-unfocused = "0x92d3c5"
-# Key repeat: { rate (repeats/second), delay (ms) }.
 set-repeat = [50, 300]
 
 [window_rules.ssd]
@@ -23,7 +21,7 @@ set-repeat = [50, 300]
 5 = "loupe"
 
 [tofi]
-font = "/usr/share/fonts/TTF/LilexNerdFont-Regular.ttf"
+font = "Lilex Nerd Font Mono"
 font-size = 14
 width = "50%"
 height = "50%"
@@ -39,9 +37,5 @@ result-spacing = 9
 anchor = "center"
 
 [startup]
-# Only update the session D-Bus activation environment on the primary display
-# so nested test compositors (wayland-2, etc.) do not clobber WAYLAND_DISPLAY.
 0 = ['[ "${WAYLAND_DISPLAY:-}" = "wayland-1" ] && dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP']
-# River spawns children with SIGCHLD ignored, which breaks every subprocess
-# Noctalia starts (plugins, hooks, checkupdates). Reset it before exec.
 1 = ["/usr/bin/env", "--default-signal=CHLD", "noctalia", "--daemon"]

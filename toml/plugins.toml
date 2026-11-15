@@ -1,6 +1,3 @@
-# Plugins: https://docs.noctalia.dev/noctalia/plugins/
-# The theme switcher widget is placed on the bar; the other plugins
-# provide launcher providers, panels, services and optional widgets.
 [plugins]
 auto_update = "all"
 enabled = [

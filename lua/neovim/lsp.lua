@@ -16,6 +16,31 @@ function M.setup()
 		end,
 	})
 
+	local servers = {}
+	if vim.fn.executable("lua-language-server") == 1 then
+		servers[#servers + 1] = "lua_ls"
+	end
+
+	if vim.fn.executable("tombi") == 1 then
+		vim.lsp.config("tombi", {
+			cmd = { "tombi", "lsp" },
+			filetypes = { "toml" },
+			workspace_required = false,
+			root_dir = function(buffer, on_dir)
+				on_dir(vim.fs.root(buffer, { "tombi.toml", "pyproject.toml", ".git" }) or
+					vim.fn.getcwd())
+			end,
+		})
+		servers[#servers + 1] = "tombi"
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "toml",
+			callback = function(event)
+				vim.bo[event.buf].formatprg = "tombi format --quiet -"
+			end,
+		})
+	end
+
 	local has_biome = vim.fn.executable("biome") == 1
 	if has_biome then
 		vim.lsp.config("biome", {
@@ -26,13 +51,12 @@ function M.setup()
 					vim.fn.getcwd())
 			end,
 		})
-	else
-		vim.notify(
-			"biome not found on PATH. Install it with:\ncurl -LsSf https://biomejs.dev/install.sh | sh",
-			vim.log.levels.WARN
-		)
+		servers[#servers + 1] = "biome"
 	end
-	vim.lsp.enable(has_biome and { "lua_ls", "biome" } or { "lua_ls" })
+
+	if #servers > 0 then
+		vim.lsp.enable(servers)
+	end
 end
 
 return M

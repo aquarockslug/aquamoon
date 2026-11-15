@@ -43,6 +43,9 @@ function M.setup()
 	vim.api.nvim_create_autocmd("InsertEnter", {
 		once = true,
 		callback = function()
+			if vim.fn.executable("node") == 0 then
+				return
+			end
 			require("copilot").setup({
 				suggestion = {
 					auto_trigger = true,
@@ -58,7 +61,10 @@ function M.setup()
 		end,
 	})
 
-	require("vim._core.ui2").enable()
+	local has_ui2, ui2 = pcall(require, "vim._core.ui2")
+	if has_ui2 and type(ui2.enable) == "function" then
+		pcall(ui2.enable)
+	end
 
 	local tv = require("tv")
 	local function tv_handlers(open)

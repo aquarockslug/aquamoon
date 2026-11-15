@@ -1,5 +1,3 @@
-# Noctalia shell configuration for Aquamoon.
-
 [include]
 files = [
   "~/.aquamoon/toml/theme.toml",
@@ -7,18 +5,15 @@ files = [
   "~/.aquamoon/toml/plugins.toml",
 ]
 
-# File-backed master key avoids probing org.freedesktop.secrets when no
-# Secret Service daemon (gnome-keyring/kwallet) is running in the session.
 [storage]
 key_source = "file"
 key_file   = "~/.local/state/noctalia/storage.key"
 
 [shell]
-font_family        = "FairiesevkaTerm Nerd Font Mono"
-time_format        = "{:%I:%M %p}" # 12-hour clock for shell-owned time displays
-polkit_agent       = true
+font_family  = "FairiesevkaTerm Nerd Font Mono"
+time_format  = "{:%I:%M %p}"
+polkit_agent = true
 
-# Panels open as floating windows, centred over the desktop.
 [shell.panel]
 control_center_placement = "floating"
 control_center_position  = "center"
@@ -27,23 +22,18 @@ wallpaper_position       = "center"
 session_placement        = "floating"
 session_position         = "center"
 
-# Keep the launcher search field at the top of the panel.
 [shell.launcher]
 search_position = "top"
 
-# Quiet desktop: no notification sounds.
 [audio]
 enable_sounds = false
 
-# Keep the OSD in the top-right corner.
 [osd]
 position = "top_right"
 
-# The bar is the only shell surface; no dock or desktop widgets.
 [desktop_widgets]
 enabled = false
 
-# Weather is opt-in, but keep the local unit and city for when it is enabled.
 [weather]
 enabled = false
 unit    = "imperial"
@@ -51,7 +41,6 @@ unit    = "imperial"
 [location]
 address = "Chicago, IL"
 
-# Internal panel backlight on the laptop display (DRM may number it eDP-1 or eDP-2).
 [brightness.monitor.eDP-1]
 backend          = "backlight"
 backlight_device = "intel_backlight"

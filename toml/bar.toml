@@ -1,6 +1,3 @@
-# Solid bar with palette-coloured widget capsules and an accent outline.
-# Noctalia paints the bar background with the theme surface role, so the
-# primary/primary-container roles provide the color.
 [bar.main]
 position             = "bottom"
 auto_hide            = true

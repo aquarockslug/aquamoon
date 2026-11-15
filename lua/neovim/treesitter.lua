@@ -3,7 +3,7 @@ local M = {}
 local parsers = {
 	"lua", "vim", "vimdoc",
 	"javascript", "jsdoc", "typescript", "tsx",
-	"html", "css", "json",
+	"html", "css", "json", "toml",
 }
 
 local function ts_start(buffer)
@@ -21,7 +21,7 @@ function M.setup()
 		local missing = vim.tbl_filter(function(lang)
 			return not vim.list_contains(installed, lang)
 		end, parsers)
-		if #missing > 0 then
+		if #missing > 0 and vim.fn.executable("tree-sitter") == 1 then
 			vim.schedule(function()
 				vim.notify("Installing treesitter parsers: " .. table.concat(missing, ", "),
 					vim.log.levels.INFO)
@@ -31,7 +31,7 @@ function M.setup()
 	end
 
 	vim.api.nvim_create_autocmd("FileType", {
-		pattern = { "javascript", "lua" },
+		pattern = { "javascript", "lua", "toml" },
 		callback = function(event)
 			ts_start(event.buf)
 		end,

@@ -1,11 +1,8 @@
 #!/usr/bin/env lush
--- Bootstrap script for aquamoon. Compiles C modules from source and sets up
--- the session. Run with: lush setup.lush
 
 local repo = env.cwd()
 local lib_dir = path.join(repo, "lib")
-
--- Helpers ----------------------------------------------------------------
+local home = env.get("HOME")
 
 local function quote(value)
 	return "'" .. tostring(value):gsub("'", "'\\''") .. "'"
@@ -26,514 +23,354 @@ local function ensure_dir(dir)
 	end
 end
 
-local function download(url, dest)
-	if fs.exists(dest) then
-		print("already downloaded: " .. dest)
-		return true
-	end
-	print("downloading: " .. url)
-	return net.wget(url, dest)
-end
-
-local function extract(archive, dest_dir)
-	print("extracting: " .. archive)
-	return run("tar -xf " .. quote(archive) .. " -C " .. quote(dest_dir))
-end
-
-local function readlink(path)
-	local handle = io.popen("readlink -f " .. quote(path) .. " 2>/dev/null")
-	local target = handle and handle:read("*l") or ""
+local function readlink(target)
+	local handle = io.popen("readlink -f " .. quote(target) .. " 2>/dev/null")
+	local resolved = handle and handle:read("*l") or ""
 	if handle then
 		handle:close()
 	end
-	return target
+	return resolved
 end
 
--- Dependency checks ------------------------------------------------------
-
-local function check_command(cmd)
+local function has_cmd(cmd)
 	local ok = os.execute("command -v " .. cmd .. " >/dev/null 2>&1")
 	return ok == true or ok == 0
 end
 
-local function check_build_tools()
-	local missing = {}
-	for _, tool in ipairs({ "gcc", "pkg-config", "meson", "ninja" }) do
-		if not check_command(tool) then
-			missing[#missing + 1] = tool
-		end
+local function link(target, link_path)
+	if not fs.exists(link_path) then
+		run("ln -s " .. quote(target) .. " " .. quote(link_path))
 	end
-	if #missing > 0 then
-		io.stderr:write("missing build tools: " .. table.concat(missing, ", ") .. "\n")
-		io.stderr:write("install with: sudo pacman -S base-devel meson ninja\n")
-		return false
-	end
-	return true
 end
+
+local runtime_deps = {
+	{ cmd = "lua5.4", pkg = "lua54" },
+	{ cmd = "river", pkg = "river" },
+	{ cmd = "noctalia", pkg = "noctalia" },
+	{ cmd = "neovide", pkg = "neovide" },
+	{ cmd = "tv", pkg = "television" },
+	{ cmd = "bat", pkg = "bat" },
+	{ cmd = "rg", pkg = "ripgrep" },
+	{ cmd = "git", pkg = "git" },
+	{ cmd = "wl-copy", pkg = "wl-clipboard" },
+	{ cmd = "tree-sitter", pkg = "tree-sitter-cli" },
+	{ cmd = "cosmic-files", pkg = "cosmic-files" },
+	{ cmd = "cosmic-player", pkg = "cosmic-player" },
+	{ cmd = "starship", pkg = "starship" },
+	{ cmd = "tombi", pkg = "tombi" },
+}
+
+local optional_deps = {
+	{ cmd = "tofi", pkg = "tofi (AUR)" },
+	{ cmd = "noctalia-greeter", pkg = "noctalia-greeter" },
+	{ cmd = "lua-language-server", pkg = "lua-language-server" },
+}
 
 local function check_runtime_deps()
 	local missing = {}
-	for _, dep in ipairs({ "river", "tofi", "noctalia", "neovide", "tv" }) do
-		if not check_command(dep) then
-			missing[#missing + 1] = dep
+	for _, dep in ipairs(runtime_deps) do
+		if not has_cmd(dep.cmd) then
+			missing[#missing + 1] = dep.pkg
 		end
 	end
-	if not check_command("upower") and not fs.exists("/usr/lib/upowerd") then
+	if not has_cmd("upower") and not fs.exists("/usr/lib/upowerd") then
 		missing[#missing + 1] = "upower"
 	end
+
+	local missing_opt = {}
+	for _, dep in ipairs(optional_deps) do
+		if not has_cmd(dep.cmd) then
+			missing_opt[#missing_opt + 1] = dep.pkg
+		end
+	end
+	if #missing_opt > 0 then
+		print("optional not installed: " .. table.concat(missing_opt, ", "))
+	end
+
 	if #missing > 0 then
-		print("missing runtime dependencies: " .. table.concat(missing, ", "))
-		print("install with: sudo pacman -S " .. table.concat(missing, " "))
+		io.stderr:write("missing dependencies: " .. table.concat(missing, ", ") .. "\n")
+		io.stderr:write("install with: sudo pacman -S " .. table.concat(missing, " ") .. "\n")
 		return false
 	end
 	return true
 end
 
--- Lua 5.4 headers --------------------------------------------------------
-
-local function ensure_lua_headers()
-	local lua_src_dir = path.join(lib_dir, "lua-5.4.7")
-	if fs.is_dir(lua_src_dir) then
-		print("lua headers already present")
-		return lua_src_dir
+local function ensure_paru()
+	if has_cmd("paru") or not has_cmd("makepkg") then
+		return true
 	end
-
-	local tarball = path.join(lib_dir, "lua-5.4.7.tar.gz")
-	download("https://www.lua.org/ftp/lua-5.4.7.tar.gz", tarball)
-	extract(tarball, lib_dir)
-
-	print("building lua headers...")
-	env.cd(lua_src_dir)
-	run("make linux CC=gcc CFLAGS='-O2 -Wall -Wextra -fPIC' > /dev/null 2>&1")
-	env.cd(repo)
-
-	return lua_src_dir
+	local build_dir = "/tmp/paru-bin-build"
+	run("rm -rf " .. quote(build_dir))
+	if not run("git clone --depth 1 https://aur.archlinux.org/paru-bin.git " .. quote(build_dir)) then
+		return false
+	end
+	local ok = run("cd " .. quote(build_dir) .. " && makepkg -si --noconfirm")
+	run("rm -rf " .. quote(build_dir))
+	return ok
 end
 
--- cffi-lua ---------------------------------------------------------------
--- lib/cffi.so is vendored in the repository; only build from source if missing.
+local function install_fonts()
+	local fonts_src = path.join(repo, "fonts")
+	if not fs.is_dir(fonts_src) then
+		return
+	end
+	local data_dir = env.get("XDG_DATA_HOME")
+	if not data_dir or data_dir == "" then
+		data_dir = path.join(home, ".local", "share")
+	end
+	local fonts_dest = path.join(data_dir, "fonts")
+	ensure_dir(fonts_dest)
+
+	for _, file in ipairs(fs.ls(fonts_src) or {}) do
+		if file:match("%.[to]tf$") then
+			fs.copy(path.join(fonts_src, file), path.join(fonts_dest, file))
+		end
+	end
+	if has_cmd("fc-cache") then
+		run("fc-cache -f " .. quote(fonts_dest))
+	end
+end
 
 local function ensure_cffi_lua()
 	local cffi_so = path.join(lib_dir, "cffi.so")
-
 	if fs.exists(cffi_so) then
-		print("cffi-lua present: lib/cffi.so")
 		return true
 	end
-
-	if not check_build_tools() then
-		return false
+	for _, tool in ipairs({ "gcc", "pkg-config", "meson", "ninja" }) do
+		if not has_cmd(tool) then
+			io.stderr:write("missing build tool: " .. tool .. " (sudo pacman -S base-devel meson ninja)\n")
+			return false
+		end
 	end
 
-	ensure_dir(lib_dir)
-	ensure_lua_headers()
-
 	local cffi_dir = path.join(lib_dir, "cffi-lua")
-	ensure_dir(cffi_dir)
-
-	-- Clone cffi-lua
 	if not fs.is_dir(path.join(cffi_dir, ".git")) then
-		print("cloning cffi-lua...")
 		if not run("git clone --depth 1 https://github.com/q66/cffi-lua.git " .. quote(cffi_dir)) then
 			return false
 		end
 	end
 
-	print("building cffi-lua with meson...")
-	local build_subdir = path.join(cffi_dir, "build")
-	ensure_dir(build_subdir)
-
-	env.cd(cffi_dir)
-
-	-- Configure with meson, explicitly targeting lua 5.4
-	if not run("meson setup build -Dtests=false -Dlua_version=5.4 2>&1") then
-		env.cd(repo)
+	local ok = run("cd " .. quote(cffi_dir)
+		.. " && meson setup build -Dtests=false -Dlua_version=5.4"
+		.. " && ninja -C build")
+	local built = path.join(cffi_dir, "build", "cffi.so")
+	if not ok or not fs.exists(built) then
 		return false
 	end
-
-	-- Build with ninja
-	if not run("ninja -C build 2>&1") then
-		env.cd(repo)
-		return false
-	end
-
-	-- Copy the built library
-	ensure_dir(lib_dir)
-	local built_lib = path.join(build_subdir, "cffi.so")
-	if fs.exists(built_lib) then
-		fs.copy(built_lib, cffi_so)
-		print("built: lib/cffi.so")
-	else
-		io.stderr:write("cffi-lua build succeeded but cffi.so not found\n")
-		env.cd(repo)
-		return false
-	end
-
-	env.cd(repo)
+	fs.copy(built, cffi_so)
 	return true
 end
 
--- wau (pure Lua Wayland bindings) ----------------------------------------
+local function install_xml2lua()
+	if fs.exists(path.join(lib_dir, "xml2lua.lua")) then
+		return true
+	end
+	local temp_dir = path.join(lib_dir, "xml2lua-temp")
+	run("rm -rf " .. quote(temp_dir))
+	if not run("git clone --depth 1 https://github.com/ManoelCampos/xml2lua.git " .. quote(temp_dir)) then
+		return false
+	end
+	ensure_dir(path.join(lib_dir, "xmlhandler"))
+	run("cp " .. quote(path.join(temp_dir, "xml2lua.lua")) .. " "
+		.. quote(path.join(temp_dir, "XmlParser.lua")) .. " " .. quote(lib_dir) .. "/")
+	run("cp -r " .. quote(path.join(temp_dir, "xmlhandler")) .. "/* "
+		.. quote(path.join(lib_dir, "xmlhandler")) .. "/")
+	run("rm -rf " .. quote(temp_dir))
+	return true
+end
 
 local function install_wau()
 	local wau_dir = path.join(lib_dir, "wau")
-
-	if fs.is_dir(wau_dir) then
-		print("wau already installed")
+	local scanner = path.join(lib_dir, "wau-scanner.lua")
+	if fs.is_dir(wau_dir) and fs.exists(scanner) then
 		return true
 	end
-
-	print("cloning wau...")
 	local temp_dir = path.join(lib_dir, "wau-temp")
+	run("rm -rf " .. quote(temp_dir))
 	if not run("git clone --depth 1 https://codeberg.org/firefly/wau.git " .. quote(temp_dir)) then
 		return false
 	end
-
-	-- Copy the wau Lua module
-	ensure_dir(lib_dir)
 	run("cp -r " .. quote(path.join(temp_dir, "wau")) .. " " .. quote(lib_dir) .. "/")
-
-	-- Copy the scanner
-	run("cp " .. quote(path.join(temp_dir, "wau-scanner.lua")) .. " " ..
-		quote(path.join(lib_dir, "wau-scanner.lua")))
-
-	-- Clean up temp dir
+	run("cp " .. quote(path.join(temp_dir, "wau-scanner.lua")) .. " " .. quote(scanner))
 	run("rm -rf " .. quote(temp_dir))
-
-	if not fs.is_dir(wau_dir) then
-		io.stderr:write("wau installation failed\n")
-		return false
-	end
-
-	print("installed: lib/wau/")
-	return true
+	return fs.is_dir(wau_dir)
 end
-
--- xml2lua (dependency for wau) -------------------------------------------
-
-local function install_xml2lua()
-	local xml2lua_dir = path.join(lib_dir, "xmlhandler")
-
-	if fs.exists(path.join(lib_dir, "xml2lua.lua")) then
-		print("xml2lua already installed")
-		return true
-	end
-
-	print("cloning xml2lua...")
-	local temp_dir = path.join(lib_dir, "xml2lua-temp")
-	if not run("git clone --depth 1 https://github.com/ManoelCampos/xml2lua.git " ..
-		    quote(temp_dir)) then
-		return false
-	end
-
-	ensure_dir(lib_dir)
-
-	-- Copy main xml2lua.lua
-	run("cp " .. quote(path.join(temp_dir, "xml2lua.lua")) .. " " .. quote(lib_dir) .. "/")
-
-	-- Copy XmlParser.lua
-	run("cp " .. quote(path.join(temp_dir, "XmlParser.lua")) .. " " .. quote(lib_dir) .. "/")
-
-	-- Copy xmlhandler directory
-	ensure_dir(xml2lua_dir)
-	run("cp -r " .. quote(path.join(temp_dir, "xmlhandler")) .. "/* " .. quote(xml2lua_dir) .. "/")
-
-	-- Clean up
-	run("rm -rf " .. quote(temp_dir))
-
-	print("installed: lib/xml2lua.lua, lib/XmlParser.lua, lib/xmlhandler/")
-	return true
-end
-
--- Protocol bindings ------------------------------------------------------
 
 local function generate_protocol_bindings()
-	print("generating protocol bindings...")
-
-	local wm_dir = path.join(repo, "wm")
-	local protocol_dir = path.join(wm_dir, "protocol")
-
-	-- Use the wau-scanner we just installed
-	local wau_scanner = path.join(lib_dir, "wau-scanner.lua")
-
-	if not fs.exists(wau_scanner) then
-		-- Fall back to system wau-scanner if available
-		if check_command("wau-scanner") then
-			wau_scanner = "wau-scanner"
-		else
-			print("wau-scanner not found; using pre-generated bindings if available")
-			local xml_files = fs.ls(protocol_dir)
-			local has_bindings = false
-			for _, file in ipairs(xml_files or {}) do
-				if file:match("%.lua$") then
-					has_bindings = true
-					break
-				end
-			end
-			if has_bindings then
-				print("pre-generated bindings found")
-				return true
-			else
-				io.stderr:write("no protocol bindings found and wau-scanner unavailable\n")
-				return false
-			end
-		end
-	end
-
-	-- Generate bindings using lush with proper module paths
-	env.cd(wm_dir)
-
-	-- Set up environment for lush to find wau and xml2lua
+	local protocol_dir = path.join(repo, "wm", "protocol")
 	local lush_bin = path.join(repo, "bin", "lush")
-	if not fs.exists(lush_bin) then
-		lush_bin = check_command("lush") and "lush" or nil
-	end
+	local scanner = path.join(lib_dir, "wau-scanner.lua")
+	local scanner_cmd = string.format(
+		"LUA_CPATH=%s LUA_PATH=%s %s %s",
+		quote(lib_dir .. "/?.so;;"),
+		quote(lib_dir .. "/?.lua;" .. lib_dir .. "/?/init.lua;;"),
+		quote(lush_bin),
+		quote(scanner)
+	)
 
-	if lush_bin == nil then
-		io.stderr:write("lush not found; cannot generate protocol bindings\n")
-		env.cd(repo)
-		return false
-	end
-
-	local xml_files = fs.ls(protocol_dir)
-	for _, file in ipairs(xml_files or {}) do
+	for _, file in ipairs(fs.ls(protocol_dir) or {}) do
 		if file:match("%.xml$") then
-			local lua_file = file:gsub("%.xml$", ".lua")
-			local cmd = string.format(
-				"LUA_CPATH='%s/?.so;;' LUA_PATH='%s/?.lua;%s/?/init.lua;;' %s %s < %s > %s 2>&1",
-				quote(lib_dir),
-				quote(lib_dir),
-				quote(lib_dir),
-				quote(lush_bin),
-				quote(path.join(lib_dir, "wau-scanner.lua")),
-				quote(path.join(protocol_dir, file)),
-				quote(path.join(protocol_dir, lua_file))
-			)
+			local out = path.join(protocol_dir, file:gsub("%.xml$", ".lua"))
+			local cmd = scanner_cmd .. " < " .. quote(path.join(protocol_dir, file)) .. " > " .. quote(out)
 			if not run(cmd) then
-				env.cd(repo)
 				return false
 			end
 		end
 	end
-	env.cd(repo)
-
-	print("protocol bindings generated")
 	return true
 end
 
--- Session setup ----------------------------------------------------------
+local default_tv_theme = table.concat({
+	'border_fg = "#44415a"',
+	'text_fg = "#e0def4"',
+	'dimmed_text_fg = "#908caa"',
+	'input_text_fg = "#ea9a97"',
+	'result_count_fg = "#9ccfd8"',
+	'result_name_fg = "#ea9a97"',
+	'result_line_number_fg = "#32758f"',
+	'result_value_fg = "#e0def4"',
+	'selection_fg = "#ea9a97"',
+	'selection_bg = "#393552"',
+	'match_fg = "#9ccfd8"',
+	'preview_title_fg = "#9ccfd8"',
+	'channel_mode_fg = "#232136"',
+	'channel_mode_bg = "#ea9a97"',
+	'remote_control_mode_fg = "#232136"',
+	'remote_control_mode_bg = "#9ccfd8"',
+	'action_picker_mode_fg = "#d0cdee"',
+	'action_picker_mode_bg = "#32758f"',
+	"",
+}, "\n")
 
 local function setup_session()
-	print("setting up session...")
+	local default_repo = path.join(home, ".aquamoon")
+	if readlink(default_repo) ~= readlink(repo) then
+		link(repo, default_repo)
+	end
 
 	local config_dir = env.get("XDG_CONFIG_HOME")
 	if not config_dir or config_dir == "" then
-		config_dir = path.join(env.get("HOME"), ".config")
+		config_dir = path.join(home, ".config")
 	end
 
-	ensure_dir(path.join(config_dir, "river"))
-	ensure_dir(path.join(config_dir, "haal"))
-	ensure_dir(path.join(config_dir, "television"))
-	ensure_dir(path.join(config_dir, "television", "cable"))
-	ensure_dir(path.join(config_dir, "television", "themes"))
+	for _, sub in ipairs({ "river", "haal", "television", "television/cable", "television/themes" }) do
+		ensure_dir(path.join(config_dir, sub))
+	end
 
-	-- Create river init script
 	local init_path = path.join(config_dir, "river", "init")
-	local init_content = "#!/bin/sh\nexec " .. quote(path.join(repo, "bin", "wm")) .. "\n"
-	fs.write_file(init_path, init_content)
-	run("chmod +x " .. quote(init_path))
+	fs.write_file(init_path, "#!/bin/sh\nexec " .. quote(path.join(repo, "bin", "wm")) .. "\n")
+	run("chmod +x " .. quote(init_path) .. " " .. quote(path.join(repo, "bin", "wm"))
+		.. " " .. quote(path.join(repo, "bin", "haal")))
 
-	-- Make binaries executable
-	run("chmod +x " .. quote(path.join(repo, "bin", "wm")))
-	run("chmod +x " .. quote(path.join(repo, "bin", "haal")))
-
-	-- Noctalia storage master key (avoids requiring a Secret Service daemon)
 	local state_dir = env.get("XDG_STATE_HOME")
 	if not state_dir or state_dir == "" then
-		state_dir = path.join(env.get("HOME"), ".local", "state")
+		state_dir = path.join(home, ".local", "state")
 	end
-	local noctalia_state_dir = path.join(state_dir, "noctalia")
-	ensure_dir(noctalia_state_dir)
-	local storage_key = path.join(noctalia_state_dir, "storage.key")
+	local noctalia_state = path.join(state_dir, "noctalia")
+	ensure_dir(noctalia_state)
+	local storage_key = path.join(noctalia_state, "storage.key")
 	if not fs.exists(storage_key) then
-		run("umask 077 && od -An -N32 -tx1 /dev/urandom | tr -d ' \\n' > " ..
-			quote(storage_key) .. " && echo >> " .. quote(storage_key))
+		run("umask 077 && od -An -N32 -tx1 /dev/urandom | tr -d ' \\n' > "
+			.. quote(storage_key) .. " && echo >> " .. quote(storage_key))
 	end
 
-	-- Noctalia config
 	local noctalia_dir = path.join(config_dir, "noctalia")
-	if readlink(noctalia_dir) ~= repo then
-		ensure_dir(noctalia_dir)
-		local target = path.join(repo, "toml", "noctalia.toml")
-		local link_path = path.join(noctalia_dir, "config.toml")
-		if not fs.exists(link_path) then
-			run("ln -s " .. quote(target) .. " " .. quote(link_path))
-		end
-
-		target = path.join(repo, "palettes")
-		link_path = path.join(noctalia_dir, "palettes")
-		if not fs.exists(link_path) then
-			run("ln -s " .. quote(target) .. " " .. quote(link_path))
-		end
+	if readlink(noctalia_dir) == readlink(repo) then
+		run("rm -f " .. quote(noctalia_dir))
 	end
+	ensure_dir(noctalia_dir)
+	local noctalia_config = path.join(noctalia_dir, "config.toml")
+	run("rm -f " .. quote(noctalia_config))
+	fs.write_file(noctalia_config, '[include]\nfiles = ["' .. path.join(repo, "toml", "noctalia.toml") .. '"]\n')
+	link(path.join(repo, "palettes"), path.join(noctalia_dir, "palettes"))
 
-	-- Neovim config
-	local nvim_link = path.join(config_dir, "nvim")
-	if not fs.exists(nvim_link) then
-		run("ln -s " .. quote(repo) .. " " .. quote(nvim_link))
-	end
+	link(repo, path.join(config_dir, "nvim"))
+	link(path.join(repo, "toml", "starship.toml"), path.join(config_dir, "starship.toml"))
+	link(path.join(repo, "lua", "haal-fetch.lua"), path.join(config_dir, "haal", "init.lua"))
 
-	-- Starship config
-	local starship_link = path.join(config_dir, "starship.toml")
-	if not fs.exists(starship_link) then
-		run("ln -s " .. quote(path.join(repo, "toml", "starship.toml")) ..
-			" " .. quote(starship_link))
-	end
-
-	-- Haal config
-	local haal_link = path.join(config_dir, "haal", "init.lua")
-	if not fs.exists(haal_link) then
-		run("ln -s " .. quote(path.join(repo, "lua", "haal-fetch.lua")) ..
-			" " .. quote(haal_link))
-	end
-
-	-- Television config, custom channels, and initial Noctalia theme
 	local tv_dir = path.join(config_dir, "television")
-	local tv_config_link = path.join(tv_dir, "config.toml")
-	run("ln -sf " .. quote(path.join(repo, "toml", "television.toml")) ..
-		" " .. quote(tv_config_link))
+	run("ln -sf " .. quote(path.join(repo, "toml", "television.toml")) .. " "
+		.. quote(path.join(tv_dir, "config.toml")))
 
 	local cable_src = path.join(repo, "cable")
-	if fs.is_dir(cable_src) then
-		for _, file in ipairs(fs.ls(cable_src) or {}) do
-			if file:match("%.toml$") then
-				run("ln -sf " .. quote(path.join(cable_src, file)) .. " " ..
-					quote(path.join(tv_dir, "cable", file)))
-			end
+	for _, file in ipairs(fs.ls(cable_src) or {}) do
+		if file:match("%.toml$") then
+			run("ln -sf " .. quote(path.join(cable_src, file)) .. " "
+				.. quote(path.join(tv_dir, "cable", file)))
 		end
 	end
 
-	local tv_theme_path = path.join(tv_dir, "themes", "noctalia.toml")
-	if not fs.exists(tv_theme_path) then
-		local default_tv_theme = table.concat({
-			"# Noctalia theme for Television (Rose Pine Moon fallback).",
-			'border_fg = "#44415a"',
-			'text_fg = "#e0def4"',
-			'dimmed_text_fg = "#908caa"',
-			'input_text_fg = "#ea9a97"',
-			'result_count_fg = "#9ccfd8"',
-			'result_name_fg = "#ea9a97"',
-			'result_line_number_fg = "#32758f"',
-			'result_value_fg = "#e0def4"',
-			'selection_fg = "#ea9a97"',
-			'selection_bg = "#393552"',
-			'match_fg = "#9ccfd8"',
-			'preview_title_fg = "#9ccfd8"',
-			'channel_mode_fg = "#232136"',
-			'channel_mode_bg = "#ea9a97"',
-			'remote_control_mode_fg = "#232136"',
-			'remote_control_mode_bg = "#9ccfd8"',
-			'action_picker_mode_fg = "#d0cdee"',
-			'action_picker_mode_bg = "#32758f"',
-			"",
-		}, "\n")
-		fs.write_file(tv_theme_path, default_tv_theme)
+	local tv_theme = path.join(tv_dir, "themes", "noctalia.toml")
+	if not fs.exists(tv_theme) then
+		fs.write_file(tv_theme, default_tv_theme)
 	end
-
-	print("session configured")
 	return true
 end
 
--- Greeter setup ----------------------------------------------------------
-
 local function setup_greeter()
-	if not check_command("noctalia-greeter") then
-		print("skipping greeter: noctalia-greeter not installed")
-		return true
+	if not has_cmd("noctalia-greeter") then
+		return
 	end
-
-	print("setting up greeter...")
-
 	local user = env.get("GREETER_USER")
 	if not user or user == "" then
 		local handle = io.popen("noctalia-greeter-apply-appearance --print-greeter-user 2>/dev/null")
+		user = handle and handle:read("*l") or ""
 		if handle then
-			user = handle:read("*l")
 			handle:close()
 		end
-		if not user or user == "" then
+		if user == "" then
 			user = "greeter"
 		end
+	end
+
+	local login_user = env.get("SUDO_USER")
+	if not login_user or login_user == "" then
+		login_user = env.get("USER")
 	end
 
 	local dir = "/var/lib/noctalia-greeter"
 	local config = path.join(repo, "toml", "noctalia-greeter.toml")
 	local wallpaper = path.join(repo, "wallpapers", "macos_tiger_grey.png")
+	local fonts_src = path.join(repo, "fonts")
+	local sys_fonts = "/usr/local/share/fonts/aquamoon"
 
-	local commands = {
+	local cmds = {
 		"install -d -m750 -o " .. quote(user) .. " -g " .. quote(user) .. " " .. quote(dir),
 		"install -Dm644 " .. quote(config) .. " " .. quote(path.join(dir, "greeter.toml")),
 		"install -Dm644 " .. quote(wallpaper) .. " " .. quote(path.join(dir, "wallpaper.png")),
-		"chown " .. quote(user .. ":" .. user) .. " " .. quote(dir) .. " " ..
-		quote(path.join(dir, "greeter.toml")) .. " " .. quote(path.join(dir, "wallpaper.png")),
 	}
+	if login_user and login_user ~= "" then
+		cmds[#cmds + 1] = "sed -i " .. quote('s/^default = "aqua"/default = "' .. login_user .. '"/')
+			.. " " .. quote(path.join(dir, "greeter.toml"))
+	end
+	cmds[#cmds + 1] = "chown " .. quote(user .. ":" .. user) .. " " .. quote(dir) .. " "
+		.. quote(path.join(dir, "greeter.toml")) .. " " .. quote(path.join(dir, "wallpaper.png"))
 
-	local cmd = "sudo sh -c " .. quote(table.concat(commands, " && "))
-	if not run(cmd) then
-		io.stderr:write("greeter setup failed; run manually:\n")
-		io.stderr:write("  " .. cmd .. "\n")
-		return false
+	if fs.is_dir(fonts_src) then
+		cmds[#cmds + 1] = "install -d -m755 " .. quote(sys_fonts)
+		cmds[#cmds + 1] = "install -m644 " .. quote(fonts_src) .. "/*.[to]tf " .. quote(sys_fonts) .. "/"
+		if has_cmd("fc-cache") then
+			cmds[#cmds + 1] = "fc-cache -f " .. quote(sys_fonts)
+		end
 	end
 
-	print("greeter configured; restart with: sudo systemctl restart greetd")
-	return true
+	run("sudo sh -c " .. quote(table.concat(cmds, " && ")))
 end
 
--- Main -------------------------------------------------------------------
-
 local function main()
-	print("aquamoon setup")
-	print("==============")
-
-	-- Check runtime dependencies
 	if not check_runtime_deps() then
 		return 1
 	end
-
-	-- Prepare lib directory
+	ensure_paru()
+	install_fonts()
 	ensure_dir(lib_dir)
 
-	-- Ensure cffi.so is present (vendored in lib/cffi.so, or built from source)
-	if not ensure_cffi_lua() then
+	if not ensure_cffi_lua() or not install_xml2lua() or not install_wau() or not generate_protocol_bindings() then
 		return 1
 	end
-
-	-- Install pure Lua modules
-	if not install_xml2lua() then
-		return 1
-	end
-
-	if not install_wau() then
-		return 1
-	end
-
-	-- Generate protocol bindings
-	if not generate_protocol_bindings() then
-		return 1
-	end
-
-	-- Setup session
-	if not setup_session() then
-		return 1
-	end
-
-	-- Setup greeter
+	setup_session()
 	setup_greeter()
-
-	print("")
-	print("setup complete!")
-	print("start the session with: river")
-
+	print("setup complete; start with: river")
 	return 0
 end
 
