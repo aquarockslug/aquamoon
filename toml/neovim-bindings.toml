@@ -1,96 +1,110 @@
+# Neovim keybindings (loaded by lua/neovim/keymaps.lua) and television
+# picker keybindings (tv.nvim, loaded by lua/neovim/plugins.lua).
+#
+# `leader` sets vim.g.mapleader. Under [map], each key is a mode ("n",
+# "x", "t", or a combination such as "nx") whose value is a list of
+# [key, action, description] entries. `action` is either a literal key
+# sequence/command or a named action from lua/neovim/keymaps.lua, and
+# `description` is optional.
+
 leader = ","
 
 [map]
-bindings = [
+
+# Normal mode
+n = [
   # Search & UI
-  { mode = "n", key = "<leader>/", action = ":noh<CR>", desc = "Clear search highlights" },
-  { mode = "n", key = "<leader>h", action = "mini:starter", desc = "Open starter screen" },
+  ["<leader>h", "mini:starter", "Open starter screen"],
+  ["<leader>/", "<CMD>noh<CR>", "Clear search highlighting"],
 
-  # File explorer (Oil)
-  { mode = "n", key = "-", action = "<CMD>Oil<CR>", desc = "Open parent directory" },
-  { mode = "n", key = "<leader>l", action = "oil:split", desc = "Oil in horizontal split" },
-  { mode = "n", key = "<leader>;", action = "oil:vsplit", desc = "Oil in vertical split" },
+  # Files (Oil)
+  ["-", "<CMD>Oil<CR>", "Open parent directory"],
+  ["<leader>;", "oil:vsplit", "Open Oil in vertical split"],
+  ["<leader>l", "oil:split", "Open Oil in horizontal split"],
 
-  # Save & quit
-  { mode = "n", key = "<leader>w", action = "<CMD>write<CR>", desc = "Save file" },
-  { mode = "n", key = "<leader>q", action = "<CMD>quit<CR>", desc = "Quit window" },
-  { mode = "n", key = "<leader>Q", action = "<CMD>qa!<CR>", desc = "Force quit all" },
+  # Write & quit
+  ["<leader>w", "<CMD>write<CR>", "Save file"],
+  ["<leader>q", "<CMD>quit<CR>", "Quit window"],
+  ["<leader>Q", "<CMD>qa!<CR>", "Force quit all"],
 
-  # Editing & navigation
-  { mode = "n", key = "U", action = "<C-r>", desc = "Redo" },
-  { mode = "n", key = "J", action = "mzJ`z", desc = "Join line without moving cursor" },
-  { mode = "n", key = "<C-d>", action = "<C-d>zz", desc = "Scroll down and center" },
-  { mode = "n", key = "<C-u>", action = "<C-u>zz", desc = "Scroll up and center" },
-  { mode = "n", key = "n", action = "nzzzv", desc = "Next search result centered" },
-  { mode = "n", key = "N", action = "Nzzzv", desc = "Previous search result centered" },
-  { mode = "x", key = "<", action = "<gv", desc = "Indent left and reselect" },
-  { mode = "x", key = ">", action = ">gv", desc = "Indent right and reselect" },
-  { mode = "x", key = "p", action = '"_dP', desc = "Paste without overwriting register" },
+  # Editing
+  ["U", "<C-r>", "Redo"],
+  ["<C-d>", "<C-d>zz", "Scroll down and center"],
+  ["<C-u>", "<C-u>zz", "Scroll up and center"],
 
-  # Window navigation & management
-  { mode = "n", key = "<Left>", action = "<C-w>h", desc = "Move to left window" },
-  { mode = "n", key = "<Down>", action = "<C-w>j", desc = "Move to lower window" },
-  { mode = "n", key = "<Up>", action = "<C-w>k", desc = "Move to upper window" },
-  { mode = "n", key = "<Right>", action = "<C-w>l", desc = "Move to right window" },
-  { mode = "n", key = "<C-Up>", action = "<CMD>resize +2<CR>", desc = "Increase window height" },
-  { mode = "n", key = "<C-Down>", action = "<CMD>resize -2<CR>", desc = "Decrease window height" },
-  { mode = "n", key = "<C-Left>", action = "<CMD>vertical resize -2<CR>", desc = "Decrease window width" },
-  { mode = "n", key = "<C-Right>", action = "<CMD>vertical resize +2<CR>", desc = "Increase window width" },
-  { mode = "n", key = "<leader>=", action = "<C-w>=", desc = "Equalize split sizes" },
-  { mode = "n", key = "<leader>x", action = "<CMD>close<CR>", desc = "Close current split" },
+  # Windows
+  ["<leader>=", "<C-w>=", "Equalize split sizes"],
+  ["<leader>x", "<CMD>close<CR>", "Close current split"],
+  ["<Left>", "<C-w>h", "Move to left window"],
+  ["<Down>", "<C-w>j", "Move to lower window"],
+  ["<Up>", "<C-w>k", "Move to upper window"],
+  ["<Right>", "<C-w>l", "Move to right window"],
 
-  # Buffers & tabs
-  { mode = "n", key = "<Space>", action = "snipe:menu", desc = "Snipe buffer menu" },
-  { mode = "n", key = "<S-h>", action = "<CMD>bprevious<CR>", desc = "Previous buffer" },
-  { mode = "n", key = "<S-l>", action = "<CMD>bnext<CR>", desc = "Next buffer" },
+  # Buffers
+  ["<Space>", "snipe:menu", "Snipe buffer menu"],
+  ["<S-h>", "<CMD>bprevious<CR>", "Previous buffer"],
+  ["<S-l>", "<CMD>bnext<CR>", "Next buffer"],
 
   # Terminal
-  { mode = "t", key = "<Esc>", action = '<C-\><C-n>', desc = "Exit terminal mode" },
-  { mode = "t", key = "<C-h>", action = '<C-\><C-n><C-w>h', desc = "Move to window h" },
-  { mode = "t", key = "<C-j>", action = '<C-\><C-n><C-w>j', desc = "Move to window j" },
-  { mode = "t", key = "<C-k>", action = '<C-\><C-n><C-w>k', desc = "Move to window k" },
-  { mode = "t", key = "<C-l>", action = '<C-\><C-n><C-w>l', desc = "Move to window l" },
-  { mode = "n", key = "<leader>tt", action = "terminal:split", desc = "Open terminal in horizontal split" },
-  { mode = "n", key = "<leader>tv", action = "terminal:vsplit", desc = "Open terminal in vertical split" },
-  { mode = "n", key = "<leader>tf", action = "<CMD>terminal<CR>", desc = "Open terminal in current window" },
+  ["<leader>tt", "terminal:split", "Terminal in horizontal split"],
+  ["<leader>tv", "terminal:vsplit", "Terminal in vertical split"],
 
-  # Git (Neogit & MiniDiff)
-  { mode = "n", key = "<leader>gg", action = "neogit:open", desc = "Open Neogit" },
-  { mode = "n", key = "<leader>gc", action = "neogit:commit", desc = "Neogit commit" },
-  { mode = "n", key = "<leader>go", action = "mini:diff_overlay", desc = "Toggle git diff overlay" },
+  # Git
+  ["<leader>gg", "neogit:open", "Open Neogit"],
+  ["<leader>gc", "neogit:commit", "Neogit commit"],
+  ["<leader>go", "mini:diff_overlay", "Toggle git diff overlay"],
 
   # Logging (Chainsaw)
-  { mode = "n", key = "<leader>lv", action = "chainsaw:variable", desc = "Log variable" },
-  { mode = "n", key = "<leader>lo", action = "chainsaw:object", desc = "Log object" },
-  { mode = "n", key = "<leader>lm", action = "chainsaw:message", desc = "Log message" },
-  { mode = "n", key = "<leader>lr", action = "chainsaw:remove", desc = "Remove logs" },
-
-  # AI (Sidekick)
-  { mode = "nx", key = "<leader>aa", action = "sidekick:toggle", desc = "Toggle Sidekick CLI" },
-  { mode = "nx", key = "<leader>aS", action = "sidekick:toggle_spawnpoint", desc = "Toggle Sidekick SpawnPoint" },
-  { mode = "n", key = "<leader>as", action = "sidekick:select", desc = "Select Sidekick CLI" },
-  { mode = "nx", key = "<leader>ap", action = "sidekick:prompt", desc = "Sidekick prompt" },
+  ["<leader>kv", "chainsaw:variable", "Log variable"],
+  ["<leader>ko", "chainsaw:object", "Log object"],
+  ["<leader>km", "chainsaw:message", "Log message"],
+  ["<leader>kr", "chainsaw:remove", "Remove logs"],
 
   # LSP
-  { mode = "n", key = "gd", action = "lsp:definition", desc = "Go to definition" },
-  { mode = "n", key = "gr", action = "lsp:references", desc = "Find references" },
-  { mode = "n", key = "K", action = "lsp:hover", desc = "Hover documentation" },
-  { mode = "n", key = "<leader>rn", action = "lsp:rename", desc = "Rename symbol" },
-  { mode = "n", key = "<leader>ca", action = "lsp:code_action", desc = "Code action" },
-  { mode = "n", key = "[d", action = "lsp:diagnostic_prev", desc = "Previous diagnostic" },
-  { mode = "n", key = "]d", action = "lsp:diagnostic_next", desc = "Next diagnostic" },
-  { mode = "n", key = "<leader>d", action = "lsp:diagnostic_float", desc = "Show diagnostic float" },
-  { mode = "n", key = "<leader>j", action = "lsp:format_save", desc = "Format and save" },
+  ["gd", "lsp:definition", "Go to definition"],
+  ["gr", "lsp:references", "Find references"],
+  ["K", "lsp:hover", "Hover documentation"],
+  ["<leader>rn", "lsp:rename", "Rename symbol"],
+  ["<leader>ca", "lsp:code_action", "Code action"],
+  ["[d", "lsp:diagnostic_prev", "Previous diagnostic"],
+  ["]d", "lsp:diagnostic_next", "Next diagnostic"],
+  ["<leader>d", "lsp:diagnostic_float", "Show diagnostic float"],
+  ["<leader>j", "lsp:format_save", "Format and save"],
 ]
 
+# Visual mode
+x = [
+  ["<", "<gv", "Indent left and reselect"],
+  [">", ">gv", "Indent right and reselect"],
+  ["p", '"_dP', "Paste without overwriting register"],
+]
+
+# Terminal mode
+t = [
+  ["<Esc>", '<C-\><C-n>', "Exit terminal mode"],
+]
+
+# Normal and visual mode
+nx = [
+  ["<leader>aa", "sidekick:toggle", "Toggle Sidekick CLI"],
+  ["<leader>aS", "sidekick:toggle_spawnpoint", "Toggle Sidekick SpawnPoint"],
+  ["<leader>ap", "sidekick:prompt", "Sidekick prompt"],
+]
+
+# which-key group labels for leader prefixes (loaded by
+# lua/neovim/plugins.lua).
+[groups]
+"<leader>a" = "AI"
+"<leader>g" = "Git"
+"<leader>k" = "Logging"
+"<leader>t" = "Terminal"
+
+# Television picker (tv.nvim). Per-channel shortcuts are trimmed; every
+# channel stays reachable through the global picker.
 [tv]
 channels = "<leader>p"
 files = "<leader>f"
-text = "<leader>g"
-aquamoon = "<leader>e"
-git_log = "<leader>gl"
-git_branch = "<leader>gb"
-git_diff = "<leader>gd"
+text = "<leader>s"
 open = "<CR>"
 quickfix = "<C-q>"
 split = "<C-s>"

@@ -10,6 +10,7 @@ local packages = {
 	"https://github.com/alexpasmantier/tv.nvim",
 	"https://github.com/NeogitOrg/neogit.git",
 	"https://github.com/brianhuster/unnest.nvim.git",
+	"https://github.com/folke/which-key.nvim.git",
 	"https://github.com/folke/sidekick.nvim.git",
 	-- colorschemes
 	"https://github.com/NTBBloodbath/sweetie.nvim.git",
@@ -37,6 +38,15 @@ function M.setup()
 	require("snipe").setup()
 	require("chainsaw").setup()
 	require("neogit").setup({})
+
+	local wk_spec = {}
+	for prefix, group in pairs(bindings.groups or {}) do
+		wk_spec[#wk_spec + 1] = { prefix, group = group }
+	end
+	require("which-key").setup({
+		win = { border = "rounded" },
+		spec = wk_spec,
+	})
 	local function ollama_claude(script, model, base_url)
 		local base = {} ---@type table
 		local path = vim.api.nvim_get_runtime_file("sk/cli/claude.lua", false)[1]
@@ -59,7 +69,8 @@ function M.setup()
 	require("sidekick").setup({
 		cli = {
 			tools = {
-				claude = ollama_claude("~/ai/WhiteRabbitNeo/run-claude.sh", "whiterabbitneo", "http://localhost:11434"),
+				claude = ollama_claude("~/ai/WhiteRabbitNeo/run-claude.sh", "whiterabbitneo",
+					"http://localhost:11434"),
 				spawnpoint = ollama_claude(
 					"~/ai/SpawnPoint-Coder-7B-GGUF/run-claude.sh",
 					"spawnpoint",
@@ -101,18 +112,16 @@ function M.setup()
 				handlers = tv_handlers(tv.handlers.open_as_files),
 			},
 			text = {
-				keybinding = tv_keys.text or "<leader>g",
+				keybinding = tv_keys.text or "<leader>s",
 				handlers = tv_handlers(tv.handlers.open_at_line),
 			},
 			aquamoon = {
-				keybinding = tv_keys.aquamoon or "<leader>e",
 				handlers = tv_handlers(tv.handlers.open_as_files),
 			},
 			palettes = {
 				handlers = tv_handlers(tv.handlers.open_as_files),
 			},
 			["git-log"] = {
-				keybinding = tv_keys.git_log or "<leader>gl",
 				handlers = {
 					[tv_keys.open or "<CR>"] = function(entries)
 						if #entries > 0 then
@@ -127,14 +136,12 @@ function M.setup()
 				},
 			},
 			["git-branch"] = {
-				keybinding = tv_keys.git_branch or "<leader>gb",
 				handlers = {
 					[tv_keys.open or "<CR>"] = tv.handlers.execute_shell_command("git checkout {}"),
 					[tv_keys.yank or "<C-y>"] = tv.handlers.copy_to_clipboard,
 				},
 			},
 			["git-diff"] = {
-				keybinding = tv_keys.git_diff or "<leader>gd",
 				handlers = tv_handlers(tv.handlers.open_as_files),
 			},
 		},
