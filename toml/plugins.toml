@@ -4,9 +4,9 @@ enabled = [
   "noctalia/kaomoji",
   "noctalia/notes",
   "noctalia/timer",
-  "noctalia/translator",
-  "noctalia/wallhaven",
-  "noctalia/world_clock",
+  # "noctalia/translator",
+  # "noctalia/wallhaven",
+  # "noctalia/world_clock",
   "theblackdon/theme-switcher",
 ]
 

@@ -26,7 +26,6 @@ bindings = [
   { mode = "x", key = "<", action = "<gv", desc = "Indent left and reselect" },
   { mode = "x", key = ">", action = ">gv", desc = "Indent right and reselect" },
   { mode = "x", key = "p", action = '"_dP', desc = "Paste without overwriting register" },
-  { mode = "n", key = "<leader>tw", action = "mini:trim_whitespace", desc = "Trim trailing whitespace" },
 
   # Window navigation & management
   { mode = "n", key = "<Left>", action = "<C-w>h", desc = "Move to left window" },
@@ -44,9 +43,6 @@ bindings = [
   { mode = "n", key = "<Space>", action = "snipe:menu", desc = "Snipe buffer menu" },
   { mode = "n", key = "<S-h>", action = "<CMD>bprevious<CR>", desc = "Previous buffer" },
   { mode = "n", key = "<S-l>", action = "<CMD>bnext<CR>", desc = "Next buffer" },
-  { mode = "n", key = "<leader>bd", action = "<CMD>bdelete<CR>", desc = "Delete buffer" },
-  { mode = "n", key = "<leader>tn", action = "<CMD>tabnew<CR>", desc = "New tab" },
-  { mode = "n", key = "<leader>tc", action = "<CMD>tabclose<CR>", desc = "Close tab" },
 
   # Terminal
   { mode = "t", key = "<Esc>", action = '<C-\><C-n>', desc = "Exit terminal mode" },
@@ -54,10 +50,6 @@ bindings = [
   { mode = "t", key = "<C-j>", action = '<C-\><C-n><C-w>j', desc = "Move to window j" },
   { mode = "t", key = "<C-k>", action = '<C-\><C-n><C-w>k', desc = "Move to window k" },
   { mode = "t", key = "<C-l>", action = '<C-\><C-n><C-w>l', desc = "Move to window l" },
-  { mode = "t", key = "<Left>", action = '<C-\><C-n><C-w>h', desc = "Move to window h" },
-  { mode = "t", key = "<Down>", action = '<C-\><C-n><C-w>j', desc = "Move to window j" },
-  { mode = "t", key = "<Up>", action = '<C-\><C-n><C-w>k', desc = "Move to window k" },
-  { mode = "t", key = "<Right>", action = '<C-\><C-n><C-w>l', desc = "Move to window l" },
   { mode = "n", key = "<leader>tt", action = "terminal:split", desc = "Open terminal in horizontal split" },
   { mode = "n", key = "<leader>tv", action = "terminal:vsplit", desc = "Open terminal in vertical split" },
   { mode = "n", key = "<leader>tf", action = "<CMD>terminal<CR>", desc = "Open terminal in current window" },
@@ -75,6 +67,7 @@ bindings = [
 
   # AI (Sidekick)
   { mode = "nx", key = "<leader>aa", action = "sidekick:toggle", desc = "Toggle Sidekick CLI" },
+  { mode = "nx", key = "<leader>aS", action = "sidekick:toggle_spawnpoint", desc = "Toggle Sidekick SpawnPoint" },
   { mode = "n", key = "<leader>as", action = "sidekick:select", desc = "Select Sidekick CLI" },
   { mode = "nx", key = "<leader>ap", action = "sidekick:prompt", desc = "Sidekick prompt" },
 
@@ -103,10 +96,3 @@ quickfix = "<C-q>"
 split = "<C-s>"
 vsplit = "<C-v>"
 yank = "<C-y>"
-
-[copilot]
-accept = "<M-l>"
-accept_word = "<M-k>"
-next = "<M-]>"
-prev = "<M-[>"
-dismiss = "<C-]>"

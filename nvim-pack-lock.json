@@ -8,10 +8,6 @@
       "rev": "8173bc716f29797ce0ad94359565a20e17a0b88c",
       "src": "https://forge.barrettruth.com/barrettruth/canola.nvim"
     },
-    "copilot.lua": {
-      "rev": "1d674b416df08e5c54e442503b7703a0df462acf",
-      "src": "https://github.com/zbirenbaum/copilot.lua.git"
-    },
     "flume.nvim": {
       "rev": "2ed1aa0c003063fccf1b3c680870589d78ca12d4",
       "src": "https://github.com/mitander/flume.nvim.git"
@@ -52,13 +48,13 @@
       "rev": "d4b3d94b57ffcd0229f567e050850248be2b1dad",
       "src": "https://github.com/NTBBloodbath/sweetie.nvim.git"
     },
-    "telescope.nvim": {
-      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
-      "src": "https://github.com/nvim-telescope/telescope.nvim"
-    },
     "tv.nvim": {
       "rev": "4b156a22c89b50d922a916cc0453762854ac082f",
       "src": "https://github.com/alexpasmantier/tv.nvim"
+    },
+    "unnest.nvim": {
+      "rev": "e9e269134ad85eb45c4e1fa3654801be0d3641b7",
+      "src": "https://github.com/brianhuster/unnest.nvim.git"
     },
     "vim-archery": {
       "rev": "0084b5d1199deb5c671e0e6017e9a0224f66f236",

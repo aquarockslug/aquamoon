@@ -1,10 +1,18 @@
 local M = {}
 
 local actions = {
-	["oil:split"] = function() vim.cmd.split(); vim.cmd.Oil() end,
-	["oil:vsplit"] = function() vim.cmd.vsplit(); vim.cmd.Oil() end,
-	["terminal:split"] = function() vim.cmd.split(); vim.cmd.terminal() end,
-	["terminal:vsplit"] = function() vim.cmd.vsplit(); vim.cmd.terminal() end,
+	["oil:split"] = function()
+		vim.cmd.split(); vim.cmd.Oil()
+	end,
+	["oil:vsplit"] = function()
+		vim.cmd.vsplit(); vim.cmd.Oil()
+	end,
+	["terminal:split"] = function()
+		vim.cmd.split(); vim.cmd.terminal()
+	end,
+	["terminal:vsplit"] = function()
+		vim.cmd.vsplit(); vim.cmd.terminal()
+	end,
 	["snipe:menu"] = function() require("snipe").open_buffer_menu() end,
 	["chainsaw:variable"] = function() require("chainsaw").variableLog() end,
 	["chainsaw:object"] = function() require("chainsaw").objectLog() end,
@@ -12,7 +20,8 @@ local actions = {
 	["chainsaw:remove"] = function() require("chainsaw").removeLogs() end,
 	["neogit:open"] = function() require("neogit").open() end,
 	["neogit:commit"] = function() require("neogit").open({ "commit" }) end,
-	["sidekick:toggle"] = function() require("sidekick.cli").toggle() end,
+	["sidekick:toggle"] = function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
+	["sidekick:toggle_spawnpoint"] = function() require("sidekick.cli").toggle({ name = "spawnpoint", focus = true }) end,
 	["sidekick:select"] = function() require("sidekick.cli").select() end,
 	["sidekick:prompt"] = function() require("sidekick.cli").prompt() end,
 	["mini:trim_whitespace"] = function() MiniTrailspace.trim() end,

@@ -20,20 +20,19 @@ function M.setup()
 	s.setup({
 		autoopen = true,
 		header = "        ☾\n     AQUAMOON\n river · lua · neovim",
-		footer = "<CR> select   <C-c> close   <BS> erase   <Esc> reset\nUp/Down or <C-n>/<C-p> move",
+		footer = "",
 		items = {
 			{
-				{ name = "Open file",       action = tv_channel("files"),    section = "Start" },
-				{ name = "Search text",     action = tv_channel("text"),     section = "Start" },
-				{ name = "Aquamoon config", action = tv_channel("aquamoon"), section = "Start" },
-				{ name = "TV channels",     action = tv_channel(),           section = "Start" },
+				{ name = "Open file",   action = tv_channel("files"), section = "Start" },
+				{ name = "Search text", action = tv_channel("text"),  section = "Start" },
+				{ name = "TV channels", action = tv_channel(),        section = "Start" },
 			},
 			{
+				{ name = "Search files",       action = tv_channel("aquamoon"),            section = "Aquamoon" },
 				{ name = "River keybindings",  action = edit("toml/river-bindings.toml"),  section = "Aquamoon" },
 				{ name = "Neovim keybindings", action = edit("toml/neovim-bindings.toml"), section = "Aquamoon" },
 				{ name = "Aquamoon options",   action = edit("toml/aquamoon.toml"),        section = "Aquamoon" },
 				{ name = "Noctalia options",   action = edit("toml/noctalia.toml"),        section = "Aquamoon" },
-				{ name = "Television options", action = edit("toml/television.toml"),      section = "Aquamoon" },
 			},
 			s.sections.recent_files(8, false),
 			s.sections.builtin_actions(),

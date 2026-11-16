@@ -13,12 +13,12 @@ implementation lives in `wm.lua`; protocol bindings and helpers are in `wm/`.
 
 System dependencies:
 - lua (5.4)
-- luarocks
 - libwayland
 - libxkbcommon
 
 The lua-ecosystem dependencies are `cffi-lua` (vendored at `lib/cffi.so`) and
-`firefly/wau`.
+`firefly/wau`. `luarocks` is only needed for the optional install outside the
+checkout (see below).
 
 ## Layout
 

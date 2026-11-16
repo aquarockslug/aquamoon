@@ -44,25 +44,26 @@ local function link(target, link_path)
 end
 
 local runtime_deps = {
-	{ cmd = "lua5.4", pkg = "lua54" },
-	{ cmd = "river", pkg = "river" },
-	{ cmd = "noctalia", pkg = "noctalia" },
-	{ cmd = "neovide", pkg = "neovide" },
-	{ cmd = "tv", pkg = "television" },
-	{ cmd = "bat", pkg = "bat" },
-	{ cmd = "rg", pkg = "ripgrep" },
-	{ cmd = "git", pkg = "git" },
-	{ cmd = "wl-copy", pkg = "wl-clipboard" },
-	{ cmd = "tree-sitter", pkg = "tree-sitter-cli" },
-	{ cmd = "cosmic-files", pkg = "cosmic-files" },
+	{ cmd = "lua5.4",        pkg = "lua54" },
+	{ cmd = "river",         pkg = "river" },
+	{ cmd = "noctalia",      pkg = "noctalia" },
+	{ cmd = "neovide",       pkg = "neovide" },
+	{ cmd = "tv",            pkg = "television" },
+	{ cmd = "bat",           pkg = "bat" },
+	{ cmd = "rg",            pkg = "ripgrep" },
+	{ cmd = "git",           pkg = "git" },
+	{ cmd = "wl-copy",       pkg = "wl-clipboard" },
+	{ cmd = "tree-sitter",   pkg = "tree-sitter-cli" },
+	{ cmd = "cosmic-files",  pkg = "cosmic-files" },
 	{ cmd = "cosmic-player", pkg = "cosmic-player" },
-	{ cmd = "starship", pkg = "starship" },
-	{ cmd = "tombi", pkg = "tombi" },
+	{ cmd = "cosmic-viewer", pkg = "cosmic-viewer" },
+	{ cmd = "starship",      pkg = "starship" },
+	{ cmd = "tombi",         pkg = "tombi" },
 }
 
 local optional_deps = {
-	{ cmd = "tofi", pkg = "tofi (AUR)" },
-	{ cmd = "noctalia-greeter", pkg = "noctalia-greeter" },
+	{ cmd = "tofi",                pkg = "tofi (AUR)" },
+	{ cmd = "noctalia-greeter",    pkg = "noctalia-greeter" },
 	{ cmd = "lua-language-server", pkg = "lua-language-server" },
 }
 
@@ -341,10 +342,10 @@ local function setup_greeter()
 	}
 	if login_user and login_user ~= "" then
 		cmds[#cmds + 1] = "sed -i " .. quote('s/^default = "aqua"/default = "' .. login_user .. '"/')
-			.. " " .. quote(path.join(dir, "greeter.toml"))
+		    .. " " .. quote(path.join(dir, "greeter.toml"))
 	end
 	cmds[#cmds + 1] = "chown " .. quote(user .. ":" .. user) .. " " .. quote(dir) .. " "
-		.. quote(path.join(dir, "greeter.toml")) .. " " .. quote(path.join(dir, "wallpaper.png"))
+	    .. quote(path.join(dir, "greeter.toml")) .. " " .. quote(path.join(dir, "wallpaper.png"))
 
 	if fs.is_dir(fonts_src) then
 		cmds[#cmds + 1] = "install -d -m755 " .. quote(sys_fonts)
@@ -355,6 +356,37 @@ local function setup_greeter()
 	end
 
 	run("sudo sh -c " .. quote(table.concat(cmds, " && ")))
+end
+
+local function setup_greetd()
+	if not has_cmd("greetd") or not has_cmd("noctalia-greeter") then
+		return
+	end
+
+	local config = table.concat({
+		"[terminal]",
+		"vt = 1",
+		"",
+		"[default_session]",
+		'command = "/usr/bin/noctalia-greeter-session"',
+		'user = "greeter"',
+		"",
+	}, "\n")
+	local temp = "/tmp/aquamoon-greetd.toml"
+	fs.write_file(temp, config)
+
+	local cmds = {
+		"useradd -r -s /usr/bin/nologin -d /var/lib/noctalia-greeter greeter 2>/dev/null || true",
+		"cp -a /etc/greetd/config.toml /etc/greetd/config.toml.bak 2>/dev/null || true",
+		"install -Dm644 " .. quote(temp) .. " /etc/greetd/config.toml",
+		"rm -f " .. quote(temp),
+	}
+	if not run("sudo sh -c " .. quote(table.concat(cmds, " && "))) then
+		return
+	end
+	if run("sudo systemctl enable greetd") then
+		print("greetd configured; restart it with: sudo systemctl restart greetd")
+	end
 end
 
 local function main()
@@ -370,6 +402,7 @@ local function main()
 	end
 	setup_session()
 	setup_greeter()
+	setup_greetd()
 	print("setup complete; start with: river")
 	return 0
 end

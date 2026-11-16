@@ -8,9 +8,9 @@ local packages = {
 	"https://github.com/leath-dub/snipe.nvim.git",
 	"https://github.com/chrisgrieser/nvim-chainsaw.git",
 	"https://github.com/alexpasmantier/tv.nvim",
-	"https://github.com/zbirenbaum/copilot.lua.git",
-	"https://github.com/folke/sidekick.nvim.git",
 	"https://github.com/NeogitOrg/neogit.git",
+	"https://github.com/brianhuster/unnest.nvim.git",
+	"https://github.com/folke/sidekick.nvim.git",
 	-- colorschemes
 	"https://github.com/NTBBloodbath/sweetie.nvim.git",
 	"https://github.com/bluz71/vim-moonfly-colors.git",
@@ -32,33 +32,41 @@ end
 function M.setup()
 	local bindings = require("neovim.toml").load("neovim-bindings.toml")
 	local tv_keys = bindings.tv or {}
-	local copilot_keys = bindings.copilot or {}
 
 	require("oil").setup({})
 	require("snipe").setup()
 	require("chainsaw").setup()
 	require("neogit").setup({})
-	require("sidekick").setup({})
+	local function ollama_claude(script, model, base_url)
+		local base = {} ---@type table
+		local path = vim.api.nvim_get_runtime_file("sk/cli/claude.lua", false)[1]
+		if path then
+			base = dofile(path)
+		end
+		return vim.tbl_deep_extend("force", base, {
+			cmd = { vim.fn.expand(script) },
+			env = {
+				ANTHROPIC_BASE_URL = base_url,
+				ANTHROPIC_AUTH_TOKEN = "ollama",
+				ANTHROPIC_API_KEY = "",
+				ANTHROPIC_DEFAULT_HAIKU_MODEL = model,
+				ANTHROPIC_DEFAULT_SONNET_MODEL = model,
+				ANTHROPIC_DEFAULT_OPUS_MODEL = model,
+			},
+		})
+	end
 
-	vim.api.nvim_create_autocmd("InsertEnter", {
-		once = true,
-		callback = function()
-			if vim.fn.executable("node") == 0 then
-				return
-			end
-			require("copilot").setup({
-				suggestion = {
-					auto_trigger = true,
-					keymap = {
-						accept = copilot_keys.accept or "<M-l>",
-						accept_word = copilot_keys.accept_word or "<M-k>",
-						next = copilot_keys.next or "<M-]>",
-						prev = copilot_keys.prev or "<M-[>",
-						dismiss = copilot_keys.dismiss or "<C-]>",
-					},
-				},
-			})
-		end,
+	require("sidekick").setup({
+		cli = {
+			tools = {
+				claude = ollama_claude("~/ai/WhiteRabbitNeo/run-claude.sh", "whiterabbitneo", "http://localhost:11434"),
+				spawnpoint = ollama_claude(
+					"~/ai/SpawnPoint-Coder-7B-GGUF/run-claude.sh",
+					"spawnpoint",
+					"http://127.0.0.1:11435"
+				),
+			},
+		},
 	})
 
 	local has_ui2, ui2 = pcall(require, "vim._core.ui2")
@@ -109,7 +117,8 @@ function M.setup()
 					[tv_keys.open or "<CR>"] = function(entries)
 						if #entries > 0 then
 							vim.cmd("enew | setlocal buftype=nofile bufhidden=wipe")
-							vim.cmd("silent 0read !git show " .. vim.fn.shellescape(entries[1]))
+							vim.cmd("silent 0read !git show " ..
+								vim.fn.shellescape(entries[1]))
 							vim.cmd("1delete _ | setlocal filetype=git nomodifiable")
 							vim.cmd("normal! gg")
 						end

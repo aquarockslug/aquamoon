@@ -13,7 +13,7 @@ click-to-focus on top of the upstream tinyrwm implementation.
 ## Requirements
 
 ```sh
-sudo pacman -S lua54 river base-devel wayland-protocols noctalia neovide television bat ripgrep git wl-clipboard tree-sitter-cli cosmic-files cosmic-player starship tombi upower
+sudo pacman -S lua54 river base-devel wayland-protocols noctalia neovide television bat ripgrep git wl-clipboard tree-sitter-cli cosmic-files cosmic-player cosmic-viewer starship tombi upower
 ```
 
 Optional packages:
@@ -21,9 +21,14 @@ Optional packages:
 - `tofi` (AUR, optional launcher)
 - `lua-language-server` (Lua LSP in Neovim)
 
+The setup script uses `sudo` (for the greeter configuration and the `paru`
+bootstrap). `meson` and `ninja` are needed only if the vendored `lib/cffi.so`
+has to be rebuilt.
+
 No `luarocks` or manual Lua module installation is required. `lib/cffi.so`,
 `bin/lush`, `bin/haal`, and the desktop fonts (`fonts/*.ttf`) are vendored in
-the repository, and POSIX calls use `cffi` directly.
+the repository, and POSIX calls use `cffi` directly. These vendored binaries
+are x86-64 Linux executables, so setup only runs on x86-64.
 
 No `river-classic`, `riverctl` or `river-luatile` installation is required.
 
@@ -130,10 +135,12 @@ user, and uses the same font and clock formats as the shell.
 `./bin/lush setup.lush` installs it as
 `/var/lib/noctalia-greeter/greeter.toml` (via `sudo`), sets the default login
 user to your current account, copies the wallpaper to
-`/var/lib/noctalia-greeter/wallpaper.png`, installs the bundled fonts to
-`/usr/local/share/fonts/aquamoon`, and prints the command to restart greetd.
-The greeter runs as the unprivileged greetd user, so the files are copied
-instead of symlinked into `~/.aquamoon`.
+`/var/lib/noctalia-greeter/wallpaper.png`, and installs the bundled fonts to
+`/usr/local/share/fonts/aquamoon`. It also points
+`/etc/greetd/config.toml` at `noctalia-greeter-session` (keeping a
+`config.toml.bak` copy of any existing file) and enables `greetd`, then prints
+the command to restart it. The greeter runs as the unprivileged greetd user,
+so the files are copied instead of symlinked into `~/.aquamoon`.
 
 ## Customising the window manager
 
@@ -185,7 +192,7 @@ symlinked as `~/.config/noctalia/palettes`.
 
 Plugins from the built-in official and community sources are enabled under
 `[plugins]` in `toml/plugins.toml`; both git sources are declared explicitly
-and updated automatically. The enabled plugins have no external dependencies:
+and updated automatically. The plugins have no external dependencies:
 
 | Plugin | Entry points |
 |:-------|:-------------|
@@ -196,6 +203,9 @@ and updated automatically. The enabled plugins have no external dependencies:
 | `noctalia/wallhaven` | wallpaper browser panel and bar widget |
 | `noctalia/world_clock` | world clock bar widget and panel |
 | `theblackdon/theme-switcher` | theme carousel/editor panels, wallpaper shortcuts and bar widget |
+
+`noctalia/translator`, `noctalia/wallhaven` and `noctalia/world_clock` are
+commented out in `toml/plugins.toml` by default; uncomment them to enable.
 
 Add plugin widgets to `[bar.main]` with their fully-qualified ids (for example
 `noctalia/timer:bar` or `theblackdon/theme-switcher:theme-switcher`), or from
