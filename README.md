@@ -88,6 +88,10 @@ Start the session with `river`.
 > letters are the lowercase ones: `Super+D` is `Super+d`. `Shift` is a
 > modifier of its own, `Super+S` and `Super+Shift+S` are different bindings.
 
+Focusing a window that lives on hidden tags, for example by picking it in the
+Noctalia window switcher (`Super+W`), switches the visible tags to the tags of
+that window instead of ignoring the focus request.
+
 ## Configuration
 
 River settings, startup commands and window rules live in `toml/aquamoon.toml`,
@@ -164,7 +168,7 @@ the new code is in use.
 | `cable/*.toml` | custom television channels (`aquamoon`, `palettes`) |
 | `toml/inputs.toml` | libinput device rules |
 | `lua/neovim/toml.lua` | TOML loader with `[include]` support |
-| `lua/tinytoml.lua` | TOML parser used at startup |
+| `lib/tinytoml.lua` | TOML parser used at startup |
 
 `./bin/lush setup.lush` regenerates the protocol bindings after the XML
 files change. To regenerate a single protocol by hand:

@@ -20,8 +20,16 @@ local actions = {
 	["chainsaw:object"] = function() require("chainsaw").objectLog() end,
 	["chainsaw:message"] = function() require("chainsaw").messageLog() end,
 	["chainsaw:remove"] = function() require("chainsaw").removeLogs() end,
-	["neogit:open"] = function() require("neogit").open() end,
-	["neogit:commit"] = function() require("neogit").open({ "commit" }) end,
+	["neogit:open"] = function()
+		local cwd = vim.fn.expand("%:p:h")
+		if cwd == "" then cwd = vim.uv.cwd() end
+		require("neogit").open({ cwd = cwd })
+	end,
+	["neogit:commit"] = function()
+		local cwd = vim.fn.expand("%:p:h")
+		if cwd == "" then cwd = vim.uv.cwd() end
+		require("neogit").open({ "commit", cwd = cwd })
+	end,
 	["sidekick:toggle"] = function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
 	["sidekick:toggle_spawnpoint"] = function() require("sidekick.cli").toggle({ name = "spawnpoint", focus = true }) end,
 	["sidekick:prompt"] = function() require("sidekick.cli").prompt() end,

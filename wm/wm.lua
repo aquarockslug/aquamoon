@@ -71,7 +71,7 @@ do
     local file = io.open(config_path, "r")
     if file then
         file:close()
-        package.path = repo .. "/lua/?.lua;" .. package.path
+        package.path = repo .. "/lib/?.lua;" .. repo .. "/lua/?.lua;" .. package.path
         local ok, toml = pcall(require, "neovim.toml")
         if ok then
             local parsed, value = pcall(toml.parse, config_path)
@@ -827,10 +827,26 @@ function wm.topmost_visible()
     end
 end
 
-function wm.refresh()
+local function update_visibility()
     for _, window in ipairs(wm.windows) do
         window:update_visibility()
     end
+end
+
+-- Make the tags of a window visible without moving focus. Focus is handled by
+-- the caller so that the requested window, rather than the topmost visible
+-- one, ends up focused.
+function wm.reveal_window(window)
+    if window == nil or window.closed or window.visible or window.tags == 0 then
+        return
+    end
+
+    wm.view_tags = window.tags
+    update_visibility()
+end
+
+function wm.refresh()
+    update_visibility()
 
     for _, seat in ipairs(wm.seats) do
         if seat.focused and not seat.focused.visible then
@@ -886,7 +902,23 @@ function Seat:focus(window)
         window = wm.topmost_visible()
     end
 
-    if window ~= nil and (not window.visible or window.closed) then
+    if window ~= nil and not window.visible and not window.closed then
+        -- Focus requests for windows on hidden tags (for example from the
+        -- window switcher) switch the visible tags instead of being dropped.
+        wm.reveal_window(window)
+        if not window.visible then
+            window = nil
+        else
+            -- Revealing the window may have hidden the window another seat was
+            -- focused on; move that seat to a visible window as well.
+            for _, seat in ipairs(wm.seats) do
+                if seat ~= self and seat.focused and not seat.focused.visible then
+                    seat.focused = nil
+                    seat:focus(nil)
+                end
+            end
+        end
+    elseif window ~= nil and window.closed then
         window = nil
     end
 

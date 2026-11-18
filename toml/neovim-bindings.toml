@@ -10,7 +10,6 @@
 leader = ","
 
 [map]
-
 # Normal mode
 n = [
   # Search & UI
@@ -46,8 +45,9 @@ n = [
   ["<S-l>", "<CMD>bnext<CR>", "Next buffer"],
 
   # Terminal
-  ["<leader>tt", "terminal:split", "Terminal in horizontal split"],
-  ["<leader>tv", "terminal:vsplit", "Terminal in vertical split"],
+  ["<leader>tt", "<CMD>terminal<CR>", "Terminal"],
+  ["<leader>tl", "terminal:split", "Terminal in horizontal split"],
+  ["<leader>t;", "terminal:vsplit", "Terminal in vertical split"],
 
   # Git
   ["<leader>gg", "neogit:open", "Open Neogit"],

@@ -1,6 +1,14 @@
 local M = {}
 
 function M.setup()
+	-- Neovim defaults virtual_text to false, so diagnostics would only show
+	-- as signs; enable inline text and give the `<leader>d` float a border
+	-- that matches the which-key and tv popups.
+	vim.diagnostic.config({
+		virtual_text = true,
+		float = { border = "rounded" },
+	})
+
 	vim.lsp.config("lua_ls", {
 		on_init = function(client)
 			local root = client.workspace_folders and client.workspace_folders[1].name

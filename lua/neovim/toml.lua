@@ -39,7 +39,12 @@ function M.parse(path, visited)
 	end
 	visited[path] = true
 
-	local tinytoml = require("tinytoml")
+	local ok, tinytoml = pcall(require, "tinytoml")
+	if not ok and vim then
+		tinytoml = dofile(vim.fn.stdpath("config") .. "/lib/tinytoml.lua")
+	elseif not ok then
+		error(tinytoml)
+	end
 	local data = tinytoml.parse(path)
 	if type(data) ~= "table" then
 		return {}
