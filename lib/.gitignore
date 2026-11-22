@@ -4,5 +4,4 @@
 # Ignore everything created by setup except vendored files
 *
 !.gitignore
-!cffi.so
 !tinytoml.lua
