@@ -158,6 +158,14 @@ function M.setup()
 		require("mini." .. plugin).setup()
 	end
 	require("neovim.starter").setup()
+
+	vim.api.nvim_create_autocmd("FileType", {
+		group = vim.api.nvim_create_augroup("MarkdownLivePreview", { clear = true }),
+		pattern = { "markdown", "mdx" },
+		callback = function()
+			vim.cmd("LivePreview")
+		end,
+	})
 end
 
 return M

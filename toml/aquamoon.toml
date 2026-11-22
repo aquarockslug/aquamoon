@@ -12,6 +12,10 @@ border-color-focused = "0xb094e2"
 border-color-unfocused = "0x92d3c5"
 set-repeat = [50, 300]
 
+[cursor]
+theme = "default"
+size = 24
+
 [window_rules.ssd]
 0 = "firefox"
 1 = "gimp"

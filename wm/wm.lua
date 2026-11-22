@@ -306,6 +306,8 @@ for _, app_id in pairs((config.window_rules or {}).ssd or {}) do
     ssd_apps[tostring(app_id)] = true
 end
 
+local cursor_config = type(config.cursor) == "table" and config.cursor or {}
+
 local function spawn(shell_command)
     if ffi.C.fork() == 0 then
         ffi.C.signal(SIGCHLD, SIG_DFL)
@@ -945,6 +947,11 @@ function Seat.create(obj)
                 seat.refocus = true
             end,
         }
+    end
+
+    -- Set XCursor theme for this seat
+    if cursor_config.theme then
+        obj:set_xcursor_theme(cursor_config.theme or "default", cursor_config.size or 24)
     end
 
     return seat
