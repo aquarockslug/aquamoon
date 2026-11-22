@@ -39,7 +39,6 @@ local function link(target, link_path)
 end
 
 local runtime_deps = {
-	{ cmd = "lua5.4",        pkg = "lua54" },
 	{ cmd = "river",         pkg = "river" },
 	{ cmd = "noctalia",      pkg = "noctalia" },
 	{ cmd = "neovide",       pkg = "neovide" },
