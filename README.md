@@ -15,6 +15,8 @@ Optional: `noctalia-greeter` + `greetd`, `tofi` (AUR), `lua-language-server`.
 Then from the repo:
 
 ```sh
+git clone --depth 1 git@github.com:aquarockslug/lush-unsafe.git lib/lush-unsafe
+cp lib/lush-unsafe/lush bin/lush
 ./bin/lush setup.lush
 river
 ```
@@ -22,5 +24,5 @@ river
 No luarocks — everything is vendored.
 
 ## config
+All configuration is done by editing the files in toml/
 
-Everything lives in `toml/` — keybindings, theme, inputs, window rules, shell, plugins. Edit, restart river, done.

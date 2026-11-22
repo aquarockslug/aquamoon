@@ -102,6 +102,24 @@ local function ensure_paru()
 	return ok
 end
 
+local function ensure_lush()
+	local lush_dir = path.join(lib_dir, "lush-unsafe")
+	local lush_bin = path.join(repo, "bin", "lush")
+
+	if not fs.is_dir(path.join(lush_dir, ".git")) then
+		if not run("git clone --depth 1 git@github.com:aquarockslug/lush-unsafe.git " .. quote(lush_dir)) then
+			return false
+		end
+	end
+
+	if not fs.exists(lush_bin) then
+		fs.copy(path.join(lush_dir, "lush"), lush_bin)
+		run("chmod +x " .. quote(lush_bin))
+	end
+
+	return true
+end
+
 local function install_fonts()
 	local fonts_src = path.join(repo, "fonts")
 	if not fs.is_dir(fonts_src) then
@@ -551,6 +569,10 @@ local function main()
 	ensure_paru()
 	install_fonts()
 	ensure_dir(lib_dir)
+
+	if not ensure_lush() then
+		return 1
+	end
 
 	if not ensure_cffi_lua() or not install_xml2lua() or not install_wau() or not generate_protocol_bindings() then
 		return 1

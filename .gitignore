@@ -1,0 +1,8 @@
+bin/lush
+lib/cffi-lua
+lib/cffi.so
+lib/wau
+lib/wau-scanner.lua
+lib/xml2lua.lua
+lib/xmlhandler
+lib/XmlParser.lua
