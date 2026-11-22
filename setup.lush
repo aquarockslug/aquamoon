@@ -230,6 +230,177 @@ local default_tv_theme = {
 	action_picker_mode_bg = "#32758f",
 }
 
+local function setup_shells()
+	local shell_toml_path = path.join(repo, "toml", "shell.toml")
+	if not fs.exists(shell_toml_path) then
+		return true
+	end
+
+	local shell_cfg = toml.load_file(shell_toml_path)
+	local config_dir = env.get("XDG_CONFIG_HOME")
+	if not config_dir or config_dir == "" then
+		config_dir = path.join(home, ".config")
+	end
+
+	-- Generate Bash config
+	local bash_lines = {}
+	bash_lines[#bash_lines + 1] = "# Generated from ~/.aquamoon/toml/shell.toml"
+	bash_lines[#bash_lines + 1] = "# Edit that file instead of this one"
+	bash_lines[#bash_lines + 1] = ""
+	bash_lines[#bash_lines + 1] = "# If not running interactively, don't do anything"
+	bash_lines[#bash_lines + 1] = "[[ $- != *i* ]] && return"
+	bash_lines[#bash_lines + 1] = ""
+
+	-- Aliases
+	if shell_cfg.aliases then
+		bash_lines[#bash_lines + 1] = "# Aliases"
+		for name, cmd in pairs(shell_cfg.aliases) do
+			bash_lines[#bash_lines + 1] = string.format("alias %s='%s'", name, cmd:gsub("'", "'\\''"))
+		end
+		bash_lines[#bash_lines + 1] = ""
+	end
+
+	-- Environment variables
+	if shell_cfg.env then
+		bash_lines[#bash_lines + 1] = "# Environment variables"
+		for name, value in pairs(shell_cfg.env) do
+			if name ~= "paths" and type(value) == "string" then
+				bash_lines[#bash_lines + 1] = string.format('export %s="%s"', name, value)
+			end
+		end
+		bash_lines[#bash_lines + 1] = ""
+	end
+
+	-- PATH additions
+	if shell_cfg.env and shell_cfg.env.paths then
+		bash_lines[#bash_lines + 1] = "# PATH additions"
+		for p, _ in pairs(shell_cfg.env.paths) do
+			bash_lines[#bash_lines + 1] = string.format('export PATH="%s:$PATH"', p)
+		end
+		bash_lines[#bash_lines + 1] = ""
+	end
+
+	-- Functions
+	if shell_cfg.functions then
+		bash_lines[#bash_lines + 1] = "# Functions"
+		for name, fn in pairs(shell_cfg.functions) do
+			if fn.description then
+				bash_lines[#bash_lines + 1] = "# " .. fn.description
+			end
+			bash_lines[#bash_lines + 1] = name .. "() {"
+			bash_lines[#bash_lines + 1] = "    " .. fn.command
+			bash_lines[#bash_lines + 1] = "}"
+		end
+		bash_lines[#bash_lines + 1] = ""
+	end
+
+	-- Shell options
+	if shell_cfg["shell-options"] then
+		bash_lines[#bash_lines + 1] = "# Shell options"
+		if shell_cfg["shell-options"].set_options then
+			for _, opt in ipairs(shell_cfg["shell-options"].set_options) do
+				bash_lines[#bash_lines + 1] = "set -o " .. opt
+			end
+		end
+		if shell_cfg["shell-options"].bash and shell_cfg["shell-options"].bash.shopt then
+			for _, opt in ipairs(shell_cfg["shell-options"].bash.shopt) do
+				bash_lines[#bash_lines + 1] = "shopt -s " .. opt
+			end
+		end
+		bash_lines[#bash_lines + 1] = ""
+	end
+
+	-- Startup commands
+	if shell_cfg.startup then
+		bash_lines[#bash_lines + 1] = "# Startup commands"
+		if shell_cfg.startup.commands then
+			for _, cmd in ipairs(shell_cfg.startup.commands) do
+				bash_lines[#bash_lines + 1] = cmd
+			end
+		end
+		bash_lines[#bash_lines + 1] = ""
+	end
+
+	local bashrc_path = path.join(home, ".bashrc")
+	fs.write_file(bashrc_path, table.concat(bash_lines, "\n"))
+	print("generated " .. bashrc_path)
+
+	-- Generate Fish config
+	local fish_lines = {}
+	fish_lines[#fish_lines + 1] = "# Generated from ~/.aquamoon/toml/shell.toml"
+	fish_lines[#fish_lines + 1] = "# Edit that file instead of this one"
+	fish_lines[#fish_lines + 1] = ""
+	fish_lines[#fish_lines + 1] = "if status is-interactive"
+
+	-- Aliases
+	if shell_cfg.aliases then
+		fish_lines[#fish_lines + 1] = "    # Aliases"
+		for name, cmd in pairs(shell_cfg.aliases) do
+			fish_lines[#fish_lines + 1] = string.format("    alias %s '%s'", name, cmd:gsub("'", "'\\''"))
+		end
+		fish_lines[#fish_lines + 1] = ""
+	end
+
+	-- Environment variables
+	if shell_cfg.env then
+		fish_lines[#fish_lines + 1] = "    # Environment variables"
+		for name, value in pairs(shell_cfg.env) do
+			if name ~= "paths" and type(value) == "string" then
+				fish_lines[#fish_lines + 1] = string.format('    set -gx %s "%s"', name, value)
+			end
+		end
+		fish_lines[#fish_lines + 1] = ""
+	end
+
+	-- PATH additions
+	if shell_cfg.env and shell_cfg.env.paths then
+		fish_lines[#fish_lines + 1] = "    # PATH additions"
+		for p, _ in pairs(shell_cfg.env.paths) do
+			fish_lines[#fish_lines + 1] = string.format('    fish_add_path %s', p)
+		end
+		fish_lines[#fish_lines + 1] = ""
+	end
+
+	-- Functions
+	if shell_cfg.functions then
+		fish_lines[#fish_lines + 1] = "    # Functions"
+		for name, fn in pairs(shell_cfg.functions) do
+			if fn.description then
+				fish_lines[#fish_lines + 1] = "    # " .. fn.description
+			end
+			-- Transform Bash-style args to Fish-style
+			local fish_cmd = fn.command
+				:gsub("%$@", "$argv")
+				:gsub("%$1", "$argv[1]")
+				:gsub("%$2", "$argv[2]")
+				:gsub("%$3", "$argv[3]")
+			fish_lines[#fish_lines + 1] = "    function " .. name
+			fish_lines[#fish_lines + 1] = "        " .. fish_cmd
+			fish_lines[#fish_lines + 1] = "    end"
+		end
+		fish_lines[#fish_lines + 1] = ""
+	end
+
+	fish_lines[#fish_lines + 1] = "end"
+	fish_lines[#fish_lines + 1] = ""
+
+	-- Fish-specific startup
+	if shell_cfg.startup and shell_cfg.startup.fish and shell_cfg.startup.fish.commands then
+		fish_lines[#fish_lines + 1] = "# Fish-specific startup"
+		for _, cmd in ipairs(shell_cfg.startup.fish.commands) do
+			fish_lines[#fish_lines + 1] = cmd
+		end
+	end
+
+	local fish_dir = path.join(config_dir, "fish")
+	ensure_dir(fish_dir)
+	local fish_config_path = path.join(fish_dir, "config.fish")
+	fs.write_file(fish_config_path, table.concat(fish_lines, "\n"))
+	print("generated " .. fish_config_path)
+
+	return true
+end
+
 local function setup_session()
 	local default_repo = path.join(home, ".aquamoon")
 	if readlink(default_repo) ~= readlink(repo) then
@@ -385,6 +556,7 @@ local function main()
 		return 1
 	end
 	setup_session()
+	setup_shells()
 	setup_greeter()
 	setup_greetd()
 	print("setup complete; start with: river")
