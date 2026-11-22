@@ -1,8 +1,7 @@
 #!/usr/bin/env lush
 
 local function has_cmd(cmd)
-	local ok = os.execute("command -v " .. cmd .. " >/dev/null 2>&1")
-	return ok == true or ok == 0
+	return os.execute("command -v " .. cmd .. " >/dev/null 2>&1") == true
 end
 
 local function is_running(proc_name)
@@ -17,8 +16,7 @@ end
 local function start_syncthing()
 	if not has_cmd("syncthing") then
 		print("Syncthing is not installed. Installing...")
-		local ok = os.execute("sudo pacman -S --needed --noconfirm syncthing")
-		if ok ~= true and ok ~= 0 then
+		if not os.execute("sudo pacman -S --needed --noconfirm syncthing") then
 			error("Failed to install syncthing")
 		end
 	end
@@ -29,8 +27,7 @@ local function start_syncthing()
 	end
 
 	print("Starting Syncthing...")
-	local ok = os.execute("syncthing --no-browser >/dev/null 2>&1 &")
-	if ok ~= true and ok ~= 0 then
+	if not os.execute("syncthing --no-browser >/dev/null 2>&1 &") then
 		error("Failed to start syncthing")
 	end
 end

@@ -10,4 +10,4 @@ export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-wayland}"
 export LUA_CPATH="$repo/lib/?.so;;"
 export LUA_PATH="$repo/lib/?.lua;$repo/lib/?/init.lua;$repo/?.lua;$repo/?/init.lua;$repo/lua/?.lua;;"
 
-exec lua5.4 "$repo/wm/wm.lua" "$@"
+exec "$repo/bin/lush" --unsafe-mode "$repo/wm/wm.lua" "$@"

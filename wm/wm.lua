@@ -59,29 +59,76 @@ local optional_globals = {
 
 local Mods = wau.river_seat_v1.Modifiers
 
-local repo = os.getenv("AQUAMOON_DIR") or ((os.getenv("HOME") or "") .. "/.aquamoon")
-local config_path = os.getenv("AQUAMOON_CONFIG") or (repo .. "/toml/aquamoon.toml")
+local repo = env.get("AQUAMOON_DIR") or path.join(env.get("HOME") or "", ".aquamoon")
+local config_path = env.get("AQUAMOON_CONFIG") or path.join(repo, "toml", "aquamoon.toml")
 
 local function warn(message)
     io.stderr:write("wm: " .. message .. "\n")
 end
 
+local function is_list(tbl)
+    local count = 0
+    for k in pairs(tbl) do
+        if type(k) ~= "number" then return false end
+        count = count + 1
+    end
+    return count > 0
+end
+
+local function merge(dst, src)
+    for k, v in pairs(src) do
+        if type(v) == "table" and type(dst[k]) == "table" and not is_list(v) and not is_list(dst[k]) then
+            merge(dst[k], v)
+        else
+            dst[k] = v
+        end
+    end
+    return dst
+end
+
+local function resolve_path(base_dir, target)
+    if target:sub(1, 2) == "~/" then
+        return path.join(env.get("HOME") or "", target:sub(3))
+    end
+    if target:sub(1, 1) == "/" then
+        return target
+    end
+    return path.join(base_dir, target)
+end
+
+local function load_toml(path_arg, visited)
+    visited = visited or {}
+    if visited[path_arg] then return {} end
+    visited[path_arg] = true
+
+    local data = toml.load_file(path_arg)
+    if type(data) ~= "table" then return {} end
+
+    local include = data.include
+    data.include = nil
+    if type(include) == "table" and type(include.files) == "table" then
+        local base_dir = fs.parent(path_arg) or "."
+        local merged = {}
+        for _, file in ipairs(include.files) do
+            if type(file) == "string" then
+                local child_path = resolve_path(base_dir, file)
+                merge(merged, load_toml(child_path, visited))
+            end
+        end
+        data = merge(merged, data)
+    end
+
+    return data
+end
+
 local config = {}
 do
-    local file = io.open(config_path, "r")
-    if file then
-        file:close()
-        package.path = repo .. "/lib/?.lua;" .. repo .. "/lua/?.lua;" .. package.path
-        local ok, toml = pcall(require, "neovim.toml")
-        if ok then
-            local parsed, value = pcall(toml.parse, config_path)
-            if parsed and type(value) == "table" then
-                config = value
-            else
-                warn("unable to parse " .. config_path .. ": " .. tostring(value))
-            end
+    if fs.exists(config_path) then
+        local ok, result = pcall(load_toml, config_path)
+        if ok and type(result) == "table" then
+            config = result
         else
-            warn("unable to load neovim.toml parser: " .. tostring(toml))
+            warn("unable to parse " .. config_path .. ": " .. tostring(result))
         end
     end
 end

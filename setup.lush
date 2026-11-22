@@ -10,7 +10,7 @@ end
 
 local function run(cmd)
 	local ok = os.execute(cmd)
-	if ok ~= true and ok ~= 0 then
+	if not ok then
 		io.stderr:write("failed: " .. cmd .. "\n")
 		return false
 	end
@@ -24,17 +24,12 @@ local function ensure_dir(dir)
 end
 
 local function readlink(target)
-	local handle = io.popen("readlink -f " .. quote(target) .. " 2>/dev/null")
-	local resolved = handle and handle:read("*l") or ""
-	if handle then
-		handle:close()
-	end
-	return resolved
+	local result = os.pipeline({"readlink", "-f", target})
+	return ((result or ""):gsub("%s+$", ""))
 end
 
 local function has_cmd(cmd)
-	local ok = os.execute("command -v " .. cmd .. " >/dev/null 2>&1")
-	return ok == true or ok == 0
+	return os.execute("command -v " .. cmd .. " >/dev/null 2>&1") == true
 end
 
 local function link(target, link_path)
@@ -100,13 +95,11 @@ local function ensure_paru()
 	if has_cmd("paru") or not has_cmd("makepkg") then
 		return true
 	end
-	local build_dir = "/tmp/paru-bin-build"
-	run("rm -rf " .. quote(build_dir))
-	if not run("git clone --depth 1 https://aur.archlinux.org/paru-bin.git " .. quote(build_dir)) then
+	local build_dir = os.mkdtemp()
+	if not run("git clone --depth 1 https://aur.archlinux.org/paru-bin.git " .. quote(build_dir .. "/src")) then
 		return false
 	end
-	local ok = run("cd " .. quote(build_dir) .. " && makepkg -si --noconfirm")
-	run("rm -rf " .. quote(build_dir))
+	local ok = run("cd " .. quote(build_dir .. "/src") .. " && makepkg -si --noconfirm")
 	return ok
 end
 
@@ -122,9 +115,9 @@ local function install_fonts()
 	local fonts_dest = path.join(data_dir, "fonts")
 	ensure_dir(fonts_dest)
 
-	for _, file in ipairs(fs.ls(fonts_src) or {}) do
-		if file:match("%.[to]tf$") then
-			fs.copy(path.join(fonts_src, file), path.join(fonts_dest, file))
+	for _, file_path in ipairs(fs.ls(fonts_src) or {}) do
+		if file_path:endswith(".otf") or file_path:endswith(".ttf") then
+			fs.copy(file_path, fonts_dest)
 		end
 	end
 	if has_cmd("fc-cache") then
@@ -151,9 +144,11 @@ local function ensure_cffi_lua()
 		end
 	end
 
-	local ok = run("cd " .. quote(cffi_dir)
-		.. " && meson setup build -Dtests=false -Dlua_version=5.4"
-		.. " && ninja -C build")
+	env.pushd(cffi_dir)
+	local ok = run("meson setup build -Dtests=false -Dlua_version=5.4")
+	            and run("ninja -C build")
+	env.popd()
+
 	local built = path.join(cffi_dir, "build", "cffi.so")
 	if not ok or not fs.exists(built) then
 		return false
@@ -166,17 +161,16 @@ local function install_xml2lua()
 	if fs.exists(path.join(lib_dir, "xml2lua.lua")) then
 		return true
 	end
-	local temp_dir = path.join(lib_dir, "xml2lua-temp")
-	run("rm -rf " .. quote(temp_dir))
-	if not run("git clone --depth 1 https://github.com/ManoelCampos/xml2lua.git " .. quote(temp_dir)) then
+	local temp_dir = os.mkdtemp()
+	if not run("git clone --depth 1 https://github.com/ManoelCampos/xml2lua.git " .. quote(temp_dir .. "/src")) then
 		return false
 	end
 	ensure_dir(path.join(lib_dir, "xmlhandler"))
-	run("cp " .. quote(path.join(temp_dir, "xml2lua.lua")) .. " "
-		.. quote(path.join(temp_dir, "XmlParser.lua")) .. " " .. quote(lib_dir) .. "/")
-	run("cp -r " .. quote(path.join(temp_dir, "xmlhandler")) .. "/* "
-		.. quote(path.join(lib_dir, "xmlhandler")) .. "/")
-	run("rm -rf " .. quote(temp_dir))
+	fs.copy(path.join(temp_dir, "src", "xml2lua.lua"), path.join(lib_dir, "xml2lua.lua"))
+	fs.copy(path.join(temp_dir, "src", "XmlParser.lua"), path.join(lib_dir, "XmlParser.lua"))
+	for _, file_path in ipairs(fs.ls(path.join(temp_dir, "src", "xmlhandler")) or {}) do
+		fs.copy(file_path, path.join(lib_dir, "xmlhandler"))
+	end
 	return true
 end
 
@@ -186,14 +180,12 @@ local function install_wau()
 	if fs.is_dir(wau_dir) and fs.exists(scanner) then
 		return true
 	end
-	local temp_dir = path.join(lib_dir, "wau-temp")
-	run("rm -rf " .. quote(temp_dir))
-	if not run("git clone --depth 1 https://codeberg.org/firefly/wau.git " .. quote(temp_dir)) then
+	local temp_dir = os.mkdtemp()
+	if not run("git clone --depth 1 https://codeberg.org/firefly/wau.git " .. quote(temp_dir .. "/src")) then
 		return false
 	end
-	run("cp -r " .. quote(path.join(temp_dir, "wau")) .. " " .. quote(lib_dir) .. "/")
-	run("cp " .. quote(path.join(temp_dir, "wau-scanner.lua")) .. " " .. quote(scanner))
-	run("rm -rf " .. quote(temp_dir))
+	run("cp -r " .. quote(path.join(temp_dir, "src", "wau")) .. " " .. quote(lib_dir))
+	fs.copy(path.join(temp_dir, "src", "wau-scanner.lua"), scanner)
 	return fs.is_dir(wau_dir)
 end
 
@@ -201,18 +193,15 @@ local function generate_protocol_bindings()
 	local protocol_dir = path.join(repo, "wm", "protocol")
 	local lush_bin = path.join(repo, "bin", "lush")
 	local scanner = path.join(lib_dir, "wau-scanner.lua")
-	local scanner_cmd = string.format(
-		"LUA_CPATH=%s LUA_PATH=%s %s %s",
-		quote(lib_dir .. "/?.so;;"),
-		quote(lib_dir .. "/?.lua;" .. lib_dir .. "/?/init.lua;;"),
-		quote(lush_bin),
-		quote(scanner)
-	)
 
-	for _, file in ipairs(fs.ls(protocol_dir) or {}) do
-		if file:match("%.xml$") then
-			local out = path.join(protocol_dir, file:gsub("%.xml$", ".lua"))
-			local cmd = scanner_cmd .. " < " .. quote(path.join(protocol_dir, file)) .. " > " .. quote(out)
+	env.set("LUA_CPATH", lib_dir .. "/?.so;;")
+	env.set("LUA_PATH", lib_dir .. "/?.lua;" .. lib_dir .. "/?/init.lua;;")
+
+	for _, file_path in ipairs(fs.ls(protocol_dir) or {}) do
+		if file_path:endswith(".xml") then
+			local out_path = file_path:gsub("%.xml$", ".lua")
+			local cmd = quote(lush_bin) .. " " .. quote(scanner)
+				.. " < " .. quote(file_path) .. " > " .. quote(out_path)
 			if not run(cmd) then
 				return false
 			end
@@ -221,27 +210,26 @@ local function generate_protocol_bindings()
 	return true
 end
 
-local default_tv_theme = table.concat({
-	'border_fg = "#44415a"',
-	'text_fg = "#e0def4"',
-	'dimmed_text_fg = "#908caa"',
-	'input_text_fg = "#ea9a97"',
-	'result_count_fg = "#9ccfd8"',
-	'result_name_fg = "#ea9a97"',
-	'result_line_number_fg = "#32758f"',
-	'result_value_fg = "#e0def4"',
-	'selection_fg = "#ea9a97"',
-	'selection_bg = "#393552"',
-	'match_fg = "#9ccfd8"',
-	'preview_title_fg = "#9ccfd8"',
-	'channel_mode_fg = "#232136"',
-	'channel_mode_bg = "#ea9a97"',
-	'remote_control_mode_fg = "#232136"',
-	'remote_control_mode_bg = "#9ccfd8"',
-	'action_picker_mode_fg = "#d0cdee"',
-	'action_picker_mode_bg = "#32758f"',
-	"",
-}, "\n")
+local default_tv_theme = {
+	border_fg = "#44415a",
+	text_fg = "#e0def4",
+	dimmed_text_fg = "#908caa",
+	input_text_fg = "#ea9a97",
+	result_count_fg = "#9ccfd8",
+	result_name_fg = "#ea9a97",
+	result_line_number_fg = "#32758f",
+	result_value_fg = "#e0def4",
+	selection_fg = "#ea9a97",
+	selection_bg = "#393552",
+	match_fg = "#9ccfd8",
+	preview_title_fg = "#9ccfd8",
+	channel_mode_fg = "#232136",
+	channel_mode_bg = "#ea9a97",
+	remote_control_mode_fg = "#232136",
+	remote_control_mode_bg = "#9ccfd8",
+	action_picker_mode_fg = "#d0cdee",
+	action_picker_mode_bg = "#32758f",
+}
 
 local function setup_session()
 	local default_repo = path.join(home, ".aquamoon")
@@ -277,11 +265,10 @@ local function setup_session()
 
 	local noctalia_dir = path.join(config_dir, "noctalia")
 	if readlink(noctalia_dir) == readlink(repo) then
-		run("rm -f " .. quote(noctalia_dir))
+		fs.rm(noctalia_dir)
 	end
 	ensure_dir(noctalia_dir)
 	local noctalia_config = path.join(noctalia_dir, "config.toml")
-	run("rm -f " .. quote(noctalia_config))
 	fs.write_file(noctalia_config, '[include]\nfiles = ["' .. path.join(repo, "toml", "noctalia.toml") .. '"]\n')
 	link(path.join(repo, "palettes"), path.join(noctalia_dir, "palettes"))
 
@@ -294,16 +281,17 @@ local function setup_session()
 		.. quote(path.join(tv_dir, "config.toml")))
 
 	local cable_src = path.join(repo, "cable")
-	for _, file in ipairs(fs.ls(cable_src) or {}) do
-		if file:match("%.toml$") then
-			run("ln -sf " .. quote(path.join(cable_src, file)) .. " "
-				.. quote(path.join(tv_dir, "cable", file)))
+	for _, file_path in ipairs(fs.ls(cable_src) or {}) do
+		if file_path:endswith(".toml") then
+			local filename = file_path:match("([^/]+)$")
+			run("ln -sf " .. quote(file_path) .. " "
+				.. quote(path.join(tv_dir, "cable", filename)))
 		end
 	end
 
 	local tv_theme = path.join(tv_dir, "themes", "noctalia.toml")
 	if not fs.exists(tv_theme) then
-		fs.write_file(tv_theme, default_tv_theme)
+		toml.save_file(tv_theme, default_tv_theme)
 	end
 	return true
 end
@@ -314,11 +302,8 @@ local function setup_greeter()
 	end
 	local user = env.get("GREETER_USER")
 	if not user or user == "" then
-		local handle = io.popen("noctalia-greeter-apply-appearance --print-greeter-user 2>/dev/null")
-		user = handle and handle:read("*l") or ""
-		if handle then
-			handle:close()
-		end
+		user = os.pipeline({"noctalia-greeter-apply-appearance", "--print-greeter-user"}) or ""
+		user = user:gsub("%s+$", "")
 		if user == "" then
 			user = "greeter"
 		end
