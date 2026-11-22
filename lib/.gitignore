@@ -1,7 +1,2 @@
-# SPDX-FileCopyrightText: © 2026 FireFly
-# SPDX-License-Identifier: 0BSD
-
-# Ignore everything created by setup except vendored files
-*
 !.gitignore
 !tinytoml.lua
