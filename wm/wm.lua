@@ -200,8 +200,15 @@ end
 local border_focused = color(river_options["border-color-focused"])
 local border_unfocused = color(river_options["border-color-unfocused"])
 
-local focus_follows_cursor = river_options["focus-follows-cursor"]
-focus_follows_cursor = focus_follows_cursor ~= nil and focus_follows_cursor ~= "disabled"
+local focus_follows_cursor = false
+do
+    local raw = river_options["focus-follows-cursor"]
+    if raw == true or raw == "normal" or raw == "enabled" then
+        focus_follows_cursor = true
+    elseif raw == false or raw == nil or raw == "disabled" then
+        focus_follows_cursor = false
+    end
+end
 
 local attach_bottom = river_options["default-attach-mode"] == "bottom"
 
@@ -1091,6 +1098,32 @@ function Seat:action(command)
         if self.hovered ~= nil then
             self:pointer_resize(self.hovered, { bottom = true, right = true })
         end
+    elseif action == "swap-view" then
+        if self.focused ~= nil then
+            local visible = {}
+            for _, window in ipairs(wm.windows) do
+                if window.visible and not window.closed then
+                    visible[#visible + 1] = window
+                end
+            end
+            if #visible >= 2 then
+                table.sort(visible, function (a, b) return a.seq < b.seq end)
+                local idx = table_index_of(visible, self.focused)
+                local direction = command[2] or "next"
+                local target
+                if direction == "previous" then
+                    target = visible[idx > 1 and idx - 1 or #visible]
+                else
+                    target = visible[idx < #visible and idx + 1 or 1]
+                end
+                if target ~= nil and target ~= self.focused then
+                    local tmp = self.focused.seq
+                    self.focused.seq = target.seq
+                    target.seq = tmp
+                    invalidate_layout()
+                end
+            end
+        end
     elseif action == "toggle-floating" then
         if self.focused ~= nil then
             self.focused.floating = not self.focused.floating
@@ -1322,8 +1355,10 @@ function Seat.listener.window_interaction(self, window)
 end
 function Seat.listener.op_delta(self, dx, dy)
     local seat = self:get_user_data()
-    seat.op.dx = dx
-    seat.op.dy = dy
+    if seat.op then
+        seat.op.dx = dx
+        seat.op.dy = dy
+    end
 end
 function Seat.listener.op_release(self)
     self:get_user_data().op_release = true

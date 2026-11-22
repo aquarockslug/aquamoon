@@ -55,10 +55,7 @@ n = [
   ["<leader>go", "mini:diff_overlay", "Toggle git diff overlay"],
 
   # Logging (Chainsaw)
-  ["<leader>kv", "chainsaw:variable", "Log variable"],
-  ["<leader>ko", "chainsaw:object", "Log object"],
-  ["<leader>km", "chainsaw:message", "Log message"],
-  ["<leader>kr", "chainsaw:remove", "Remove logs"],
+  ["<leader>k", "chainsaw:menu", "Logging menu"],
 
   # LSP
   ["gd", "lsp:definition", "Go to definition"],
@@ -87,7 +84,7 @@ t = [
 # Normal and visual mode
 nx = [
   ["<leader>aa", "sidekick:toggle", "Toggle Sidekick CLI"],
-  ["<leader>aS", "sidekick:toggle_spawnpoint", "Toggle Sidekick SpawnPoint"],
+  ["<leader>as", "sidekick:toggle_spawnpoint", "Toggle Sidekick SpawnPoint"],
   ["<leader>ap", "sidekick:prompt", "Sidekick prompt"],
 ]
 

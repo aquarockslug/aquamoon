@@ -20,6 +20,23 @@ local actions = {
 	["chainsaw:object"] = function() require("chainsaw").objectLog() end,
 	["chainsaw:message"] = function() require("chainsaw").messageLog() end,
 	["chainsaw:remove"] = function() require("chainsaw").removeLogs() end,
+	["chainsaw:menu"] = function()
+		vim.ui.select(
+			{ "Variable", "Object", "Message", "Remove logs" },
+			{ prompt = "Chainsaw" },
+			function(choice)
+				if choice == "Variable" then
+					require("chainsaw").variableLog()
+				elseif choice == "Object" then
+					require("chainsaw").objectLog()
+				elseif choice == "Message" then
+					require("chainsaw").messageLog()
+				elseif choice == "Remove logs" then
+					require("chainsaw").removeLogs()
+				end
+			end
+		)
+	end,
 	["neogit:open"] = function()
 		local cwd = vim.fn.expand("%:p:h")
 		if cwd == "" then cwd = vim.uv.cwd() end

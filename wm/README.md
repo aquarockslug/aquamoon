@@ -58,6 +58,7 @@ Layout actions usable in key/mouse bindings:
 | `increase-main-ratio` / `decrease-main-ratio` | resize the master area |
 | `set-gaps N` | set gaps and disable smart gaps |
 | `toggle-smart-gaps` | toggle smart gaps |
+| `swap-view next` / `swap-view previous` | swap the focused window with the next/previous visible window |
 
 The shipped `toml/river-bindings.toml` binds these to:
 
@@ -67,6 +68,7 @@ The shipped `toml/river-bindings.toml` binds these to:
 | `Super+Shift+Space` | `toggle-tiling` |
 | `Super+equal` / `Super+minus` | increase / decrease the master ratio |
 | `Super+g` | `toggle-smart-gaps` |
+| `Super+Shift+J` / `Super+Shift+K` | swap focused window with previous / next |
 
 ## Running
 

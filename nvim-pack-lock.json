@@ -12,6 +12,10 @@
       "rev": "2ed1aa0c003063fccf1b3c680870589d78ca12d4",
       "src": "https://github.com/mitander/flume.nvim.git"
     },
+    "live-preview.nvim": {
+      "rev": "dad92ae9599f9b19a7dffe7d597d3376c110b818",
+      "src": "https://github.com/brianhuster/live-preview.nvim"
+    },
     "lush.nvim": {
       "rev": "9c60ec2279d62487d942ce095e49006af28eed6e",
       "src": "https://github.com/rktjmp/lush.nvim.git"

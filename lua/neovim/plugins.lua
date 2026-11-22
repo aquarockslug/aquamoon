@@ -12,6 +12,7 @@ local packages = {
 	"https://github.com/brianhuster/unnest.nvim.git",
 	"https://github.com/folke/which-key.nvim.git",
 	"https://github.com/folke/sidekick.nvim.git",
+	"https://github.com/brianhuster/live-preview.nvim",
 	-- colorschemes
 	"https://github.com/NTBBloodbath/sweetie.nvim.git",
 	"https://github.com/bluz71/vim-moonfly-colors.git",
@@ -34,7 +35,13 @@ function M.setup()
 	local bindings = require("neovim.toml").load("neovim-bindings.toml")
 	local tv_keys = bindings.tv or {}
 
-	require("oil").setup({})
+	require("neovim.oil").setup()
+	require("oil").setup({
+		columns = { "icon", "total_size" },
+		keymaps = {
+			["<Tab>"] = "actions.preview",
+		},
+	})
 	require("snipe").setup()
 	require("chainsaw").setup()
 	require("neogit").setup({})
