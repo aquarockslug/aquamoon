@@ -42,4 +42,5 @@ anchor = "center"
 
 [startup]
 0 = ['command -v dbus-update-activation-environment >/dev/null 2>&1 && dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP']
-1 = ["/usr/bin/env", "--default-signal=CHLD", "noctalia", "--daemon"]
+1 = ["$AQUAMOON_DIR/bin/randomize-theme"]
+2 = ["/usr/bin/env", "--default-signal=CHLD", "noctalia", "--daemon"]

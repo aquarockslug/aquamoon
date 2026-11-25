@@ -57,13 +57,20 @@ description = "Search for files by name"
 [startup]
 commands = [
     "starship init bash | source",
-    "atuin init bash | source",
+    'eval "$(tv init bash)"',
 ]
 
 [startup.fish]
 commands = [
     "starship init fish | source",
-    "atuin init fish | source",
+    "tv init fish | source",
+    "",
+    "# Fish greeting",
+    "function fish_greeting",
+    "    echo 'AQUAMOON'",
+    "    echo (date '+%I:%M:%S %p - %m/%d/%y')",
+    "    echo",
+    "end",
 ]
 
 [shell-options]

@@ -1,0 +1,66 @@
+#!/bin/sh
+# Pick a random palette and wallpaper, then rewrite theme.toml so
+# noctalia loads a different theme on every session start.
+set -eu
+
+repo="${AQUAMOON_DIR:-$HOME/.aquamoon}"
+palette_dir="$repo/palettes"
+wallpaper_dir="$repo/wallpapers"
+theme_toml="$repo/toml/theme.toml"
+
+# --- random palette ---
+if [ -d "$palette_dir" ]; then
+	palettes=$(find "$palette_dir" -maxdepth 1 -name '*.json' -type f)
+	if [ -n "$palettes" ]; then
+		pick=$(printf '%s\n' "$palettes" | shuf -n 1)
+		palette_name=$(basename "$pick" .json)
+	else
+		palette_name=""
+	fi
+else
+	palette_name=""
+fi
+
+# --- random wallpaper ---
+if [ -d "$wallpaper_dir" ]; then
+	wallpapers=$(find "$wallpaper_dir" -maxdepth 1 -type f \
+		\( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.webp' \))
+	if [ -n "$wallpapers" ]; then
+		wallpaper_pick=$(printf '%s\n' "$wallpapers" | shuf -n 1)
+		# Rewrite as ~/.aquamoon/... to match theme.toml conventions
+		wallpaper_path="~/.aquamoon/wallpapers/$(basename "$wallpaper_pick")"
+	else
+		wallpaper_path=""
+	fi
+else
+	wallpaper_path=""
+fi
+
+# --- rewrite theme.toml ---
+if [ ! -f "$theme_toml" ]; then
+	exit 0
+fi
+
+tmp=$(mktemp)
+while IFS= read -r line; do
+	case "$line" in
+		custom_palette\ *=*)
+			if [ -n "$palette_name" ]; then
+				printf 'custom_palette = "%s"\n' "$palette_name"
+			else
+				printf '%s\n' "$line"
+			fi
+			;;
+		path\ *=*"~/.aquamoon/wallpapers/"*)
+			if [ -n "$wallpaper_path" ]; then
+				printf 'path = "%s"\n' "$wallpaper_path"
+			else
+				printf '%s\n' "$line"
+			fi
+			;;
+		*)
+			printf '%s\n' "$line"
+			;;
+	esac
+done < "$theme_toml" > "$tmp"
+mv "$tmp" "$theme_toml"

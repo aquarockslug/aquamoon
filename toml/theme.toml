@@ -2,12 +2,12 @@
 directory = "~/.aquamoon/wallpapers"
 
 [wallpaper.default]
-path = "~/.aquamoon/wallpapers/macos_tiger_grey.png"
+path = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
 
 [theme]
 mode = "dark"
 source = "custom"
-custom_palette = "Rose Pine Moon"
+custom_palette = "Flume Opal"
 
 [theme.templates]
 builtin_ids = ["gtk3", "gtk4", "qt"]
