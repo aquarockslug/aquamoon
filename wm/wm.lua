@@ -1,5 +1,6 @@
 local ffi = require("cffi")
 local wau = require("wau")
+local lume = require("lume")
 local xkbcommon = require("wm.xkbcommon")
 local raw = require("wau.core.raw")
 
@@ -163,8 +164,11 @@ local function modifiers(value)
 	local result = 0
 	for part in tostring(value):gmatch("[^+]+") do
 		local m = MODIFIERS[part:lower()]
-		if m == nil then warn("unknown modifier: " .. part)
-		else result = result | m end
+		if m == nil then
+			warn("unknown modifier: " .. part)
+		else
+			result = result | m
+		end
 	end
 	return result
 end
@@ -264,9 +268,9 @@ end
 
 local function normalize_device(name)
 	return tostring(name or ""):lower()
-		:gsub("^[%a_]+%-%d+%-%d+%-", "")
-		:gsub("[%s:%-]+", "_")
-		:gsub("_+", "_")
+	    :gsub("^[%a_]+%-%d+%-%d+%-", "")
+	    :gsub("[%s:%-]+", "_")
+	    :gsub("_+", "_")
 end
 
 local function input_rule_for(name)
@@ -339,18 +343,6 @@ local function table_index_of(tbl, sought)
 	return 0
 end
 
-local function table_filter_inplace(tbl, pred)
-	local removed = 0
-	for i = 1, #tbl do
-		if pred(tbl[i]) then
-			tbl[i - removed] = tbl[i]
-		else
-			removed = removed + 1
-		end
-		if removed > 0 then tbl[i] = nil end
-	end
-	return tbl
-end
 
 
 ---- Output ---------------------------
@@ -416,9 +408,11 @@ end
 function Output.listener:removed()
 	self:get_user_data().removed = true
 end
+
 function Output.listener:position(x, y)
 	local o = self:get_user_data(); o.x, o.y = x, y
 end
+
 function Output.listener:dimensions(width, height)
 	local o = self:get_user_data(); o.width, o.height = width, height
 end
@@ -428,8 +422,8 @@ local function output_at(x, y)
 	for _, output in ipairs(wm.outputs) do
 		local area = output:area()
 		if area ~= nil and
-		   x >= area.x and x < area.x + area.width and
-		   y >= area.y and y < area.y + area.height then
+		    x >= area.x and x < area.x + area.width and
+		    y >= area.y and y < area.y + area.height then
 			return output
 		end
 	end
@@ -581,6 +575,7 @@ end
 function Window.listener:closed()
 	self:get_user_data().closed = true
 end
+
 function Window.listener:dimensions(width, height)
 	local w = self:get_user_data(); w.width, w.height = width, height
 end
@@ -775,12 +770,15 @@ end
 function InputDevice.listener:removed()
 	self:get_user_data().removed = true
 end
+
 function InputDevice.listener:type(kind)
 	local d = self:get_user_data(); d.type = kind; d:apply()
 end
+
 function InputDevice.listener:name(name)
 	local d = self:get_user_data(); d.name = name; d:apply()
 end
+
 function InputDevice.listener:done()
 	local d = self:get_user_data(); d.done = true; d:apply()
 end
@@ -861,6 +859,7 @@ end
 function LibinputDevice.listener:removed()
 	self:get_user_data().removed = true
 end
+
 function LibinputDevice.listener:input_device(obj)
 	local d = self:get_user_data()
 	libinput_by_input_id[obj:get_id()] = d
@@ -869,9 +868,11 @@ function LibinputDevice.listener:input_device(obj)
 		d.input = input; input.libinput = d; input:apply()
 	end
 end
+
 function LibinputDevice.listener:tap_support(fingers)
 	self:get_user_data().tap_fingers = fingers
 end
+
 function LibinputDevice.listener:done()
 	local d = self:get_user_data()
 	d.done = true
@@ -906,8 +907,8 @@ local function adjacent_output(current, direction)
 	if current == nil or #wm.outputs < 2 then return nil end
 	local idx = table_index_of(wm.outputs, current)
 	local t = direction == "previous"
-		and (idx > 1 and idx - 1 or #wm.outputs)
-		or (idx < #wm.outputs and idx + 1 or 1)
+	    and (idx > 1 and idx - 1 or #wm.outputs)
+	    or (idx < #wm.outputs and idx + 1 or 1)
 	return wm.outputs[t]
 end
 
@@ -924,10 +925,8 @@ local function center_on_output(window, output)
 end
 
 function wm.topmost_visible()
-	for i = #wm.windows, 1, -1 do
-		if wm.windows[i].visible then
-			return wm.windows[i]
-		end
+	for _, window in lume.ripairs(wm.windows) do
+		if window.visible then return window end
 	end
 end
 
@@ -1239,7 +1238,7 @@ function Seat:action(command)
 	elseif action == "focus-output" then
 		local target = adjacent_output(
 			(self.focused and (self.focused.output or window_output(self.focused)))
-				or cursor_output(),
+			or cursor_output(),
 			command[2] or "next")
 		if target ~= nil then
 			local area = target:area()
@@ -1248,10 +1247,9 @@ function Seat:action(command)
 				self.obj:pointer_warp(cx, cy)
 				self.cursor_x, self.cursor_y = cx, cy
 			end
-			for i = #wm.windows, 1, -1 do
-				local w = wm.windows[i]
+			for _, w in lume.ripairs(wm.windows) do
 				if w.visible and not w.closed and
-				   (w.output or window_output(w)) == target then
+				    (w.output or window_output(w)) == target then
 					self:focus(w)
 					break
 				end
@@ -1504,11 +1502,11 @@ end
 
 ---- wm -------------------------------
 local function wm_manage()
-	table_filter_inplace(wm.outputs, Output.maybe_destroy)
-	table_filter_inplace(wm.windows, Window.maybe_destroy)
-	table_filter_inplace(wm.seats, Seat.maybe_destroy)
-	table_filter_inplace(input_devices, InputDevice.maybe_destroy)
-	table_filter_inplace(libinput_devices, LibinputDevice.maybe_destroy)
+	wm.outputs = lume.filter(wm.outputs, Output.maybe_destroy)
+	wm.windows = lume.filter(wm.windows, Window.maybe_destroy)
+	wm.seats = lume.filter(wm.seats, Seat.maybe_destroy)
+	input_devices = lume.filter(input_devices, InputDevice.maybe_destroy)
+	libinput_devices = lume.filter(libinput_devices, LibinputDevice.maybe_destroy)
 
 	if wm.default_output ~= nil and wm.default_output.removed then
 		wm.default_output = nil

@@ -2,7 +2,7 @@
 directory = "~/.aquamoon/wallpapers"
 
 [wallpaper.default]
-path = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
+path = "~/.aquamoon/wallpapers/panther.png"
 
 [theme]
 mode = "dark"

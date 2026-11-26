@@ -6,7 +6,9 @@ ls = "ls --color=auto"
 grep = "grep --color=auto"
 ll = "ls -la"
 la = "ls -A"
-l = "ls -CF"
+l = "clear && ls -CF"
+chmodx = "sudo chmod u+x "
+wcdata = "wc -c | numfmt --to=iec --suffix=B"
 
 # Navigation
 ".." = "cd .."
@@ -56,26 +58,27 @@ description = "Search for files by name"
 
 [startup]
 commands = [
-    'eval "$(starship init bash)"',
-    'eval "$(tv init bash)"',
+  'eval "$(starship init bash)"',
+  'eval "$(tv init bash)"',
 ]
 
 [startup.fish]
 commands = [
-    "starship init fish | source",
-    "tv init fish | source",
-    "",
-    "# Fish greeting",
-    "function fish_greeting",
-    "    echo 'AQUAMOON'",
-    "    echo (date '+%I:%M:%S %p - %m/%d/%y')",
-    "    echo",
-    "end",
+  "starship init fish | source",
+  "tv init fish | source",
+  "",
+  "# Fish greeting",
+  "function fish_greeting",
+  "    echo 'AQUAMOON'",
+  "    echo (date '+%I:%M:%S %p - %m/%d/%y')",
+  "    echo",
+  "end",
 ]
 
 [shell-options]
 # Bash-specific options (set -o)
-set_options = ["histappend", "checkwinsize"]
+# WARN: commented out because unknown option error
+# set_options = ["histappend", "checkwinsize"]
 
 [shell-options.bash]
 # Bash-specific set options
