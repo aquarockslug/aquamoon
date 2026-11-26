@@ -451,6 +451,56 @@ function Output.listener:dimensions(width, height)
 	output.height = height
 end
 
+---- Helper functions for cursor tracking ----
+local function output_at(x, y)
+    for _, output in ipairs(wm.outputs) do
+        local area = output:area()
+        if area ~= nil and
+           x >= area.x and x < area.x + area.width and
+           y >= area.y and y < area.y + area.height then
+            return output
+        end
+    end
+    return nil
+end
+
+local function cursor_output()
+    -- Prefer the seat that currently has keyboard focus
+    for _, seat in ipairs(wm.seats) do
+        if seat.focused ~= nil and seat.cursor_x ~= nil and seat.cursor_y ~= nil then
+            local output = output_at(seat.cursor_x, seat.cursor_y)
+            if output ~= nil then
+                return output
+            end
+        end
+    end
+    -- Fall back to any seat with a known cursor position
+    for _, seat in ipairs(wm.seats) do
+        if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
+            local output = output_at(seat.cursor_x, seat.cursor_y)
+            if output ~= nil then
+                return output
+            end
+        end
+    end
+    return wm.default_output or wm.outputs[1]
+end
+
+local function cursor_position()
+    for _, seat in ipairs(wm.seats) do
+        if seat.focused ~= nil and seat.cursor_x ~= nil and seat.cursor_y ~= nil then
+            return seat.cursor_x, seat.cursor_y
+        end
+    end
+    for _, seat in ipairs(wm.seats) do
+        if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
+            return seat.cursor_x, seat.cursor_y
+        end
+    end
+    return nil, nil
+end
+
+
 ---- Window ---------------------------
 local Window = { mt = {}, listener = {} }
 Window.mt.__index = Window
@@ -639,54 +689,6 @@ local function window_output(window)
 	end
 
 	return wm.default_output or wm.outputs[1]
-end
-
-local function output_at(x, y)
-	for _, output in ipairs(wm.outputs) do
-		local area = output:area()
-		if area ~= nil and
-		    x >= area.x and x < area.x + area.width and
-		    y >= area.y and y < area.y + area.height then
-			return output
-		end
-	end
-	return nil
-end
-
-local function cursor_output()
-	-- Prefer the seat that currently has keyboard focus
-	for _, seat in ipairs(wm.seats) do
-		if seat.focused ~= nil and seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-			local output = output_at(seat.cursor_x, seat.cursor_y)
-			if output ~= nil then
-				return output
-			end
-		end
-	end
-	-- Fall back to any seat with a known cursor position
-	for _, seat in ipairs(wm.seats) do
-		if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-			local output = output_at(seat.cursor_x, seat.cursor_y)
-			if output ~= nil then
-				return output
-			end
-		end
-	end
-	return wm.default_output or wm.outputs[1]
-end
-
-local function cursor_position()
-	for _, seat in ipairs(wm.seats) do
-		if seat.focused ~= nil and seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-			return seat.cursor_x, seat.cursor_y
-		end
-	end
-	for _, seat in ipairs(wm.seats) do
-		if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-			return seat.cursor_x, seat.cursor_y
-		end
-	end
-	return nil, nil
 end
 
 local function tile_output(output, windows)
