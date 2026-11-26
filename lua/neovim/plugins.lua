@@ -20,6 +20,10 @@ local packages = {
 	"https://github.com/rktjmp/lush.nvim.git", -- bluloco dependency
 	"https://github.com/uloco/bluloco.nvim.git",
 	"https://github.com/Badacadabra/vim-archery.git",
+	"https://github.com/FrenzyExists/aquarium-vim.git",
+	"https://github.com/zootedb0t/citruszest.nvim.git",
+	"https://github.com/tanmaymanojgandhi/circadia.git",
+	"https://github.com/nvimdev/zephyr-nvim.git",
 }
 
 local mini_modules = {
@@ -29,6 +33,11 @@ local mini_modules = {
 
 function M.add()
 	vim.pack.add(packages)
+	-- circadia keeps its neovim files under ports/neovim/, not at the repo root
+	local circadia_rtp = vim.fn.stdpath("data") .. "/site/pack/core/opt/circadia/ports/neovim"
+	if vim.fn.isdirectory(circadia_rtp) == 1 then
+		vim.opt.runtimepath:append(circadia_rtp)
+	end
 end
 
 function M.setup()
@@ -45,6 +54,8 @@ function M.setup()
 	require("snipe").setup()
 	require("chainsaw").setup()
 	require("neogit").setup({})
+
+	vim.o.background = "dark"
 
 	local wk_spec = {}
 	for prefix, group in pairs(bindings.groups or {}) do
@@ -153,6 +164,45 @@ function M.setup()
 			},
 		},
 	})
+
+	-- Override tv keybindings to launch from the current buffer's directory,
+	-- restoring the original working directory when the tv terminal closes.
+	do
+		local function tv_from_bufdir(fn, ...)
+			local args = { ... }
+			local buf_dir = vim.fn.expand("%:p:h")
+			if buf_dir == "" or vim.fn.isdirectory(buf_dir) ~= 1 then
+				return fn(unpack(args))
+			end
+			local saved = vim.fn.getcwd()
+			vim.cmd("cd " .. vim.fn.fnameescape(buf_dir))
+			fn(unpack(args))
+			local bufnr = vim.api.nvim_get_current_buf()
+			if vim.bo[bufnr].buftype == "terminal" then
+				vim.api.nvim_create_autocmd("TermClose", {
+					buffer = bufnr,
+					once = true,
+					callback = function()
+						vim.cmd("cd " .. vim.fn.fnameescape(saved))
+					end,
+				})
+			end
+		end
+
+		for channel_name, channel_config in pairs(tv.config.channels) do
+			if channel_config.keybinding then
+				vim.keymap.set("n", channel_config.keybinding, function()
+					tv_from_bufdir(tv.tv_channel, channel_name)
+				end, { desc = "TV: " .. channel_name .. " (buffer dir)" })
+			end
+		end
+
+		if tv.config.global_keybindings.channels then
+			vim.keymap.set("n", tv.config.global_keybindings.channels, function()
+				tv_from_bufdir(tv.tv_channels)
+			end, { desc = "TV: Channels (buffer dir)" })
+		end
+	end
 
 	for _, plugin in ipairs(mini_modules) do
 		require("mini." .. plugin).setup()

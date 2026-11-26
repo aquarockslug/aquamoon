@@ -11,6 +11,13 @@ local palette_colorschemes = {
 	["Flume Mira"] = { "flume-mira", "dark" },
 	["Flume Opal"] = { "flume-opal", "light" },
 	["Archery"] = { "archery", "dark" },
+	["Aquarium"] = { "aquarium", "dark" },
+	["Citruszest"] = { "citruszest", "dark" },
+	["Zephyr"] = { "zephyr", "dark" },
+	["Circadia Ember"] = { "circadia", "dark", { circadia_style = "dark_ember" } },
+	["Circadia Plum"] = { "circadia", "dark", { circadia_style = "dark_plum" } },
+	["Circadia Forest"] = { "circadia", "dark", { circadia_style = "dark_forest" } },
+	["Circadia Parchment"] = { "circadia", "light", { circadia_style = "light_parchment" } },
 }
 
 local colorscheme_fonts = {
@@ -18,6 +25,7 @@ local colorscheme_fonts = {
 	["flume-opal"] = "BigBlueTermPlus Nerd Font Mono",
 	["moonfly"] = "BigBlueTermPlus Nerd Font Mono",
 	["archery"] = "BigBlueTermPlus Nerd Font Mono",
+	["zephyr"] = "BigBlueTermPlus Nerd Font Mono",
 }
 
 local function default_font()
@@ -72,9 +80,25 @@ function M.apply()
 	local entry = palette_colorschemes[noctalia_palette() or ""]
 	if entry then
 		vim.o.background = entry[2]
-		if pcall(vim.cmd.colorscheme, entry[1]) then
-			M.apply_font(entry[1])
-			return
+		local opts = entry[3]
+		if entry[1] == "circadia" then
+			-- circadia uses setup() with a mode, not :colorscheme
+			local ok = pcall(require, "circadia")
+			if ok then
+				require("circadia").setup({ mode = opts and opts.circadia_style or "dark" })
+				M.apply_font(entry[1])
+				return
+			end
+		else
+			if opts then
+				for key, value in pairs(opts) do
+					vim.g[key] = value
+				end
+			end
+			if pcall(vim.cmd.colorscheme, entry[1]) then
+				M.apply_font(entry[1])
+				return
+			end
 		end
 	end
 	if vim.g.colors_name == nil then

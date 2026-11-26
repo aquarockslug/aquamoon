@@ -56,7 +56,7 @@ description = "Search for files by name"
 
 [startup]
 commands = [
-    "starship init bash | source",
+    'eval "$(starship init bash)"',
     'eval "$(tv init bash)"',
 ]
 

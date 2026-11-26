@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "aquarium-vim": {
+      "rev": "d5c4816717e5136278a9148bd19268fcaf514fe9",
+      "src": "https://github.com/FrenzyExists/aquarium-vim.git"
+    },
     "bluloco.nvim": {
       "rev": "caa4233dab772dad1db272c78025dd9682dca9e8",
       "src": "https://github.com/uloco/bluloco.nvim.git"
@@ -7,6 +11,14 @@
     "canola.nvim": {
       "rev": "8173bc716f29797ce0ad94359565a20e17a0b88c",
       "src": "https://forge.barrettruth.com/barrettruth/canola.nvim"
+    },
+    "circadia": {
+      "rev": "85a6e75bfedf7560616174303fd50b1f1a34f881",
+      "src": "https://github.com/tanmaymanojgandhi/circadia.git"
+    },
+    "citruszest.nvim": {
+      "rev": "c8c0017d1b2efa4b891af28995bae8d58c87528a",
+      "src": "https://github.com/zootedb0t/citruszest.nvim.git"
     },
     "flume.nvim": {
       "rev": "2ed1aa0c003063fccf1b3c680870589d78ca12d4",
@@ -71,6 +83,10 @@
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim.git"
+    },
+    "zephyr-nvim": {
+      "rev": "7fd86b7164442d3b5ec2c81b2694d040e716b5cf",
+      "src": "https://github.com/nvimdev/zephyr-nvim.git"
     }
   }
 }

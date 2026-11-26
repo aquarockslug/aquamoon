@@ -46,6 +46,16 @@ bindings = [
   { mod = "Super+Shift", key = "7", command = ["set-view-tags", "64"] },
   { mod = "Super+Shift", key = "8", command = ["set-view-tags", "128"] },
   { mod = "Super+Shift", key = "9", command = ["set-view-tags", "256"] },
+
+  # Multi-monitor navigation
+  { mod = "Super", key = "comma", command = ["focus-output", "previous"] },
+  { mod = "Super", key = "period", command = ["focus-output", "next"] },
+  { mod = "Super+Shift", key = "comma", command = ["send-to-output", "previous"] },
+  { mod = "Super+Shift", key = "period", command = ["send-to-output", "next"] },
+
+  # Tag navigation
+  { mod = "Super", key = "bracketleft", command = ["previous-tag"] },
+  { mod = "Super", key = "bracketright", command = ["next-tag"] },
 ]
 
 [map-pointer.normal]
