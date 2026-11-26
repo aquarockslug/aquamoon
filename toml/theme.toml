@@ -7,7 +7,7 @@ path = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
 [theme]
 mode = "dark"
 source = "custom"
-custom_palette = "Bluloco Dark"
+custom_palette = "Zephyr"
 
 [theme.templates]
 builtin_ids = ["gtk3", "gtk4", "qt"]

@@ -24,7 +24,7 @@ local function ensure_dir(dir)
 end
 
 local function readlink(target)
-	local result = os.pipeline({"readlink", "-f", target})
+	local result = os.pipeline({ "readlink", "-f", target })
 	return ((result or ""):gsub("%s+$", ""))
 end
 
@@ -163,7 +163,7 @@ local function ensure_cffi_lua()
 
 	env.pushd(cffi_dir)
 	local ok = run("meson setup build -Dtests=false -Dlua_version=5.4")
-	            and run("ninja -C build")
+	    and run("ninja -C build")
 	env.popd()
 
 	local built = path.join(cffi_dir, "build", "cffi.so")
@@ -218,7 +218,7 @@ local function generate_protocol_bindings()
 		if file_path:endswith(".xml") then
 			local out_path = file_path:gsub("%.xml$", ".lua")
 			local cmd = quote(lush_bin) .. " " .. quote(scanner)
-				.. " < " .. quote(file_path) .. " > " .. quote(out_path)
+			    .. " < " .. quote(file_path) .. " > " .. quote(out_path)
 			if not run(cmd) then
 				return false
 			end
@@ -388,10 +388,10 @@ local function setup_shells()
 			end
 			-- Transform Bash-style args to Fish-style
 			local fish_cmd = fn.command
-				:gsub("%$@", "$argv")
-				:gsub("%$1", "$argv[1]")
-				:gsub("%$2", "$argv[2]")
-				:gsub("%$3", "$argv[3]")
+			    :gsub("%$@", "$argv")
+			    :gsub("%$1", "$argv[1]")
+			    :gsub("%$2", "$argv[2]")
+			    :gsub("%$3", "$argv[3]")
 			fish_lines[#fish_lines + 1] = "    function " .. name
 			fish_lines[#fish_lines + 1] = "        " .. fish_cmd
 			fish_lines[#fish_lines + 1] = "    end"
@@ -490,7 +490,7 @@ local function setup_greeter()
 	end
 	local user = env.get("GREETER_USER")
 	if not user or user == "" then
-		user = os.pipeline({"noctalia-greeter-apply-appearance", "--print-greeter-user"}) or ""
+		user = os.pipeline({ "noctalia-greeter-apply-appearance", "--print-greeter-user" }) or ""
 		user = user:gsub("%s+$", "")
 		if user == "" then
 			user = "greeter"

@@ -158,34 +158,22 @@ local MODIFIERS = {
 }
 
 local function modifiers(value)
-	if value == nil then
-		return 0
-	end
-	if type(value) == "table" then
-		value = table.concat(value, "+")
-	end
-
+	if value == nil then return 0 end
+	if type(value) == "table" then value = table.concat(value, "+") end
 	local result = 0
 	for part in tostring(value):gmatch("[^+]+") do
-		local modifier = MODIFIERS[part:lower()]
-		if modifier == nil then
-			warn("unknown modifier: " .. part)
-		else
-			result = result | modifier
-		end
+		local m = MODIFIERS[part:lower()]
+		if m == nil then warn("unknown modifier: " .. part)
+		else result = result | m end
 	end
 	return result
 end
 
 local function command(value)
-	if type(value) == "table" then
-		local result = {}
-		for i, part in ipairs(value) do
-			result[i] = tostring(part)
-		end
-		return result
-	end
-	return { tostring(value) }
+	local t = type(value) == "table" and value or { value }
+	local r = {}
+	for i, v in ipairs(t) do r[i] = tostring(v) end
+	return r
 end
 
 local BUTTONS = {
@@ -233,13 +221,11 @@ local border_width = number(river_options["border-width"])
 local function color(value)
 	local hex = tostring(value or "0xffffff"):gsub("^0[xX]", "")
 	local rgb = math.tointeger(tonumber(hex, 16)) or 0xffffff
-	local function component(v)
-		return math.floor(v * 0xffffffff / 0xff)
-	end
+	local m = 0xffffffff / 0xff
 	return {
-		component((rgb >> 16) & 0xff),
-		component((rgb >> 8) & 0xff),
-		component(rgb & 0xff),
+		math.floor(((rgb >> 16) & 0xff) * m),
+		math.floor(((rgb >> 8) & 0xff) * m),
+		math.floor((rgb & 0xff) * m),
 		0xffffffff,
 	}
 end
@@ -247,15 +233,8 @@ end
 local border_focused = color(river_options["border-color-focused"])
 local border_unfocused = color(river_options["border-color-unfocused"])
 
-local focus_follows_cursor = false
-do
-	local raw = river_options["focus-follows-cursor"]
-	if raw == true or raw == "normal" or raw == "enabled" then
-		focus_follows_cursor = true
-	elseif raw == false or raw == nil or raw == "disabled" then
-		focus_follows_cursor = false
-	end
-end
+local ffc = river_options["focus-follows-cursor"]
+local focus_follows_cursor = ffc == true or ffc == "normal" or ffc == "enabled"
 
 local attach_bottom = river_options["default-attach-mode"] == "bottom"
 
@@ -284,11 +263,10 @@ do
 end
 
 local function normalize_device(name)
-	local value = tostring(name or ""):lower()
-	value = value:gsub("^[%a_]+%-%d+%-%d+%-", "")
-	value = value:gsub("[%s:%-]+", "_")
-	value = value:gsub("_+", "_")
-	return value
+	return tostring(name or ""):lower()
+		:gsub("^[%a_]+%-%d+%-%d+%-", "")
+		:gsub("[%s:%-]+", "_")
+		:gsub("_+", "_")
 end
 
 local function input_rule_for(name)
@@ -438,66 +416,50 @@ end
 function Output.listener:removed()
 	self:get_user_data().removed = true
 end
-
 function Output.listener:position(x, y)
-	local output = self:get_user_data()
-	output.x = x
-	output.y = y
+	local o = self:get_user_data(); o.x, o.y = x, y
 end
-
 function Output.listener:dimensions(width, height)
-	local output = self:get_user_data()
-	output.width = width
-	output.height = height
+	local o = self:get_user_data(); o.width, o.height = width, height
 end
 
 ---- Helper functions for cursor tracking ----
 local function output_at(x, y)
-    for _, output in ipairs(wm.outputs) do
-        local area = output:area()
-        if area ~= nil and
-           x >= area.x and x < area.x + area.width and
-           y >= area.y and y < area.y + area.height then
-            return output
-        end
-    end
-    return nil
+	for _, output in ipairs(wm.outputs) do
+		local area = output:area()
+		if area ~= nil and
+		   x >= area.x and x < area.x + area.width and
+		   y >= area.y and y < area.y + area.height then
+			return output
+		end
+	end
 end
 
+-- Returns the output under the cursor, preferring seats with keyboard focus.
 local function cursor_output()
-    -- Prefer the seat that currently has keyboard focus
-    for _, seat in ipairs(wm.seats) do
-        if seat.focused ~= nil and seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-            local output = output_at(seat.cursor_x, seat.cursor_y)
-            if output ~= nil then
-                return output
-            end
-        end
-    end
-    -- Fall back to any seat with a known cursor position
-    for _, seat in ipairs(wm.seats) do
-        if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-            local output = output_at(seat.cursor_x, seat.cursor_y)
-            if output ~= nil then
-                return output
-            end
-        end
-    end
-    return wm.default_output or wm.outputs[1]
+	local fallback
+	for _, seat in ipairs(wm.seats) do
+		if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
+			local o = output_at(seat.cursor_x, seat.cursor_y)
+			if o ~= nil then
+				if seat.focused ~= nil then return o end
+				fallback = fallback or o
+			end
+		end
+	end
+	return fallback or wm.default_output or wm.outputs[1]
 end
 
+-- Returns the cursor coordinates, preferring seats with keyboard focus.
 local function cursor_position()
-    for _, seat in ipairs(wm.seats) do
-        if seat.focused ~= nil and seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-            return seat.cursor_x, seat.cursor_y
-        end
-    end
-    for _, seat in ipairs(wm.seats) do
-        if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
-            return seat.cursor_x, seat.cursor_y
-        end
-    end
-    return nil, nil
+	local fx, fy
+	for _, seat in ipairs(wm.seats) do
+		if seat.cursor_x ~= nil and seat.cursor_y ~= nil then
+			if seat.focused ~= nil then return seat.cursor_x, seat.cursor_y end
+			fx, fy = seat.cursor_x, seat.cursor_y
+		end
+	end
+	return fx, fy
 end
 
 
@@ -619,11 +581,8 @@ end
 function Window.listener:closed()
 	self:get_user_data().closed = true
 end
-
 function Window.listener:dimensions(width, height)
-	local window = self:get_user_data()
-	window.width = width
-	window.height = height
+	local w = self:get_user_data(); w.width, w.height = width, height
 end
 
 function Window.listener:app_id(app_id)
@@ -662,33 +621,15 @@ local layout_smart_gaps = layout_config["smart-gaps"] ~= false
 wm.tiling = layout_config.tiled ~= false
 
 local function window_output(window)
-	local x = window.x or 0
-	local y = window.y or 0
-	local width = window.width or 0
-	local height = window.height or 0
-	local cx = x + width / 2
-	local cy = y + height / 2
-
-	for _, output in ipairs(wm.outputs) do
-		local area = output:area()
-		if area ~= nil and
-		    cx >= area.x and cx < area.x + area.width and
-		    cy >= area.y and cy < area.y + area.height then
-			return output
-		end
-	end
+	local cx = (window.x or 0) + (window.width or 0) / 2
+	local cy = (window.y or 0) + (window.height or 0) / 2
+	local o = output_at(cx, cy)
+	if o ~= nil then return o end
 
 	if window.output ~= nil and not window.output.removed then
 		return window.output
 	end
-
-	-- Fall back to the output under the cursor before using the default output
-	local co = cursor_output()
-	if co ~= nil then
-		return co
-	end
-
-	return wm.default_output or wm.outputs[1]
+	return cursor_output()
 end
 
 local function tile_output(output, windows)
@@ -834,23 +775,14 @@ end
 function InputDevice.listener:removed()
 	self:get_user_data().removed = true
 end
-
 function InputDevice.listener:type(kind)
-	local device = self:get_user_data()
-	device.type = kind
-	device:apply()
+	local d = self:get_user_data(); d.type = kind; d:apply()
 end
-
 function InputDevice.listener:name(name)
-	local device = self:get_user_data()
-	device.name = name
-	device:apply()
+	local d = self:get_user_data(); d.name = name; d:apply()
 end
-
 function InputDevice.listener:done()
-	local device = self:get_user_data()
-	device.done = true
-	device:apply()
+	local d = self:get_user_data(); d.done = true; d:apply()
 end
 
 local LibinputDevice = { mt = {}, listener = {} }
@@ -929,31 +861,68 @@ end
 function LibinputDevice.listener:removed()
 	self:get_user_data().removed = true
 end
-
 function LibinputDevice.listener:input_device(obj)
-	local device = self:get_user_data()
-	libinput_by_input_id[obj:get_id()] = device
+	local d = self:get_user_data()
+	libinput_by_input_id[obj:get_id()] = d
 	local input = obj:get_user_data()
 	if input ~= nil then
-		device.input = input
-		input.libinput = device
-		input:apply()
+		d.input = input; input.libinput = d; input:apply()
 	end
 end
-
 function LibinputDevice.listener:tap_support(fingers)
 	self:get_user_data().tap_fingers = fingers
 end
-
 function LibinputDevice.listener:done()
-	local device = self:get_user_data()
-	device.done = true
-	if device.input ~= nil then
-		device.input:apply()
-	end
+	local d = self:get_user_data()
+	d.done = true
+	if d.input ~= nil then d.input:apply() end
 end
 
 ---- Tags -----------------------------
+-- Find the highest active tag bit and cycle to the next or previous one.
+local function cycle_tag(direction)
+	local tags = wm.view_tags
+	if tags == 0 then
+		return direction == "next" and 1 or 256
+	end
+	local highest = 1
+	for i = 8, 0, -1 do
+		if (tags & (1 << i)) ~= 0 then
+			highest = 1 << i
+			break
+		end
+	end
+	if direction == "next" then
+		local n = highest << 1
+		return n > 256 and 1 or n
+	else
+		local p = highest >> 1
+		return p == 0 and 256 or p
+	end
+end
+
+-- Return the adjacent output in the given direction from current.
+local function adjacent_output(current, direction)
+	if current == nil or #wm.outputs < 2 then return nil end
+	local idx = table_index_of(wm.outputs, current)
+	local t = direction == "previous"
+		and (idx > 1 and idx - 1 or #wm.outputs)
+		or (idx < #wm.outputs and idx + 1 or 1)
+	return wm.outputs[t]
+end
+
+-- Center a window on the given output (for floating mode).
+local function center_on_output(window, output)
+	if not wm.tiling then
+		local area = output:area()
+		if area ~= nil then
+			window:set_position(
+				area.x + area.width / 2 - (window.width or 0) / 2,
+				area.y + area.height / 2 - (window.height or 0) / 2)
+		end
+	end
+end
+
 function wm.topmost_visible()
 	for i = #wm.windows, 1, -1 do
 		if wm.windows[i].visible then
@@ -1182,14 +1151,8 @@ function Seat:action(command)
 	local action = command[1]
 
 	if action == "spawn" then
-		local args = {}
-		for i = 2, #command do
-			args[#args + 1] = command[i]
-		end
-		local shell = shell_command(args)
-		if shell ~= "" then
-			spawn(shell)
-		end
+		local shell = shell_command(table.move(command, 2, #command, 1, {}))
+		if shell ~= "" then spawn(shell) end
 	elseif action == "close" then
 		if self.focused ~= nil then
 			self.focused.obj:close()
@@ -1274,132 +1237,43 @@ function Seat:action(command)
 		layout_smart_gaps = not layout_smart_gaps
 		invalidate_layout()
 	elseif action == "focus-output" then
-		-- Focus the next/previous output (useful for multi-monitor setups)
-		local direction = command[2] or "next"
-		local current_output = nil
-		if self.focused ~= nil then
-			current_output = self.focused.output or window_output(self.focused)
-		end
-		if current_output == nil then
-			current_output = cursor_output()
-		end
-		if current_output ~= nil and #wm.outputs > 1 then
-			local idx = table_index_of(wm.outputs, current_output)
-			local target_idx
-			if direction == "previous" then
-				target_idx = idx > 1 and idx - 1 or #wm.outputs
-			else
-				target_idx = idx < #wm.outputs and idx + 1 or 1
+		local target = adjacent_output(
+			(self.focused and (self.focused.output or window_output(self.focused)))
+				or cursor_output(),
+			command[2] or "next")
+		if target ~= nil then
+			local area = target:area()
+			if area ~= nil then
+				local cx, cy = area.x + area.width / 2, area.y + area.height / 2
+				self.obj:pointer_warp(cx, cy)
+				self.cursor_x, self.cursor_y = cx, cy
 			end
-			local target_output = wm.outputs[target_idx]
-			if target_output ~= nil then
-				-- Warp cursor to the center of the target output
-				local area = target_output:area()
-				if area ~= nil then
-					local cx = area.x + area.width / 2
-					local cy = area.y + area.height / 2
-					self.obj:pointer_warp(cx, cy)
-					self.cursor_x = cx
-					self.cursor_y = cy
-				end
-				-- Focus a window on the target output if one exists
-				for i = #wm.windows, 1, -1 do
-					local window = wm.windows[i]
-					if window.visible and not window.closed then
-						local win_output = window.output or window_output(window)
-						if win_output == target_output then
-							self:focus(window)
-							break
-						end
-					end
+			for i = #wm.windows, 1, -1 do
+				local w = wm.windows[i]
+				if w.visible and not w.closed and
+				   (w.output or window_output(w)) == target then
+					self:focus(w)
+					break
 				end
 			end
 		end
 	elseif action == "send-to-output" then
-		-- Send the focused window to the next/previous output
 		if self.focused ~= nil then
-			local direction = command[2] or "next"
-			local current_output = self.focused.output or window_output(self.focused)
-			if current_output ~= nil and #wm.outputs > 1 then
-				local idx = table_index_of(wm.outputs, current_output)
-				local target_idx
-				if direction == "previous" then
-					target_idx = idx > 1 and idx - 1 or #wm.outputs
-				else
-					target_idx = idx < #wm.outputs and idx + 1 or 1
-				end
-				local target_output = wm.outputs[target_idx]
-				if target_output ~= nil then
-					self.focused.output = target_output
-					-- Move the window to the center of the target output
-					local area = target_output:area()
-					if area ~= nil and not wm.tiling then
-						local cx = area.x + area.width / 2 - (self.focused.width or 0) / 2
-						local cy = area.y + area.height / 2 - (self.focused.height or 0) / 2
-						self.focused:set_position(cx, cy)
-					end
-					invalidate_layout()
-				end
+			local cur = self.focused.output or window_output(self.focused)
+			local target = adjacent_output(cur, command[2] or "next")
+			if target ~= nil then
+				self.focused.output = target
+				center_on_output(self.focused, target)
+				invalidate_layout()
 			end
 		end
 	elseif action == "center-view" then
-		-- Center the focused window on its current output
 		if self.focused ~= nil and not wm.tiling then
-			local output = self.focused.output or window_output(self.focused)
-			if output ~= nil then
-				local area = output:area()
-				if area ~= nil then
-					local cx = area.x + area.width / 2 - (self.focused.width or 0) / 2
-					local cy = area.y + area.height / 2 - (self.focused.height or 0) / 2
-					self.focused:set_position(cx, cy)
-				end
-			end
+			center_on_output(self.focused,
+				self.focused.output or window_output(self.focused))
 		end
-	elseif action == "next-tag" then
-		-- Switch to the next tag (wraps from 9 to 1)
-		-- Find the highest bit in the current view_tags
-		local tags = wm.view_tags
-		if tags == 0 then
-			wm.view_tags = 1
-		else
-			-- Find highest bit
-			local highest = 1
-			for i = 8, 0, -1 do
-				if (tags & (1 << i)) ~= 0 then
-					highest = 1 << i
-					break
-				end
-			end
-			-- Shift to next tag, wrapping from 256 to 1
-			local next_tag = highest << 1
-			if next_tag > 256 then
-				next_tag = 1
-			end
-			wm.view_tags = next_tag
-		end
-		wm.refresh()
-	elseif action == "previous-tag" then
-		-- Switch to the previous tag (wraps from 1 to 9)
-		-- Find the highest bit in the current view_tags
-		local tags = wm.view_tags
-		if tags == 0 then
-			wm.view_tags = 256
-		else
-			-- Find highest bit
-			local highest = 1
-			for i = 8, 0, -1 do
-				if (tags & (1 << i)) ~= 0 then
-					highest = 1 << i
-					break
-				end
-			end
-			-- Shift to previous tag, wrapping from 1 to 256
-			local prev_tag = highest >> 1
-			if prev_tag == 0 then
-				prev_tag = 256
-			end
-			wm.view_tags = prev_tag
-		end
+	elseif action == "next-tag" or action == "previous-tag" then
+		wm.view_tags = cycle_tag(action)
 		wm.refresh()
 	elseif action == "exit" then
 		globals["river_window_manager_v1"]:exit_session()
@@ -1608,9 +1482,7 @@ function Seat.listener.pointer_enter(self, window)
 end
 
 function Seat.listener.pointer_position(self, x, y)
-	local seat = self:get_user_data()
-	seat.cursor_x = x
-	seat.cursor_y = y
+	local s = self:get_user_data(); s.cursor_x, s.cursor_y = x, y
 end
 
 function Seat.listener.pointer_leave(self)
@@ -1622,11 +1494,8 @@ function Seat.listener.window_interaction(self, window)
 end
 
 function Seat.listener.op_delta(self, dx, dy)
-	local seat = self:get_user_data()
-	if seat.op then
-		seat.op.dx = dx
-		seat.op.dy = dy
-	end
+	local s = self:get_user_data()
+	if s.op then s.op.dx, s.op.dy = dx, dy end
 end
 
 function Seat.listener.op_release(self)
@@ -1694,12 +1563,9 @@ local wm_handlers = {
 		table.insert(wm.seats, Seat.create(obj))
 	end,
 	["window"] = function(self, obj)
-		local window = Window.create(obj)
-		if attach_bottom then
-			table.insert(wm.windows, 1, window)
-		else
-			table.insert(wm.windows, window)
-		end
+		table.insert(wm.windows,
+			attach_bottom and 1 or #wm.windows + 1,
+			Window.create(obj))
 	end,
 }
 
