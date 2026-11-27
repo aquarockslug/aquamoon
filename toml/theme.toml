@@ -2,12 +2,12 @@
 directory = "~/.aquamoon/wallpapers"
 
 [wallpaper.default]
-path = "~/.aquamoon/wallpapers/panther.png"
+path = "~/.aquamoon/wallpapers/aurora.jpg"
 
 [theme]
 mode = "dark"
 source = "custom"
-custom_palette = "Zephyr"
+custom_palette = "Circadia Ember"
 
 [theme.templates]
 builtin_ids = ["gtk3", "gtk4", "qt"]

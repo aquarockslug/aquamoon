@@ -25,6 +25,7 @@ ffi.cdef [[
     pid_t fork(void);
     int execl(const char *pathname, const char *arg, ...);
     void _exit(int status);
+    int setenv(const char *name, const char *value, int overwrite);
     int unsetenv(const char *name);
     sighandler_t signal(int signum, sighandler_t handler);
     int poll(struct pollfd *fds, nfds_t nfds, int timeout);
@@ -289,6 +290,15 @@ for _, app_id in pairs((config.window_rules or {}).ssd or {}) do
 end
 
 local cursor_config = type(config.cursor) == "table" and config.cursor or {}
+
+-- Export cursor theme to environment so client applications (GTK, Qt, etc.)
+-- pick up the same cursor theme the compositor uses.
+if cursor_config.theme then
+	ffi.C.setenv("XCURSOR_THEME", tostring(cursor_config.theme), 1)
+end
+if cursor_config.size then
+	ffi.C.setenv("XCURSOR_SIZE", tostring(cursor_config.size), 1)
+end
 
 local function spawn(shell_command)
 	if ffi.C.fork() == 0 then
