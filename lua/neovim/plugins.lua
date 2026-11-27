@@ -13,6 +13,15 @@ local packages = {
 	"https://github.com/folke/which-key.nvim.git",
 	"https://github.com/folke/sidekick.nvim.git",
 	"https://github.com/brianhuster/live-preview.nvim",
+	"https://github.com/nvim-neorg/neorg.git",
+	"https://github.com/juniorsundar/cling.nvim.git",
+	-- trial
+	"https://github.com/josstei/quill.nvim",
+	"https://github.com/nacro90/numb.nvim.git",
+	"https://github.com/nvim-zh/colorful-winsep.nvim.git",
+	"https://github.com/ldelossa/litee.nvim.git",
+	"https://github.com/harukikuri/todoage.nvim.git",
+	"https://github.com/willyelm/pulse.nvim.git",
 	-- colorschemes
 	"https://github.com/NTBBloodbath/sweetie.nvim.git",
 	"https://github.com/bluz71/vim-moonfly-colors.git",
@@ -27,7 +36,7 @@ local packages = {
 }
 
 local mini_modules = {
-	"ai", "basics", "bracketed", "comment", "diff", "icons", "jump", "move",
+	"ai", "basics", "bracketed", "comment", "diff", "icons", "jump", "move", "input",
 	"pairs", "surround", "trailspace", "visits", "jump2d", "completion", "bufremove"
 }
 
