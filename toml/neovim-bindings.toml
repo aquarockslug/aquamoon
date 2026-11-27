@@ -23,7 +23,7 @@ n = [
 
   # Write & quit
   ["<leader>w", "<CMD>write<CR>", "Save file"],
-  ["<leader>q", "<CMD>quit<CR>", "Quit window"],
+  ["<leader>q", "<CMD>lua MiniBufremove.delete()<CR>", "Quit window"],
   ["<leader>Q", "<CMD>qa!<CR>", "Force quit all"],
 
   # Editing

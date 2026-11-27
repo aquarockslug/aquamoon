@@ -28,7 +28,7 @@ local packages = {
 
 local mini_modules = {
 	"ai", "basics", "bracketed", "comment", "diff", "icons", "jump", "move",
-	"pairs", "surround", "trailspace", "visits", "jump2d", "completion",
+	"pairs", "surround", "trailspace", "visits", "jump2d", "completion", "bufremove"
 }
 
 function M.add()
