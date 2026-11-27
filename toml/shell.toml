@@ -2,11 +2,14 @@
 
 [aliases]
 # Colorized output
-ls = "ls --color=auto"
+ls = "exa --color=auto"
 grep = "grep --color=auto"
 ll = "ls -la"
 la = "ls -A"
 l = "clear && ls -CF"
+cat = "bat"
+du = "dust"
+df = "duf"
 chmodx = "sudo chmod u+x "
 wcdata = "wc -c | numfmt --to=iec --suffix=B"
 

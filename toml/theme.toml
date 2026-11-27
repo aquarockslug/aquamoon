@@ -2,12 +2,12 @@
 directory = "~/.aquamoon/wallpapers"
 
 [wallpaper.default]
-path = "~/.aquamoon/wallpapers/aurora.jpg"
+path = "~/.aquamoon/wallpapers/glowtime_dark.jpg"
 
 [theme]
 mode = "dark"
 source = "custom"
-custom_palette = "Circadia Ember"
+custom_palette = "Aquarium"
 
 [theme.templates]
 builtin_ids = ["gtk3", "gtk4", "qt"]

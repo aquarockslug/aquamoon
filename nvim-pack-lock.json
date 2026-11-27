@@ -20,9 +20,21 @@
       "rev": "c8c0017d1b2efa4b891af28995bae8d58c87528a",
       "src": "https://github.com/zootedb0t/citruszest.nvim.git"
     },
+    "cling.nvim": {
+      "rev": "cfed918d849161a9a544a9c6c0bf46ee40456c4e",
+      "src": "https://github.com/juniorsundar/cling.nvim.git"
+    },
+    "colorful-winsep.nvim": {
+      "rev": "7a8664fb8e91bd3435b3128c18dc814b3ddb11f5",
+      "src": "https://github.com/nvim-zh/colorful-winsep.nvim.git"
+    },
     "flume.nvim": {
       "rev": "2ed1aa0c003063fccf1b3c680870589d78ca12d4",
       "src": "https://github.com/mitander/flume.nvim.git"
+    },
+    "litee.nvim": {
+      "rev": "4efaf373322d9e71eaff31164abb393417cc6f6a",
+      "src": "https://github.com/ldelossa/litee.nvim.git"
     },
     "live-preview.nvim": {
       "rev": "dad92ae9599f9b19a7dffe7d597d3376c110b818",
@@ -40,6 +52,14 @@
       "rev": "aa99b440b266bcf7e03399f149ed46f981555fa3",
       "src": "https://github.com/NeogitOrg/neogit.git"
     },
+    "neorg": {
+      "rev": "6fda795b0108c92840fd32db6d5dd54e7f997fa8",
+      "src": "https://github.com/nvim-neorg/neorg.git"
+    },
+    "numb.nvim": {
+      "rev": "40548e23f3b053defdc5daa99943e05132b99cc9",
+      "src": "https://github.com/nacro90/numb.nvim.git"
+    },
     "nvim-chainsaw": {
       "rev": "c38210b379d5a61b3e1bf918cf787212fa1eedd9",
       "src": "https://github.com/chrisgrieser/nvim-chainsaw.git"
@@ -52,6 +72,14 @@
       "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
+    "pulse.nvim": {
+      "rev": "77f2414fd2279e3f6cc300f86bc8d0a718a52472",
+      "src": "https://github.com/willyelm/pulse.nvim.git"
+    },
+    "quill.nvim": {
+      "rev": "dc79b0d5b526dfc18ed615f23c76318fc786b7f7",
+      "src": "https://github.com/josstei/quill.nvim"
+    },
     "sidekick.nvim": {
       "rev": "3d80a47e6375f6d647c9695d3afea6fa1b3275df",
       "src": "https://github.com/folke/sidekick.nvim.git"
@@ -63,6 +91,10 @@
     "sweetie.nvim": {
       "rev": "d4b3d94b57ffcd0229f567e050850248be2b1dad",
       "src": "https://github.com/NTBBloodbath/sweetie.nvim.git"
+    },
+    "todoage.nvim": {
+      "rev": "9ef8a1524b64775c119621558ce1aa490c303471",
+      "src": "https://github.com/harukikuri/todoage.nvim.git"
     },
     "tv.nvim": {
       "rev": "4b156a22c89b50d922a916cc0453762854ac082f",
